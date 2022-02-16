@@ -1,0 +1,25 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>HOLA, <span style="color: #3F51B5;">BIENVENIDO</span></mat-card-title>
+        </mat-card-header>
+        <form class="example-form">
+            <mat-card-content>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput #email>
+                </mat-form-field>
+                
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput #password>
+                </mat-form-field>
+
+            </mat-card-content>
+            <button type="button" (click)="login(email.value, password.value)" mat-raised-button  color="warn" class="btn-block" style="color: white;">Iniciar sesión</button>
+            <small>¿No tienes cuenta? <strong>REGISTRATE AQUÍ</strong> </small>
+        </form>
+      
+    </mat-card>
+</div>
