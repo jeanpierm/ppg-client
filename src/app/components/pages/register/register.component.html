@@ -1,0 +1,70 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title class="ppg-primary"> Registrate! </mat-card-title>
+    </mat-card-header>
+    <form class="example-form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <mat-form-field
+          class="example-full-width"
+          appearance="fill"
+          floatLabel="always"
+        >
+          <mat-label>Nombres</mat-label>
+          <input matInput name="name" id="name" formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field
+          class="example-full-width"
+          appearance="fill"
+          floatLabel="always"
+        >
+          <mat-label>Apellidos</mat-label>
+          <input
+            matInput
+            name="surname"
+            id="surname"
+            formControlName="surname"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          class="example-full-width"
+          appearance="fill"
+          floatLabel="always"
+        >
+          <mat-label>Email</mat-label>
+          <input matInput name="email" id="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field
+          class="example-full-width"
+          appearance="fill"
+          floatLabel="always"
+        >
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            name="password"
+            id="password"
+            formControlName="password"
+          />
+        </mat-form-field>
+      </mat-card-content>
+      <button
+        type="submit"
+        mat-raised-button
+        color="warn"
+        class="btn-block"
+        style="color: white"
+      >
+        Registrarme
+      </button>
+      <mat-card-header>
+        <a routerLink="/login" routerLinkActive="active">
+          <small> <strong>INICIAR SESIÓN</strong> </small>
+        </a>
+      </mat-card-header>
+    </form>
+  </mat-card>
+</div>

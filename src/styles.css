@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   margin: 0;
@@ -15,7 +18,8 @@ body {
   left: 0;
   right: 0;
   z-index: 2;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 .login-wrapper {
   height: 100%;
@@ -40,11 +44,11 @@ body {
   max-width: 330px;
 }
 .box.back {
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
   top: -20px;
-  opacity: .8;
+  opacity: 0.8;
   z-index: -1;
 }
 .box:before {
@@ -54,11 +58,11 @@ body {
   border-radius: 10px;
   position: absolute;
   top: -10px;
-  background: rgba(255, 255, 255, .6);
+  background: rgba(255, 255, 255, 0.6);
   left: 0;
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
   z-index: -1;
 }
 .login-wrapper .example-form {
@@ -86,8 +90,12 @@ body {
 .login-wrapper .mat-stroked-button {
   border: 1px solid currentColor;
   line-height: 54px;
-  background: #FFF7FA;
+  background: #fff7fa;
 }
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
+}
+
+.ppg-primary {
+  color: #3f51b5;
 }
