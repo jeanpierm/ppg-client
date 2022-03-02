@@ -25,17 +25,29 @@
           }}</mat-icon>
         </mat-form-field>
       </mat-card-content>
+
       <button
+        *ngIf="acceso"
+        type="button"
+        mat-raised-button
+        class="btn-block"
+        class="btn-block button-login"
+        disabled
+        style="opacity: 0.7"
+      >
+        {{ textLogin }}
+      </button>
+
+      <button
+        *ngIf="!acceso"
         type="button"
         (click)="login(email.value, password.value)"
         mat-raised-button
-        color="warn"
-        class="btn-block"
-        style="color: white"
+        class="btn-block button-login"
       >
-        <!-- <mat-icon style="transform: rotate(90deg)">autorenew</mat-icon> -->
-        Iniciar sesión
+        {{ textLogin }}
       </button>
+
       <mat-card-header>
         <a routerLink="/register" routerLinkActive="active">
           <small>¿No tienes cuenta? <strong>REGISTRATE AQUÍ</strong></small>

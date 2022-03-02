@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { ApiResponse } from '../models/response';
 import { User } from '../models/user';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class AccountService {
     this._user = localStorage.getItem('currentUser');
   }
 
-  getAccount(): Observable<User> {
+  getAccount(): any {
     this._token = localStorage.getItem('token');
     let url = environment.api + '/account';
     let header = new HttpHeaders({
@@ -28,12 +29,9 @@ export class AccountService {
       Authorization: `Bearer ${this._token}`,
     });
     let options = { headers: header };
-    return this.http.get(url, options).pipe(
-      map((res: any) => {
-        return res.data;
-      }),
-      catchError((err, caught) => {
-        throw err;
+    return this.http.get<any>(url, options).pipe(
+      catchError((err) => {
+        throw this.handleError(err);
       })
     );
   }
@@ -43,6 +41,20 @@ export class AccountService {
       return this._token;
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      return new Error(
+        error.error['message']
+          ? error.error['message']
+          : 'No se ha podido conectar con el servidor'
+      );
+    } else {
+      return new Error(
+        error.error['message'] ? error.error['message'] : 'Ha ocurrido un error'
+      );
     }
   }
 }

@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
-import { NavigationComponent } from './layout/navigation/navigation.component';
+import { SearchComponent } from './components/search/search.component';
 import { AuthGuard } from './guards/auth.guard';
+import { FullComponent } from './layout/full/full.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,17 @@ const routes: Routes = [
   },
   {
     path: 'starter',
-    component: NavigationComponent,
-    canActivate: [AuthGuard],
+    component: FullComponent,
+    /* canActivate: [AuthGuard], */
+    children: [
+      {
+        path: 'busqueda',
+        component: SearchComponent,
+        data: {
+          title: 'Busqueda',
+        },
+      },
+    ],
   },
   {
     path: '**',

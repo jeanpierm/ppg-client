@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -10,19 +11,26 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
   public hide: boolean;
+  public acceso: boolean;
+  public textLogin: String;
   constructor(
     public loginService: LoginService,
     public accountService: AccountService,
     private route: Router
   ) {
     this.hide = true;
+    this.acceso = false;
+    this.textLogin = 'Iniciar sesión';
   }
 
   ngOnInit(): void {}
 
   async login(email: any, password: any) {
     if (email.trim().length === 0) {
-      console.log('Por favor ingresar su email');
+      Swal.fire({
+        title: 'Por favor ingresar su Email',
+        confirmButtonText: 'Aceptar',
+      });
       return;
     }
 
@@ -36,16 +44,26 @@ export class LoginComponent implements OnInit {
       password: password,
     };
 
-    let token = await this.loginService.Auth(data).toPromise();
-    this.set('token', token.accessToken);
+    try {
+      this.textLogin = 'Accediendo...';
+      this.acceso = true;
+      let token = await this.loginService.Auth(data).toPromise();
+      this.set('token', token.accessToken);
 
-    this.accountService.getAccount().subscribe({
-      next: (res) => {
-        this.set('currentUser', JSON.stringify(res));
-        this.route.navigate(['/starter']);
-      },
-      error: (err) => console.error(err),
-    });
+      let user = await this.accountService.getAccount().toPromise();
+      this.set('name', user.data.name);
+      this.set('surname', user.data.surname);
+      this.set('email', user.data.email);
+      this.route.navigate(['/starter']);
+    } catch (err) {
+      this.textLogin = 'Iniciar sesión';
+      this.acceso = false;
+
+      Swal.fire({
+        title: 'Ha ocurrido un error',
+        confirmButtonText: 'Aceptar',
+      });
+    }
   }
 
   set(key: string, data: string) {
