@@ -15,6 +15,7 @@ import { FullComponent } from './layout/full/full.component';
 import { TopNavComponent } from './shared/top-nav/top-nav.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { SearchComponent } from './components/search/search.component';
+import { UserConfigComponent } from './components/user-config/user-config.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SearchComponent } from './components/search/search.component';
     TopNavComponent,
     SidebarComponent,
     SearchComponent,
+    UserConfigComponent,
   ],
   imports: [
     BrowserModule,
