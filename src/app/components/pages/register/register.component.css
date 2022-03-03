@@ -83,6 +83,6 @@ body {
 }
 
 .button-login {
-  background: linear-gradient(-90deg, #f9a825, #fbc02d, #fdd835);
+  background: linear-gradient(-90deg, #00695c, #009688, #4db6ac);
   color: white;
 }

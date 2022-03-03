@@ -36,6 +36,48 @@ export class AccountService {
     );
   }
 
+  updateUser(user: User) {
+    this._token = localStorage.getItem('token');
+    let url = environment.api + '/account';
+    let params = user;
+    let header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${this._token}`,
+    });
+
+    let options = { headers: header };
+
+    return this.http.patch<ApiResponse>(url, params, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err) => {
+        throw this.handleError(err);
+      })
+    );
+  }
+
+  updatePassword(passwords: any) {
+    this._token = localStorage.getItem('token');
+    let url = environment.api + '/account/password';
+    let params = passwords;
+    let header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${this._token}`,
+    });
+
+    let options = { headers: header };
+
+    return this.http.patch<ApiResponse>(url, params, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err) => {
+        throw this.handleError(err);
+      })
+    );
+  }
+
   getTokenString() {
     try {
       return this._token;

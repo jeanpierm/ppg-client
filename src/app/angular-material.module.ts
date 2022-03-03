@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const materialModules = [
   MatButtonModule,
@@ -26,6 +27,7 @@ const materialModules = [
   MatProgressBarModule,
   MatTableModule,
   MatChipsModule,
+  MatCheckboxModule,
 ];
 @NgModule({
   imports: [CommonModule, ...materialModules],

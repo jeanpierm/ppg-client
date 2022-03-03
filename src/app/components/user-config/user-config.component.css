@@ -1,0 +1,10 @@
+.example-full-width {
+  width: 40%;
+}
+
+.section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}

@@ -1,7 +1,117 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Configuracion de usuario</mat-card-title>
+    <mat-card-title>Configuración de usuario</mat-card-title>
   </mat-card-header>
   <br />
-  <mat-card-content> </mat-card-content>
+  <mat-card-content>
+    <form action="" [formGroup]="myForm">
+      <mat-grid-list cols="1" rowHeight="100px">
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" class="example-full-width">
+            <mat-label>Nombres</mat-label>
+            <input
+              matInput
+              placeholder="Ingrese sus nombres"
+              name="name"
+              id="name"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <div *ngIf="validErrorForm('name')" class="alert-danger">
+            <small>Nombre es requerido</small>
+          </div>
+        </mat-grid-tile>
+        <br />
+
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" class="example-full-width">
+            <mat-label>Apellidos</mat-label>
+            <input
+              matInput
+              placeholder="Ingrese sus Apellidos"
+              name="surname"
+              id="surname"
+              formControlName="surname"
+            />
+          </mat-form-field>
+          <div *ngIf="validErrorForm('surname')" class="alert-danger">
+            <small>Apellidos son requerido</small>
+          </div>
+        </mat-grid-tile>
+        <br />
+
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Ingrese su email"
+              name="email"
+              id="email"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <div *ngIf="validErrorForm('email')" class="alert-danger">
+            <small>Formato incorrecto</small>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+
+    <section class="section">
+      <mat-checkbox
+        class="example-margin"
+        [(ngModel)]="change_password"
+        (change)="onChangeCheckBox()"
+        >Cambiar contraseña</mat-checkbox
+      >
+    </section>
+
+    <div *ngIf="change_password">
+      <mat-grid-list cols="1" rowHeight="100px">
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" style="width: 25%">
+            <mat-label>Contraseña actual</mat-label>
+            <input
+              matInput
+              placeholder="Ingrese sus nombres"
+              [type]="hide ? 'password' : 'text'"
+              [(ngModel)]="passwords.currentPassword"
+            />
+            <mat-icon matSuffix (click)="hide = !hide">{{
+              hide ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+        <br />
+
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" style="width: 25%">
+            <mat-label>Contraseña nueva</mat-label>
+            <input
+              matInput
+              placeholder="Ingrese sus Apellidos"
+              [type]="hide_new ? 'password' : 'text'"
+              [(ngModel)]="passwords.newPassword"
+            />
+            <mat-icon matSuffix (click)="hide_new = !hide_new">{{
+              hide_new ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="myForm.invalid || !isValidForm()"
+      type="button"
+      (click)="onSubmit()"
+    >
+      Guarda cambios
+    </button>
+  </mat-card-actions>
 </mat-card>

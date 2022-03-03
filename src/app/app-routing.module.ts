@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { SearchComponent } from './components/search/search.component';
+import { UserConfigComponent } from './components/user-config/user-config.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FullComponent } from './layout/full/full.component';
 
@@ -18,13 +19,20 @@ const routes: Routes = [
   {
     path: 'starter',
     component: FullComponent,
-    /* canActivate: [AuthGuard], */
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'busqueda',
         component: SearchComponent,
         data: {
           title: 'Busqueda',
+        },
+      },
+      {
+        path: 'configuracion',
+        component: UserConfigComponent,
+        data: {
+          title: 'Configuracion',
         },
       },
     ],

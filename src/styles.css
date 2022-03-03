@@ -12,3 +12,6 @@ body {
 .text-right {
   text-align: right;
 }
+.alert-danger {
+  color: red;
+}

@@ -11,4 +11,9 @@ export const ROUTES: RouteInfo[] = [
     title: 'Busqueda',
     path: '/starter/busqueda',
   },
+  {
+    icon: 'settings',
+    title: 'Configuracion',
+    path: '/starter/configuracion',
+  },
 ];
