@@ -4,7 +4,7 @@
   </mat-card-header>
   <br />
   <mat-card-content>
-    <mat-grid-list cols="3" rowHeight="1:1">
+    <mat-grid-list cols="2" rowHeight="1:1">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-icon color="warn" matSuffix>search</mat-icon>
@@ -29,7 +29,7 @@
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <!-- <mat-grid-tile>
         <button
           mat-raised-button
           color="accent"
@@ -39,9 +39,17 @@
         >
           Buscar
         </button>
-      </mat-grid-tile>
+      </mat-grid-tile> -->
     </mat-grid-list>
   </mat-card-content>
+
+  <mat-card-actions style="margin: 10px">
+    <button mat-raised-button color="accent" type="button" (click)="generate()">
+      <mat-icon matSuffix>search</mat-icon>
+      Buscar
+    </button>
+  </mat-card-actions>
+
   <mat-progress-bar
     color="accent"
     mode="indeterminate"

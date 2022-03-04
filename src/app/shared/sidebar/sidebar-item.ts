@@ -16,4 +16,9 @@ export const ROUTES: RouteInfo[] = [
     title: 'Configuracion',
     path: '/starter/configuracion',
   },
+  {
+    icon: 'file_copy',
+    title: 'Reporte',
+    path: '/starter/report',
+  },
 ];

@@ -8,6 +8,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiResponse } from '../models/response';
 import { User } from '../models/user';
+import { ResponseConfig } from '../config/response-config';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +16,12 @@ import { User } from '../models/user';
 export class AccountService {
   private _token: any;
   private _user: any;
+  private responseConfig: ResponseConfig;
 
   constructor(private http: HttpClient) {
     this._token = localStorage.getItem('token');
     this._user = localStorage.getItem('currentUser');
+    this.responseConfig = new ResponseConfig();
   }
 
   getAccount(): any {
@@ -31,7 +34,7 @@ export class AccountService {
     let options = { headers: header };
     return this.http.get<any>(url, options).pipe(
       catchError((err) => {
-        throw this.handleError(err);
+        throw this.responseConfig.handleError(err);
       })
     );
   }
@@ -52,7 +55,7 @@ export class AccountService {
         return res;
       }),
       catchError((err) => {
-        throw this.handleError(err);
+        throw this.responseConfig.handleError(err);
       })
     );
   }
@@ -73,7 +76,7 @@ export class AccountService {
         return res;
       }),
       catchError((err) => {
-        throw this.handleError(err);
+        throw this.responseConfig.handleError(err);
       })
     );
   }
@@ -83,20 +86,6 @@ export class AccountService {
       return this._token;
     } catch (e) {
       console.log(e);
-    }
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      return new Error(
-        error.error['message']
-          ? error.error['message']
-          : 'No se ha podido conectar con el servidor'
-      );
-    } else {
-      return new Error(
-        error.error['message'] ? error.error['message'] : 'Ha ocurrido un error'
-      );
     }
   }
 }

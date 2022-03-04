@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SweetAlert } from 'src/app/config/sweetAlert';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
 import { UserService } from 'src/app/services/user.service';
@@ -17,6 +18,7 @@ export class UserConfigComponent implements OnInit {
   public hide: boolean;
   public hide_new: boolean;
   public user: any;
+  public alert: SweetAlert;
   constructor(
     private userService: UserService,
     public fb: FormBuilder,
@@ -31,6 +33,7 @@ export class UserConfigComponent implements OnInit {
     this.hide = true;
     this.hide_new = true;
     this.user = {};
+    this.alert = new SweetAlert();
   }
 
   ngOnInit(): void {
@@ -132,8 +135,8 @@ export class UserConfigComponent implements OnInit {
       p2 = this.onUpdatePassword();
     }
     Promise.all([p1, p2]).then(
-      (res) => console.log('Procesado exitosamente'),
-      (err) => console.log('ERROR')
+      (res) => this.alert.sucessAlert('Cambios guardados correctamente!'),
+      (err) => this.alert.errorAlert(err)
     );
   }
 

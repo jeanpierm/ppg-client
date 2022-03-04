@@ -13,6 +13,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const materialModules = [
   MatButtonModule,
@@ -28,6 +30,8 @@ const materialModules = [
   MatTableModule,
   MatChipsModule,
   MatCheckboxModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 @NgModule({
   imports: [CommonModule, ...materialModules],

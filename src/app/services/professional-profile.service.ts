@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ResponseConfig } from '../config/response-config';
 import { GeneratePpg } from '../models/generate-ppg';
 import { ApiResponse } from '../models/response';
 
@@ -15,10 +16,12 @@ import { ApiResponse } from '../models/response';
 export class ProfessionalProfileService {
   private _token: any;
   private _user: any;
+  public responseConfig: ResponseConfig;
 
   constructor(private http: HttpClient) {
     this._token = localStorage.getItem('token');
     this._user = localStorage.getItem('currentUser');
+    this.responseConfig = new ResponseConfig();
   }
 
   generate(parametros: GeneratePpg) {
@@ -35,7 +38,7 @@ export class ProfessionalProfileService {
         return res;
       }),
       catchError((err) => {
-        throw this.handleError(err);
+        throw this.responseConfig.handleError(err);
       })
     );
   }
@@ -52,7 +55,7 @@ export class ProfessionalProfileService {
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),
       catchError((err) => {
-        throw this.handleError(err);
+        throw this.responseConfig.handleError(err);
       })
     );
   }
@@ -68,22 +71,8 @@ export class ProfessionalProfileService {
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),
       catchError((err) => {
-        throw this.handleError(err);
+        throw this.responseConfig.handleError(err);
       })
     );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      return new Error(
-        error.error['message']
-          ? error.error['message']
-          : 'No se ha podido conectar con el servidor'
-      );
-    } else {
-      return new Error(
-        error.error['message'] ? error.error['message'] : 'Ha ocurrido un error'
-      );
-    }
   }
 }

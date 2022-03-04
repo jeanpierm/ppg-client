@@ -16,6 +16,7 @@ import { TopNavComponent } from './shared/top-nav/top-nav.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserConfigComponent } from './components/user-config/user-config.component';
+import { ReportComponent } from './components/report/report.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserConfigComponent } from './components/user-config/user-config.compon
     SidebarComponent,
     SearchComponent,
     UserConfigComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

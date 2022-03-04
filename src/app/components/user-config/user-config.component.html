@@ -74,6 +74,7 @@
             <mat-label>Contraseña actual</mat-label>
             <input
               matInput
+              value=""
               placeholder="Ingrese sus nombres"
               [type]="hide ? 'password' : 'text'"
               [(ngModel)]="passwords.currentPassword"
@@ -90,6 +91,7 @@
             <mat-label>Contraseña nueva</mat-label>
             <input
               matInput
+              value=""
               placeholder="Ingrese sus Apellidos"
               [type]="hide_new ? 'password' : 'text'"
               [(ngModel)]="passwords.newPassword"

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
+import { ReportComponent } from './components/report/report.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserConfigComponent } from './components/user-config/user-config.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -33,6 +34,13 @@ const routes: Routes = [
         component: UserConfigComponent,
         data: {
           title: 'Configuracion',
+        },
+      },
+      {
+        path: 'report',
+        component: ReportComponent,
+        data: {
+          title: 'report',
         },
       },
     ],

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
+import { SweetAlert } from '../../../config/sweetAlert';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   public hide: boolean;
   public acceso: boolean;
   public textLogin: String;
+  public alert: SweetAlert;
   constructor(
     public loginService: LoginService,
     public accountService: AccountService,
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
     this.hide = true;
     this.acceso = false;
     this.textLogin = 'Iniciar sesión';
+    this.alert = new SweetAlert();
   }
 
   ngOnInit(): void {}
@@ -59,6 +62,7 @@ export class LoginComponent implements OnInit {
       this.textLogin = 'Iniciar sesión';
       this.acceso = false;
 
+      console.log(err);
       Swal.fire({
         title: 'Ha ocurrido un error',
         confirmButtonText: 'Aceptar',
