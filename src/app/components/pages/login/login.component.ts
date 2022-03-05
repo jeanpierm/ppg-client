@@ -91,6 +91,14 @@ export class LoginComponent implements OnInit {
         return;
       }
 
+      if (err.status === 409) {
+        Swal.fire({
+          title: 'El correo electrónico ya ha sido registrado',
+          confirmButtonText: 'Aceptar',
+        });
+        return;
+      }
+
       Swal.fire({
         title:
           'Ha ocurrido un error en el servidor. Por favor, vuelva a intentar más tarde',
