@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SweetAlert } from 'src/app/config/sweetAlert';
-import { GeneratePpg } from 'src/app/models/generate-ppg';
+import { GeneratePpgRequest } from 'src/app/models/generate-ppg';
 import { ProfessionalProfile } from 'src/app/models/professional-profile';
 import { ProfessionalProfileService } from 'src/app/services/professional-profile.service';
 
@@ -10,7 +10,7 @@ import { ProfessionalProfileService } from 'src/app/services/professional-profil
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-  public busqueda: GeneratePpg;
+  public generatePpg: GeneratePpgRequest;
   public loading: boolean;
   public professionalProfiles: Array<ProfessionalProfile>;
   displayedColumns: string[] = ['JobTitle', 'Location'];
@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
   public alert: SweetAlert;
 
   constructor(public professionalProfileService: ProfessionalProfileService) {
-    this.busqueda = new GeneratePpg();
+    this.generatePpg = new GeneratePpgRequest();
     this.loading = false;
     this.professionalProfiles = [];
     this.professionalProfile = new ProfessionalProfile();
@@ -27,18 +27,18 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.getProfessionalProfile().then(
+    this.getProfessionalProfiles().then(
       (res) => (this.loading = false),
       (err) => (this.loading = false)
     );
   }
 
   isValidForm() {
-    if (this.busqueda.jobTitle.toString().trim().length === 0) {
+    if (this.generatePpg.jobTitle.toString().trim().length === 0) {
       return false;
     }
 
-    if (this.busqueda.location.toString().trim().length === 0) {
+    if (this.generatePpg.location.toString().trim().length === 0) {
       return false;
     }
 
@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
     }
 
     this.loading = true;
-    this.professionalProfileService.generate(this.busqueda).subscribe({
+    this.professionalProfileService.generate(this.generatePpg).subscribe({
       next: (res) => {
         this.professionalProfile = res.data;
         this.loading = false;
@@ -64,6 +64,7 @@ export class SearchComponent implements OnInit {
         this.alert.errorAlert(err);
       },
     });
+    this.getProfessionalProfiles();
   }
 
   getRadomProfile() {
@@ -80,9 +81,9 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  getProfessionalProfile() {
+  getProfessionalProfiles() {
     return new Promise((resolve, reject) => {
-      this.professionalProfileService.getProfessionalProfile().subscribe({
+      this.professionalProfileService.getProfessionalProfiles().subscribe({
         next: (res) => {
           this.professionalProfiles = res.data;
           resolve(true);

@@ -8,12 +8,13 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private accountService: AccountService, private route: Router) {}
+  constructor(private authService: AuthService, private route: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,7 +23,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const token = this.accountService.getTokenString();
+    const token = this.authService.accessToken;
     if (token) {
       return true;
     }

@@ -11,8 +11,9 @@
           <input
             matInput
             type="text"
+            [disabled]="loading"
             placeholder="Titulo de trabajo"
-            [(ngModel)]="busqueda.jobTitle"
+            [(ngModel)]="generatePpg.jobTitle"
           />
         </mat-form-field>
       </mat-grid-tile>
@@ -23,8 +24,9 @@
           <input
             matInput
             type="text"
+            [disabled]="loading"
             placeholder="Ciudad, provincia, país"
-            [(ngModel)]="busqueda.location"
+            [(ngModel)]="generatePpg.location"
           />
         </mat-form-field>
       </mat-grid-tile>
