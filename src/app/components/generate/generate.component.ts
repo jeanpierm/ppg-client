@@ -28,7 +28,7 @@ export class GenerateComponent implements OnInit {
   }
 
   get professionalProfiles(): ProfessionalProfile[] {
-    return [...this.ppService.professionalProfiles];
+    return this.ppService.professionalProfiles;
   }
 
   isValidForm() {
@@ -54,7 +54,7 @@ export class GenerateComponent implements OnInit {
       next: (res) => {
         this.professionalProfile = res.data;
         this.loading = false;
-        this.alert.sucessAlert('Perfil profesional generado correctamente');
+        this.alert.successAlert('Perfil profesional generado correctamente');
       },
       error: (err) => {
         this.professionalProfile = new ProfessionalProfile();

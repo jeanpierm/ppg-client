@@ -131,7 +131,7 @@ export class UserConfigComponent implements OnInit {
       p2 = this.onUpdatePassword();
     }
     Promise.all([p1, p2]).then(
-      (res) => this.alert.sucessAlert('Cambios guardados correctamente!'),
+      (res) => this.alert.successAlert('Cambios guardados correctamente!'),
       (err) => this.alert.errorAlert(err)
     );
   }

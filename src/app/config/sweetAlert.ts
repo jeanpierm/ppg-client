@@ -10,13 +10,13 @@ export class SweetAlert {
 
   alert(type: String, text?: any) {
     if (type == 'success') {
-      return this.sucessAlert(text);
+      return this.successAlert(text);
     } else if (type == 'error') {
       return this.errorAlert(text);
     }
   }
 
-  sucessAlert(text: any) {
+  successAlert(text: any) {
     if (text == null) text = this.msg.success;
 
     Swal.fire({

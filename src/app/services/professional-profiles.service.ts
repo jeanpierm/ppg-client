@@ -92,7 +92,6 @@ export class ProfessionalProfilesService {
       params = params.set('location', location);
     }
     const options = { headers, params };
-    console.log(options);
     return this.http.get<ApiResponse<ProfessionalProfile[]>>(url, options).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
