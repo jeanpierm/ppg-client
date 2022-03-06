@@ -8,8 +8,8 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     icon: 'search',
-    title: 'Búsqueda',
-    path: '/starter/busqueda',
+    title: 'Generar perfil profesional',
+    path: '/starter/generate',
   },
   {
     icon: 'settings',

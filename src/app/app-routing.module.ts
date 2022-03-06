@@ -31,10 +31,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'busqueda',
+        path: 'generate',
         component: SearchComponent,
         data: {
-          title: 'Busqueda',
+          title: 'Generar PP',
         },
       },
       {
