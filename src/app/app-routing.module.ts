@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
-import { ReportComponent } from './components/report/report.component';
-import { SearchComponent } from './components/generate/generate.component';
+import { MyProfessionalProfilesComponent } from './components/my-professional-profiles/my-professional-profiles.component';
+import { GenerateComponent } from './components/generate/generate.component';
 import { UserConfigComponent } from './components/user-config/user-config.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FullComponent } from './layout/full/full.component';
@@ -32,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'generar',
-        component: SearchComponent,
+        component: GenerateComponent,
         data: {
           title: 'Generar PP',
         },
@@ -46,7 +46,7 @@ const routes: Routes = [
       },
       {
         path: 'perfiles-profesionales',
-        component: ReportComponent,
+        component: MyProfessionalProfilesComponent,
         data: {
           title: 'Perfiles profesionales',
         },

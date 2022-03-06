@@ -1,0 +1,95 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title
+      >¡Consulta tus perfiles profesionales generados!</mat-card-title
+    >
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <mat-grid-list cols="3" rowHeight="1:1">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label class="ppg-primary">Ingrese el rango de fechas</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              [(ngModel)]="initDate"
+              placeholder="Start date"
+              disabled
+              style="color: black"
+            />
+            <input
+              matEndDate
+              [(ngModel)]="endDate"
+              placeholder="End date"
+              disabled
+              style="color: black"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker
+            #picker
+            disabled="false"
+          ></mat-date-range-picker>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="legacy">
+          <mat-icon color="warn" matSuffix>search</mat-icon>
+          <input
+            matInput
+            type="text"
+            placeholder="Titulo de trabajo"
+            [(ngModel)]="jobTitle"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="legacy">
+          <mat-icon color="warn" matSuffix> place</mat-icon>
+          <input
+            matInput
+            type="text"
+            placeholder="Ciudad, provincia, país"
+            [(ngModel)]="location"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+
+  <mat-progress-bar
+    color="accent"
+    mode="indeterminate"
+    *ngIf="loading"
+  ></mat-progress-bar>
+
+  <mat-card-actions style="margin: 10px">
+    <button mat-raised-button color="accent" type="button" (click)="get()">
+      <mat-icon matSuffix>search</mat-icon> Consultar
+    </button>
+
+    <button mat-raised-button color="warn" type="button">
+      <mat-icon matSuffix>insert_drive_file</mat-icon> Descargar reporte
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<div>
+  <mat-card-subtitle style="margin: 10px">{{
+    'Resultados(' + professionalProfiles.length + ')'
+  }}</mat-card-subtitle>
+</div>
+
+<div fxLayout="row" fxLayoutGap="20px">
+  <app-pp-card
+    *ngFor="let pp of professionalProfiles"
+    [professionalProfile]="pp"
+    class=""
+  ></app-pp-card>
+</div>

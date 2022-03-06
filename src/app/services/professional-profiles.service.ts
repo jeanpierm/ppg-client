@@ -2,6 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
@@ -15,24 +16,21 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ProfessionalProfileService {
-  private _token: any;
-  private _user: any;
-  public responseConfig: ResponseConfig;
+export class ProfessionalProfilesService {
+  responseConfig: ResponseConfig;
+  professionalProfiles: ProfessionalProfile[] = [];
+  fetchLoading: boolean = true;
 
   constructor(
     private http: HttpClient,
     private readonly authService: AuthService
   ) {
-    this._token = localStorage.getItem('token');
-    this._user = localStorage.getItem('currentUser');
     this.responseConfig = new ResponseConfig();
   }
 
   generate(
     data: GeneratePpgRequest
   ): Observable<ApiResponse<ProfessionalProfile>> {
-    this._token = localStorage.getItem('token');
     let url = environment.api + '/professional-profiles';
     let header = new HttpHeaders({
       'Content-type': 'application/json',
@@ -51,16 +49,51 @@ export class ProfessionalProfileService {
       );
   }
 
-  getProfessionalProfiles(): Observable<ApiResponse<ProfessionalProfile[]>> {
-    let url = environment.api + '/professional-profiles';
-    let header = new HttpHeaders({
+  loadProfessionalProfiles(
+    initDate?: Date,
+    endDate?: Date,
+    jobTitle?: string,
+    location?: string
+  ): void {
+    !this.fetchLoading && (this.fetchLoading = true);
+    this.getProfessionalProfiles(
+      initDate,
+      endDate,
+      jobTitle,
+      location
+    ).subscribe((res) => {
+      this.professionalProfiles = res.data;
+      this.fetchLoading = false;
+    });
+  }
+
+  getProfessionalProfiles(
+    initDate?: Date,
+    endDate?: Date,
+    jobTitle?: string,
+    location?: string
+  ): Observable<ApiResponse<ProfessionalProfile[]>> {
+    const url = environment.api + '/professional-profiles';
+    const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
-
+    let params = new HttpParams();
+    if (initDate) {
+      params = params.set('initDate', initDate.toDateString());
+    }
+    if (endDate) {
+      params = params.set('endDate', endDate.toDateString());
+    }
+    if (jobTitle) {
+      params = params.set('jobTitle', jobTitle);
+    }
+    if (location) {
+      params = params.set('location', location);
+    }
+    const options = { headers, params };
+    console.log(options);
     return this.http.get<ApiResponse<ProfessionalProfile[]>>(url, options).pipe(
-      map((res) => res),
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })

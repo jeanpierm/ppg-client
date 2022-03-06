@@ -14,13 +14,15 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FullComponent } from './layout/full/full.component';
 import { TopNavComponent } from './shared/top-nav/top-nav.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { SearchComponent } from './components/generate/generate.component';
+import { GenerateComponent } from './components/generate/generate.component';
 import { UserConfigComponent } from './components/user-config/user-config.component';
-import { ReportComponent } from './components/report/report.component';
+import { MyProfessionalProfilesComponent } from './components/my-professional-profiles/my-professional-profiles.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CardComponent } from './components/card/card.component';
 import { FrameworksComponent } from './components/charts/frameworks/frameworks.component';
 import { ChartsModule } from 'ng2-charts';
+import { PpCardComponent } from './components/pp-card/pp-card.component';
+import { TechChipListComponent } from './components/tech-chip-list/tech-chip-list.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +32,14 @@ import { ChartsModule } from 'ng2-charts';
     FullComponent,
     TopNavComponent,
     SidebarComponent,
-    SearchComponent,
+    GenerateComponent,
     UserConfigComponent,
-    ReportComponent,
+    MyProfessionalProfilesComponent,
+    PpCardComponent,
     DashboardComponent,
     CardComponent,
     FrameworksComponent,
+    TechChipListComponent,
   ],
   imports: [
     BrowserModule,

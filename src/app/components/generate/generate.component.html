@@ -46,7 +46,13 @@
   </mat-card-content>
 
   <mat-card-actions style="margin: 10px">
-    <button mat-raised-button color="accent" type="button" (click)="generate()">
+    <button
+      [disabled]="loading"
+      mat-raised-button
+      color="accent"
+      type="button"
+      (click)="generate()"
+    >
       <mat-icon matSuffix>search</mat-icon>
       Generar
     </button>
