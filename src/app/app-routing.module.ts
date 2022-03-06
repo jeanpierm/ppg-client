@@ -31,7 +31,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'generate',
+        path: 'generar',
         component: SearchComponent,
         data: {
           title: 'Generar PP',
