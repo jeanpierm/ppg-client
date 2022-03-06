@@ -4,7 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { ReportComponent } from './components/report/report.component';
-import { SearchComponent } from './components/search/search.component';
+import { SearchComponent } from './components/generate/generate.component';
 import { UserConfigComponent } from './components/user-config/user-config.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FullComponent } from './layout/full/full.component';
@@ -45,10 +45,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'report',
+        path: 'perfiles-profesionales',
         component: ReportComponent,
         data: {
-          title: 'report',
+          title: 'Perfiles profesionales',
         },
       },
     ],

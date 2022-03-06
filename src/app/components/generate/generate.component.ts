@@ -6,8 +6,8 @@ import { ProfessionalProfileService } from 'src/app/services/professional-profil
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  templateUrl: './generate.component.html',
+  styleUrls: ['./generate.component.css'],
 })
 export class SearchComponent implements OnInit {
   public generatePpg: GeneratePpgRequest;

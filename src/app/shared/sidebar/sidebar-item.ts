@@ -18,7 +18,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     icon: 'file_copy',
-    title: 'Reporte',
-    path: '/starter/report',
+    title: 'Mis perfiles profesionales',
+    path: '/starter/perfiles-profesionales',
   },
 ];
