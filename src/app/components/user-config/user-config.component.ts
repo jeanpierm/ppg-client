@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { SweetAlert } from 'src/app/config/sweetAlert';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-config',
@@ -20,11 +19,7 @@ export class UserConfigComponent implements OnInit {
   public hide_new: boolean;
   public user: any;
   public alert: SweetAlert;
-  constructor(
-    private userService: UserService,
-    public fb: FormBuilder,
-    private accountService: AccountService
-  ) {
+  constructor(public fb: FormBuilder, private accountService: AccountService) {
     this.myForm = new FormGroup({});
     this.passwords = {
       currentPassword: '',
