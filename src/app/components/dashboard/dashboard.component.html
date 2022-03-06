@@ -1,0 +1,72 @@
+<!-- <div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile
+      *ngFor="let card of cards | async"
+      [colspan]="card.cols"
+      [rowspan]="card.rows"
+    >
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ card.title }}
+            <button
+              mat-icon-button
+              class="more-button"
+              [matMenuTriggerFor]="menu"
+              aria-label="Toggle menu"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
+
+<!-- <div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="2" rowHeight="200px">
+    <mat-grid-tile *ngFor="let i of [5, 6, 7, 8]" colspan="2" rowspan="2">
+      <app-card title="Card {{ i }}"><div>Chart Content Here</div></app-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
+
+<div fxLayout="row">
+  <div class="content" fxLayout="row" fxLayout.xs="column" fxFlexFill>
+    <div
+      fxFlex="45"
+      fxFlex.xs="60"
+      *ngFor="let card of cards | async"
+      style="margin: 5px"
+    >
+      <app-card title=" {{ card.title }}"
+        ><div>Chart Content Here</div></app-card
+      >
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row">
+  <div class="content" fxLayout="row" fxLayout.xs="column" fxFlexFill>
+    <div
+      fxFlex="45"
+      fxFlex.xs="60"
+      *ngFor="let card of cards | async"
+      style="margin: 5px"
+    >
+      <app-card title=" {{ card.title }}">
+        <app-frameworks></app-frameworks>
+      </app-card>
+    </div>
+  </div>
+</div>

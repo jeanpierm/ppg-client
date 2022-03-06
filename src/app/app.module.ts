@@ -17,6 +17,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserConfigComponent } from './components/user-config/user-config.component';
 import { ReportComponent } from './components/report/report.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CardComponent } from './components/card/card.component';
+import { FrameworksComponent } from './components/charts/frameworks/frameworks.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,9 @@ import { ReportComponent } from './components/report/report.component';
     SearchComponent,
     UserConfigComponent,
     ReportComponent,
+    DashboardComponent,
+    CardComponent,
+    FrameworksComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +47,7 @@ import { ReportComponent } from './components/report/report.component';
     FormsModule,
     AngularMaterialModule,
     ReactiveFormsModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

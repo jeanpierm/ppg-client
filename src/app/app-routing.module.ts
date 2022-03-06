@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { ReportComponent } from './components/report/report.component';
@@ -22,6 +23,13 @@ const routes: Routes = [
     component: FullComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: {
+          title: 'dashboard',
+        },
+      },
       {
         path: 'busqueda',
         component: SearchComponent,

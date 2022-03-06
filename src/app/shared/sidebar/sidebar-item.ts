@@ -1,11 +1,11 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
-  /* {
+  {
     icon: 'dashboard',
     title: 'Dashboard',
-    path: '',
-  }, */
+    path: '/starter/dashboard',
+  },
   {
     icon: 'search',
     title: 'Busqueda',
