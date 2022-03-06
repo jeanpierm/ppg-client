@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-top-nav',
@@ -13,7 +14,10 @@ export class TopNavComponent implements OnInit {
   public name: any;
   public surname: any;
 
-  constructor(private route: Router) {
+  constructor(
+    private route: Router,
+    private readonly authService: AuthService
+  ) {
     this.name = '';
     this.surname = '';
   }
@@ -28,7 +32,7 @@ export class TopNavComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.clear();
+    this.authService.logout();
     this.route.navigate(['/login']);
   }
 }

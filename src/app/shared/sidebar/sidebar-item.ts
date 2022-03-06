@@ -8,12 +8,12 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     icon: 'search',
-    title: 'Busqueda',
+    title: 'Búsqueda',
     path: '/starter/busqueda',
   },
   {
     icon: 'settings',
-    title: 'Configuracion',
+    title: 'Configuración',
     path: '/starter/configuracion',
   },
   {

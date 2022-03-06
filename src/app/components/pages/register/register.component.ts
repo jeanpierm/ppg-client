@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import Swal, {
-  SweetAlertOptions,
-  SweetAlertResult,
-  SweetAlertUpdatableParameters,
-} from 'sweetalert2';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { RegisterRequest } from 'src/app/models/auth';
+import { AccountService } from 'src/app/services/account.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { GenericErrorStateMatcher } from 'src/app/shared/error-state-matcher';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -18,63 +20,130 @@ import Swal, {
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  public myForm: FormGroup;
+  public registerForm: FormGroup;
   public hide: boolean;
   public user: any;
-  constructor(private userService: UserService, public fb: FormBuilder) {
+  matcher = new GenericErrorStateMatcher();
+
+  constructor(
+    private authService: AuthService,
+    public fb: FormBuilder,
+    public accountService: AccountService,
+    private router: Router
+  ) {
     this.hide = true;
-    this.myForm = new FormGroup({});
+    this.registerForm = new FormGroup({});
     this.user = {};
   }
 
   ngOnInit(): void {
-    this.onForm();
+    this.initForm();
   }
 
-  onForm() {
-    this.myForm = this.fb.group({
-      name: [
-        '',
-        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
-      ],
-      surname: [
-        '',
-        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
-      ],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+  get name() {
+    return this.registerForm.get('name');
   }
 
-  onSubmit() {
-    if (this.myForm.invalid) {
+  get surname() {
+    return this.registerForm.get('surname');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get password2() {
+    return this.registerForm.get('password2');
+  }
+
+  initForm() {
+    this.registerForm = this.fb.group(
+      {
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/),
+          ],
+        ],
+        surname: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/),
+          ],
+        ],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(5)]],
+        password2: ['', Validators.required],
+      },
+      {
+        validators: [this.equalPasswords('password', 'password2')],
+      }
+    );
+  }
+
+  async register() {
+    if (this.registerForm.invalid) {
       Swal.fire({
-        title: 'Por favor llene todos los campos!',
+        title: 'Por favor, ingrese todos los campos correctamente',
         icon: 'error',
         confirmButtonText: 'Aceptar',
       });
       return;
     }
-    this.setValues();
-    this.userService.save(this.user).subscribe({
-      next: (res) => {
-        this.user = {};
+    const newUser = this.getUserFromForm();
+    this.authService.register(newUser).subscribe({
+      next: async (_) => {
         Swal.fire({
           icon: 'success',
           title: 'Se ha registrado correctamente',
           showConfirmButton: false,
           timer: 1500,
         });
-        this.onForm();
+        this.initForm();
+        const { data } = await firstValueFrom(this.accountService.getAccount());
+        this.set('name', data.name);
+        this.set('surname', data.surname);
+        this.set('email', data.email);
+        this.router.navigate(['/starter']);
       },
       error: (err) => console.error(err),
     });
   }
 
-  setValues() {
-    this.user.name = this.myForm.controls['name'].value;
-    this.user.surname = this.myForm.controls['surname'].value;
-    this.user.email = this.myForm.controls['email'].value;
-    this.user.password = this.myForm.controls['password'].value;
+  getUserFromForm(): RegisterRequest {
+    const { name, email, surname, password } = this.registerForm.value;
+    return { name, email, surname, password };
+  }
+
+  equalPasswords(controlName1: string, controlName2: string) {
+    return function (formGroup: AbstractControl): ValidationErrors | null {
+      const control1 = formGroup.get(controlName1);
+      const control2 = formGroup.get(controlName2);
+      // debugger;
+      if (control2?.errors && !control2?.errors['doNotMatch']) {
+        return null;
+      }
+      if (control1?.value !== control2?.value) {
+        const errors = { doNotMatch: true };
+        control2?.setErrors({ ...control2?.errors, ...errors });
+        return errors;
+      }
+      control2?.setErrors(null);
+      return null;
+    };
+  }
+
+  set(key: string, data: string) {
+    try {
+      localStorage.setItem(key, data);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

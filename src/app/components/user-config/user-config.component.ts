@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 import { SweetAlert } from 'src/app/config/sweetAlert';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-config',
@@ -19,11 +19,7 @@ export class UserConfigComponent implements OnInit {
   public hide_new: boolean;
   public user: any;
   public alert: SweetAlert;
-  constructor(
-    private userService: UserService,
-    public fb: FormBuilder,
-    private accountService: AccountService
-  ) {
+  constructor(public fb: FormBuilder, private accountService: AccountService) {
     this.myForm = new FormGroup({});
     this.passwords = {
       currentPassword: '',
@@ -57,7 +53,7 @@ export class UserConfigComponent implements OnInit {
 
   async getUserAccount() {
     try {
-      let user = await this.accountService.getAccount().toPromise();
+      let user = await firstValueFrom(this.accountService.getAccount());
       this.setValues(user.data);
     } catch (err) {
       console.log(err);

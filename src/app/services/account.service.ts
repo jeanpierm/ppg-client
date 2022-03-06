@@ -9,27 +9,28 @@ import { environment } from '../../environments/environment';
 import { ApiResponse } from '../models/response';
 import { User } from '../models/user';
 import { ResponseConfig } from '../config/response-config';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  private _token: any;
   private _user: any;
   private responseConfig: ResponseConfig;
 
-  constructor(private http: HttpClient) {
-    this._token = localStorage.getItem('token');
+  constructor(
+    private http: HttpClient,
+    private readonly authService: AuthService
+  ) {
     this._user = localStorage.getItem('currentUser');
     this.responseConfig = new ResponseConfig();
   }
 
-  getAccount(): any {
-    this._token = localStorage.getItem('token');
+  getAccount(): Observable<ApiResponse<User>> {
     let url = environment.api + '/account';
     let header = new HttpHeaders({
       'Content-type': 'application/json',
-      Authorization: `Bearer ${this._token}`,
+      Authorization: this.authService.accessToken,
     });
     let options = { headers: header };
     return this.http.get<any>(url, options).pipe(
@@ -40,12 +41,11 @@ export class AccountService {
   }
 
   updateUser(user: User) {
-    this._token = localStorage.getItem('token');
     let url = environment.api + '/account';
     let params = user;
     let header = new HttpHeaders({
       'Content-type': 'application/json',
-      Authorization: `Bearer ${this._token}`,
+      Authorization: this.authService.accessToken,
     });
 
     let options = { headers: header };
@@ -61,12 +61,11 @@ export class AccountService {
   }
 
   updatePassword(passwords: any) {
-    this._token = localStorage.getItem('token');
     let url = environment.api + '/account/password';
     let params = passwords;
     let header = new HttpHeaders({
       'Content-type': 'application/json',
-      Authorization: `Bearer ${this._token}`,
+      Authorization: this.authService.accessToken,
     });
 
     let options = { headers: header };
@@ -79,13 +78,5 @@ export class AccountService {
         throw this.responseConfig.handleError(err);
       })
     );
-  }
-
-  getTokenString() {
-    try {
-      return this._token;
-    } catch (e) {
-      console.log(e);
-    }
   }
 }
