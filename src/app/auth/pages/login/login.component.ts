@@ -12,7 +12,7 @@ import { LoginRequest } from '../../interfaces/auth';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  static readonly PATH = 'auth/login';
+  static readonly PATH = 'login';
   public hide: boolean;
   public acceso: boolean;
   public textLogin: String;

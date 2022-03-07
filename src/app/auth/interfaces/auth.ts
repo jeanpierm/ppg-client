@@ -8,6 +8,7 @@ export interface LoginRequest {
 }
 
 export interface RegisterResponse extends LoginResponse {}
+export interface RefreshResponse extends LoginResponse {}
 
 export interface RegisterRequest {
   email: string;

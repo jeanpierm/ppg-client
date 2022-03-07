@@ -20,7 +20,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  static readonly PATH = 'auth/register';
+  static readonly PATH = 'register';
 
   public registerForm: FormGroup;
   public hide: boolean;

@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import {
   LoginRequest,
   LoginResponse,
+  RefreshResponse,
   RegisterRequest,
   RegisterResponse,
 } from '../interfaces/auth';
@@ -63,8 +64,22 @@ export class AuthService {
     );
   }
 
-  validateToken(): Observable<boolean> {
-    return of(!!this.accessToken);
+  validateAnRefreshToken(): Observable<boolean> {
+    if (!this.accessToken) {
+      return of(false);
+    }
+    const url = environment.api + '/auth/refresh';
+    const headers = new HttpHeaders({
+      Authorization: this.accessToken,
+    });
+
+    return this.http.post<RefreshResponse>(url, null, { headers }).pipe(
+      map(({ accessToken }) => {
+        this.accessToken = accessToken;
+        return true;
+      }),
+      catchError((_) => of(false))
+    );
   }
 
   /**

@@ -23,22 +23,22 @@ export class RequireAuthGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.authService.validateToken().pipe(
+    return this.authService.validateAnRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
           this.authService.logout();
-          this.router.navigateByUrl(LoginComponent.PATH);
+          this.router.navigateByUrl(`/auth/${LoginComponent.PATH}`);
         }
       })
     );
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    return this.authService.validateToken().pipe(
+    return this.authService.validateAnRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
           this.authService.logout();
-          this.router.navigateByUrl(LoginComponent.PATH);
+          this.router.navigateByUrl(`/auth/${LoginComponent.PATH}`);
         }
       })
     );
