@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-title>
+    {{ professionalProfile.jobTitle | titlecase }}
+  </mat-card-title>
+
+  <div fxLayout="column" fxLayoutGap="10px">
+    <mat-card-content>
+      <i>{{ professionalProfile.location | titlecase }}</i>
+    </mat-card-content>
+
+    <app-tech-chips
+      [technology]="professionalProfile.languages"
+      identifier="Lenguajes"
+    ></app-tech-chips>
+
+    <app-tech-chips
+      [technology]="professionalProfile.frameworks"
+      identifier="Frameworks"
+    ></app-tech-chips>
+
+    <app-tech-chips
+      [technology]="professionalProfile.databases"
+      identifier="Bases de datos"
+    ></app-tech-chips>
+
+    <app-tech-chips
+      [technology]="professionalProfile.tools"
+      identifier="Herramientas"
+    ></app-tech-chips>
+
+    <app-tech-chips
+      [technology]="professionalProfile.paradigms"
+      identifier="Paradigmas"
+    ></app-tech-chips>
+
+    <app-tech-chips
+      [technology]="professionalProfile.patterns"
+      identifier="Patrones ó estilos"
+    ></app-tech-chips>
+  </div>
+
+  <div mat-subheader>
+    Requiere ingles
+    <mat-icon color="accent" *ngIf="professionalProfile.requireEnglish"
+      >check_circle</mat-icon
+    >
+    <mat-icon color="warn" *ngIf="!professionalProfile.requireEnglish"
+      >cancel</mat-icon
+    >
+  </div>
+</mat-card>

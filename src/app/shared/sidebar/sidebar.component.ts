@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTES } from './sidebar-item';
+import { sidebarItems } from './sidebar-items';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   showMenu = false;
-  routes = ROUTES;
+  routes = sidebarItems;
   constructor() {}
-
-  ngOnInit(): void {}
 }

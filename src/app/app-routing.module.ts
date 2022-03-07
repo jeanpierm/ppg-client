@@ -1,62 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LoginComponent } from './components/pages/login/login.component';
-import { RegisterComponent } from './components/pages/register/register.component';
-import { MyProfessionalProfilesComponent } from './components/my-professional-profiles/my-professional-profiles.component';
-import { GenerateComponent } from './components/generate/generate.component';
-import { UserConfigComponent } from './components/user-config/user-config.component';
-import { AuthGuard } from './guards/auth.guard';
-import { FullComponent } from './layout/full/full.component';
+import { DashboardComponent } from './ppg/pages/dashboard/dashboard.component';
+import { LoginComponent } from './auth/pages/login/login.component';
+import { RegisterComponent } from './auth/pages/register/register.component';
+import { ProfilesComponent } from './ppg/pages/profiles/profiles.component';
+import { GenerateComponent } from './ppg/pages/generate/generate.component';
+import { AccountComponent } from './ppg/pages/account/account.component';
+import { RequireAuthGuard } from './auth/guards/require-auth.guard';
+import { LoginGuard } from './auth/guards/login.guard';
+import { PpgComponent } from './ppg/ppg.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [LoginGuard],
   },
   {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'starter',
-    component: FullComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        data: {
-          title: 'dashboard',
-        },
-      },
-      {
-        path: 'generar',
-        component: GenerateComponent,
-        data: {
-          title: 'Generar PP',
-        },
-      },
-      {
-        path: 'configuracion',
-        component: UserConfigComponent,
-        data: {
-          title: 'Configuracion',
-        },
-      },
-      {
-        path: 'perfiles-profesionales',
-        component: MyProfessionalProfilesComponent,
-        data: {
-          title: 'Perfiles profesionales',
-        },
-      },
-    ],
+    path: PpgComponent.PATH,
+    loadChildren: () => import('./ppg/ppg.module').then((m) => m.PpgModule),
+    canLoad: [RequireAuthGuard],
+    canActivate: [RequireAuthGuard],
   },
   {
     path: '**',
-    redirectTo: '/login',
-    pathMatch: 'full',
+    redirectTo: PpgComponent.PATH,
   },
 ];
 
