@@ -259,15 +259,15 @@
     </div>
     <mat-card>
       <mat-card-content fxLayoutAlign="center center">
-        <table
-          mat-table
-          [dataSource]="professionalProfiles"
-          class="mat-elevation-z8"
-        >
+        <table mat-table [dataSource]="professionalProfiles">
           <!-- Item Column -->
           <ng-container matColumnDef="JobTitle">
-            <th mat-header-cell *matHeaderCellDef>JobTitle</th>
-            <td mat-cell *matCellDef="let profile">{{ profile.jobTitle }}</td>
+            <th class="width-textArea" mat-header-cell *matHeaderCellDef>
+              JobTitle
+            </th>
+            <td class="width-textArea" mat-cell *matCellDef="let profile">
+              {{ profile.jobTitle }}
+            </td>
           </ng-container>
 
           <!-- Cost Column -->
@@ -276,8 +276,16 @@
             <td mat-cell *matCellDef="let profile">{{ profile.location }}</td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr
+            class="width-textArea"
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+          ></tr>
+          <tr
+            class="width-textArea"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
 
           <!-- Cost Column -->
           <!-- <ng-container matColumnDef="Date">

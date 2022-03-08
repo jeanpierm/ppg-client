@@ -15,6 +15,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const materialModules = [
   MatButtonModule,
@@ -32,6 +33,7 @@ const materialModules = [
   MatCheckboxModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatProgressSpinnerModule,
 ];
 @NgModule({
   imports: [CommonModule, ...materialModules],

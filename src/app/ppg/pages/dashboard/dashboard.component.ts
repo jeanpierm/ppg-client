@@ -14,14 +14,19 @@ export class DashboardComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Card 1' },
-          { title: 'Card 2' },
-          /*   { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }, */
+          { title: 'Framewoks', id: 1 },
+          { title: 'Lenguajes', id: 2 },
+          { title: 'Base de datos', id: 3 },
+          { title: 'Herramientas', id: 4 },
         ];
       }
 
-      return [{ title: 'Card 1' }, { title: 'Card 2' }];
+      return [
+        { title: 'Framewoks', id: 1 },
+        { title: 'Lenguajes', id: 2 },
+        { title: 'Base de datos', id: 3 },
+        { title: 'Herramientas', id: 4 },
+      ];
     })
   );
 

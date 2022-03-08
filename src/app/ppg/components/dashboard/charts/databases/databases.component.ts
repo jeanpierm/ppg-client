@@ -9,11 +9,11 @@ import {
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 
 @Component({
-  selector: 'app-frameworks',
-  templateUrl: './frameworks.component.html',
-  styleUrls: ['./frameworks.component.css'],
+  selector: 'app-databases',
+  templateUrl: './databases.component.html',
+  styleUrls: ['./databases.component.css'],
 })
-export class FrameworksComponent implements OnInit {
+export class DatabasesComponent implements OnInit {
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -38,17 +38,17 @@ export class FrameworksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.getFrameworks().then(
+    this.getDataBases().then(
       (res) => (this.loading = false),
       (err) => (this.loading = false)
     );
   }
 
-  getFrameworks(): Promise<void> {
+  getDataBases(): Promise<void> {
     this.pieChartLabels = [];
     this.pieChartData = [];
     return new Promise((resolve, reject) => {
-      this.professionalProfilesService.getFrameworks().subscribe({
+      this.professionalProfilesService.getDataBases().subscribe({
         next: (res) => {
           let data: any = res.data;
           const keys_aux = Object.keys(data);

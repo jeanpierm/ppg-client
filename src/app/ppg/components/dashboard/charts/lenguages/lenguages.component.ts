@@ -9,11 +9,11 @@ import {
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 
 @Component({
-  selector: 'app-frameworks',
-  templateUrl: './frameworks.component.html',
-  styleUrls: ['./frameworks.component.css'],
+  selector: 'app-lenguages',
+  templateUrl: './lenguages.component.html',
+  styleUrls: ['./lenguages.component.css'],
 })
-export class FrameworksComponent implements OnInit {
+export class LenguagesComponent implements OnInit {
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -38,17 +38,17 @@ export class FrameworksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.getFrameworks().then(
+    this.getLenguages().then(
       (res) => (this.loading = false),
       (err) => (this.loading = false)
     );
   }
 
-  getFrameworks(): Promise<void> {
+  getLenguages(): Promise<void> {
     this.pieChartLabels = [];
     this.pieChartData = [];
     return new Promise((resolve, reject) => {
-      this.professionalProfilesService.getFrameworks().subscribe({
+      this.professionalProfilesService.getLenguages().subscribe({
         next: (res) => {
           let data: any = res.data;
           const keys_aux = Object.keys(data);

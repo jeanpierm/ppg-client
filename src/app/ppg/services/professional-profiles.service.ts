@@ -114,4 +114,68 @@ export class ProfessionalProfilesService {
       })
     );
   }
+
+  getFrameworks(): Observable<ApiResponse> {
+    let url = environment.api + '/professional-profiles/frameworks/count';
+    let header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    let options = { headers: header };
+
+    return this.http.get<ApiResponse>(url, options).pipe(
+      map((res) => res),
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  getLenguages(): Observable<ApiResponse> {
+    let url = environment.api + '/professional-profiles/languages/count';
+    let header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    let options = { headers: header };
+
+    return this.http.get<ApiResponse>(url, options).pipe(
+      map((res) => res),
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  getDataBases(): Observable<ApiResponse> {
+    let url = environment.api + '/professional-profiles/databases/count';
+    let header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    let options = { headers: header };
+
+    return this.http.get<ApiResponse>(url, options).pipe(
+      map((res) => res),
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  getTools(): Observable<ApiResponse> {
+    let url = environment.api + '/professional-profiles/tools/count';
+    let header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    let options = { headers: header };
+
+    return this.http.get<ApiResponse>(url, options).pipe(
+      map((res) => res),
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
 }
