@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginComponent } from 'src/app/auth/pages/login/login.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -32,6 +33,6 @@ export class TopNavComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.route.navigate(['/login']);
+    this.route.navigate([`/auth/${LoginComponent.PATH}`]);
   }
 }

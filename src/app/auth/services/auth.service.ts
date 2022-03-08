@@ -78,7 +78,7 @@ export class AuthService {
         this.accessToken = accessToken;
         return true;
       }),
-      catchError((_) => of(false))
+      catchError(() => of(false))
     );
   }
 
