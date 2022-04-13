@@ -80,7 +80,16 @@ export class RegisterComponent implements OnInit {
           ],
         ],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(5)]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
+            ),
+          ],
+        ],
         password2: ['', Validators.required],
       },
       {
@@ -147,5 +156,25 @@ export class RegisterComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  validatePassword(controlName: string): String {
+    let error: String = '';
+    const control = this.registerForm.get(controlName)?.value;
+    if (
+      control.toString().trim().length < 8 ||
+      control.toString().trim().length > 15
+    ) {
+      error = 'La contraseña debe contener mínimo 8 y máximo 15 caracteres';
+    } else if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
+      error = 'La contraseña debe contener mayúsculas y munúsculas';
+    } else if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
+      error = 'La contraseña debe al menos un valor numérico';
+    } else if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
+      error =
+        'La contraseña debe contener al menos un caracter especial [$@$!%*?&.]';
+    }
+
+    return error;
   }
 }
