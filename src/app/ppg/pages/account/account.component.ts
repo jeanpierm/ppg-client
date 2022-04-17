@@ -122,7 +122,7 @@ export class AccountComponent implements OnInit {
 
   onSubmit() {
     let p1 = this.onUpdateAccount();
-    let p2 = null;
+    let p2;
     if (this.change_password) {
       p2 = this.onUpdatePassword();
     }

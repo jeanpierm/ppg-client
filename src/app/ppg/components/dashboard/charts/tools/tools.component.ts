@@ -17,20 +17,14 @@ export class ToolsComponent implements OnInit {
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
-  public pieChartLabels: Label[] = [
-    ['Download', 'Sales'],
-    ['In', 'Store', 'Sales'],
-    'Mail Sales',
-  ];
+  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
   public pieChartData: SingleDataSet = [300, 500, 100];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
   public loading: boolean;
 
-  constructor(
-    private professionalProfilesService: ProfessionalProfilesService
-  ) {
+  constructor(private professionalProfilesService: ProfessionalProfilesService) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
     this.loading = false;

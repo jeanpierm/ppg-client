@@ -2,8 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 import { ProfessionalProfile } from '../../models/profiles/professional-profile';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
@@ -41,11 +39,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.professionalProfiles,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(this.professionalProfiles, event.previousIndex, event.currentIndex);
   }
 
   get() {
@@ -59,22 +53,6 @@ export class ProfilesComponent implements OnInit {
   }
 
   downloadReport() {
-    const element = document.getElementById('htmlProfiles');
-    if (!element) return;
-    const doc = new jsPDF('p', 'pt', 'a4');
-    const options = {
-      background: 'white',
-      scale: 2,
-    };
-    html2canvas(element, options).then((canvas) => {
-      const img = canvas.toDataURL('image/png');
-      const bufferX = 15;
-      const bufferY = 15;
-      const imgProps = (doc as any).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight);
-      doc.save(`${new Date().toISOString()}_ppg_report.pdf`);
-    });
+    alert('coming soon!');
   }
 }
