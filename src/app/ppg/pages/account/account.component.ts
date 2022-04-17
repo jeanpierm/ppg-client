@@ -41,14 +41,8 @@ export class AccountComponent implements OnInit {
 
   onForm() {
     this.myForm = this.fb.group({
-      name: [
-        '',
-        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
-      ],
-      surname: [
-        '',
-        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
-      ],
+      name: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
+      surname: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
       email: ['', [Validators.required, Validators.email]],
     });
   }
