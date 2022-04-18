@@ -1,10 +1,8 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>Configuración de usuario</mat-card-title>
-  </mat-card-header>
+  <mat-card-title>Configuración de usuario</mat-card-title>
   <br />
   <mat-card-content>
-    <form action="" [formGroup]="myForm">
+    <form [formGroup]="myForm">
       <mat-grid-list cols="1" rowHeight="100px">
         <mat-grid-tile>
           <mat-form-field appearance="legacy" class="example-full-width">
@@ -15,6 +13,7 @@
               name="name"
               id="name"
               formControlName="name"
+              [value]="myForm.get('name')?.value | titlecase"
             />
           </mat-form-field>
           <div *ngIf="validErrorForm('name')" class="alert-danger">
@@ -32,6 +31,7 @@
               name="surname"
               id="surname"
               formControlName="surname"
+              [value]="myForm.get('surname')?.value | titlecase"
             />
           </mat-form-field>
           <div *ngIf="validErrorForm('surname')" class="alert-danger">

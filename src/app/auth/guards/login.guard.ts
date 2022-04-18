@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PpgComponent } from '../../ppg/ppg.component';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -19,7 +15,7 @@ export class LoginGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
     if (this.authService.accessToken) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl(`/${PpgComponent.PATH}`);
       return false;
     }
     return true;
