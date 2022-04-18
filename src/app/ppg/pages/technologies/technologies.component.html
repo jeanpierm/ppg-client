@@ -1,0 +1,123 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Tecnologías
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="openDialog(newTechnology)"
+      >
+        <mat-icon>code</mat-icon>Nuevo
+      </button></mat-card-title
+    >
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <mat-progress-bar
+      color="accent"
+      mode="indeterminate"
+      *ngIf="loading"
+    ></mat-progress-bar>
+
+    <table mat-table [dataSource]="technologies">
+      <ng-container matColumnDef="Tipo">
+        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+        <td mat-cell *matCellDef="let tecnology">{{ tecnology.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let tecnology">{{ tecnology.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Identificadores">
+        <th mat-header-cell *matHeaderCellDef>Identificadores</th>
+        <td mat-cell *matCellDef="let tecnology">
+          <ul *ngFor="let item of tecnology.identifiers">
+            <li>{{ item }}</li>
+          </ul>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let tecnology">
+          <button mat-stroked-button color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-stroked-button color="accent" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #newTechnology>
+  <h2 mat-dialog-title>Nueva Tecnología</h2>
+  <mat-dialog-content>
+    <form action="" [formGroup]="myForm">
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex>
+          <mat-form-field appearance="fill">
+            <mat-label>Tipo</mat-label>
+            <mat-select name="type" id="type" formControlName="type">
+              <mat-option value="">Seleccione</mat-option>
+              <mat-option *ngFor="let type of types" [value]="type.value">
+                {{ type.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex>
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput name="name" id="name" formControlName="name" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="column" formArrayName="identifiers">
+        <h3>
+          Identificadores
+          <button
+            mat-button
+            type="button"
+            color="accent"
+            (click)="addIdentifier()"
+          >
+            + Añadir identificador
+          </button>
+        </h3>
+
+        <div fxFlex *ngFor="let item of identifiers.controls; let i = index">
+          <mat-form-field appearance="fill">
+            <mat-label for="item-{{ i }}">Identificador</mat-label>
+            <input matInput id="item-{{ i }}" [formControlName]="i" />
+            <button mat-icon-button matSuffix (click)="deleteIdentifier(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button
+      type="button"
+      mat-raised-button
+      [mat-dialog-close]="true"
+      color="primary"
+      [disabled]="myForm.invalid"
+      (click)="save()"
+    >
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</ng-template>

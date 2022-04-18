@@ -254,7 +254,7 @@
   <div fxFlex="45" style="margin: 5px">
     <div>
       <mat-card-subtitle style="margin: 10px"
-        >All professional profiles</mat-card-subtitle
+        >Todos sus perfiles profesionales generados</mat-card-subtitle
       >
     </div>
     <mat-card>
@@ -263,7 +263,7 @@
           <!-- Item Column -->
           <ng-container matColumnDef="JobTitle">
             <th class="width-textArea" mat-header-cell *matHeaderCellDef>
-              JobTitle
+              Cargo
             </th>
             <td class="width-textArea" mat-cell *matCellDef="let profile">
               {{ profile.jobTitle }}
@@ -272,7 +272,7 @@
 
           <!-- Cost Column -->
           <ng-container matColumnDef="Location">
-            <th mat-header-cell *matHeaderCellDef>Location</th>
+            <th mat-header-cell *matHeaderCellDef>Ubicación</th>
             <td mat-cell *matCellDef="let profile">{{ profile.location }}</td>
           </ng-container>
 

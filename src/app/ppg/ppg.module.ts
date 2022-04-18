@@ -21,6 +21,7 @@ import { PpgRoutingModule } from './ppg-routing.module';
 import { PpgComponent } from './ppg.component';
 import { DatabasesComponent } from './components/dashboard/charts/databases/databases.component';
 import { ToolsComponent } from './components/dashboard/charts/tools/tools.component';
+import { TechnologiesComponent } from './pages/technologies/technologies.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ToolsComponent } from './components/dashboard/charts/tools/tools.compon
     LenguagesComponent,
     DatabasesComponent,
     ToolsComponent,
+    TechnologiesComponent,
   ],
   imports: [
     CommonModule,

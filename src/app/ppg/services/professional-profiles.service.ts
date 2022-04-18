@@ -31,8 +31,8 @@ export class ProfessionalProfilesService {
   generate(
     data: GeneratePpgRequest
   ): Observable<ApiResponse<ProfessionalProfile>> {
-    let url = environment.api + '/professional-profiles';
-    let header = new HttpHeaders({
+    const url = environment.api + '/professional-profiles';
+    const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });

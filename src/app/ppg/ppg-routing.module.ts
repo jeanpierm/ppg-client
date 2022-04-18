@@ -5,6 +5,7 @@ import { GenerateComponent } from './pages/generate/generate.component';
 import { ProfilesComponent } from './pages/profiles/profiles.component';
 import { AccountComponent } from './pages/account/account.component';
 import { PpgComponent } from './ppg.component';
+import { TechnologiesComponent } from './pages/technologies/technologies.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,13 @@ const routes: Routes = [
         component: ProfilesComponent,
         data: {
           title: 'Perfiles profesionales',
+        },
+      },
+      {
+        path: TechnologiesComponent.PATH,
+        component: TechnologiesComponent,
+        data: {
+          title: 'Tecnologías',
         },
       },
       { path: '**', redirectTo: '' },
