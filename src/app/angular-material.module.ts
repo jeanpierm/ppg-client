@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const materialModules = [
   MatButtonModule,
@@ -40,6 +41,7 @@ const materialModules = [
   MatTooltipModule,
   MatDialogModule,
   MatSelectModule,
+  MatPaginatorModule,
 ];
 @NgModule({
   imports: [CommonModule, ...materialModules],

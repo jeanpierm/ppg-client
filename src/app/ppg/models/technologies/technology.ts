@@ -3,7 +3,7 @@ export class Technology {
     public technologyId: String = '',
     public type: String = '',
     public name: String = '',
-    public identifier: Array<String> = []
+    public identifiers: Array<String> = []
   ) {
     //
   }

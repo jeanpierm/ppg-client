@@ -34,4 +34,12 @@ export class SweetAlert {
       confirmButtonText: 'Aceptar',
     });
   }
+
+  dialogAlert(text: any) {
+    return Swal.fire({
+      text: text,
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+    });
+  }
 }

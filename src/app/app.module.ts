@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { AppComponent } from './app.component';
     FlexLayoutModule,
     HttpClientModule,
     AngularMaterialModule,
+    NgxSpinnerModule,
   ],
   bootstrap: [AppComponent],
 })

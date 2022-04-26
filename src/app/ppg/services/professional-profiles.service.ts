@@ -100,12 +100,12 @@ export class ProfessionalProfilesService {
   }
 
   getRadomProfile(): Observable<ApiResponse<ProfessionalProfile>> {
-    let url = environment.api + '/professional-profiles/random';
-    let header = new HttpHeaders({
+    const url = environment.api + '/professional-profiles/random';
+    const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
+    const options = { headers: header };
 
     return this.http.get<ApiResponse<ProfessionalProfile>>(url, options).pipe(
       map((res) => res),
@@ -116,12 +116,12 @@ export class ProfessionalProfilesService {
   }
 
   getFrameworks(): Observable<ApiResponse> {
-    let url = environment.api + '/professional-profiles/frameworks/count';
-    let header = new HttpHeaders({
+    const url = environment.api + '/professional-profiles/frameworks/count';
+    const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
+    const options = { headers: header };
 
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),
@@ -132,12 +132,12 @@ export class ProfessionalProfilesService {
   }
 
   getLenguages(): Observable<ApiResponse> {
-    let url = environment.api + '/professional-profiles/languages/count';
-    let header = new HttpHeaders({
+    const url = environment.api + '/professional-profiles/languages/count';
+    const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
+    const options = { headers: header };
 
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),
@@ -148,12 +148,12 @@ export class ProfessionalProfilesService {
   }
 
   getDataBases(): Observable<ApiResponse> {
-    let url = environment.api + '/professional-profiles/databases/count';
-    let header = new HttpHeaders({
+    const url = environment.api + '/professional-profiles/databases/count';
+    const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
+    const options = { headers: header };
 
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),
@@ -164,12 +164,12 @@ export class ProfessionalProfilesService {
   }
 
   getTools(): Observable<ApiResponse> {
-    let url = environment.api + '/professional-profiles/tools/count';
-    let header = new HttpHeaders({
+    const url = environment.api + '/professional-profiles/tools/count';
+    const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
+    const options = { headers: header };
 
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),

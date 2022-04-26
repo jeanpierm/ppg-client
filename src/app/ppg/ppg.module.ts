@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { AngularMaterialModule } from '../angular-material.module';
 import { SharedModule } from '../shared/shared.module';
@@ -22,6 +21,7 @@ import { PpgComponent } from './ppg.component';
 import { DatabasesComponent } from './components/dashboard/charts/databases/databases.component';
 import { ToolsComponent } from './components/dashboard/charts/tools/tools.component';
 import { TechnologiesComponent } from './pages/technologies/technologies.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,7 @@ import { TechnologiesComponent } from './pages/technologies/technologies.compone
     PpgRoutingModule,
     ReactiveFormsModule,
     ChartsModule,
+    NgxSpinnerModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

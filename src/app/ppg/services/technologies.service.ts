@@ -19,6 +19,7 @@ export class TechnologiesService {
   responseConfig: ResponseConfig;
   fetchLoading: boolean = true;
   public technologies: Array<Technology>;
+  public resultsLength = 0;
 
   constructor(
     private http: HttpClient,
@@ -28,23 +29,93 @@ export class TechnologiesService {
     this.technologies = [];
   }
 
-  loadProfessionalProfiles(): void {
+  loadTechnology(
+    sizePerPage: Number,
+    pageIndex?: number,
+    search?: String
+  ): void {
     !this.fetchLoading && (this.fetchLoading = true);
-    this.getTecnologies().subscribe((res) => {
+
+    let qs = `?size=${sizePerPage}`;
+    if (pageIndex) {
+      qs += `&page=${pageIndex + 1}`;
+    }
+
+    if (search) {
+      qs += `&search=${search}`;
+    }
+
+    this.getTecnologies(qs).subscribe((res) => {
       this.technologies = res.data;
+      this.resultsLength = res.totalItems;
       this.fetchLoading = false;
     });
   }
 
-  getTecnologies(): Observable<ApiResponse<Technology[]>> {
-    const url = environment.api + '/technologies';
+  getTecnologies(queryString: String = ''): Observable<any> {
+    //const url = environment.api + '/technologies';
+    const url = `${environment.api}/technologies${queryString}`;
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
     const options = { headers: header };
 
-    return this.http.get<ApiResponse<Technology[]>>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  saveTechnology(technology: Technology) {
+    const url = environment.api + '/technologies';
+    const body = technology;
+    const header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    const option = { headers: header };
+
+    return this.http.post<ApiResponse>(url, body, option).pipe(
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  updateTechnology(technology: Technology) {
+    const url = `${environment.api}/technologies/${technology.technologyId}`;
+    const body = technology;
+    const header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    const options = { headers: header };
+
+    return this.http.patch<ApiResponse>(url, body, options).pipe(
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  // loadDeleteTechnology(technologyId: String) {
+  //   this.fetchLoading = true;
+  //   this.deleteTechnology(technologyId).subscribe((res) => {
+  //     //this.loadTechnology();
+  //   });
+  // }
+
+  deleteTechnology(technologyId: String) {
+    const url = environment.api + '/technologies/' + technologyId;
+    const header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    const option = { headers: header };
+
+    return this.http.delete(url, option).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })
