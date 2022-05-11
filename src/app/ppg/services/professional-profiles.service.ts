@@ -1,9 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,41 +7,37 @@ import { GeneratePpgRequest } from '../models/profiles/generate-ppg';
 import { ProfessionalProfile } from '../models/profiles/professional-profile';
 import { ApiResponse } from '../../shared/models/api-response';
 import { AuthService } from '../../auth/services/auth.service';
+import { CountQuery } from '../types/count-query.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfessionalProfilesService {
+  readonly QUERY_COUNT_KEY = 'q';
+
   responseConfig: ResponseConfig;
   professionalProfiles: ProfessionalProfile[] = [];
   fetchLoading: boolean = true;
 
-  constructor(
-    private http: HttpClient,
-    private readonly authService: AuthService
-  ) {
+  constructor(private http: HttpClient, private readonly authService: AuthService) {
     this.responseConfig = new ResponseConfig();
   }
 
-  generate(
-    data: GeneratePpgRequest
-  ): Observable<ApiResponse<ProfessionalProfile>> {
+  generate(data: GeneratePpgRequest): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles';
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
     let options = { headers: header };
-    return this.http
-      .post<ApiResponse<ProfessionalProfile>>(url, data, options)
-      .pipe(
-        map((res) => {
-          return res;
-        }),
-        catchError((err) => {
-          throw this.responseConfig.handleError(err);
-        })
-      );
+    return this.http.post<ApiResponse<ProfessionalProfile>>(url, data, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
   }
 
   loadProfessionalProfiles(
@@ -56,12 +47,7 @@ export class ProfessionalProfilesService {
     location?: string
   ): void {
     !this.fetchLoading && (this.fetchLoading = true);
-    this.getProfessionalProfiles(
-      initDate,
-      endDate,
-      jobTitle,
-      location
-    ).subscribe((res) => {
+    this.getProfessionalProfiles(initDate, endDate, jobTitle, location).subscribe((res) => {
       this.professionalProfiles = res.data;
       this.fetchLoading = false;
     });
@@ -115,64 +101,15 @@ export class ProfessionalProfilesService {
     );
   }
 
-  getFrameworks(): Observable<ApiResponse> {
-    const url = environment.api + '/professional-profiles/frameworks/count';
-    const header = new HttpHeaders({
+  count(query: CountQuery) {
+    const url = new URL(environment.api + '/professional-profiles/count');
+    url.searchParams.set(this.QUERY_COUNT_KEY, query);
+    const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    const options = { headers: header };
 
-    return this.http.get<ApiResponse>(url, options).pipe(
-      map((res) => res),
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
-  }
-
-  getLenguages(): Observable<ApiResponse> {
-    const url = environment.api + '/professional-profiles/languages/count';
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
-    const options = { headers: header };
-
-    return this.http.get<ApiResponse>(url, options).pipe(
-      map((res) => res),
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
-  }
-
-  getDataBases(): Observable<ApiResponse> {
-    const url = environment.api + '/professional-profiles/databases/count';
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
-    const options = { headers: header };
-
-    return this.http.get<ApiResponse>(url, options).pipe(
-      map((res) => res),
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
-  }
-
-  getTools(): Observable<ApiResponse> {
-    const url = environment.api + '/professional-profiles/tools/count';
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
-    const options = { headers: header };
-
-    return this.http.get<ApiResponse>(url, options).pipe(
-      map((res) => res),
+    return this.http.get<ApiResponse<Record<string, number>>>(url.toString(), { headers }).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })
