@@ -1,7 +1,7 @@
-<mat-progress-bar color="accent" mode="indeterminate" *ngIf="!pieChartData"></mat-progress-bar>
+<mat-progress-bar color="accent" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
 <canvas
-  *ngIf="pieChartData"
+  *ngIf="!loading"
   baseChart
   [data]="pieChartData"
   [type]="pieChartType"
