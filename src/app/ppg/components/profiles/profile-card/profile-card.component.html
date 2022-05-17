@@ -58,11 +58,7 @@
 
   <div mat-subheader>
     Requiere ingles
-    <mat-icon color="accent" *ngIf="professionalProfile.requireEnglish"
-      >check_circle</mat-icon
-    >
-    <mat-icon color="warn" *ngIf="!professionalProfile.requireEnglish"
-      >cancel</mat-icon
-    >
+    <mat-icon color="primary" *ngIf="professionalProfile.requireEnglish">check_circle</mat-icon>
+    <mat-icon color="warn" *ngIf="!professionalProfile.requireEnglish">cancel</mat-icon>
   </div>
 </mat-card>

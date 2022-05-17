@@ -8,7 +8,7 @@
     <mat-grid-list cols="2" rowHeight="1:1">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-icon color="warn" matSuffix>search</mat-icon>
+          <mat-icon color="primary" matSuffix>search</mat-icon>
           <input
             matInput
             type="text"
@@ -21,7 +21,7 @@
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-icon color="warn" matSuffix> place</mat-icon>
+          <mat-icon color="primary" matSuffix> place</mat-icon>
           <input
             matInput
             type="text"
@@ -50,7 +50,7 @@
     <button
       [disabled]="loading"
       mat-raised-button
-      color="accent"
+      color="primary"
       type="button"
       (click)="generate()"
     >
@@ -111,16 +111,8 @@
         </div>
 
         <div fxLayout="row">
-          <mat-chip-list
-            class="example-chip"
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-          >
-            <mat-chip
-              class="example-box"
-              cdkDrag
-              *ngFor="let item of ppGenerated.languages"
-            >
+          <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip class="example-box" cdkDrag *ngFor="let item of ppGenerated.languages">
               {{ item }}
             </mat-chip>
           </mat-chip-list>
@@ -132,16 +124,8 @@
         </div>
 
         <div fxLayout="row">
-          <mat-chip-list
-            class="example-chip"
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-          >
-            <mat-chip
-              class="example-box"
-              cdkDrag
-              *ngFor="let item of ppGenerated.frameworks"
-            >
+          <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip class="example-box" cdkDrag *ngFor="let item of ppGenerated.frameworks">
               {{ item }}
             </mat-chip>
           </mat-chip-list>
@@ -153,16 +137,8 @@
         </div>
 
         <div fxLayout="row">
-          <mat-chip-list
-            class="example-chip"
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-          >
-            <mat-chip
-              class="example-box"
-              cdkDrag
-              *ngFor="let item of ppGenerated.databases"
-            >
+          <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip class="example-box" cdkDrag *ngFor="let item of ppGenerated.databases">
               {{ item }}
             </mat-chip>
           </mat-chip-list>
@@ -174,16 +150,8 @@
         </div>
 
         <div fxLayout="row">
-          <mat-chip-list
-            class="example-chip"
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-          >
-            <mat-chip
-              class="example-box"
-              cdkDrag
-              *ngFor="let item of ppGenerated.patterns"
-            >
+          <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip class="example-box" cdkDrag *ngFor="let item of ppGenerated.patterns">
               {{ item }}
             </mat-chip>
           </mat-chip-list>
@@ -195,16 +163,8 @@
         </div>
 
         <div fxLayout="row">
-          <mat-chip-list
-            class="example-chip"
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-          >
-            <mat-chip
-              class="example-box"
-              cdkDrag
-              *ngFor="let item of ppGenerated.tools"
-            >
+          <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip class="example-box" cdkDrag *ngFor="let item of ppGenerated.tools">
               {{ item }}
             </mat-chip>
           </mat-chip-list>
@@ -216,16 +176,8 @@
         </div>
 
         <div fxLayout="row">
-          <mat-chip-list
-            class="example-chip"
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-          >
-            <mat-chip
-              class="example-box"
-              cdkDrag
-              *ngFor="let item of ppGenerated.paradigms"
-            >
+          <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip class="example-box" cdkDrag *ngFor="let item of ppGenerated.paradigms">
               {{ item }}
             </mat-chip>
           </mat-chip-list>
@@ -234,12 +186,8 @@
         <div fxLayout="row">
           <div mat-subheader>
             Requiere ingles
-            <mat-icon color="accent" *ngIf="ppGenerated.requireEnglish"
-              >check_circle</mat-icon
-            >
-            <mat-icon color="warn" *ngIf="!ppGenerated.requireEnglish"
-              >cancel</mat-icon
-            >
+            <mat-icon color="primary" *ngIf="ppGenerated.requireEnglish">check_circle</mat-icon>
+            <mat-icon color="warn" *ngIf="!ppGenerated.requireEnglish">cancel</mat-icon>
           </div>
           <mat-divider></mat-divider>
         </div>
@@ -257,9 +205,7 @@
         <table mat-table [dataSource]="professionalProfiles">
           <!-- Item Column -->
           <ng-container matColumnDef="JobTitle">
-            <th class="width-textArea" mat-header-cell *matHeaderCellDef>
-              Cargo
-            </th>
+            <th class="width-textArea" mat-header-cell *matHeaderCellDef>Cargo</th>
             <td class="width-textArea" mat-cell *matCellDef="let profile">
               {{ profile.jobTitle }}
             </td>
@@ -271,16 +217,8 @@
             <td mat-cell *matCellDef="let profile">{{ profile.location }}</td>
           </ng-container>
 
-          <tr
-            class="width-textArea"
-            mat-header-row
-            *matHeaderRowDef="displayedColumns"
-          ></tr>
-          <tr
-            class="width-textArea"
-            mat-row
-            *matRowDef="let row; columns: displayedColumns"
-          ></tr>
+          <tr class="width-textArea" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="width-textArea" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
           <!-- Cost Column -->
           <!-- <ng-container matColumnDef="Date">

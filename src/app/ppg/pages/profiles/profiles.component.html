@@ -1,9 +1,7 @@
 <ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner>
 <mat-card>
   <mat-card-header>
-    <mat-card-title
-      >¡Consulta tus perfiles profesionales generados!</mat-card-title
-    >
+    <mat-card-title>¡Consulta tus perfiles profesionales generados!</mat-card-title>
   </mat-card-header>
   <br />
   <mat-card-content>
@@ -27,32 +25,21 @@
               style="color: black"
             />
           </mat-date-range-input>
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-date-range-picker
-            #picker
-            disabled="false"
-          ></mat-date-range-picker>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field appearance="legacy">
-          <mat-icon color="warn" matSuffix>search</mat-icon>
-          <input
-            matInput
-            type="text"
-            placeholder="Titulo de trabajo"
-            [(ngModel)]="jobTitle"
-          />
+          <mat-icon color="primary" matSuffix>search</mat-icon>
+          <input matInput type="text" placeholder="Titulo de trabajo" [(ngModel)]="jobTitle" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field appearance="legacy">
-          <mat-icon color="warn" matSuffix> place</mat-icon>
+          <mat-icon color="primary" matSuffix> place</mat-icon>
           <input
             matInput
             type="text"
@@ -71,16 +58,11 @@
   ></mat-progress-bar> -->
 
   <mat-card-actions style="margin: 10px">
-    <button mat-raised-button color="accent" type="button" (click)="get()">
+    <button mat-raised-button color="primary" type="button" (click)="get()">
       <mat-icon matSuffix>search</mat-icon> Consultar
     </button>
 
-    <button
-      mat-raised-button
-      color="warn"
-      type="button"
-      (click)="downloadReport()"
-    >
+    <button mat-raised-button color="accent" type="button" (click)="downloadReport()">
       <mat-icon matSuffix>insert_drive_file</mat-icon> Descargar reporte
     </button>
   </mat-card-actions>
@@ -88,16 +70,11 @@
 
 <div>
   <mat-card-subtitle style="margin: 10px">{{
-    "Resultados(" + professionalProfiles.length + ")"
+    'Resultados(' + professionalProfiles.length + ')'
   }}</mat-card-subtitle>
 </div>
 
-<div
-  id="htmlProfiles"
-  fxLayout="row wrap"
-  fxLayoutGap="32px"
-  fxLayoutAlign="flex-start"
->
+<div id="htmlProfiles" fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="flex-start">
   <app-profile-card
     fxFlex="0 1 calc(33.3% - 32px)"
     style="padding-bottom: 20px"

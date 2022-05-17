@@ -3,11 +3,7 @@
   <mat-card-header>
     <mat-card-title>
       Tecnologías
-      <button
-        mat-stroked-button
-        color="primary"
-        (click)="save(dialogTechnology)"
-      >
+      <button mat-stroked-button color="primary" (click)="save(dialogTechnology)">
         <mat-icon>code</mat-icon>Nuevo
       </button></mat-card-title
     >
@@ -44,19 +40,19 @@
         <td mat-cell *matCellDef="let tecnology">
           <button
             mat-stroked-button
+            color="primary"
+            type="button"
+            (click)="edit(tecnology, dialogTechnology)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-stroked-button
             color="warn"
             type="button"
             (click)="delete(tecnology.technologyId)"
           >
             <mat-icon>delete</mat-icon>
-          </button>
-          <button
-            mat-stroked-button
-            color="accent"
-            type="button"
-            (click)="edit(tecnology, dialogTechnology)"
-          >
-            <mat-icon>edit</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -75,7 +71,7 @@
 
 <ng-template #dialogTechnology>
   <h2 mat-dialog-title>
-    {{ update ? "Editar Tecnología" : "Nueva Tecnología" }}
+    {{ update ? 'Editar Tecnología' : 'Nueva Tecnología' }}
   </h2>
   <mat-dialog-content>
     <form action="" [formGroup]="myForm">
@@ -103,12 +99,7 @@
       <div fxLayout="column" formArrayName="identifiers">
         <h3>
           Identificadores
-          <button
-            mat-button
-            type="button"
-            color="accent"
-            (click)="addIdentifier()"
-          >
+          <button mat-button color="primary" (click)="addIdentifier()">
             + Añadir identificador
           </button>
         </h3>
@@ -134,7 +125,7 @@
       [disabled]="myForm.invalid"
       [mat-dialog-close]="myForm.value"
     >
-      {{ update ? "Guardar cambios" : "Guardar" }}
+      {{ update ? 'Guardar cambios' : 'Guardar' }}
     </button>
   </mat-dialog-actions>
 </ng-template>
