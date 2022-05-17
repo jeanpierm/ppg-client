@@ -1,17 +1,18 @@
-<div fxLayout="row wrap">
-  <h1>Dashboard</h1>
-</div>
+<h1>Dashboard</h1>
+<p>
+  ❓ Aquí podrás encontrar información referente al número de tecnologías que has encontrado en tus
+  perfiles generados.
+</p>
 
 <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center center">
   <app-card
     fxFlex="1 1 calc(45% - 5px)"
     style="padding-bottom: 10px"
-    *ngFor="let card of cards | async"
+    *ngFor="let card of cards"
     title=" {{ card.title }}"
   >
-    <app-frameworks *ngIf="card.id == 1"></app-frameworks>
-    <app-lenguages *ngIf="card.id == 2"></app-lenguages>
-    <app-databases *ngIf="card.id == 3"></app-databases>
-    <app-tools *ngIf="card.id == 4"></app-tools>
+    <!-- TODO: Mostrar estado loading correctamente -->
+    <!-- TODO: Hacer layout responsive -->
+    <app-pie-chart [loading]="card.loading" [pieChartData]="card.chartData"></app-pie-chart>
   </app-card>
 </div>
