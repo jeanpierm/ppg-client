@@ -8,7 +8,7 @@ export class SweetAlert {
     this.msg = new Message();
   }
 
-  alert(type: String, text?: any) {
+  alert(type: string, text?: any) {
     if (type == 'success') {
       return this.successAlert(text);
     } else if (type == 'error') {

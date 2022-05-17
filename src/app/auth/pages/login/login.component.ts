@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -13,21 +14,15 @@ import { LoginRequest } from '../../interfaces/auth';
 })
 export class LoginComponent {
   static readonly PATH = 'login';
-  public hide: boolean;
-  public acceso: boolean;
-  public textLogin: String;
-  public alert: SweetAlert;
+  public hide: boolean = true;
+  public loading: boolean = false;
+  public alert: SweetAlert = new SweetAlert();
 
   constructor(
-    public authService: AuthService,
-    public accountService: AccountService,
+    private authService: AuthService,
+    private accountService: AccountService,
     private route: Router
-  ) {
-    this.hide = true;
-    this.acceso = false;
-    this.textLogin = 'Iniciar sesión';
-    this.alert = new SweetAlert();
-  }
+  ) {}
 
   async login(email: string, password: string) {
     if (email.trim().length === 0) {
@@ -45,6 +40,7 @@ export class LoginComponent {
       });
       return;
     }
+    this.loading = true;
 
     let loginRequest: LoginRequest = {
       email: email,
@@ -52,57 +48,55 @@ export class LoginComponent {
     };
 
     try {
-      this.textLogin = 'Accediendo...';
-      this.acceso = true;
-      const token = await firstValueFrom(this.authService.login(loginRequest));
-
+      await firstValueFrom(this.authService.login(loginRequest));
       const { data } = await firstValueFrom(this.accountService.getAccount());
       this.set('name', data.name);
       this.set('surname', data.surname);
       this.set('email', data.email);
       this.route.navigate(['/home']);
-    } catch (err: any) {
-      this.textLogin = 'Iniciar sesión';
-      this.acceso = false;
+      this.loading = false;
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.log(err);
+        this.loading = false;
 
-      if (err.status === 400) {
+        if (err.status === 400) {
+          Swal.fire({
+            title: 'Por favor, verifique los campos ingresados',
+            confirmButtonText: 'Aceptar',
+          });
+          return;
+        }
+
+        if (err.status === 404) {
+          Swal.fire({
+            title: 'No se encontró al usuario. Por favor, regístrese',
+            confirmButtonText: 'Aceptar',
+          });
+          return;
+        }
+
+        if (err.status === 401) {
+          Swal.fire({
+            title: 'El correo o contraseña no son correctos. Por favor, verifique sus credenciales',
+            confirmButtonText: 'Aceptar',
+          });
+          return;
+        }
+
+        if (err.status === 409) {
+          Swal.fire({
+            title: 'El correo electrónico ya ha sido registrado',
+            confirmButtonText: 'Aceptar',
+          });
+          return;
+        }
+
         Swal.fire({
-          title: 'Por favor, verifique los campos ingresados',
+          title: 'Ha ocurrido un error en el servidor. Por favor, vuelva a intentar más tarde',
           confirmButtonText: 'Aceptar',
         });
-        return;
       }
-
-      if (err.status === 404) {
-        Swal.fire({
-          title: 'No se encontró al usuario. Por favor, regístrese',
-          confirmButtonText: 'Aceptar',
-        });
-        return;
-      }
-
-      if (err.status === 401) {
-        Swal.fire({
-          title:
-            'El correo o contraseña no son correctos. Por favor, verifique sus credenciales',
-          confirmButtonText: 'Aceptar',
-        });
-        return;
-      }
-
-      if (err.status === 409) {
-        Swal.fire({
-          title: 'El correo electrónico ya ha sido registrado',
-          confirmButtonText: 'Aceptar',
-        });
-        return;
-      }
-
-      Swal.fire({
-        title:
-          'Ha ocurrido un error en el servidor. Por favor, vuelva a intentar más tarde',
-        confirmButtonText: 'Aceptar',
-      });
     }
   }
 

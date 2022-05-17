@@ -30,9 +30,9 @@ export class TechnologiesService {
   }
 
   loadTechnology(
-    sizePerPage: Number,
+    sizePerPage: number,
     pageIndex?: number,
-    search?: String
+    search?: string
   ): void {
     !this.fetchLoading && (this.fetchLoading = true);
 
@@ -52,7 +52,7 @@ export class TechnologiesService {
     });
   }
 
-  getTecnologies(queryString: String = ''): Observable<any> {
+  getTecnologies(queryString: string = ''): Observable<any> {
     //const url = environment.api + '/technologies';
     const url = `${environment.api}/technologies${queryString}`;
     const header = new HttpHeaders({
@@ -100,14 +100,14 @@ export class TechnologiesService {
     );
   }
 
-  // loadDeleteTechnology(technologyId: String) {
+  // loadDeleteTechnology(technologyId: string) {
   //   this.fetchLoading = true;
   //   this.deleteTechnology(technologyId).subscribe((res) => {
   //     //this.loadTechnology();
   //   });
   // }
 
-  deleteTechnology(technologyId: String) {
+  deleteTechnology(technologyId: string) {
     const url = environment.api + '/technologies/' + technologyId;
     const header = new HttpHeaders({
       'Content-type': 'application/json',

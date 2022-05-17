@@ -177,7 +177,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
     this.matDialogRef.close();
   }
 
-  delete(technologyId: String) {
+  delete(technologyId: string) {
     this.alert
       .dialogAlert('Esta seguro de eliminar esta tecnología?')
       .then((result) => {

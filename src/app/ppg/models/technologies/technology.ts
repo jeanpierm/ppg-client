@@ -1,9 +1,9 @@
 export class Technology {
   constructor(
-    public technologyId: String = '',
-    public type: String = '',
-    public name: String = '',
-    public identifiers: Array<String> = []
+    public technologyId: string = '',
+    public type: string = '',
+    public name: string = '',
+    public identifiers: Array<string> = []
   ) {
     //
   }

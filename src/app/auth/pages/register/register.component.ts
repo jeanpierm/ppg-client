@@ -158,8 +158,8 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  validatePassword(controlName: string): String {
-    let error: String = '';
+  validatePassword(controlName: string): string {
+    let error: string = '';
     const control = this.registerForm.get(controlName)?.value;
     if (
       control.toString().trim().length < 8 ||

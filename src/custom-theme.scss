@@ -15,8 +15,8 @@ $ppg-frontend-primary: mat.define-palette(mat.$indigo-palette);
 $ppg-frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$ppg-frontend-warn: mat.define-palette(mat.$yellow-palette, 800);
-$ppg-frontend-success: mat.define-palette(mat.$teal-palette, 700);
+$ppg-frontend-warn: mat.define-palette(mat.$red-palette);
+// $ppg-frontend-success: mat.define-palette(mat.$teal-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -24,7 +24,7 @@ $ppg-frontend-theme: mat.define-light-theme(
   (
     color: (
       primary: $ppg-frontend-primary,
-      accent: $ppg-frontend-success,
+      accent: $ppg-frontend-accent,
       warn: $ppg-frontend-warn,
     ),
   )

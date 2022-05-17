@@ -32,6 +32,10 @@ export class DashboardComponent implements OnInit {
   constructor(private professionalProfilesService: ProfessionalProfilesService) {}
 
   ngOnInit(): void {
+    this.loadCharts();
+  }
+
+  private loadCharts(): void {
     this.addChart('language', this.LANGUAGES_TITLE);
     this.addChart('database', this.DATABASES_TITLE);
     this.addChart('english', this.ENGLISH_TITLE);
@@ -42,7 +46,7 @@ export class DashboardComponent implements OnInit {
     this.addChart('tool', this.TOOLS_TITLE);
   }
 
-  private addChart(query: CountQuery, title: string) {
+  private addChart(query: CountQuery, title: string): void {
     this.professionalProfilesService.count(query).subscribe({
       next: (res) => {
         const chartData = mapCountResponseToChartData(res.data);

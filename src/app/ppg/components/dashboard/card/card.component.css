@@ -27,3 +27,8 @@ mat-card {
   display: flex;
   flex-direction: column;
 }
+
+/* .test {
+  display: flex;
+  justify-content: space-around;
+} */

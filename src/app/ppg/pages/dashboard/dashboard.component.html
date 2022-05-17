@@ -4,10 +4,12 @@
   perfiles generados.
 </p>
 
-<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center center">
+<div fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
   <app-card
-    fxFlex="1 1 calc(45% - 5px)"
-    style="padding-bottom: 10px"
+    fxFlex="25%"
+    fxFlex.lg="33%"
+    fxFlex.md="50%"
+    fxFlex.lt-md="100%"
     *ngFor="let card of cards"
     title=" {{ card.title }}"
   >
