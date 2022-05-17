@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 import { ProfessionalProfile } from '../../models/profiles/professional-profile';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
@@ -32,14 +33,22 @@ export class ProfilesComponent implements OnInit {
     return this.ppService.fetchLoading;
   }
 
-  constructor(private readonly ppService: ProfessionalProfilesService) {}
+  constructor(
+    private readonly ppService: ProfessionalProfilesService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.ppService.loadProfessionalProfiles();
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.professionalProfiles, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.professionalProfiles,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   get() {
@@ -55,4 +64,6 @@ export class ProfilesComponent implements OnInit {
   downloadReport() {
     alert('coming soon!');
   }
+
+  reLoad(event: Event) {}
 }

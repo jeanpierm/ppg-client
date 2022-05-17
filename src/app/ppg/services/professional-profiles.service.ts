@@ -1,4 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -7,6 +12,7 @@ import { GeneratePpgRequest } from '../models/profiles/generate-ppg';
 import { ProfessionalProfile } from '../models/profiles/professional-profile';
 import { ApiResponse } from '../../shared/models/api-response';
 import { AuthService } from '../../auth/services/auth.service';
+import { SweetAlert } from '../config/sweetAlert';
 import { CountQuery } from '../types/count-query.type';
 
 @Injectable({
@@ -17,27 +23,47 @@ export class ProfessionalProfilesService {
 
   responseConfig: ResponseConfig;
   professionalProfiles: ProfessionalProfile[] = [];
+  ppGenerated: ProfessionalProfile = new ProfessionalProfile();
   fetchLoading: boolean = true;
-
-  constructor(private http: HttpClient, private readonly authService: AuthService) {
+  public alert: SweetAlert = new SweetAlert();
+  constructor(
+    private http: HttpClient,
+    private readonly authService: AuthService
+  ) {
     this.responseConfig = new ResponseConfig();
   }
 
-  generate(data: GeneratePpgRequest): Observable<ApiResponse<ProfessionalProfile>> {
+  loadGenerate(data: GeneratePpgRequest): void {
+    !this.fetchLoading && (this.fetchLoading = true);
+    this.generate(data).subscribe({
+      next: (res) => {
+        this.fetchLoading = false;
+        this.ppGenerated = res.data;
+        this.alert.successAlert('Perfil profesional generado correctamente');
+      },
+      error: (err) => {
+        this.fetchLoading = false;
+        this.alert.errorAlert(err);
+      },
+    });
+  }
+
+  generate(
+    data: GeneratePpgRequest
+  ): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles';
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
-    return this.http.post<ApiResponse<ProfessionalProfile>>(url, data, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
+    const options = { headers: header };
+    return this.http
+      .post<ApiResponse<ProfessionalProfile>>(url, data, options)
+      .pipe(
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
   }
 
   loadProfessionalProfiles(
@@ -47,7 +73,12 @@ export class ProfessionalProfilesService {
     location?: string
   ): void {
     !this.fetchLoading && (this.fetchLoading = true);
-    this.getProfessionalProfiles(initDate, endDate, jobTitle, location).subscribe((res) => {
+    this.getProfessionalProfiles(
+      initDate,
+      endDate,
+      jobTitle,
+      location
+    ).subscribe((res) => {
       this.professionalProfiles = res.data;
       this.fetchLoading = false;
     });
@@ -109,7 +140,25 @@ export class ProfessionalProfilesService {
       Authorization: this.authService.accessToken,
     });
 
-    return this.http.get<ApiResponse<Record<string, number>>>(url.toString(), { headers }).pipe(
+    return this.http
+      .get<ApiResponse<Record<string, number>>>(url.toString(), { headers })
+      .pipe(
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
+  }
+
+  delete(ppId: String) {
+    const url = `${environment.api}/professional-profiles/${ppId}`;
+    const header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+
+    const options = { headers: header };
+
+    return this.http.delete<ApiResponse>(url, options).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })

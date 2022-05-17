@@ -169,7 +169,7 @@ export class RegisterComponent implements OnInit {
     } else if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
       error = 'La contraseña debe contener mayúsculas y munúsculas';
     } else if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
-      error = 'La contraseña debe al menos un valor numérico';
+      error = 'La contraseña debe contener al menos un valor numérico';
     } else if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
       error =
         'La contraseña debe contener al menos un caracter especial [$@$!%*?&.]';
