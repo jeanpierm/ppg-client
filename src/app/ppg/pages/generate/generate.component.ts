@@ -3,6 +3,7 @@ import { SweetAlert } from 'src/app/ppg/config/sweetAlert';
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 import { GeneratePpgRequest } from '../../models/profiles/generate-ppg';
 import { ProfessionalProfile } from '../../models/profiles/professional-profile';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-generate',
@@ -13,24 +14,32 @@ export class GenerateComponent implements OnInit {
   static readonly PATH = 'generar';
 
   public generatePpg: GeneratePpgRequest;
-  public loading: boolean = false;
   public displayedColumns: string[] = ['JobTitle', 'Location'];
-  public ppGenerated: ProfessionalProfile;
   public alert: SweetAlert;
 
-  constructor(public ppService: ProfessionalProfilesService) {
+  constructor(
+    public ppService: ProfessionalProfilesService,
+    private spinner: NgxSpinnerService
+  ) {
     this.generatePpg = new GeneratePpgRequest();
-    this.loading = false;
-    this.ppGenerated = new ProfessionalProfile();
     this.alert = new SweetAlert();
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.ppService.loadProfessionalProfiles();
   }
 
   get professionalProfiles(): ProfessionalProfile[] {
     return this.ppService.professionalProfiles;
+  }
+
+  get loading() {
+    return this.ppService.fetchLoading;
+  }
+
+  get ppGenerated() {
+    return this.ppService.ppGenerated;
   }
 
   isValidForm() {
@@ -51,34 +60,7 @@ export class GenerateComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-    this.ppService.generate(this.generatePpg).subscribe({
-      next: (res) => {
-        this.ppGenerated = res.data;
-        this.loading = false;
-        this.alert.successAlert('Perfil profesional generado correctamente');
-        this.ppService.loadProfessionalProfiles();
-      },
-      error: (err) => {
-        this.ppGenerated = new ProfessionalProfile();
-        this.loading = false;
-        this.alert.errorAlert(err);
-      },
-    });
+    this.ppService.loadGenerate(this.generatePpg);
     this.ppService.loadProfessionalProfiles();
-  }
-
-  getRadomProfile() {
-    this.loading = true;
-    this.ppService.getRadomProfile().subscribe({
-      next: (res) => {
-        this.ppGenerated = res.data;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.ppGenerated = new ProfessionalProfile();
-        this.loading = false;
-      },
-    });
   }
 }

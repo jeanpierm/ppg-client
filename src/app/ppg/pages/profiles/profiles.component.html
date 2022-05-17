@@ -1,3 +1,4 @@
+<ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner>
 <mat-card>
   <mat-card-header>
     <mat-card-title
@@ -63,11 +64,11 @@
     </mat-grid-list>
   </mat-card-content>
 
-  <mat-progress-bar
+  <!--   <mat-progress-bar
     color="accent"
     mode="indeterminate"
     *ngIf="loading"
-  ></mat-progress-bar>
+  ></mat-progress-bar> -->
 
   <mat-card-actions style="margin: 10px">
     <button mat-raised-button color="accent" type="button" (click)="get()">
@@ -87,7 +88,7 @@
 
 <div>
   <mat-card-subtitle style="margin: 10px">{{
-    'Resultados(' + professionalProfiles.length + ')'
+    "Resultados(" + professionalProfiles.length + ")"
   }}</mat-card-subtitle>
 </div>
 
@@ -102,5 +103,6 @@
     style="padding-bottom: 20px"
     *ngFor="let pp of professionalProfiles"
     [professionalProfile]="pp"
+    (reLoad)="get()"
   ></app-profile-card>
 </div>

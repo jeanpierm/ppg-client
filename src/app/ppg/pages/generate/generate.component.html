@@ -1,3 +1,4 @@
+<ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner>
 <mat-card>
   <mat-card-header>
     <mat-card-title>Generar perfil profesional</mat-card-title>
@@ -57,12 +58,6 @@
       Generar
     </button>
   </mat-card-actions>
-
-  <mat-progress-bar
-    color="accent"
-    mode="indeterminate"
-    *ngIf="loading"
-  ></mat-progress-bar>
 </mat-card>
 
 <div fxLayout="row">

@@ -12,6 +12,7 @@ import { GeneratePpgRequest } from '../models/profiles/generate-ppg';
 import { ProfessionalProfile } from '../models/profiles/professional-profile';
 import { ApiResponse } from '../../shared/models/api-response';
 import { AuthService } from '../../auth/services/auth.service';
+import { SweetAlert } from '../config/sweetAlert';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +20,29 @@ import { AuthService } from '../../auth/services/auth.service';
 export class ProfessionalProfilesService {
   responseConfig: ResponseConfig;
   professionalProfiles: ProfessionalProfile[] = [];
+  ppGenerated: ProfessionalProfile = new ProfessionalProfile();
   fetchLoading: boolean = true;
-
+  public alert: SweetAlert = new SweetAlert();
   constructor(
     private http: HttpClient,
     private readonly authService: AuthService
   ) {
     this.responseConfig = new ResponseConfig();
+  }
+
+  loadGenerate(data: GeneratePpgRequest): void {
+    !this.fetchLoading && (this.fetchLoading = true);
+    this.generate(data).subscribe({
+      next: (res) => {
+        this.fetchLoading = false;
+        this.ppGenerated = res.data;
+        this.alert.successAlert('Perfil profesional generado correctamente');
+      },
+      error: (err) => {
+        this.fetchLoading = false;
+        this.alert.errorAlert(err);
+      },
+    });
   }
 
   generate(
@@ -36,13 +53,10 @@ export class ProfessionalProfilesService {
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    let options = { headers: header };
+    const options = { headers: header };
     return this.http
       .post<ApiResponse<ProfessionalProfile>>(url, data, options)
       .pipe(
-        map((res) => {
-          return res;
-        }),
         catchError((err) => {
           throw this.responseConfig.handleError(err);
         })
@@ -173,6 +187,22 @@ export class ProfessionalProfilesService {
 
     return this.http.get<ApiResponse>(url, options).pipe(
       map((res) => res),
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  delete(ppId: String) {
+    const url = `${environment.api}/professional-profiles/${ppId}`;
+    const header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+
+    const options = { headers: header };
+
+    return this.http.delete<ApiResponse>(url, options).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })
