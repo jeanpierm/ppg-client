@@ -10,9 +10,11 @@
           <mat-label>Correo electrónico</mat-label>
           <input type="text" matInput formControlName="email" />
           <mat-error *ngIf="email?.hasError('required')">
+            <mat-icon>error</mat-icon>
             Por favor, ingrese su <strong>correo electrónico</strong>
           </mat-error>
           <mat-error *ngIf="email?.hasError('email')">
+            <mat-icon>error</mat-icon>
             Parece que el correo electrónico ingresado <strong>no es válido</strong>
           </mat-error>
         </mat-form-field>
@@ -29,6 +31,7 @@
             hide ? 'visibility_off' : 'visibility'
           }}</mat-icon>
           <mat-error *ngIf="password?.hasError('required')">
+            <mat-icon>error</mat-icon>
             Por favor, ingrese su <strong>contraseña</strong>
           </mat-error>
         </mat-form-field>
