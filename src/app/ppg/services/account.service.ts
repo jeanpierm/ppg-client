@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -18,14 +14,15 @@ export class AccountService {
   private _user: any;
   private responseConfig: ResponseConfig;
 
-  constructor(
-    private http: HttpClient,
-    private readonly authService: AuthService
-  ) {
+  constructor(private http: HttpClient, private readonly authService: AuthService) {
     this._user = localStorage.getItem('currentUser');
     this.responseConfig = new ResponseConfig();
   }
 
+  /**
+   *
+   * @returns los datos del usuario autenticado.
+   */
   getAccount(): Observable<ApiResponse<User>> {
     let url = environment.api + '/account';
     let header = new HttpHeaders({

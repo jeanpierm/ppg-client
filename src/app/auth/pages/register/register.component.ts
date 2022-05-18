@@ -19,28 +19,39 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   static readonly PATH = 'register';
 
-  public registerForm: FormGroup;
-  public hide: boolean;
-  public user: any;
+  hide: boolean = true;
   matcher = new GenericErrorStateMatcher();
+  registerForm: FormGroup = this.fb.group(
+    {
+      name: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
+      surname: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
+          ),
+        ],
+      ],
+      password2: ['', Validators.required],
+    },
+    {
+      validators: [this.equalPasswords('password', 'password2')],
+    }
+  );
 
   constructor(
     private authService: AuthService,
-    public fb: FormBuilder,
-    public accountService: AccountService,
+    private fb: FormBuilder,
+    private accountService: AccountService,
     private router: Router
-  ) {
-    this.hide = true;
-    this.registerForm = new FormGroup({});
-    this.user = {};
-  }
-
-  ngOnInit(): void {
-    this.initForm();
-  }
+  ) {}
 
   get name() {
     return this.registerForm.get('name');
@@ -62,51 +73,11 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('password2');
   }
 
-  initForm() {
-    this.registerForm = this.fb.group(
-      {
-        name: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/),
-          ],
-        ],
-        surname: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/),
-          ],
-        ],
-        email: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.pattern(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
-            ),
-          ],
-        ],
-        password2: ['', Validators.required],
-      },
-      {
-        validators: [this.equalPasswords('password', 'password2')],
-      }
-    );
-  }
-
   async register() {
     if (this.registerForm.invalid) {
-      Swal.fire({
-        title: 'Por favor, ingrese todos los campos correctamente',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-      });
       return;
     }
+
     const newUser = this.getUserFromForm();
     this.authService.register(newUser).subscribe({
       next: async (_) => {
@@ -116,14 +87,23 @@ export class RegisterComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.initForm();
+        this.registerForm.reset();
         const { data } = await firstValueFrom(this.accountService.getAccount());
         this.set('name', data.name);
         this.set('surname', data.surname);
         this.set('email', data.email);
         this.router.navigate(['/home']);
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        console.error(err);
+        if (err.status === 409) {
+          Swal.fire({
+            title: 'El correo electrónico ya ha sido registrado',
+            confirmButtonText: 'Aceptar',
+          });
+          return;
+        }
+      },
     });
   }
 
@@ -161,18 +141,14 @@ export class RegisterComponent implements OnInit {
   validatePassword(controlName: string): string {
     let error: string = '';
     const control = this.registerForm.get(controlName)?.value;
-    if (
-      control.toString().trim().length < 8 ||
-      control.toString().trim().length > 15
-    ) {
+    if (control.toString().trim().length < 8 || control.toString().trim().length > 15) {
       error = 'La contraseña debe contener mínimo 8 y máximo 15 caracteres';
     } else if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
-      error = 'La contraseña debe contener mayúsculas y munúsculas';
+      error = 'La contraseña debe contener mayúsculas y minúsculas';
     } else if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
       error = 'La contraseña debe contener al menos un valor numérico';
     } else if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
-      error =
-        'La contraseña debe contener al menos un caracter especial [$@$!%*?&.]';
+      error = 'La contraseña debe contener al menos un carácter especial [$@$!%*?&.]';
     }
 
     return error;

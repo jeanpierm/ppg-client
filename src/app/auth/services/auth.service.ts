@@ -19,11 +19,12 @@ export class AuthService {
   private readonly BEARER: string = 'Bearer';
 
   get accessToken() {
-    return localStorage.getItem(this.ACCESS_TOKEN_KEY) || '';
+    const jwt = localStorage.getItem(this.ACCESS_TOKEN_KEY);
+    return jwt ? `Bearer ${jwt}` : '';
   }
 
   set accessToken(tokenValue: string) {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, `${this.BEARER} ${tokenValue}`);
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, tokenValue);
   }
 
   constructor(private http: HttpClient) {}
