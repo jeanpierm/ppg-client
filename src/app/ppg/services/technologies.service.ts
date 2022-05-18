@@ -53,7 +53,6 @@ export class TechnologiesService {
   }
 
   getTecnologies(queryString: string = ''): Observable<any> {
-    //const url = environment.api + '/technologies';
     const url = `${environment.api}/technologies${queryString}`;
     const header = new HttpHeaders({
       'Content-type': 'application/json',
