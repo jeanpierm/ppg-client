@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UserDialogComponent } from '../../components/users/user-dialog/user-dialog.component';
 import { User } from '../../models/account/user';
 import { UsersService } from '../../services/users.service';
 
@@ -20,7 +22,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private readonly UsersService: UsersService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
   ) {}
 
   public get loading(): boolean {
@@ -34,5 +37,13 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     this.UsersService.loadUsers();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UserDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

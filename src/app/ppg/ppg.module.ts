@@ -20,6 +20,7 @@ import { PpgComponent } from './ppg.component';
 import { TechnologiesComponent } from './pages/technologies/technologies.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UsersComponent } from './pages/users/users.component';
+import { UserDialogComponent } from './components/users/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UsersComponent } from './pages/users/users.component';
     PieChartComponent,
     TechnologiesComponent,
     UsersComponent,
+    UserDialogComponent,
   ],
   imports: [
     CommonModule,
