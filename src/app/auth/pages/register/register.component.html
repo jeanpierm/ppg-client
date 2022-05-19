@@ -1,145 +1,100 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="space-evenly center">
-  <div fxFlex>
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title class="ppg-primary"> Regístrate! </mat-card-title>
-      </mat-card-header>
-      <form
-        class="example-form"
-        [formGroup]="registerForm"
-        (ngSubmit)="register()"
-      >
-        <mat-card-content fxLayout="column" fxLayoutGap="8px">
-          <mat-form-field
-            class="example-full-width"
-            appearance="fill"
-            floatLabel="always"
-          >
-            <mat-label>Nombres</mat-label>
-            <input
-              matInput
-              name="name"
-              id="name"
-              formControlName="name"
-              [errorStateMatcher]="matcher"
-            />
-            <mat-error *ngIf="name?.hasError('required')">
-              Por favor, ingrese sus <strong>nombres</strong>
-            </mat-error>
-          </mat-form-field>
+<div class="flex min-h-screen justify-evenly items-center flex-wrap">
+  <mat-card class="h-screen w-screen sm:h-auto sm:max-w-lg">
+    <form class="py-10 px-5" [formGroup]="registerForm" (ngSubmit)="register()">
+      <mat-card-title class="text-center text-3xl py-6 ppg-primary">Crea tu cuenta</mat-card-title>
 
-          <mat-form-field
-            class="example-full-width"
-            appearance="fill"
-            floatLabel="always"
-          >
-            <mat-label>Apellidos</mat-label>
-            <input
-              matInput
-              name="surname"
-              id="surname"
-              formControlName="surname"
-              [errorStateMatcher]="matcher"
-            />
-            <mat-error *ngIf="surname?.hasError('required')">
-              Por favor, ingrese sus <strong>apellidos</strong>
-            </mat-error>
-          </mat-form-field>
+      <mat-card-content class="flex flex-col">
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Nombres</mat-label>
+          <input matInput formControlName="name" [errorStateMatcher]="matcher" />
+          <mat-error *ngIf="name?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese sus <strong>nombres</strong>
+          </mat-error>
+        </mat-form-field>
 
-          <mat-form-field
-            class="example-full-width"
-            appearance="fill"
-            floatLabel="always"
-          >
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              name="email"
-              id="email"
-              formControlName="email"
-              [errorStateMatcher]="matcher"
-            />
-            <mat-error *ngIf="email?.hasError('required')">
-              Por favor, ingrese su <strong>correo electrónico</strong>
-            </mat-error>
-            <mat-error
-              *ngIf="email?.hasError('email') && !email?.hasError('required')"
-            >
-              Por favor, ingrese un correo electrónico <strong>válido</strong>
-            </mat-error>
-          </mat-form-field>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Apellidos</mat-label>
+          <input matInput formControlName="surname" [errorStateMatcher]="matcher" />
+          <mat-error *ngIf="surname?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese sus <strong>apellidos</strong>
+          </mat-error>
+        </mat-form-field>
 
-          <mat-form-field
-            class="example-full-width"
-            appearance="fill"
-            floatLabel="always"
-          >
-            <mat-label>Contraseña</mat-label>
-            <input
-              matInput
-              name="password"
-              [type]="hide ? 'password' : 'text'"
-              id="password"
-              formControlName="password"
-            />
-            <mat-icon matSuffix (click)="hide = !hide">{{
-              hide ? "visibility_off" : "visibility"
-            }}</mat-icon>
-            <mat-error *ngIf="password?.hasError('required')">
-              Por favor, ingrese su futura <strong>contraseña</strong>
-            </mat-error>
-            <mat-error *ngIf="password?.hasError('pattern')">
-              {{ validatePassword("password") }}
-            </mat-error>
-          </mat-form-field>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" [errorStateMatcher]="matcher" />
+          <mat-error *ngIf="email?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese su <strong>correo electrónico</strong>
+          </mat-error>
+          <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese un correo electrónico <strong>válido</strong>
+          </mat-error>
+        </mat-form-field>
 
-          <mat-form-field
-            class="example-full-width"
-            appearance="fill"
-            floatLabel="always"
-          >
-            <mat-label>Confirmar contraseña</mat-label>
-            <input
-              matInput
-              name="password2"
-              [type]="hide ? 'password' : 'text'"
-              id="password2"
-              formControlName="password2"
-            />
-            <mat-icon matSuffix (click)="hide = !hide">{{
-              hide ? "visibility_off" : "visibility"
-            }}</mat-icon>
-            <mat-error *ngIf="password?.hasError('required')">
-              Por favor, <strong>confirme</strong> su contraseña
-            </mat-error>
-            <mat-error *ngIf="registerForm.hasError('doNotMatch')">
-              Las contraseñas <strong>no coinciden</strong>
-            </mat-error>
-          </mat-form-field>
-        </mat-card-content>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+          <mat-error *ngIf="password?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese su futura <strong>contraseña</strong>
+          </mat-error>
+          <mat-error *ngIf="password?.hasError('pattern')">
+            <mat-icon>error</mat-icon>
+            {{ getPasswordValidationMessage() }}
+          </mat-error>
+        </mat-form-field>
 
-        <button type="submit" mat-raised-button class="btn-block button-login">
-          Registrarme
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Confirmar contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password2" />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+          <mat-error *ngIf="password?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, <strong>confirme</strong> su contraseña
+          </mat-error>
+          <mat-error *ngIf="registerForm.hasError('doNotMatch')">
+            <mat-icon>error</mat-icon>
+            Las contraseñas <strong>no coinciden</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button type="submit" mat-flat-button [disabled]="loading" color="primary" class="w-full">
+          {{ loading ? 'Accediendo...' : 'Registrarme' }}
         </button>
 
-        <mat-card-header>
-          <a routerLink="/auth/login" routerLinkActive="active">
-            <small> <strong>INICIAR SESIÓN</strong> </small>
-          </a>
-        </mat-card-header>
-      </form>
-    </mat-card>
-  </div>
+        <div class="text-center mt-6">
+          <p>
+            ¿No tienes cuenta?
+            <a routerLink="/auth/login" class="hover:underline text-primary focus:text-red-700">
+              <strong>INICIAR SESIÓN</strong>
+            </a>
+          </p>
+        </div>
+      </mat-card-actions>
+    </form>
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
 
-  <div fxFlex>
+  <div class="hidden sm:block w-1/2 p-10 animate__animated animate__fadeInDown">
     <img
-      width="600"
-      height="430"
-      src="../../../../assets/illustrations/ppg.png"
+      class="mb-5 w-full h-3/4"
+      src="../../../../assets/illustrations/javascript_frameworks.svg"
     />
-    <mat-card-subtitle style="margin: 10px"
-      >Descubre y gestiona los <strong>perfiles profesionales</strong> más
-      solicitados!
-    </mat-card-subtitle>
+    <p class="text-center lg:text-left text-lg">
+      Descubre y gestiona los <strong>perfiles profesionales</strong> más solicitados!
+    </p>
   </div>
 </div>

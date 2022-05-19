@@ -1,9 +1,7 @@
 <div class="flex min-h-screen justify-evenly items-center flex-wrap">
-  <mat-card class="h-screen sm:h-3/4 w-screen sm:w-auto">
+  <mat-card class="h-screen w-screen sm:h-auto sm:max-w-lg">
     <form class="py-10 px-5" [formGroup]="loginForm" (ngSubmit)="login()">
-      <mat-card-title class="text-center text-3xl py-6">
-        HOLA, <span class="ppg-primary">BIENVENIDO</span>
-      </mat-card-title>
+      <mat-card-title class="text-center text-3xl py-6 ppg-primary">Bienvenido</mat-card-title>
 
       <mat-card-content class="flex flex-col">
         <mat-form-field class="w-full" appearance="outline" hideRequiredMarker>
@@ -38,9 +36,10 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-flat-button [disabled]="loading" color="primary" class="w-full">
+        <button type="submit" mat-flat-button [disabled]="loading" color="primary" class="w-full">
           {{ loading ? 'Accediendo...' : 'Iniciar sesión' }}
         </button>
+
         <div class="text-center mt-6">
           <p>
             ¿No tienes cuenta?
@@ -56,7 +55,7 @@
     </mat-card-footer>
   </mat-card>
 
-  <div class="hidden sm:block w-1/2 p-10">
+  <div class="hidden sm:block w-1/2 p-10 animate__animated animate__fadeInRight">
     <img class="mb-5 w-full" src="../../../../assets/illustrations/ppg.png" />
     <p class="text-center lg:text-left text-lg">
       Descubre y gestiona los <strong>perfiles profesionales</strong> más solicitados!

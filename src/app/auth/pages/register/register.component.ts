@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { AccountService } from 'src/app/ppg/services/account.service';
 import { GenericErrorStateMatcher } from 'src/app/shared/error-state-matcher';
 import Swal from 'sweetalert2';
+import {
+  setUserDataInLocalStorage,
+  showErrorAlert,
+  validateTwoFormControlsAreEquals,
+} from '../../../shared/utils';
 import { RegisterRequest } from '../../interfaces/auth';
 import { AuthService } from '../../services/auth.service';
 
@@ -23,6 +22,7 @@ export class RegisterComponent {
   static readonly PATH = 'register';
 
   hide: boolean = true;
+  loading: boolean = false;
   matcher = new GenericErrorStateMatcher();
   registerForm: FormGroup = this.fb.group(
     {
@@ -42,7 +42,7 @@ export class RegisterComponent {
       password2: ['', Validators.required],
     },
     {
-      validators: [this.equalPasswords('password', 'password2')],
+      validators: [validateTwoFormControlsAreEquals('password', 'password2')],
     }
   );
 
@@ -74,33 +74,33 @@ export class RegisterComponent {
   }
 
   async register() {
-    if (this.registerForm.invalid) {
-      return;
-    }
+    if (this.registerForm.invalid) return;
 
-    const newUser = this.getUserFromForm();
+    this.loading = true;
+    const newUser: RegisterRequest = this.getUserFromForm();
+
     this.authService.register(newUser).subscribe({
-      next: async (_) => {
+      next: async () => {
         Swal.fire({
           icon: 'success',
-          title: 'Se ha registrado correctamente',
+          title: 'Se ha registrado exitosamente.',
           showConfirmButton: false,
           timer: 1500,
         });
-        this.registerForm.reset();
-        const { data } = await firstValueFrom(this.accountService.getAccount());
-        this.set('name', data.name);
-        this.set('surname', data.surname);
-        this.set('email', data.email);
-        this.router.navigate(['/home']);
+        // this.registerForm.reset();
+        this.accountService.getAccount().subscribe({
+          next: ({ data }) => {
+            setUserDataInLocalStorage(data);
+            this.router.navigate(['/home']).then(() => {
+              this.loading = false;
+            });
+          },
+        });
       },
       error: (err) => {
-        console.error(err);
-        if (err.status === 409) {
-          Swal.fire({
-            title: 'El correo electrónico ya ha sido registrado',
-            confirmButtonText: 'Aceptar',
-          });
+        this.loading = false;
+        if (err instanceof HttpErrorResponse) {
+          showErrorAlert(registerErrors[err.status]);
           return;
         }
       },
@@ -112,45 +112,24 @@ export class RegisterComponent {
     return { name, email, surname, password };
   }
 
-  equalPasswords(controlName1: string, controlName2: string) {
-    return function (formGroup: AbstractControl): ValidationErrors | null {
-      const control1 = formGroup.get(controlName1);
-      const control2 = formGroup.get(controlName2);
-      // debugger;
-      if (control2?.errors && !control2?.errors['doNotMatch']) {
-        return null;
-      }
-      if (control1?.value !== control2?.value) {
-        const errors = { doNotMatch: true };
-        control2?.setErrors({ ...control2?.errors, ...errors });
-        return errors;
-      }
-      control2?.setErrors(null);
-      return null;
-    };
-  }
-
-  set(key: string, data: string) {
-    try {
-      localStorage.setItem(key, data);
-    } catch (e) {
-      console.log(e);
+  getPasswordValidationMessage(): string | void {
+    const control = this.registerForm.get('password')?.value;
+    if (!control) return;
+    if (control.toString().trim().length < 8 || control.toString().trim().length > 30) {
+      return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
     }
-  }
-
-  validatePassword(controlName: string): string {
-    let error: string = '';
-    const control = this.registerForm.get(controlName)?.value;
-    if (control.toString().trim().length < 8 || control.toString().trim().length > 15) {
-      error = 'La contraseña debe contener mínimo 8 y máximo 15 caracteres';
-    } else if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
-      error = 'La contraseña debe contener mayúsculas y minúsculas';
-    } else if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
-      error = 'La contraseña debe contener al menos un valor numérico';
-    } else if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
-      error = 'La contraseña debe contener al menos un carácter especial [$@$!%*?&.]';
+    if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
+      return 'La contraseña debe contener mayúsculas y minúsculas';
     }
-
-    return error;
+    if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
+      return 'La contraseña debe contener al menos un valor numérico';
+    }
+    if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
+      return 'La contraseña debe contener al menos un carácter especial [$@$!%*?&.]';
+    }
   }
 }
+
+const registerErrors = {
+  409: 'El correo electrónico ya está registrado.',
+};
