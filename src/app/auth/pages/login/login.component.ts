@@ -1,26 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { AccountService } from 'src/app/ppg/services/account.service';
-import Swal from 'sweetalert2';
 import { SweetAlert } from '../../../ppg/config/sweetAlert';
-import { User } from '../../../ppg/models/account/user';
-import {
-  isEmpty,
-  setUserDataInLocalStorage,
-  showAlert,
-  showErrorAlert,
-} from '../../../shared/utils';
+import { setUserDataInLocalStorage, showErrorAlert } from '../../../shared/utils';
 import { LoginRequest } from '../../interfaces/auth';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   static readonly PATH = 'login';
 
   hide: boolean = true;
@@ -46,17 +39,10 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  ngOnInit(): void {
-    console.log('init');
-  }
-
   async login() {
-    if (this.loginForm.invalid) {
-      return;
-    }
+    if (this.loginForm.invalid) return;
 
     this.loading = true;
-
     const loginRequest: LoginRequest = {
       email: this.email?.value,
       password: this.password?.value,
@@ -76,22 +62,15 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         this.loading = false;
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 400 || err.status === 401) {
-            showErrorAlert(
-              'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.'
-            );
-            return;
-          }
-
-          if (err.status === 404) {
-            showErrorAlert('No se encontró al usuario. Por favor, regístrese.');
-            return;
-          }
-
-          showErrorAlert();
+          showErrorAlert(loginErrors[err.status]);
           return;
         }
       },
     });
   }
 }
+
+const loginErrors = {
+  400: 'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.',
+  401: 'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.',
+};
