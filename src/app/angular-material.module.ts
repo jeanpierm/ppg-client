@@ -20,6 +20,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 const materialModules = [
   MatButtonModule,
@@ -42,6 +44,8 @@ const materialModules = [
   MatDialogModule,
   MatSelectModule,
   MatPaginatorModule,
+  MatRadioModule,
+  MatButtonToggleModule,
 ];
 @NgModule({
   imports: [CommonModule, ...materialModules],

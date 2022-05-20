@@ -25,6 +25,22 @@ export class UserDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  get name() {
+    return this.user_form.get('name');
+  }
+
+  get surname() {
+    return this.user_form.get('surname');
+  }
+
+  get email() {
+    return this.user_form.get('email');
+  }
+
+  get password() {
+    return this.user_form.get('password');
+  }
+
   onForm() {
     this.user_form = this.fb.group({
       name: ['', Validators.required],
@@ -40,6 +56,14 @@ export class UserDialogComponent implements OnInit {
           ),
         ],
       ],
+      rol: ['user', [Validators.required]],
     });
+  }
+
+  get passwordMsg() {
+    return `• La contraseña debe contener mínimo 8 y máximo 30 caracteres. \n 
+    • La contraseña debe contener mayúsculas y minúsculas \n 
+    • La contraseña debe contener al menos un valor numérico \n
+    • La contraseña debe contener al menos un carácter especial [$@$!%*?&.]`;
   }
 }

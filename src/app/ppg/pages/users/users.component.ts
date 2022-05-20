@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { dialogAlert, showAlert, showErrorAlert } from 'src/app/shared/utils';
 import { UserDialogComponent } from '../../components/users/user-dialog/user-dialog.component';
 import { User } from '../../models/account/user';
 import { UsersService } from '../../services/users.service';
@@ -44,6 +46,50 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+      if (result) {
+        let user: User = result;
+        user.roles = [result.rol];
+        this.UsersService.saveUser(user).subscribe({
+          next: (_) => {
+            this.UsersService.loadUsers();
+            showAlert('Cuenta creada correctamente!');
+          },
+          error: (err) => {
+            showErrorAlert(err);
+          },
+        });
+      }
+    });
+  }
+
+  inactive(userId: string) {
+    this.UsersService.fetchLoading = true;
+    dialogAlert('Esta seguro de inactivar esta cuenta?').then((result) => {
+      if (result) {
+        if (result.isConfirmed) {
+          this.UsersService.inactive(userId).subscribe({
+            next: (_) => this.UsersService.loadUsers(),
+            error: (err) => showErrorAlert(err),
+          });
+        }
+      }
+    });
+  }
+
+  active(userId: string) {
+    this.UsersService.fetchLoading = true;
+    dialogAlert('Esta seguro de activar esta cuenta?').then((result) => {
+      if (result) {
+        if (result.isConfirmed) {
+          this.UsersService.active(userId).subscribe({
+            next: (_) => this.UsersService.loadUsers(),
+            error: (err) => {
+              showErrorAlert(err);
+              this.UsersService.fetchLoading = false;
+            },
+          });
+        }
+      }
     });
   }
 }
