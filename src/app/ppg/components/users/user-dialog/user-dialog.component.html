@@ -1,0 +1,84 @@
+<h1 mat-dialog-title>Nuevo usuario</h1>
+<mat-dialog-content>
+  <form action="" class="py-5 px-2" [formGroup]="user_form">
+    <div class="flex flex-col">
+      <section class="py-2">
+        <label for="">Rol: </label>
+        <mat-radio-group name="rol" id="rol" formControlName="rol">
+          <mat-radio-button class="px-2" value="user">User</mat-radio-button>
+          <mat-radio-button class="px-2" value="admin">Admin</mat-radio-button>
+        </mat-radio-group>
+      </section>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Nombres</mat-label>
+        <input matInput name="name" id="name" formControlName="name" />
+        <mat-error *ngIf="name?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          Este campo es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Apellidos</mat-label>
+        <input matInput name="surname" id="surname" formControlName="surname" />
+        <mat-error *ngIf="surname?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          Este campo es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" id="email" formControlName="email" />
+        <mat-error *ngIf="email?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          Este campo es requerido
+        </mat-error>
+        <mat-error *ngIf="email?.hasError('email')">
+          <mat-icon>error</mat-icon>
+          Correo invalido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          name="password"
+          id="password"
+          formControlName="password"
+        />
+
+        <mat-icon
+          matSuffix
+          [matTooltip]="passwordMsg"
+          matTooltipClass="line-broken-tooltip"
+          >error</mat-icon
+        >
+
+        <mat-error *ngIf="password?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          Este campo es requerido
+        </mat-error>
+        <mat-error *ngIf="password?.hasError('pattern')">
+          <mat-icon>error</mat-icon>
+          Contraseña invalida
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex justify-end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    type="button"
+    mat-raised-button
+    color="primary"
+    [disabled]="user_form.invalid"
+    [mat-dialog-close]="user_form.value"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>

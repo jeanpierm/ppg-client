@@ -29,7 +29,7 @@ export class ResponseConfig {
 
       default: {
         return error.message
-          ? `Unknown Server Error: ${error.message}`
+          ? `Unknown Server Error: ${error.error.message}`
           : 'Ha ocurrido un error';
       }
     }

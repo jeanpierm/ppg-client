@@ -1,59 +1,38 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ApiResponse } from 'src/app/shared/models/api-response';
 import { environment } from 'src/environments/environment';
 import { ResponseConfig } from '../config/response-config';
-import { Technology } from '../models/technologies/technology';
+import { User } from '../models/account/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TechnologiesService {
+export class UsersService {
   responseConfig: ResponseConfig;
-  fetchLoading: boolean = true;
-  public technologies: Array<Technology>;
-  public resultsLength = 0;
+  public users: User[];
+  public fetchLoading: boolean = true;
 
   constructor(
     private http: HttpClient,
     private readonly authService: AuthService
   ) {
     this.responseConfig = new ResponseConfig();
-    this.technologies = [];
+    this.users = [];
   }
 
-  loadTechnology(
-    sizePerPage: number,
-    pageIndex?: number,
-    search?: string
-  ): void {
+  loadUsers() {
     !this.fetchLoading && (this.fetchLoading = true);
-
-    let qs = `?size=${sizePerPage}`;
-    if (pageIndex) {
-      qs += `&page=${pageIndex + 1}`;
-    }
-
-    if (search) {
-      qs += `&search=${search}`;
-    }
-
-    this.getTecnologies(qs).subscribe((res) => {
-      this.technologies = res.data;
-      this.resultsLength = res.totalItems;
+    this.getUser().subscribe((res) => {
+      this.users = res.data;
       this.fetchLoading = false;
     });
   }
 
-  getTecnologies(queryString: string = ''): Observable<any> {
-    const url = `${environment.api}/technologies${queryString}`;
+  getUser(queryString: string = ''): Observable<any> {
+    const url = `${environment.api}/users${queryString}`;
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
@@ -67,54 +46,47 @@ export class TechnologiesService {
     );
   }
 
-  saveTechnology(technology: Technology) {
-    const url = environment.api + '/technologies';
-    const body = technology;
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
-    const option = { headers: header };
-
-    return this.http.post<ApiResponse>(url, body, option).pipe(
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
-  }
-
-  updateTechnology(technology: Technology) {
-    const url = `${environment.api}/technologies/${technology.technologyId}`;
-    const body = technology;
+  saveUser(user: User) {
+    const url = `${environment.api}/users`;
+    const body = user;
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
     const options = { headers: header };
 
-    return this.http.patch<ApiResponse>(url, body, options).pipe(
+    return this.http.post<ApiResponse>(url, body, options).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })
     );
   }
 
-  // loadDeleteTechnology(technologyId: string) {
-  //   this.fetchLoading = true;
-  //   this.deleteTechnology(technologyId).subscribe((res) => {
-  //     //this.loadTechnology();
-  //   });
-  // }
-
-  deleteTechnology(technologyId: string) {
-    const url = environment.api + '/technologies/' + technologyId;
+  inactive(userId: string) {
+    const url = `${environment.api}/users/${userId}`;
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
-    const option = { headers: header };
+    const options = { headers: header };
 
-    return this.http.delete(url, option).pipe(
+    return this.http.delete<ApiResponse>(url, options).pipe(
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
+  }
+
+  active(userId: string) {
+    const url = `${environment.api}/users/${userId}`;
+    const body = {};
+    const header = new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.authService.accessToken,
+    });
+    const options = { headers: header };
+
+    return this.http.post<ApiResponse>(url, body, options).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })

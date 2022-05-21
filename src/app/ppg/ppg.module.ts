@@ -19,6 +19,8 @@ import { PpgRoutingModule } from './ppg-routing.module';
 import { PpgComponent } from './ppg.component';
 import { TechnologiesComponent } from './pages/technologies/technologies.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UsersComponent } from './pages/users/users.component';
+import { UserDialogComponent } from './components/users/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CardComponent,
     PieChartComponent,
     TechnologiesComponent,
+    UsersComponent,
+    UserDialogComponent,
   ],
   imports: [
     CommonModule,

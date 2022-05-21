@@ -3,7 +3,10 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { User } from '../ppg/models/account/user';
 import { DEFAULT_ERROR_MESSAGE, DEFAULT_SUCCESS_MESSAGE } from './constants';
 
-export function deleteObjectItemsByValue(object: Record<string, number>, value: number) {
+export function deleteObjectItemsByValue(
+  object: Record<string, number>,
+  value: number
+) {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
     if (result[key] === value) delete result[key];
@@ -23,6 +26,14 @@ export function showErrorAlert(title: string = DEFAULT_ERROR_MESSAGE) {
   return showAlert(title, 'error');
 }
 
+export function dialogAlert(title: string) {
+  return Swal.fire({
+    text: title,
+    showCancelButton: true,
+    confirmButtonText: 'Aceptar',
+  });
+}
+
 export function isEmpty(s: string): boolean {
   if (!s) return true;
   return s.trim().length === 0;
@@ -34,7 +45,10 @@ export function setUserDataInLocalStorage(user: User): void {
   localStorage.setItem('email', user.email);
 }
 
-export function validateTwoFormControlsAreEquals(controlName1: string, controlName2: string) {
+export function validateTwoFormControlsAreEquals(
+  controlName1: string,
+  controlName2: string
+) {
   return function (formGroup: AbstractControl): ValidationErrors | null {
     const control1 = formGroup.get(controlName1);
     const control2 = formGroup.get(controlName2);
