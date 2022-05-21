@@ -1,9 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,20 +16,19 @@ import { CountQuery } from '../types/count-query.type';
 export class ProfessionalProfilesService {
   readonly QUERY_COUNT_KEY = 'q';
 
-  responseConfig: ResponseConfig;
+  responseConfig: ResponseConfig = new ResponseConfig();
   professionalProfiles: ProfessionalProfile[] = [];
   ppGenerated: ProfessionalProfile = new ProfessionalProfile();
   fetchLoading: boolean = true;
-  public alert: SweetAlert = new SweetAlert();
-  constructor(
-    private http: HttpClient,
-    private readonly authService: AuthService
-  ) {
-    this.responseConfig = new ResponseConfig();
-  }
+  alert: SweetAlert = new SweetAlert();
+
+  constructor(private http: HttpClient, private readonly authService: AuthService) {}
 
   loadGenerate(data: GeneratePpgRequest): void {
-    !this.fetchLoading && (this.fetchLoading = true);
+    if (!this.fetchLoading) {
+      this.fetchLoading = true;
+    }
+
     this.generate(data).subscribe({
       next: (res) => {
         this.fetchLoading = false;
@@ -48,22 +42,18 @@ export class ProfessionalProfilesService {
     });
   }
 
-  generate(
-    data: GeneratePpgRequest
-  ): Observable<ApiResponse<ProfessionalProfile>> {
+  generate(data: GeneratePpgRequest): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles';
     const header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
     const options = { headers: header };
-    return this.http
-      .post<ApiResponse<ProfessionalProfile>>(url, data, options)
-      .pipe(
-        catchError((err) => {
-          throw this.responseConfig.handleError(err);
-        })
-      );
+    return this.http.post<ApiResponse<ProfessionalProfile>>(url, data, options).pipe(
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
   }
 
   loadProfessionalProfiles(
@@ -73,12 +63,7 @@ export class ProfessionalProfilesService {
     location?: string
   ): void {
     !this.fetchLoading && (this.fetchLoading = true);
-    this.getProfessionalProfiles(
-      initDate,
-      endDate,
-      jobTitle,
-      location
-    ).subscribe((res) => {
+    this.getProfessionalProfiles(initDate, endDate, jobTitle, location).subscribe((res) => {
       this.professionalProfiles = res.data;
       this.fetchLoading = false;
     });
@@ -140,13 +125,11 @@ export class ProfessionalProfilesService {
       Authorization: this.authService.accessToken,
     });
 
-    return this.http
-      .get<ApiResponse<Record<string, number>>>(url.toString(), { headers })
-      .pipe(
-        catchError((err) => {
-          throw this.responseConfig.handleError(err);
-        })
-      );
+    return this.http.get<ApiResponse<Record<string, number>>>(url.toString(), { headers }).pipe(
+      catchError((err) => {
+        throw this.responseConfig.handleError(err);
+      })
+    );
   }
 
   delete(ppId: String) {

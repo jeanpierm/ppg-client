@@ -1,20 +1,55 @@
+<!-- <ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner> -->
 <h1>Dashboard</h1>
-<p>
+<p class="mb-5">
   ❓ Aquí podrás encontrar información referente al número de tecnologías que has encontrado en tus
   perfiles generados.
 </p>
 
 <div fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
+  <ul>
+    <div *ngFor="let item of charts | keyvalue">{{ item.key }}:{{ item.value | json }}</div>
+  </ul>
+  <!-- <app-card
+    fxFlex="25%"
+    fxFlex.lg="33%"
+    fxFlex.md="50%"
+    fxFlex.lt-md="100%"
+    *ngFor="let chart of charts"
+    title=" {{ charts[chart].title }}"
+  > -->
+  <!-- TODO: Mostrar estado loading correctamente -->
+  <!-- TODO: Hacer layout responsive -->
+  <!-- <app-pie-chart
+      *ngIf="!!card.chartData.labels?.length; else elseBlock"
+      [loading]="card.loading"
+      [pieChartData]="card.chartData"
+    ></app-pie-chart>
+
+    <ng-template #elseBlock>
+      <p>¡Aún no has registrado perfiles con {{ card.title | lowercase }}! 😟</p>
+      <p>Para generar un perfil profesional ideal, por favor, ve a la opción "Generar perfil".</p>
+    </ng-template>
+ </app-card> -->
+
+  <!-- <app-card
+    fxFlex="25%"
+    fxFlex.lg="33%"
+    fxFlex.md="50%"
+    fxFlex.lt-md="100%"
+    title="Lenguajes de programación"
+    [loading]="languagesLoading"
+  >
+    <app-pie-chart [pieChartData]="languagesChartData"></app-pie-chart>
+  </app-card>
+
   <app-card
     fxFlex="25%"
     fxFlex.lg="33%"
     fxFlex.md="50%"
     fxFlex.lt-md="100%"
-    *ngFor="let card of cards"
-    title=" {{ card.title }}"
+    title="Bases de datos"
+    [loading]="databasesLoading"
   >
-    <!-- TODO: Mostrar estado loading correctamente -->
-    <!-- TODO: Hacer layout responsive -->
-    <app-pie-chart [loading]="card.loading" [pieChartData]="card.chartData"></app-pie-chart>
-  </app-card>
+    <app-pie-chart [pieChartData]="databasesChartData"></app-pie-chart>
+  </app-card> -->
 </div>

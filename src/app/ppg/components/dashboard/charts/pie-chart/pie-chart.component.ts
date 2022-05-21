@@ -18,7 +18,6 @@ import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-p
 })
 export class PieChartComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-  @Input() loading: boolean = true;
   @Input() pieChartData!: ChartData<'pie', number[], string | string[]>;
 
   // Pie
