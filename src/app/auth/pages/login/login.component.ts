@@ -73,4 +73,5 @@ export class LoginComponent {
 const loginErrors = {
   400: 'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.',
   401: 'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.',
+  404: 'No se encontró su cuenta. Por favor, regístrese.',
 };

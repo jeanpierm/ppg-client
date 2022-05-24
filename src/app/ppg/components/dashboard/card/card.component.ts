@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
   @Input() title!: string;
-  @Input() loading: boolean = true;
+  @Input() loading!: boolean;
 }

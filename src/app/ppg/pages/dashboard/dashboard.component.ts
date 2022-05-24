@@ -8,6 +8,7 @@ import { CountQuery } from '../../types/count-query.type';
 interface TechnologyPieChart {
   title?: string;
   data?: ChartData<'pie', number[], string | string[]>;
+  loading: boolean;
 }
 
 @Component({
@@ -18,47 +19,38 @@ interface TechnologyPieChart {
 export class DashboardComponent implements OnInit {
   static readonly PATH = 'dashboard';
 
-  // readonly LANGUAGES_TITLE = 'Lenguajes de programación';
-  // readonly DATABASES_TITLE = 'Bases de datos';
-  // readonly ENGLISH_TITLE = 'Requiere inglés';
-  // readonly FRAMEWORKS_TITLE = 'Frameworks';
-  // readonly LIBRARIES_TITLE = 'Librerías';
-  // readonly PARADIGMS_TITLE = 'Paradigmas';
-  // readonly PATTERNS_TITLE = 'Patrones de diseño';
-  // readonly TOOLS_TITLE = 'Herramientas de desarrollo';
-
-  // cards: TechnologyPieChart[] = [];
-
-  // languagesChartData: ChartData<'pie', number[], string | string[]> = { labels: [], datasets: [] };
-  // databasesChartData: ChartData<'pie', number[], string | string[]> = { labels: [], datasets: [] };
-
-  // languagesLoading: boolean = true;
-  // databasesLoading: boolean = true;
-
   charts: Record<CountQuery, TechnologyPieChart> = {
     language: {
       title: 'Lenguajes de programación',
+      loading: true,
     },
     database: {
       title: 'Bases de datos',
-    },
-    english: {
-      title: 'Inglés',
+      loading: true,
     },
     framework: {
       title: 'Frameworks',
+      loading: true,
     },
     library: {
       title: 'Librerías',
+      loading: true,
     },
     paradigm: {
-      title: 'Paradigm',
+      title: 'Paradigmas',
+      loading: true,
     },
     pattern: {
       title: 'Patrones de diseño',
+      loading: true,
     },
     tool: {
       title: 'Herramientas de desarrollo',
+      loading: true,
+    },
+    english: {
+      title: 'Inglés',
+      loading: true,
     },
   };
 
@@ -69,49 +61,23 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadCharts(): void {
-    // this.professionalProfilesService.count('language').subscribe({
-    //   next: (res) => {
-    //     const chartData = mapCountResponseToChartData(res.data);
-    //     this.languagesChartData = chartData;
-    //     this.languagesLoading = false;
-    //   },
-    // });
-
-    // this.professionalProfilesService.count('database').subscribe({
-    //   next: (res) => {
-    //     const chartData = mapCountResponseToChartData(res.data);
-    //     this.databasesChartData = chartData;
-    //     this.databasesLoading = false;
-    //   },
-    // });
-    // this.addChart('language', this.LANGUAGES_TITLE);
-    // this.addChart('database', this.DATABASES_TITLE);
-    // this.addChart('english', this.ENGLISH_TITLE);
-    // this.addChart('framework', this.FRAMEWORKS_TITLE);
-    // this.addChart('library', this.LIBRARIES_TITLE);
-    // this.addChart('paradigm', this.PARADIGMS_TITLE);
-    // this.addChart('pattern', this.PATTERNS_TITLE);
-    // this.addChart('tool', this.TOOLS_TITLE);
-
-    this.addChart('language');
-    this.addChart('database');
-    this.addChart('english');
-    this.addChart('framework');
-    this.addChart('library');
-    this.addChart('paradigm');
-    this.addChart('pattern');
-    this.addChart('tool');
+    this.loadChart('language');
+    this.loadChart('database');
+    this.loadChart('english');
+    this.loadChart('framework');
+    this.loadChart('library');
+    this.loadChart('paradigm');
+    this.loadChart('pattern');
+    this.loadChart('tool');
   }
 
-  private addChart(query: CountQuery, title?: string) {
+  private loadChart(query: CountQuery) {
+    if (!this.charts[query].loading) this.charts[query].loading = true;
     this.professionalProfilesService.count(query).subscribe({
       next: (res) => {
         const chartData = mapCountResponseToChartData(res.data);
-        // this.cards.push({
-        //   chartData,
-        //   title,
-        // });
         this.charts[query].data = chartData;
+        this.charts[query].loading = false;
       },
       error: (err) => {
         console.error(err);
