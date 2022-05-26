@@ -14,6 +14,7 @@ export class UsersService {
   responseConfig: ResponseConfig;
   public users: User[];
   public fetchLoading: boolean = true;
+  public resultsLength = 0;
 
   constructor(
     private http: HttpClient,
@@ -23,10 +24,21 @@ export class UsersService {
     this.users = [];
   }
 
-  loadUsers() {
+  loadUsers(sizePerPage: number, pageIndex?: number, search?: string) {
     !this.fetchLoading && (this.fetchLoading = true);
-    this.getUser().subscribe((res) => {
+
+    let qs = `?size=${sizePerPage}`;
+    if (pageIndex) {
+      qs += `&page=${pageIndex + 1}`;
+    }
+
+    if (search) {
+      qs += `&search=${search}`;
+    }
+
+    this.getUser(qs).subscribe((res) => {
       this.users = res.data;
+      this.resultsLength = res.totalItems;
       this.fetchLoading = false;
     });
   }
