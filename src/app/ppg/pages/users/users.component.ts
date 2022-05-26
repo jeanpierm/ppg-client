@@ -63,10 +63,10 @@ export class UsersComponent implements OnInit {
   }
 
   inactive(userId: string) {
-    this.UsersService.fetchLoading = true;
     dialogAlert('Esta seguro de inactivar esta cuenta?').then((result) => {
       if (result) {
         if (result.isConfirmed) {
+          this.UsersService.fetchLoading = true;
           this.UsersService.inactive(userId).subscribe({
             next: (_) => this.UsersService.loadUsers(),
             error: (err) => showErrorAlert(err),
@@ -77,10 +77,10 @@ export class UsersComponent implements OnInit {
   }
 
   active(userId: string) {
-    this.UsersService.fetchLoading = true;
     dialogAlert('Esta seguro de activar esta cuenta?').then((result) => {
       if (result) {
         if (result.isConfirmed) {
+          this.UsersService.fetchLoading = true;
           this.UsersService.active(userId).subscribe({
             next: (_) => this.UsersService.loadUsers(),
             error: (err) => {
