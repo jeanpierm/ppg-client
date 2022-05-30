@@ -10,10 +10,8 @@ import { User } from 'src/app/ppg/models/account/user';
 })
 export class UserDialogComponent implements OnInit {
   public user_form: FormGroup;
-  constructor(
-    public dialogRef: MatDialogRef<UserDialogComponent>,
-    private fb: FormBuilder
-  ) {
+
+  constructor(public dialogRef: MatDialogRef<UserDialogComponent>, private fb: FormBuilder) {
     this.user_form = new FormGroup({});
   }
 
@@ -61,8 +59,8 @@ export class UserDialogComponent implements OnInit {
   }
 
   get passwordMsg() {
-    return `• La contraseña debe contener mínimo 8 y máximo 30 caracteres. \n 
-    • La contraseña debe contener mayúsculas y minúsculas \n 
+    return `• La contraseña debe contener mínimo 8 y máximo 30 caracteres. \n
+    • La contraseña debe contener mayúsculas y minúsculas \n
     • La contraseña debe contener al menos un valor numérico \n
     • La contraseña debe contener al menos un carácter especial [$@$!%*?&.]`;
   }

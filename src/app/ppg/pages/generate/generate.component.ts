@@ -11,16 +11,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./generate.component.css'],
 })
 export class GenerateComponent implements OnInit {
-  static readonly PATH = 'generar';
+  static readonly PATH = 'generar-perfil';
 
   public generatePpg: GeneratePpgRequest;
   public displayedColumns: string[] = ['JobTitle', 'Location'];
   public alert: SweetAlert;
 
-  constructor(
-    public ppService: ProfessionalProfilesService,
-    private spinner: NgxSpinnerService
-  ) {
+  constructor(public ppService: ProfessionalProfilesService, private spinner: NgxSpinnerService) {
     this.generatePpg = new GeneratePpgRequest();
     this.alert = new SweetAlert();
   }

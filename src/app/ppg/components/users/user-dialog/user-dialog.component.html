@@ -5,8 +5,8 @@
       <section class="py-2">
         <label for="">Rol: </label>
         <mat-radio-group name="rol" id="rol" formControlName="rol">
-          <mat-radio-button class="px-2" value="user">User</mat-radio-button>
-          <mat-radio-button class="px-2" value="admin">Admin</mat-radio-button>
+          <mat-radio-button class="px-2" value="user">Usuario</mat-radio-button>
+          <mat-radio-button class="px-2" value="admin">Administrador</mat-radio-button>
         </mat-radio-group>
       </section>
 
@@ -43,17 +43,9 @@
 
       <mat-form-field class="w-full" appearance="fill">
         <mat-label>Contraseña</mat-label>
-        <input
-          matInput
-          name="password"
-          id="password"
-          formControlName="password"
-        />
+        <input matInput name="password" id="password" formControlName="password" />
 
-        <mat-icon
-          matSuffix
-          [matTooltip]="passwordMsg"
-          matTooltipClass="line-broken-tooltip"
+        <mat-icon matSuffix [matTooltip]="passwordMsg" matTooltipClass="line-broken-tooltip"
           >error</mat-icon
         >
 

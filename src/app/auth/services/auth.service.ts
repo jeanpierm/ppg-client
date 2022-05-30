@@ -1,5 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
@@ -9,7 +10,7 @@ import {
   RegisterRequest,
   RegisterResponse,
 } from '../interfaces/auth';
-import { User } from '../../ppg/models/account/user';
+import { LoginComponent } from '../pages/login/login.component';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class AuthService {
     localStorage.setItem(this.ACCESS_TOKEN_KEY, tokenValue);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   /**
    * Inicia sesión. El token es guardado en localStorage como efecto secundario.
@@ -84,5 +85,6 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
+    this.router.navigateByUrl(`/auth/${LoginComponent.PATH}`);
   }
 }

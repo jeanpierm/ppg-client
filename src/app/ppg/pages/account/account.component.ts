@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { SweetAlert } from 'src/app/ppg/config/sweetAlert';
 import { AccountService } from 'src/app/ppg/services/account.service';
+import { Account } from '../../interfaces/account.interface';
 import { User } from '../../models/account/user';
 
 @Component({
@@ -56,7 +57,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  setValues(user: User) {
+  setValues(user: Account) {
     this.myForm.setValue({
       name: user.name,
       surname: user.surname,
@@ -85,7 +86,7 @@ export class AccountComponent implements OnInit {
   onUpdateAccount() {
     return new Promise((resolve, reject) => {
       this.setValueEntity();
-      this.accountService.updateUser(this.user).subscribe({
+      this.accountService.updateAccount(this.user).subscribe({
         next: (res) => {
           resolve(true);
         },

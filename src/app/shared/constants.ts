@@ -1,3 +1,2 @@
-export const DEFAULT_ERROR_MESSAGE =
-  'Ha ocurrido un error en el servidor. Por favor, vuelva a intentar más tarde.';
-export const DEFAULT_SUCCESS_MESSAGE = 'Acción realizada con éxito.';
+export const DEFAULT_ERROR_TITLE = 'Ha ocurrido un error';
+export const DEFAULT_SUCCESS_TITLE = 'Acción realizada con éxito';

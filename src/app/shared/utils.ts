@@ -1,12 +1,10 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
-import { User } from '../ppg/models/account/user';
-import { DEFAULT_ERROR_MESSAGE, DEFAULT_SUCCESS_MESSAGE } from './constants';
+import { Account } from '../ppg/interfaces/account.interface';
+import { DEFAULT_ERROR_TITLE } from './constants';
+import { LocalStorageKeys } from './enums/local-storage-keys.enum';
 
-export function deleteObjectItemsByValue(
-  object: Record<string, number>,
-  value: number
-) {
+export function deleteObjectItemsByValue(object: Record<string, number>, value: number) {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
     if (result[key] === value) delete result[key];
@@ -22,13 +20,18 @@ export function showAlert(title: string, icon?: SweetAlertIcon) {
   });
 }
 
-export function showErrorAlert(title: string = DEFAULT_ERROR_MESSAGE) {
-  return showAlert(title, 'error');
+export function showErrorAlert(title: string = DEFAULT_ERROR_TITLE, text?: string) {
+  return Swal.fire({
+    title,
+    text,
+    icon: 'error',
+    confirmButtonText: 'Aceptar',
+  });
 }
 
-export function dialogAlert(title: string) {
+export function dialogAlert(text: string) {
   return Swal.fire({
-    text: title,
+    text,
     showCancelButton: true,
     confirmButtonText: 'Aceptar',
   });
@@ -39,16 +42,14 @@ export function isEmpty(s: string): boolean {
   return s.trim().length === 0;
 }
 
-export function setUserDataInLocalStorage(user: User): void {
-  localStorage.setItem('name', user.name);
-  localStorage.setItem('surname', user.surname);
-  localStorage.setItem('email', user.email);
+export function setAccountDataInLocalStorage({ name, surname, email, options }: Account): void {
+  localStorage.setItem(LocalStorageKeys.Name, name);
+  localStorage.setItem(LocalStorageKeys.Surname, surname);
+  localStorage.setItem(LocalStorageKeys.Email, email);
+  localStorage.setItem(LocalStorageKeys.Options, JSON.stringify(options));
 }
 
-export function validateTwoFormControlsAreEquals(
-  controlName1: string,
-  controlName2: string
-) {
+export function validateTwoFormControlsAreEquals(controlName1: string, controlName2: string) {
   return function (formGroup: AbstractControl): ValidationErrors | null {
     const control1 = formGroup.get(controlName1);
     const control2 = formGroup.get(controlName2);

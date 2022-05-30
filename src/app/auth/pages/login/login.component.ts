@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { AccountService } from 'src/app/ppg/services/account.service';
 import { SweetAlert } from '../../../ppg/config/sweetAlert';
-import { setUserDataInLocalStorage, showErrorAlert } from '../../../shared/utils';
+import { setAccountDataInLocalStorage, showErrorAlert } from '../../../shared/utils';
 import { LoginRequest } from '../../interfaces/auth';
 
 @Component({
@@ -52,7 +52,7 @@ export class LoginComponent {
       next: () => {
         this.accountService.getAccount().subscribe({
           next: ({ data }) => {
-            setUserDataInLocalStorage(data);
+            setAccountDataInLocalStorage(data);
             this.route.navigate(['/home']).then(() => {
               this.loading = false;
             });

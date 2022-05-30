@@ -1,11 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,37 +17,32 @@ import { UsersService } from '../../services/users.service';
 export class UsersComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
-  static readonly PATH = 'users';
+  static readonly PATH = 'usuarios';
+
   sizePerPage = 10;
-  public displayedColumns: string[] = [
-    'name',
-    'surname',
-    'email',
-    'roles',
-    'status',
-  ];
+  public displayedColumns: string[] = ['name', 'surname', 'email', 'roles', 'status'];
 
   constructor(
-    private readonly UsersService: UsersService,
+    private readonly usersService: UsersService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog
   ) {}
 
   public get loading(): boolean {
-    return this.UsersService.fetchLoading;
+    return this.usersService.fetchLoading;
   }
 
   public get users(): User[] {
-    return this.UsersService.users;
+    return this.usersService.users;
   }
 
   public get resultsLength(): number {
-    return this.UsersService.resultsLength;
+    return this.usersService.resultsLength;
   }
 
   ngOnInit(): void {
     this.spinner.show();
-    this.UsersService.loadUsers(this.sizePerPage);
+    this.usersService.loadUsers(this.sizePerPage);
   }
 
   ngAfterViewInit(): void {
@@ -72,7 +61,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   loadUserPage() {
-    this.UsersService.loadUsers(
+    this.usersService.loadUsers(
       this.sizePerPage,
       this.paginator.pageIndex,
       this.input.nativeElement.value
@@ -83,14 +72,13 @@ export class UsersComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(UserDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
       if (result) {
         let user: User = result;
         user.roles = [result.rol];
-        this.UsersService.fetchLoading = true;
-        this.UsersService.saveUser(user).subscribe({
+        this.usersService.fetchLoading = true;
+        this.usersService.saveUser(user).subscribe({
           next: (_) => {
-            this.UsersService.loadUsers(this.sizePerPage);
+            this.usersService.loadUsers(this.sizePerPage);
             showAlert('Cuenta creada correctamente!');
           },
           error: (err) => {
@@ -102,11 +90,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   inactive(userId: string) {
-    dialogAlert('Esta seguro de inactivar esta cuenta?').then((result) => {
+    dialogAlert('Esta seguro de desactivar esta cuenta?').then((result) => {
       if (result) {
         if (result.isConfirmed) {
-          this.UsersService.fetchLoading = true;
-          this.UsersService.inactive(userId).subscribe({
+          this.usersService.fetchLoading = true;
+          this.usersService.inactive(userId).subscribe({
             next: (_) => this.loadUserPage(),
             error: (err) => showErrorAlert(err),
           });
@@ -119,12 +107,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
     dialogAlert('Esta seguro de activar esta cuenta?').then((result) => {
       if (result) {
         if (result.isConfirmed) {
-          this.UsersService.fetchLoading = true;
-          this.UsersService.active(userId).subscribe({
+          this.usersService.fetchLoading = true;
+          this.usersService.active(userId).subscribe({
             next: (_) => this.loadUserPage(),
             error: (err) => {
               showErrorAlert(err);
-              this.UsersService.fetchLoading = false;
+              this.usersService.fetchLoading = false;
             },
           });
         }

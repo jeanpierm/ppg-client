@@ -32,19 +32,14 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
 
-  static readonly PATH = 'technologies';
+  static readonly PATH = 'tecnologias';
   types = TypesList;
   public myForm: FormGroup;
   private matDialogRef: any;
   update = false;
   public alert: SweetAlert;
   sizePerPage = 10;
-  public displayedColumns: string[] = [
-    'Tipo',
-    'Nombre',
-    'Identificadores',
-    'options',
-  ];
+  public displayedColumns: string[] = ['Tipo', 'Nombre', 'Identificadores', 'options'];
 
   constructor(
     private readonly technologiesService: TechnologiesService,
@@ -99,18 +94,9 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   onForm() {
     this.myForm = this.fb.group({
       technologyId: '',
-      name: [
-        '',
-        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
-      ],
-      type: [
-        '',
-        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
-      ],
-      identifiers: this.fb.array(
-        [this.fb.control('', Validators.required)],
-        [this.minLength(1)]
-      ),
+      name: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
+      type: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
+      identifiers: this.fb.array([this.fb.control('', Validators.required)], [this.minLength(1)]),
     });
   }
 
@@ -121,10 +107,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
       name: technology.name,
       type: technology.type,
     });
-    this.myForm.setControl(
-      'identifiers',
-      this.fb.array(technology.identifiers || [])
-    );
+    this.myForm.setControl('identifiers', this.fb.array(technology.identifiers || []));
   }
 
   save(templateRef: TemplateRef<any>) {
@@ -137,10 +120,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         const technology: Technology = result;
         this.technologiesService.saveTechnology(technology).subscribe({
           next: (_) => {
-            this.technologiesService.loadTechnology(
-              this.sizePerPage,
-              this.paginator.pageIndex
-            );
+            this.technologiesService.loadTechnology(this.sizePerPage, this.paginator.pageIndex);
             this.alert.successAlert('Se ha guardado correctamente!');
           },
           error: (err) => {
@@ -178,17 +158,14 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   }
 
   delete(technologyId: string) {
-    this.alert
-      .dialogAlert('Esta seguro de eliminar esta tecnología?')
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.technologiesService.deleteTechnology(technologyId).subscribe({
-            next: (_) =>
-              this.technologiesService.loadTechnology(this.sizePerPage),
-            error: (err) => this.alert.errorAlert(err),
-          });
-        }
-      });
+    this.alert.dialogAlert('Esta seguro de eliminar esta tecnología?').then((result) => {
+      if (result.isConfirmed) {
+        this.technologiesService.deleteTechnology(technologyId).subscribe({
+          next: (_) => this.technologiesService.loadTechnology(this.sizePerPage),
+          error: (err) => this.alert.errorAlert(err),
+        });
+      }
+    });
   }
 
   edit(tecnology: Technology, templateRef: TemplateRef<any>) {
@@ -201,10 +178,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         const technology: Technology = result;
         this.technologiesService.updateTechnology(technology).subscribe({
           next: (_) =>
-            this.technologiesService.loadTechnology(
-              this.sizePerPage,
-              this.paginator.pageIndex
-            ),
+            this.technologiesService.loadTechnology(this.sizePerPage, this.paginator.pageIndex),
           error: (err) => this.alert.errorAlert(err),
         });
       }

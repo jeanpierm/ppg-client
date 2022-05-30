@@ -1,8 +1,9 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      {{ professionalProfile.jobTitle | titlecase }}
-
+  <mat-card-title>
+    <div class="flex justify-between items-center">
+      <div>
+        {{ professionalProfile.jobTitle | titlecase }}
+      </div>
       <button
         mat-icon-button
         class="more-button"
@@ -17,8 +18,8 @@
         </button>
         <button mat-menu-item>Remove</button>
       </mat-menu>
-    </mat-card-title>
-  </mat-card-header>
+    </div>
+  </mat-card-title>
 
   <div fxLayout="column" fxLayoutGap="10px">
     <mat-card-content>

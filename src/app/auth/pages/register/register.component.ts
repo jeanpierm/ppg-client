@@ -6,7 +6,7 @@ import { AccountService } from 'src/app/ppg/services/account.service';
 import { GenericErrorStateMatcher } from 'src/app/shared/error-state-matcher';
 import Swal from 'sweetalert2';
 import {
-  setUserDataInLocalStorage,
+  setAccountDataInLocalStorage,
   showErrorAlert,
   validateTwoFormControlsAreEquals,
 } from '../../../shared/utils';
@@ -90,7 +90,7 @@ export class RegisterComponent {
         // this.registerForm.reset();
         this.accountService.getAccount().subscribe({
           next: ({ data }) => {
-            setUserDataInLocalStorage(data);
+            setAccountDataInLocalStorage(data);
             this.router.navigate(['/home']).then(() => {
               this.loading = false;
             });

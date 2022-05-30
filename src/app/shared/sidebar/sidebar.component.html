@@ -10,13 +10,13 @@
   <h2 matSubheader>Pages</h2>
 
   <a
-    *ngFor="let item of routes"
+    *ngFor="let item of options"
     mat-list-item
     [routerLinkActive]="'active'"
     [routerLink]="[item.path]"
   >
     <mat-icon class="sidenav-icon" color="primary">{{ item.icon }}</mat-icon>
-    {{ item.title }}
+    {{ item.title | titlecase }}
   </a>
   <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
     <mat-icon color="primary" class="sidenav-icon">insert_drive_file</mat-icon

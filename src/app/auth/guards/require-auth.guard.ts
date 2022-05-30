@@ -7,10 +7,8 @@ import {
   Router,
   RouterStateSnapshot,
   UrlSegment,
-  UrlTree,
 } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { LoginComponent } from 'src/app/auth/pages/login/login.component';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -19,15 +17,11 @@ import { AuthService } from '../services/auth.service';
 export class RequireAuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authService.validateAnRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
           this.authService.logout();
-          this.router.navigateByUrl(`/auth/${LoginComponent.PATH}`);
         }
       })
     );
@@ -38,7 +32,6 @@ export class RequireAuthGuard implements CanActivate, CanLoad {
       tap((valid) => {
         if (!valid) {
           this.authService.logout();
-          this.router.navigateByUrl(`/auth/${LoginComponent.PATH}`);
         }
       })
     );

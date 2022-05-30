@@ -6,6 +6,7 @@ import { ApiResponse } from '../../shared/models/api-response';
 import { User } from '../models/account/user';
 import { ResponseConfig } from '../config/response-config';
 import { AuthService } from '../../auth/services/auth.service';
+import { Account } from '../interfaces/account.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -23,21 +24,22 @@ export class AccountService {
    *
    * @returns los datos del usuario autenticado.
    */
-  getAccount(): Observable<ApiResponse<User>> {
+  getAccount(): Observable<ApiResponse<Account>> {
     let url = environment.api + '/account';
     let header = new HttpHeaders({
       'Content-type': 'application/json',
       Authorization: this.authService.accessToken,
     });
     let options = { headers: header };
-    return this.http.get<any>(url, options).pipe(
+
+    return this.http.get<ApiResponse<Account>>(url, options).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })
     );
   }
 
-  updateUser(user: User) {
+  updateAccount(user: User) {
     let url = environment.api + '/account';
     let params = user;
     let header = new HttpHeaders({
