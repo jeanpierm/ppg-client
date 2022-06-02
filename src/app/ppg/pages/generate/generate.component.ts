@@ -34,10 +34,6 @@ export class GenerateComponent implements OnInit {
     return this.ppService.professionalProfiles;
   }
 
-  // get ppGenerated() {
-  //   return this.ppService.ppGenerated;
-  // }
-
   isValidForm() {
     if (this.generatePpg.jobTitle.toString().trim().length === 0) {
       return false;
@@ -68,8 +64,5 @@ export class GenerateComponent implements OnInit {
         this.alert.errorAlert(err);
       },
     });
-
-    // this.ppService.loadGenerate(this.generatePpg);
-    // this.ppService.loadProfessionalProfiles();
   }
 }
