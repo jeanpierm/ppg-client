@@ -4,7 +4,7 @@
     <div class="flex flex-col">
       <section class="py-2">
         <label for="">Rol: </label>
-        <mat-radio-group name="rol" id="rol" formControlName="rol">
+        <mat-radio-group name="role" id="role" formControlName="role">
           <mat-radio-button class="px-2" value="user">Usuario</mat-radio-button>
           <mat-radio-button class="px-2" value="admin">Administrador</mat-radio-button>
         </mat-radio-group>
@@ -55,7 +55,7 @@
         </mat-error>
         <mat-error *ngIf="password?.hasError('pattern')">
           <mat-icon>error</mat-icon>
-          Contraseña invalida
+          {{ getPasswordValidationMessage() }}
         </mat-error>
       </mat-form-field>
     </div>

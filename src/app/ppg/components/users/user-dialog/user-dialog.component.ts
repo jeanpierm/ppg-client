@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from 'src/app/ppg/models/account/user';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-dialog',
@@ -54,7 +53,7 @@ export class UserDialogComponent implements OnInit {
           ),
         ],
       ],
-      rol: ['user', [Validators.required]],
+      role: ['user', Validators.required],
     });
   }
 
@@ -63,5 +62,22 @@ export class UserDialogComponent implements OnInit {
     • La contraseña debe contener mayúsculas y minúsculas \n
     • La contraseña debe contener al menos un valor numérico \n
     • La contraseña debe contener al menos un carácter especial [$@$!%*?&.]`;
+  }
+
+  getPasswordValidationMessage(): string | void {
+    const control = this.user_form.get('password')?.value;
+    if (!control) return;
+    if (control.toString().trim().length < 8 || control.toString().trim().length > 30) {
+      return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
+    }
+    if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
+      return 'La contraseña debe contener mayúsculas y minúsculas';
+    }
+    if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
+      return 'La contraseña debe contener al menos un valor numérico';
+    }
+    if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
+      return 'La contraseña debe contener al menos un carácter especial [$@$!%*?&.]';
+    }
   }
 }

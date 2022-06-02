@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,7 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { dialogAlert, showAlert, showErrorAlert } from 'src/app/shared/utils';
 import { UserDialogComponent } from '../../components/users/user-dialog/user-dialog.component';
-import { User } from '../../models/account/user';
+import { CreateUserRequest } from '../../interfaces/create-user-request.interface';
+import { User } from '../../interfaces/user';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -73,8 +73,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        let user: User = result;
-        user.roles = [result.rol];
+        const user: CreateUserRequest = result;
         this.usersService.fetchLoading = true;
         this.usersService.saveUser(user).subscribe({
           next: (_) => {

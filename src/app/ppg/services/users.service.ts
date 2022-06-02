@@ -5,7 +5,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { ApiResponse } from 'src/app/shared/models/api-response';
 import { environment } from 'src/environments/environment';
 import { ResponseConfig } from '../config/response-config';
-import { User } from '../models/account/user';
+import { CreateUserRequest } from '../interfaces/create-user-request.interface';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,7 @@ export class UsersService {
   public fetchLoading: boolean = true;
   public resultsLength = 0;
 
-  constructor(
-    private http: HttpClient,
-    private readonly authService: AuthService
-  ) {
+  constructor(private http: HttpClient, private readonly authService: AuthService) {
     this.responseConfig = new ResponseConfig();
     this.users = [];
   }
@@ -58,7 +56,7 @@ export class UsersService {
     );
   }
 
-  saveUser(user: User) {
+  saveUser(user: CreateUserRequest) {
     const url = `${environment.api}/users`;
     const body = user;
     const header = new HttpHeaders({

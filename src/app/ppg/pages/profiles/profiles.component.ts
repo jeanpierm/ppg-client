@@ -44,11 +44,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.professionalProfiles,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(this.professionalProfiles, event.previousIndex, event.currentIndex);
   }
 
   get() {
@@ -64,6 +60,4 @@ export class ProfilesComponent implements OnInit {
   downloadReport() {
     alert('coming soon!');
   }
-
-  reLoad(event: Event) {}
 }

@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../../shared/models/api-response';
-import { User } from '../models/account/user';
+import { User } from '../interfaces/user';
 import { ResponseConfig } from '../config/response-config';
 import { AuthService } from '../../auth/services/auth.service';
 import { Account } from '../interfaces/account.interface';

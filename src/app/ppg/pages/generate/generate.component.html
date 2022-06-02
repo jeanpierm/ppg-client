@@ -1,67 +1,59 @@
-<ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner>
+<ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner>
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>Generar perfil profesional</mat-card-title>
-  </mat-card-header>
-  <br />
-  <mat-card-content>
-    <mat-grid-list cols="2" rowHeight="1:1">
-      <mat-grid-tile>
-        <mat-form-field appearance="outline">
-          <mat-icon color="primary" matSuffix>search</mat-icon>
-          <input
-            matInput
-            type="text"
-            [disabled]="loading"
-            placeholder="Titulo de trabajo"
-            [(ngModel)]="generatePpg.jobTitle"
-          />
-        </mat-form-field>
-      </mat-grid-tile>
+  <form>
+    <mat-card-header>
+      <mat-card-title>Generar perfil profesional</mat-card-title>
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="1:1">
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-icon color="primary" matSuffix>search</mat-icon>
+            <input
+              matInput
+              type="text"
+              [disabled]="loadingGenerate"
+              name="jobTitle"
+              placeholder="Titulo de trabajo"
+              [(ngModel)]="generatePpg.jobTitle"
+            />
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="outline">
-          <mat-icon color="primary" matSuffix> place</mat-icon>
-          <input
-            matInput
-            type="text"
-            [disabled]="loading"
-            placeholder="Ciudad, provincia, país"
-            [(ngModel)]="generatePpg.location"
-          />
-        </mat-form-field>
-      </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-icon color="primary" matSuffix> place</mat-icon>
+            <input
+              matInput
+              type="text"
+              [disabled]="loadingGenerate"
+              name="location"
+              placeholder="Ciudad, provincia, país"
+              [(ngModel)]="generatePpg.location"
+            />
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
 
-      <!-- <mat-grid-tile>
-        <button
-          mat-raised-button
-          color="accent"
-          type="button"
-          [disabled]="!isValidForm()"
-          (click)="generate()"
-        >
-          Buscar
-        </button>
-      </mat-grid-tile> -->
-    </mat-grid-list>
-  </mat-card-content>
-
-  <mat-card-actions style="margin: 10px">
-    <button
-      [disabled]="loading"
-      mat-raised-button
-      color="primary"
-      type="button"
-      (click)="generate()"
-    >
-      <mat-icon matSuffix>search</mat-icon>
-      Generar
-    </button>
-  </mat-card-actions>
+    <mat-card-actions style="margin: 10px">
+      <button
+        [disabled]="loadingGenerate"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="generate()"
+      >
+        <mat-icon matSuffix>search</mat-icon>
+        Generar
+      </button>
+    </mat-card-actions>
+  </form>
 </mat-card>
 
 <div fxLayout="row">
-  <div fxFlex="55" style="margin: 5px">
+  <div *ngIf="!!ppGenerated" fxFlex="55" style="margin: 5px">
     <div>
       <mat-card-subtitle style="margin: 10px">Resultado</mat-card-subtitle>
     </div>
@@ -191,45 +183,6 @@
           </div>
           <mat-divider></mat-divider>
         </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxFlex="45" style="margin: 5px">
-    <div>
-      <mat-card-subtitle style="margin: 10px"
-        >Todos sus perfiles profesionales generados</mat-card-subtitle
-      >
-    </div>
-    <mat-card>
-      <mat-card-content fxLayoutAlign="center center">
-        <table mat-table [dataSource]="professionalProfiles">
-          <!-- Item Column -->
-          <ng-container matColumnDef="JobTitle">
-            <th class="width-textArea" mat-header-cell *matHeaderCellDef>Cargo</th>
-            <td class="width-textArea" mat-cell *matCellDef="let profile">
-              {{ profile.jobTitle }}
-            </td>
-          </ng-container>
-
-          <!-- Cost Column -->
-          <ng-container matColumnDef="Location">
-            <th mat-header-cell *matHeaderCellDef>Ubicación</th>
-            <td mat-cell *matCellDef="let profile">{{ profile.location }}</td>
-          </ng-container>
-
-          <tr class="width-textArea" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr class="width-textArea" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-          <!-- Cost Column -->
-          <!-- <ng-container matColumnDef="Date">
-          <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let profile"></td>
-        </ng-container> -->
-
-          <!--  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr> -->
-        </table>
       </mat-card-content>
     </mat-card>
   </div>

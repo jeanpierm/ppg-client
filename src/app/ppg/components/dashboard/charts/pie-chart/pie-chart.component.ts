@@ -1,15 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import {
   ChartConfiguration,
   ChartData,
-  ChartDataset,
   ChartEvent,
-  ChartOptions,
   ChartType,
 } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { BaseChartDirective } from 'ng2-charts';
-import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 
 @Component({
   selector: 'app-pie-chart',

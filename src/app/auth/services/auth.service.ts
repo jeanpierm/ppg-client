@@ -81,7 +81,7 @@ export class AuthService {
   }
 
   /**
-   * Cierra sesión eliminando todo el localStorage
+   * Elimina todo el localStorage y navega a la ruta del login.
    */
   logout(): void {
     localStorage.clear();

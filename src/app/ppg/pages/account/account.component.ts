@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { SweetAlert } from 'src/app/ppg/config/sweetAlert';
 import { AccountService } from 'src/app/ppg/services/account.service';
 import { Account } from '../../interfaces/account.interface';
-import { User } from '../../models/account/user';
 
 @Component({
   selector: 'app-user-config',
@@ -87,7 +86,7 @@ export class AccountComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.setValueEntity();
       this.accountService.updateAccount(this.user).subscribe({
-        next: (res) => {
+        next: () => {
           resolve(true);
         },
         error: (err) => {
@@ -101,7 +100,7 @@ export class AccountComponent implements OnInit {
   onUpdatePassword() {
     return new Promise((resolve, reject) => {
       this.accountService.updatePassword(this.passwords).subscribe({
-        next: (res) => {
+        next: () => {
           this.passwords = {
             currentPassword: '',
             newPassword: '',
@@ -128,7 +127,7 @@ export class AccountComponent implements OnInit {
       p2 = this.onUpdatePassword();
     }
     Promise.all([p1, p2]).then(
-      (res) => this.alert.successAlert('Cambios guardados correctamente!'),
+      () => this.alert.successAlert('Cambios guardados correctamente!'),
       (err) => this.alert.errorAlert(err)
     );
   }

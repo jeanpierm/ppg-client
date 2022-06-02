@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
-import { every, of } from 'rxjs';
 import { deleteObjectItemsByValue } from '../../../shared/utils';
 import { ProfessionalProfilesService } from '../../services/professional-profiles.service';
 import { CountQuery } from '../../types/count-query.type';

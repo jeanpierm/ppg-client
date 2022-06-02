@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../auth/services/auth.service';
 import { LocalStorageKeys } from '../enums/local-storage-keys.enum';
-import { showErrorAlert } from '../utils';
 import { RouteInfo } from './interfaces/route-info.interface';
-import { sidebarItems } from './sidebar-items';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,7 +20,6 @@ export class SidebarComponent implements OnInit {
   }
 
   setSidebarOptions() {
-    console.log('hola');
     const optionsRaw = localStorage.getItem(LocalStorageKeys.Options);
 
     if (optionsRaw) {

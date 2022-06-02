@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SweetAlert } from 'src/app/ppg/config/sweetAlert';
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
-import { GeneratePpgRequest } from '../../models/profiles/generate-ppg';
 import { ProfessionalProfile } from '../../models/profiles/professional-profile';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { GeneratePpgRequest } from '../../interfaces/generate-pp.interface';
 
 @Component({
   selector: 'app-generate',
@@ -13,31 +13,30 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class GenerateComponent implements OnInit {
   static readonly PATH = 'generar-perfil';
 
-  public generatePpg: GeneratePpgRequest;
-  public displayedColumns: string[] = ['JobTitle', 'Location'];
-  public alert: SweetAlert;
+  displayedColumns: string[] = ['JobTitle', 'Location'];
+  alert: SweetAlert;
+  generatePpg: GeneratePpgRequest = {
+    jobTitle: '',
+    location: '',
+  };
+  loadingGenerate: boolean = false;
+  ppGenerated!: ProfessionalProfile;
 
   constructor(public ppService: ProfessionalProfilesService, private spinner: NgxSpinnerService) {
-    this.generatePpg = new GeneratePpgRequest();
     this.alert = new SweetAlert();
   }
 
   ngOnInit(): void {
     this.spinner.show();
-    this.ppService.loadProfessionalProfiles();
   }
 
   get professionalProfiles(): ProfessionalProfile[] {
     return this.ppService.professionalProfiles;
   }
 
-  get loading() {
-    return this.ppService.fetchLoading;
-  }
-
-  get ppGenerated() {
-    return this.ppService.ppGenerated;
-  }
+  // get ppGenerated() {
+  //   return this.ppService.ppGenerated;
+  // }
 
   isValidForm() {
     if (this.generatePpg.jobTitle.toString().trim().length === 0) {
@@ -57,7 +56,20 @@ export class GenerateComponent implements OnInit {
       return;
     }
 
-    this.ppService.loadGenerate(this.generatePpg);
-    this.ppService.loadProfessionalProfiles();
+    this.loadingGenerate = true;
+    this.ppService.generate(this.generatePpg).subscribe({
+      next: (res) => {
+        this.loadingGenerate = false;
+        this.ppGenerated = res.data;
+        this.alert.successAlert('Perfil profesional generado correctamente');
+      },
+      error: (err) => {
+        this.loadingGenerate = false;
+        this.alert.errorAlert(err);
+      },
+    });
+
+    // this.ppService.loadGenerate(this.generatePpg);
+    // this.ppService.loadProfessionalProfiles();
   }
 }
