@@ -15,32 +15,36 @@ import { GeneratePpgRequest } from '../interfaces/generate-pp.interface';
 })
 export class ProfessionalProfilesService {
   readonly QUERY_COUNT_KEY = 'q';
+  readonly INIT_DATE_KEY = 'initDate';
+  readonly END_DATE_KEY = 'endDate';
+  readonly JOB_TITLE_KEY = 'jobTitle';
+  readonly LOCATION_KEY = 'location';
 
   responseConfig: ResponseConfig = new ResponseConfig();
   professionalProfiles: ProfessionalProfile[] = [];
+  httpHeaders: HttpHeaders;
 
   fetchLoading: boolean = true;
   alert: SweetAlert = new SweetAlert();
 
-  constructor(private http: HttpClient, private readonly authService: AuthService) {}
+  constructor(private http: HttpClient, private readonly authService: AuthService) {
+    this.httpHeaders = new HttpHeaders({ Authorization: this.authService.accessToken });
+  }
 
   generate(data: GeneratePpgRequest): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles';
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
-    const options = { headers: header };
-    return this.http.post<ApiResponse<ProfessionalProfile>>(url, data, options).pipe(
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
+    return this.http
+      .post<ApiResponse<ProfessionalProfile>>(url, data, { headers: this.httpHeaders })
+      .pipe(
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
   }
 
   loadProfessionalProfiles(
-    initDate?: Date,
-    endDate?: Date,
+    initDate?: Date | string,
+    endDate?: Date | string,
     jobTitle?: string,
     location?: string
   ): void {
@@ -52,46 +56,46 @@ export class ProfessionalProfilesService {
   }
 
   getProfessionalProfiles(
-    initDate?: Date,
-    endDate?: Date,
+    initDate?: Date | string,
+    endDate?: Date | string,
     jobTitle?: string,
     location?: string
   ): Observable<ApiResponse<ProfessionalProfile[]>> {
     const url = environment.api + '/professional-profiles';
-    const headers = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
+
     let params = new HttpParams();
     if (initDate) {
-      params = params.set('initDate', initDate.toDateString());
+      params = params.set(
+        this.INIT_DATE_KEY,
+        initDate instanceof Date ? initDate.toISOString() : initDate
+      );
     }
     if (endDate) {
-      params = params.set('endDate', endDate.toDateString());
+      params = params.set(
+        this.END_DATE_KEY,
+        endDate instanceof Date ? endDate.toISOString() : endDate
+      );
     }
     if (jobTitle) {
-      params = params.set('jobTitle', jobTitle);
+      params = params.set(this.JOB_TITLE_KEY, jobTitle);
     }
     if (location) {
-      params = params.set('location', location);
+      params = params.set(this.LOCATION_KEY, location);
     }
-    const options = { headers, params };
-    return this.http.get<ApiResponse<ProfessionalProfile[]>>(url, options).pipe(
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
+
+    return this.http
+      .get<ApiResponse<ProfessionalProfile[]>>(url, { headers: this.httpHeaders, params })
+      .pipe(
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
   }
 
   getRadomProfile(): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles/random';
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
-    const options = { headers: header };
 
-    return this.http.get<ApiResponse<ProfessionalProfile>>(url, options).pipe(
+    return this.http.get<ApiResponse<ProfessionalProfile>>(url, { headers: this.httpHeaders }).pipe(
       map((res) => res),
       catchError((err) => {
         throw this.responseConfig.handleError(err);
@@ -102,28 +106,20 @@ export class ProfessionalProfilesService {
   count(query: CountQuery) {
     const url = new URL(environment.api + '/professional-profiles/count');
     url.searchParams.set(this.QUERY_COUNT_KEY, query);
-    const headers = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
 
-    return this.http.get<ApiResponse<Record<string, number>>>(url.toString(), { headers }).pipe(
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
+    return this.http
+      .get<ApiResponse<Record<string, number>>>(url.toString(), { headers: this.httpHeaders })
+      .pipe(
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
   }
 
   delete(ppId: String) {
     const url = `${environment.api}/professional-profiles/${ppId}`;
-    const header = new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.accessToken,
-    });
 
-    const options = { headers: header };
-
-    return this.http.delete<ApiResponse>(url, options).pipe(
+    return this.http.delete<ApiResponse>(url, { headers: this.httpHeaders }).pipe(
       catchError((err) => {
         throw this.responseConfig.handleError(err);
       })

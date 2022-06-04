@@ -3,6 +3,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 import { ProfessionalProfile } from '../../models/profiles/professional-profile';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { incrementDate } from '../../../shared/utils';
+
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
@@ -15,7 +17,7 @@ export class ProfilesComponent implements OnInit {
   public endDate: Date = this.today;
   public jobTitle: string = '';
   public location: string = '';
-  public columns: string[] = ['No.', 'JobTitle', 'Location', 'Ingles'];
+  // public columns: string[] = ['No.', 'JobTitle', 'Location', 'Ingles'];
 
   get todayMinus30Days(): Date {
     return new Date(this.today.setDate(this.today.getDate() - 30));
@@ -48,10 +50,9 @@ export class ProfilesComponent implements OnInit {
   }
 
   get() {
-    console.log('Cargando perfiles...');
     this.ppService.loadProfessionalProfiles(
       this.initDate,
-      this.endDate,
+      incrementDate(this.endDate, 1), // se agrega un día para que el filtro funcione de la forma esperada
       this.jobTitle,
       this.location
     );
