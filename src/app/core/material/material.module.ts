@@ -47,8 +47,9 @@ const materialModules = [
   MatRadioModule,
   MatButtonToggleModule,
 ];
+
 @NgModule({
   imports: [CommonModule, ...materialModules],
   exports: [...materialModules],
 })
-export class AngularMaterialModule {}
+export class MaterialModule {}

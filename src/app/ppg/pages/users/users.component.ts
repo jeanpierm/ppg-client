@@ -1,9 +1,19 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
-import { dialogAlert, showAlert, showErrorAlert } from 'src/app/shared/utils';
+import {
+  dialogAlert,
+  showAlert,
+  showErrorAlert,
+} from 'src/app/core/utils/alert.util';
 import { UserDialogComponent } from '../../components/users/user-dialog/user-dialog.component';
 import { CreateUserRequest } from '../../interfaces/create-user-request.interface';
 import { User } from '../../interfaces/user';
@@ -20,7 +30,13 @@ export class UsersComponent implements OnInit, AfterViewInit {
   static readonly PATH = 'usuarios';
 
   sizePerPage = 10;
-  public displayedColumns: string[] = ['name', 'surname', 'email', 'roles', 'status'];
+  public displayedColumns: string[] = [
+    'name',
+    'surname',
+    'email',
+    'roles',
+    'status',
+  ];
 
   constructor(
     private readonly usersService: UsersService,

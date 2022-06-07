@@ -3,15 +3,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/ppg/services/account.service';
-import { GenericErrorStateMatcher } from 'src/app/shared/error-state-matcher';
+import { GenericErrorStateMatcher } from 'src/app/core/utils/error-state-matcher';
 import Swal from 'sweetalert2';
-import {
-  setAccountDataInLocalStorage,
-  showErrorAlert,
-  validateTwoFormControlsAreEquals,
-} from '../../../shared/utils';
 import { RegisterRequest } from '../../interfaces/auth';
 import { AuthService } from '../../services/auth.service';
+import { validateTwoFormControlsAreEquals } from '../../../core/utils/form.util';
+import { showErrorAlert } from '../../../core/utils/alert.util';
+import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
 
 @Component({
   selector: 'app-register',
@@ -26,8 +24,14 @@ export class RegisterComponent {
   matcher = new GenericErrorStateMatcher();
   registerForm: FormGroup = this.fb.group(
     {
-      name: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
-      surname: ['', [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)]],
+      name: [
+        '',
+        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
+      ],
+      surname: [
+        '',
+        [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
+      ],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -115,7 +119,10 @@ export class RegisterComponent {
   getPasswordValidationMessage(): string | void {
     const control = this.registerForm.get('password')?.value;
     if (!control) return;
-    if (control.toString().trim().length < 8 || control.toString().trim().length > 30) {
+    if (
+      control.toString().trim().length < 8 ||
+      control.toString().trim().length > 30
+    ) {
       return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
     }
     if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {

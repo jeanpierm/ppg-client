@@ -3,7 +3,5 @@ export class ApiResponse<T = void> {
     public statusCode: string,
     public message: string,
     public data: T
-  ) {
-    //
-  }
+  ) {}
 }

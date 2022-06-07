@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../auth/services/auth.service';
-import { LocalStorageKeys } from '../enums/local-storage-keys.enum';
-import { RouteInfo } from './interfaces/route-info.interface';
+import { LocalStorageKeys } from '../../core/enums/local-storage-keys.enum';
+import { MenuOption } from './interfaces/menu-option.interface';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +11,7 @@ import { RouteInfo } from './interfaces/route-info.interface';
 })
 export class SidebarComponent implements OnInit {
   showMenu = false;
-  options: RouteInfo[] = [];
+  options: MenuOption[] = [];
 
   constructor(private authService: AuthService) {}
 

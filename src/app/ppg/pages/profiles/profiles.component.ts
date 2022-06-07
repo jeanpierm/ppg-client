@@ -3,7 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ProfessionalProfilesService } from 'src/app/ppg/services/professional-profiles.service';
 import { ProfessionalProfile } from '../../models/profiles/professional-profile';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { incrementDate } from '../../../shared/utils';
+import { incrementDate } from '../../../core/utils/date.util';
 
 @Component({
   selector: 'app-profiles',
@@ -46,7 +46,11 @@ export class ProfilesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.professionalProfiles, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.professionalProfiles,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   get() {

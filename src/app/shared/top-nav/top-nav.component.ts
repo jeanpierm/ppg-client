@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { LocalStorageKeys } from '../../core/enums/local-storage-keys.enum';
 
 @Component({
   selector: 'app-top-nav',
@@ -9,18 +10,17 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class TopNavComponent implements OnInit {
   @Output() sideNavToggled = new EventEmitter<void>();
+  name!: string;
+  surname!: string;
 
-  public name: any;
-  public surname: any;
-
-  constructor(private route: Router, private readonly authService: AuthService) {
-    this.name = '';
-    this.surname = '';
-  }
+  constructor(
+    private route: Router,
+    private readonly authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.name = localStorage.getItem('name');
-    this.surname = localStorage.getItem('surname');
+    this.name = localStorage.getItem(LocalStorageKeys.Name) || '';
+    this.surname = localStorage.getItem(LocalStorageKeys.Surname) || '';
   }
 
   toggleSidebar() {

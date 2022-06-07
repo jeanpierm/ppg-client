@@ -5,7 +5,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
-import { AngularMaterialModule } from '../angular-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { PieChartComponent } from './components/dashboard/charts/pie-chart/pie-chart.component';
@@ -21,6 +20,7 @@ import { TechnologiesComponent } from './pages/technologies/technologies.compone
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDialogComponent } from './components/users/user-dialog/user-dialog.component';
+import { MaterialModule } from '../core/material/material.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { UserDialogComponent } from './components/users/user-dialog/user-dialog.
   ],
   imports: [
     CommonModule,
-    AngularMaterialModule,
+    MaterialModule,
     HttpClientModule,
     FormsModule,
     LayoutModule,

@@ -4,7 +4,7 @@ import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseConfig } from '../config/response-config';
 import { ProfessionalProfile } from '../models/profiles/professional-profile';
-import { ApiResponse } from '../../shared/models/api-response';
+import { ApiResponse } from '../../core/models/api-response.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { SweetAlert } from '../config/sweetAlert';
 import { CountQuery } from '../types/count-query.type';
@@ -27,14 +27,23 @@ export class ProfessionalProfilesService {
   fetchLoading: boolean = true;
   alert: SweetAlert = new SweetAlert();
 
-  constructor(private http: HttpClient, private readonly authService: AuthService) {
-    this.httpHeaders = new HttpHeaders({ Authorization: this.authService.accessToken });
+  constructor(
+    private readonly http: HttpClient,
+    private readonly authService: AuthService
+  ) {
+    this.httpHeaders = new HttpHeaders({
+      Authorization: this.authService.accessToken,
+    });
   }
 
-  generate(data: GeneratePpgRequest): Observable<ApiResponse<ProfessionalProfile>> {
+  generate(
+    data: GeneratePpgRequest
+  ): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles';
     return this.http
-      .post<ApiResponse<ProfessionalProfile>>(url, data, { headers: this.httpHeaders })
+      .post<ApiResponse<ProfessionalProfile>>(url, data, {
+        headers: this.httpHeaders,
+      })
       .pipe(
         catchError((err) => {
           throw this.responseConfig.handleError(err);
@@ -49,7 +58,12 @@ export class ProfessionalProfilesService {
     location?: string
   ): void {
     !this.fetchLoading && (this.fetchLoading = true);
-    this.getProfessionalProfiles(initDate, endDate, jobTitle, location).subscribe((res) => {
+    this.getProfessionalProfiles(
+      initDate,
+      endDate,
+      jobTitle,
+      location
+    ).subscribe((res) => {
       this.professionalProfiles = res.data;
       this.fetchLoading = false;
     });
@@ -84,7 +98,10 @@ export class ProfessionalProfilesService {
     }
 
     return this.http
-      .get<ApiResponse<ProfessionalProfile[]>>(url, { headers: this.httpHeaders, params })
+      .get<ApiResponse<ProfessionalProfile[]>>(url, {
+        headers: this.httpHeaders,
+        params,
+      })
       .pipe(
         catchError((err) => {
           throw this.responseConfig.handleError(err);
@@ -95,12 +112,14 @@ export class ProfessionalProfilesService {
   getRadomProfile(): Observable<ApiResponse<ProfessionalProfile>> {
     const url = environment.api + '/professional-profiles/random';
 
-    return this.http.get<ApiResponse<ProfessionalProfile>>(url, { headers: this.httpHeaders }).pipe(
-      map((res) => res),
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
+    return this.http
+      .get<ApiResponse<ProfessionalProfile>>(url, { headers: this.httpHeaders })
+      .pipe(
+        map((res) => res),
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
   }
 
   count(query: CountQuery) {
@@ -108,7 +127,9 @@ export class ProfessionalProfilesService {
     url.searchParams.set(this.QUERY_COUNT_KEY, query);
 
     return this.http
-      .get<ApiResponse<Record<string, number>>>(url.toString(), { headers: this.httpHeaders })
+      .get<ApiResponse<Record<string, number>>>(url.toString(), {
+        headers: this.httpHeaders,
+      })
       .pipe(
         catchError((err) => {
           throw this.responseConfig.handleError(err);
@@ -119,10 +140,12 @@ export class ProfessionalProfilesService {
   delete(ppId: String) {
     const url = `${environment.api}/professional-profiles/${ppId}`;
 
-    return this.http.delete<ApiResponse>(url, { headers: this.httpHeaders }).pipe(
-      catchError((err) => {
-        throw this.responseConfig.handleError(err);
-      })
-    );
+    return this.http
+      .delete<ApiResponse>(url, { headers: this.httpHeaders })
+      .pipe(
+        catchError((err) => {
+          throw this.responseConfig.handleError(err);
+        })
+      );
   }
 }

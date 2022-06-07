@@ -12,13 +12,21 @@ import {
 import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
+/**
+ * Guardián para rutas que requieren autenticación.
+ *
+ * Si el usuario no está autenticado, será re-direccionado al login.
+ */
 @Injectable({
   providedIn: 'root',
 })
-export class RequireAuthGuard implements CanActivate, CanLoad {
+export class AuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
     return this.authService.validateAnRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {

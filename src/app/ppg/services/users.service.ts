@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ApiResponse } from 'src/app/shared/models/api-response';
 import { environment } from 'src/environments/environment';
+import { ApiResponse } from '../../core/models/api-response.model';
 import { ResponseConfig } from '../config/response-config';
 import { CreateUserRequest } from '../interfaces/create-user-request.interface';
 import { User } from '../interfaces/user';
@@ -17,7 +17,10 @@ export class UsersService {
   public fetchLoading: boolean = true;
   public resultsLength = 0;
 
-  constructor(private http: HttpClient, private readonly authService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private readonly authService: AuthService
+  ) {
     this.responseConfig = new ResponseConfig();
     this.users = [];
   }

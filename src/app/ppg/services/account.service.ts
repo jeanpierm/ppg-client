@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ApiResponse } from '../../shared/models/api-response';
+import { ApiResponse } from '../../core/models/api-response.model';
 import { User } from '../interfaces/user';
 import { ResponseConfig } from '../config/response-config';
 import { AuthService } from '../../auth/services/auth.service';
@@ -15,7 +15,10 @@ export class AccountService {
   private _user: any;
   private responseConfig: ResponseConfig;
 
-  constructor(private http: HttpClient, private readonly authService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private readonly authService: AuthService
+  ) {
     this._user = localStorage.getItem('currentUser');
     this.responseConfig = new ResponseConfig();
   }

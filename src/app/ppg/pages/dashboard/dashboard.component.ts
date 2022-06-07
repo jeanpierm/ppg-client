@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
-import { deleteObjectItemsByValue } from '../../../shared/utils';
+import { deletePropertiesByValue } from '../../../core/utils/object.util';
 import { ProfessionalProfilesService } from '../../services/professional-profiles.service';
 import { CountQuery } from '../../types/count-query.type';
 
@@ -53,7 +53,9 @@ export class DashboardComponent implements OnInit {
     },
   };
 
-  constructor(private professionalProfilesService: ProfessionalProfilesService) {}
+  constructor(
+    private professionalProfilesService: ProfessionalProfilesService
+  ) {}
 
   ngOnInit(): void {
     this.loadCharts();
@@ -86,7 +88,7 @@ export class DashboardComponent implements OnInit {
 }
 
 function mapCountResponseToChartData(data: Record<string, number>) {
-  const cleanedData = deleteObjectItemsByValue(data, 0);
+  const cleanedData = deletePropertiesByValue(data, 0);
 
   const values = Object.values(cleanedData);
   const keys = Object.keys(cleanedData);

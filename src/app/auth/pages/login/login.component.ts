@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { AccountService } from 'src/app/ppg/services/account.service';
 import { SweetAlert } from '../../../ppg/config/sweetAlert';
-import { setAccountDataInLocalStorage, showErrorAlert } from '../../../shared/utils';
 import { LoginRequest } from '../../interfaces/auth';
+import { showErrorAlert } from '../../../core/utils/alert.util';
+import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
 
 @Component({
   selector: 'app-login',

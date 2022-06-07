@@ -1,12 +1,9 @@
-import {
-  HttpClient,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ApiResponse } from 'src/app/shared/models/api-response';
 import { environment } from 'src/environments/environment';
+import { ApiResponse } from '../../core/models/api-response.model';
 import { ResponseConfig } from '../config/response-config';
 import { Technology } from '../models/technologies/technology';
 
@@ -43,14 +40,14 @@ export class TechnologiesService {
       qs += `&search=${search}`;
     }
 
-    this.getTecnologies(qs).subscribe((res) => {
+    this.getTechnologies(qs).subscribe((res) => {
       this.technologies = res.data;
       this.resultsLength = res.totalItems;
       this.fetchLoading = false;
     });
   }
 
-  getTecnologies(queryString: string = ''): Observable<any> {
+  getTechnologies(queryString: string = ''): Observable<any> {
     const url = `${environment.api}/technologies${queryString}`;
     const header = new HttpHeaders({
       'Content-type': 'application/json',

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -18,7 +17,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LayoutModule,
     FlexLayoutModule,
     HttpClientModule,
-    AngularMaterialModule,
     NgxSpinnerModule,
   ],
   bootstrap: [AppComponent],

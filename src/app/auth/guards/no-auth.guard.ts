@@ -1,14 +1,24 @@
 /* eslint-disable unused-imports/no-unused-vars */
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { PpgComponent } from '../../ppg/ppg.component';
 import { AuthService } from '../services/auth.service';
 
+/**
+ * Guardián para rutas que NO requieren autenticación (por ejemplo, el login).
+ *
+ * Si el usuario está autenticado, será re-direccionado a la página principal.
+ */
 @Injectable({
   providedIn: 'root',
 })
-export class LoginGuard implements CanActivate {
+export class NoAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
