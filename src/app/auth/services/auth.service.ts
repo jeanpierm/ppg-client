@@ -16,12 +16,14 @@ import { LoginComponent } from '../pages/login/login.component';
   providedIn: 'root',
 })
 export class AuthService {
+  static readonly BASE_URL = 'auth';
+
   private readonly ACCESS_TOKEN_KEY: string = 'accessToken';
   private readonly BEARER: string = 'Bearer';
 
   get accessToken() {
     const jwt = localStorage.getItem(this.ACCESS_TOKEN_KEY);
-    return jwt ? `Bearer ${jwt}` : '';
+    return jwt ? `${this.BEARER} ${jwt}` : '';
   }
 
   set accessToken(tokenValue: string) {
@@ -35,11 +37,9 @@ export class AuthService {
    * @param data
    */
   login(data: LoginRequest): Observable<LoginResponse> {
-    const url = environment.api + '/auth/login';
-    const headers = new HttpHeaders({ 'Content-type': 'application/json' });
-    const options = { headers };
+    const url = `${environment.api}/${AuthService.BASE_URL}/login`;
 
-    return this.http.post<LoginResponse>(url, data, options).pipe(
+    return this.http.post<LoginResponse>(url, data).pipe(
       tap((res: LoginResponse) => {
         this.accessToken = res.accessToken;
       })
@@ -51,11 +51,9 @@ export class AuthService {
    * @param data
    */
   register(data: RegisterRequest): Observable<RegisterResponse> {
-    const url = environment.api + '/auth/register';
-    const headers = new HttpHeaders({ 'Content-type': 'application/json' });
-    const options = { headers };
+    const url = `${environment.api}/${AuthService.BASE_URL}/register`;
 
-    return this.http.post<RegisterResponse>(url, data, options).pipe(
+    return this.http.post<RegisterResponse>(url, data).pipe(
       tap((res: RegisterResponse) => {
         this.accessToken = res.accessToken;
       })
@@ -66,7 +64,8 @@ export class AuthService {
     if (!this.accessToken) {
       return of(false);
     }
-    const url = environment.api + '/auth/refresh';
+
+    const url = `${environment.api}/${AuthService.BASE_URL}/refresh`;
     const headers = new HttpHeaders({
       Authorization: this.accessToken,
     });
@@ -85,6 +84,6 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
-    this.router.navigateByUrl(`/auth/${LoginComponent.PATH}`);
+    this.router.navigateByUrl(`${AuthService.BASE_URL}/${LoginComponent.PATH}`);
   }
 }

@@ -5,7 +5,7 @@ import { TopNavComponent } from './top-nav/top-nav.component';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '../core/material/material.module';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [SidebarComponent, TopNavComponent],

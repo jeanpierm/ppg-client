@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { AccountService } from 'src/app/ppg/services/account.service';
 import { SweetAlert } from '../../../ppg/config/sweetAlert';
 import { LoginRequest } from '../../interfaces/auth';
 import { showErrorAlert } from '../../../core/utils/alert.util';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
+import { AccountService } from '../../../ppg/account/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +21,8 @@ export class LoginComponent {
   loading: boolean = false;
   alert: SweetAlert = new SweetAlert();
   loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    email: ['jeanpier@gmail.com', [Validators.required, Validators.email]],
+    password: ['1234', [Validators.required]],
   });
 
   constructor(
@@ -62,6 +62,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
+
         if (err instanceof HttpErrorResponse) {
           showErrorAlert(loginErrors[err.status]);
           return;

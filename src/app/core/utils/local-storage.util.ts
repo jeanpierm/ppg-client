@@ -1,4 +1,4 @@
-import { Account } from '../../ppg/interfaces/account.interface';
+import { Account } from '../../ppg/users/interfaces/account.interface';
 import { LocalStorageKeys } from '../enums/local-storage-keys.enum';
 
 export function setAccountDataInLocalStorage({

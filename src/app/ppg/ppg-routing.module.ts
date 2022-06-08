@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { GenerateComponent } from './pages/generate/generate.component';
-import { ProfilesComponent } from './pages/profiles/profiles.component';
-import { AccountComponent } from './pages/account/account.component';
+import { DashboardComponent } from './dashboard/pages/dashboard/dashboard.component';
+import { GenerateComponent } from './professional-profiles/pages/generate/generate.component';
+import { ProfilesComponent } from './professional-profiles/pages/profiles/profiles.component';
+import { AccountComponent } from './account/pages/account/account.component';
 import { PpgComponent } from './ppg.component';
-import { TechnologiesComponent } from './pages/technologies/technologies.component';
-import { UsersComponent } from './pages/users/users.component';
+import { TechnologiesComponent } from './technologies/pages/technologies/technologies.component';
+import { UsersComponent } from './users/pages/users/users.component';
 
 const routes: Routes = [
   {

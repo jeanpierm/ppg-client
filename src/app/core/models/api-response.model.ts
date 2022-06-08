@@ -1,7 +1,13 @@
-export class ApiResponse<T = void> {
-  constructor(
-    public statusCode: string,
-    public message: string,
-    public data: T
-  ) {}
+export interface ApiResponse<T = void> {
+  statusCode: string;
+  message: string;
+  data: T;
+}
+
+export interface PaginatedApiResponse<T> {
+  totalItems: number;
+  currentPage: number;
+  pageSize: number;
+  data: T[];
+  totalPages: number;
 }

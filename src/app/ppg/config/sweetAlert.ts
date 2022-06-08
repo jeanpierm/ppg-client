@@ -1,13 +1,6 @@
 import Swal from 'sweetalert2';
-import { Message } from './message';
-
+import { genericMessages } from '../../core/constants/generic-messages.constant';
 export class SweetAlert {
-  private msg: Message;
-
-  constructor() {
-    this.msg = new Message();
-  }
-
   alert(type: string, text?: any) {
     if (type == 'success') {
       return this.successAlert(text);
@@ -17,7 +10,7 @@ export class SweetAlert {
   }
 
   successAlert(text: any) {
-    if (text == null) text = this.msg.success;
+    if (text == null) text = genericMessages.success;
 
     Swal.fire({
       icon: 'success',

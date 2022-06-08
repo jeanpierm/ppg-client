@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from 'src/app/ppg/services/account.service';
 import { GenericErrorStateMatcher } from 'src/app/core/utils/error-state-matcher';
 import Swal from 'sweetalert2';
 import { RegisterRequest } from '../../interfaces/auth';
@@ -10,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { validateTwoFormControlsAreEquals } from '../../../core/utils/form.util';
 import { showErrorAlert } from '../../../core/utils/alert.util';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
+import { AccountService } from '../../../ppg/account/services/account.service';
 
 @Component({
   selector: 'app-register',
