@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProfessionalProfile } from '../interfaces/professional-profile.interface';
 import { ApiResponse } from '../../../core/models/api-response.model';
-import { SweetAlert } from '../../config/sweetAlert';
 import { CountTechnologyQuery } from '../../../core/types/count-technology-query.type';
 import { GeneratePPRequest } from '../interfaces/generate-pp.interface';
 import { GetProfessionalProfilesQuery } from '../interfaces/get-professional-profiles-query.interface';
@@ -24,7 +23,6 @@ export class ProfessionalProfilesService {
   professionalProfiles: ProfessionalProfile[] = [];
 
   fetchLoading: boolean = true;
-  alert: SweetAlert = new SweetAlert();
 
   constructor(private readonly http: HttpClient) {}
 

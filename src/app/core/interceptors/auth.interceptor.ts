@@ -38,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
-function isAuthRequired(request: HttpRequest<unknown>): boolean {
+export function isAuthRequired(request: HttpRequest<unknown>): boolean {
   const requireAuthUrls = [
     UsersService.BASE_URL,
     ProfessionalProfilesService.BASE_URL,

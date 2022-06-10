@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SweetAlert } from 'src/app/ppg/config/sweetAlert';
 import { ProfessionalProfile } from '../../interfaces/professional-profile.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneratePPRequest } from '../../interfaces/generate-pp.interface';
 import { ProfessionalProfilesService } from '../../services/professional-profiles.service';
+import { retry } from 'rxjs';
+import { AlertService } from '../../../../core/services/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-generate',
@@ -14,7 +16,6 @@ export class GenerateComponent implements OnInit {
   static readonly PATH = 'generar-perfil';
 
   displayedColumns: string[] = ['JobTitle', 'Location'];
-  alert: SweetAlert;
   generatePpg: GeneratePPRequest = {
     jobTitle: '',
     location: '',
@@ -24,10 +25,9 @@ export class GenerateComponent implements OnInit {
 
   constructor(
     public ppService: ProfessionalProfilesService,
-    private spinner: NgxSpinnerService
-  ) {
-    this.alert = new SweetAlert();
-  }
+    private spinner: NgxSpinnerService,
+    private readonly alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.spinner.show();
@@ -51,21 +51,28 @@ export class GenerateComponent implements OnInit {
 
   generate() {
     if (!this.isValidForm()) {
-      this.alert.errorAlert('Llene todos lo campos');
+      this.alertService.error('Llene todos lo campos');
       return;
     }
 
     this.loadingGenerate = true;
-    this.ppService.generate(this.generatePpg).subscribe({
-      next: (res) => {
-        this.loadingGenerate = false;
-        this.ppGenerated = res.data;
-        this.alert.successAlert('Perfil profesional generado correctamente');
-      },
-      error: (err) => {
-        this.loadingGenerate = false;
-        this.alert.errorAlert(err);
-      },
-    });
+    this.ppService
+      .generate(this.generatePpg)
+      .pipe(retry(3))
+      .subscribe({
+        next: (res) => {
+          this.loadingGenerate = false;
+          this.ppGenerated = res.data;
+          this.alertService.success(
+            '¡Perfil profesional generado exitosamente!'
+          );
+        },
+        error: (err) => {
+          if (err instanceof HttpErrorResponse) {
+            this.loadingGenerate = false;
+            this.alertService.error();
+          }
+        },
+      });
   }
 }

@@ -9,11 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
-import {
-  dialogAlert,
-  showAlert,
-  showErrorAlert,
-} from 'src/app/core/utils/alert.util';
+import { AlertService } from '../../../../core/services/alert.service';
 import { UserDialogComponent } from '../../components/user-dialog/user-dialog.component';
 import { CreateUserRequest } from '../../interfaces/create-user-request.interface';
 import { User } from '../../interfaces/user';
@@ -41,7 +37,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly usersService: UsersService,
     private spinner: NgxSpinnerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private readonly alertService: AlertService
   ) {}
 
   public get loading(): boolean {
@@ -94,10 +91,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.usersService.saveUser(user).subscribe({
           next: (_) => {
             this.usersService.loadUsers({ sizePerPage: this.sizePerPage });
-            showAlert('Cuenta creada correctamente!');
+            this.alertService.success('¡Cuenta creada exitosamente!');
           },
-          error: (err) => {
-            showErrorAlert(err);
+          error: () => {
+            this.alertService.error();
           },
         });
       }
@@ -105,33 +102,43 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   inactive(userId: string) {
-    dialogAlert('Esta seguro de desactivar esta cuenta?').then((result) => {
-      if (result) {
-        if (result.isConfirmed) {
-          this.usersService.fetchLoading = true;
-          this.usersService.inactive(userId).subscribe({
-            next: (_) => this.loadUserPage(),
-            error: (err) => showErrorAlert(err),
-          });
+    this.alertService
+      .alert('¿Está seguro de desactivar esta cuenta?')
+      .then((result) => {
+        if (result) {
+          if (result.isConfirmed) {
+            this.usersService.fetchLoading = true;
+            this.usersService.inactive(userId).subscribe({
+              next: () => {
+                this.alertService.success('Usuario inactivado exitosamente');
+                this.loadUserPage();
+              },
+              error: () => this.alertService.error(),
+            });
+          }
         }
-      }
-    });
+      });
   }
 
   active(userId: string) {
-    dialogAlert('Esta seguro de activar esta cuenta?').then((result) => {
-      if (result) {
-        if (result.isConfirmed) {
-          this.usersService.fetchLoading = true;
-          this.usersService.active(userId).subscribe({
-            next: (_) => this.loadUserPage(),
-            error: (err) => {
-              showErrorAlert(err);
-              this.usersService.fetchLoading = false;
-            },
-          });
+    this.alertService
+      .alert('¿Está seguro de activar esta cuenta?')
+      .then((result) => {
+        if (result) {
+          if (result.isConfirmed) {
+            this.usersService.fetchLoading = true;
+            this.usersService.active(userId).subscribe({
+              next: (_) => {
+                this.alertService.success('Usuario activado exitosamente');
+                this.loadUserPage();
+              },
+              error: () => {
+                this.usersService.fetchLoading = false;
+                this.alertService.error();
+              },
+            });
+          }
         }
-      }
-    });
+      });
   }
 }

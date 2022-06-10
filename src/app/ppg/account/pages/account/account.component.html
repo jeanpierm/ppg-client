@@ -2,18 +2,19 @@
   <mat-card-title>Editar cuenta</mat-card-title>
   <br />
   <mat-card-content>
-    <form [formGroup]="myForm">
+    <form [formGroup]="form">
       <mat-grid-list cols="1" rowHeight="100px">
         <mat-grid-tile>
           <mat-form-field appearance="legacy" class="example-full-width">
             <mat-label>Nombres</mat-label>
             <input
               matInput
+              class="capitalize"
               placeholder="Ingrese sus nombres"
               name="name"
               id="name"
               formControlName="name"
-              [value]="myForm.get('name')?.value | titlecase"
+              [value]="form.get('name')?.value | titlecase"
             />
           </mat-form-field>
           <div *ngIf="validErrorForm('name')" class="alert-danger">
@@ -26,12 +27,13 @@
           <mat-form-field appearance="legacy" class="example-full-width">
             <mat-label>Apellidos</mat-label>
             <input
+              class="capitalize"
               matInput
               placeholder="Ingrese sus Apellidos"
               name="surname"
               id="surname"
               formControlName="surname"
-              [value]="myForm.get('surname')?.value | titlecase"
+              [value]="form.get('surname')?.value | titlecase"
             />
           </mat-form-field>
           <div *ngIf="validErrorForm('surname')" class="alert-danger">
@@ -109,7 +111,7 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="myForm.invalid || !isValidForm()"
+      [disabled]="form.invalid || !isValidForm()"
       type="button"
       (click)="onSubmit()"
     >

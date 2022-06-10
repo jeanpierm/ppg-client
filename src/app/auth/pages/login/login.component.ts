@@ -3,11 +3,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SweetAlert } from '../../../ppg/config/sweetAlert';
 import { LoginRequest } from '../../interfaces/auth';
-import { showErrorAlert } from '../../../core/utils/alert.util';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
 import { AccountService } from '../../../ppg/account/services/account.service';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -19,17 +18,17 @@ export class LoginComponent {
 
   hide: boolean = true;
   loading: boolean = false;
-  alert: SweetAlert = new SweetAlert();
   loginForm: FormGroup = this.fb.group({
-    email: ['jeanpier@gmail.com', [Validators.required, Validators.email]],
-    password: ['1234', [Validators.required]],
+    email: ['jeanpi3rm@gmail.com', [Validators.required, Validators.email]],
+    password: ['12345', [Validators.required]],
   });
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private route: Router
+    private route: Router,
+    private readonly alertService: AlertService
   ) {}
 
   get email() {
@@ -62,9 +61,8 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
-
         if (err instanceof HttpErrorResponse) {
-          showErrorAlert(loginErrors[err.status]);
+          this.alertService.error(loginErrors[err.status]);
           return;
         }
       },

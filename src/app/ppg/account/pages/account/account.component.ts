@@ -1,7 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { SweetAlert } from 'src/app/ppg/config/sweetAlert';
+import { AlertService } from '../../../../core/services/alert.service';
+import {
+  getAccountDataFromLocalStorage,
+  setAccountDataInLocalStorage,
+} from '../../../../core/utils/local-storage.util';
 import { Account } from '../../../users/interfaces/account.interface';
 import { AccountService } from '../../services/account.service';
 
@@ -13,16 +18,19 @@ import { AccountService } from '../../services/account.service';
 export class AccountComponent implements OnInit {
   static readonly PATH = 'cuenta';
 
-  public myForm: FormGroup;
+  public form: FormGroup;
   public passwords: any;
-
   public change_password: boolean;
   public hide: boolean;
   public hide_new: boolean;
   public user: any;
-  public alert: SweetAlert;
-  constructor(public fb: FormBuilder, private accountService: AccountService) {
-    this.myForm = new FormGroup({});
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly accountService: AccountService,
+    private readonly alertService: AlertService
+  ) {
+    this.form = new FormGroup({});
     this.passwords = {
       currentPassword: '',
       newPassword: '',
@@ -31,16 +39,15 @@ export class AccountComponent implements OnInit {
     this.hide = true;
     this.hide_new = true;
     this.user = {};
-    this.alert = new SweetAlert();
   }
 
   ngOnInit(): void {
-    this.onForm();
-    this.getUserAccount();
+    this.initForm();
+    this.setAccountDataInForm();
   }
 
-  onForm() {
-    this.myForm = this.fb.group({
+  initForm() {
+    this.form = this.fb.group({
       name: [
         '',
         [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
@@ -53,17 +60,15 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  async getUserAccount() {
-    try {
-      let user = await firstValueFrom(this.accountService.getAccount());
-      this.setValues(user.data);
-    } catch (err) {
-      console.log(err);
-    }
+  async setAccountDataInForm() {
+    const user =
+      getAccountDataFromLocalStorage() ||
+      (await firstValueFrom(this.accountService.getAccount())).data;
+    this.setValues(user);
   }
 
   setValues(user: Account) {
-    this.myForm.setValue({
+    this.form.setValue({
       name: user.name,
       surname: user.surname,
       email: user.email,
@@ -71,7 +76,7 @@ export class AccountComponent implements OnInit {
   }
 
   validErrorForm(campo: any) {
-    return this.myForm.get(campo)?.errors && this.myForm.get(campo)?.dirty;
+    return this.form.get(campo)?.errors && this.form.get(campo)?.dirty;
   }
 
   isValidForm() {
@@ -93,10 +98,15 @@ export class AccountComponent implements OnInit {
       this.setValueEntity();
       this.accountService.updateAccount(this.user).subscribe({
         next: () => {
+          this.accountService.getAccount().subscribe({
+            next({ data }) {
+              setAccountDataInLocalStorage(data);
+            },
+          });
           resolve(true);
         },
         error: (err) => {
-          this.getUserAccount();
+          this.setAccountDataInForm();
           reject(err);
         },
       });
@@ -121,9 +131,9 @@ export class AccountComponent implements OnInit {
   }
 
   setValueEntity() {
-    this.user.name = this.myForm.controls['name'].value;
-    this.user.surname = this.myForm.controls['surname'].value;
-    this.user.email = this.myForm.controls['email'].value;
+    this.user.name = this.form.controls['name'].value;
+    this.user.surname = this.form.controls['surname'].value;
+    this.user.email = this.form.controls['email'].value;
   }
 
   onSubmit() {
@@ -133,8 +143,12 @@ export class AccountComponent implements OnInit {
       p2 = this.onUpdatePassword();
     }
     Promise.all([p1, p2]).then(
-      () => this.alert.successAlert('Cambios guardados correctamente!'),
-      (err) => this.alert.errorAlert(err)
+      () => this.alertService.success('¡Cambios guardados exitosamente!'),
+      (err) => {
+        if (err instanceof HttpErrorResponse) {
+          this.alertService.error();
+        }
+      }
     );
   }
 

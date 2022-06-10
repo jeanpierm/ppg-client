@@ -17,11 +17,11 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { SweetAlert } from '../../../config/sweetAlert';
 import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Technology } from '../../interfaces/technology.interface';
 import { techTypeOptions } from '../../../../core/constants/technology-type-options.constant';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-technologies',
@@ -36,7 +36,6 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   types = techTypeOptions;
   myForm: FormGroup;
   update = false;
-  alert: SweetAlert;
   sizePerPage = 10;
   displayedColumns: string[] = ['Tipo', 'Nombre', 'Identificadores', 'options'];
   private matDialogRef: any;
@@ -45,10 +44,10 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
     private readonly technologiesService: TechnologiesService,
     public dialog: MatDialog,
     public fb: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private readonly alertService: AlertService
   ) {
     this.myForm = new FormGroup({});
-    this.alert = new SweetAlert();
   }
 
   ngOnInit(): void {
@@ -136,10 +135,10 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
               sizePerPage: this.sizePerPage,
               pageIndex: this.paginator.pageIndex,
             });
-            this.alert.successAlert('Se ha guardado correctamente!');
+            this.alertService.success('¡Tecnología guardada exitosamente!');
           },
-          error: (err) => {
-            this.alert.successAlert('Error:' + err);
+          error: () => {
+            this.alertService.error();
           },
         });
       }
@@ -173,16 +172,18 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   }
 
   delete(technologyId: string) {
-    this.alert
-      .dialogAlert('Esta seguro de eliminar esta tecnología?')
+    this.alertService
+      .alert('Esta seguro de eliminar esta tecnología?')
       .then((result) => {
         if (result.isConfirmed) {
           this.technologiesService.deleteTechnology(technologyId).subscribe({
-            next: (_) =>
+            next: (_) => {
+              this.alertService.success('Tecnología eliminada exitosamente');
               this.technologiesService.loadTechnology({
                 sizePerPage: this.sizePerPage,
-              }),
-            error: (err) => this.alert.errorAlert(err),
+              });
+            },
+            error: () => this.alertService.error(),
           });
         }
       });
@@ -202,7 +203,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
               sizePerPage: this.sizePerPage,
               pageIndex: this.paginator.pageIndex,
             }),
-          error: (err) => this.alert.errorAlert(err),
+          error: () => this.alertService.error(),
         });
       }
     });

@@ -13,3 +13,5 @@ export function isEmpty(s: string): boolean {
   if (!s) return true;
   return s.trim().length === 0;
 }
+
+// export function titleCase

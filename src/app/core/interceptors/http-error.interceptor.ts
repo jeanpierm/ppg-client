@@ -4,8 +4,11 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, retry } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { AuthService } from '../../auth/services/auth.service';
+import { isAuthRequired } from './auth.interceptor';
 
 // export function handleError(error: HttpErrorResponse): string {
 //   switch (error.status) {
@@ -35,29 +38,24 @@ import { Observable, retry } from 'rxjs';
 //   }
 // }
 
+/**
+ * Intercepta los errores que ocurren en las peticiones HTTP.
+ */
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private readonly authService: AuthService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      retry(1)
-      // catchError((httpErrorResponse: HttpErrorResponse) => {
-      //   console.log(httpErrorResponse);
-      //   const errorMessage =
-      //     httpErrorResponse.error instanceof ErrorEvent
-      //       ? `Error: ${httpErrorResponse.error.message}`
-      //       : `Error Code: ${httpErrorResponse.status}\nMessage: ${
-      //           httpErrorResponse.error.message || httpErrorResponse.message
-      //         }`;
-      //   // window.alert(errorMessage);
-      //   showErrorAlert(errorMessage);
-
-      //   return throwError(() => new Error(errorMessage));
-      // })
+      catchError((httpErrorResponse: HttpErrorResponse) => {
+        if (httpErrorResponse.status === 401 && isAuthRequired(request)) {
+          this.authService.logout();
+        }
+        return throwError(() => httpErrorResponse);
+      })
     );
   }
 }

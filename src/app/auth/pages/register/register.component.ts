@@ -7,9 +7,9 @@ import Swal from 'sweetalert2';
 import { RegisterRequest } from '../../interfaces/auth';
 import { AuthService } from '../../services/auth.service';
 import { validateTwoFormControlsAreEquals } from '../../../core/utils/form.util';
-import { showErrorAlert } from '../../../core/utils/alert.util';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
 import { AccountService } from '../../../ppg/account/services/account.service';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -54,7 +54,8 @@ export class RegisterComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private readonly alertService: AlertService
   ) {}
 
   get name() {
@@ -104,7 +105,7 @@ export class RegisterComponent {
       error: (err) => {
         this.loading = false;
         if (err instanceof HttpErrorResponse) {
-          showErrorAlert(registerErrors[err.status]);
+          this.alertService.error(registerErrors[err.status]);
           return;
         }
       },
