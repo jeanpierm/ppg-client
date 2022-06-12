@@ -9,7 +9,7 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
-  static readonly PATH = 'home';
+  static readonly PATH = 'cuenta';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)

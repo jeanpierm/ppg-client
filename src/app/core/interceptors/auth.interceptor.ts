@@ -6,10 +6,10 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsersService } from '../../account/users/services/users.service';
+import { UsersService } from '../../admin/users/services/users.service';
 import { ProfessionalProfilesService } from '../../account/professional-profiles/services/professional-profiles.service';
 import { AccountService } from '../../account/overview/services/account.service';
-import { TechnologiesService } from '../../account/technologies/services/technologies.service';
+import { TechnologiesService } from '../../admin/technologies/services/technologies.service';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable()

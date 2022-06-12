@@ -2,6 +2,7 @@
   vertical-align: middle;
   margin-right: 20px;
 }
+
 .profile-card {
   text-align: center;
   padding: 20px 20px 0px 20px;
@@ -21,6 +22,11 @@ img {
 a .mat-icon {
   margin-right: 15px;
 }
+
 a {
   display: block;
+}
+
+mat-nav-list {
+  min-width: 240px;
 }

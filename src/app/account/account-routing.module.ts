@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/pages/dashboard/dashboard.component';
 import { GenerateComponent } from './professional-profiles/pages/generate/generate.component';
 import { ProfilesComponent } from './professional-profiles/pages/profiles/profiles.component';
-import { OverviewComponent } from './overview/pages/overview/overview.component';
-import { TechnologiesComponent } from './technologies/pages/technologies/technologies.component';
-import { UsersComponent } from './users/pages/users/users.component';
+import { EditAccountComponent } from './overview/pages/edit-account/edit-account.component';
+import { TechnologiesComponent } from '../admin/technologies/pages/technologies/technologies.component';
+import { UsersComponent } from '../admin/users/pages/users/users.component';
 import { AccountComponent } from './account.component';
 
 const routes: Routes = [
@@ -28,8 +28,8 @@ const routes: Routes = [
         },
       },
       {
-        path: OverviewComponent.PATH,
-        component: OverviewComponent,
+        path: EditAccountComponent.PATH,
+        component: EditAccountComponent,
         data: {
           title: 'Configuración de cuenta',
         },

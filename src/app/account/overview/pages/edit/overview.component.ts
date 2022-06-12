@@ -7,7 +7,7 @@ import {
   getAccountDataFromLocalStorage,
   setAccountDataInLocalStorage,
 } from '../../../../core/utils/local-storage.util';
-import { Account } from '../../../users/interfaces/account.interface';
+import { Account } from '../../../../admin/users/interfaces/account.interface';
 import { AccountService } from '../../services/account.service';
 
 @Component({
@@ -18,12 +18,12 @@ import { AccountService } from '../../services/account.service';
 export class OverviewComponent implements OnInit {
   static readonly PATH = 'cuenta';
 
-  public form: FormGroup;
-  public passwords: any;
-  public change_password: boolean;
-  public hide: boolean;
-  public hide_new: boolean;
-  public user: any;
+  form: FormGroup;
+  passwords: any;
+  change_password: boolean;
+  hide: boolean;
+  hide_new: boolean;
+  user: any;
 
   constructor(
     private readonly fb: FormBuilder,

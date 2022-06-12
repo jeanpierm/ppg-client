@@ -2,13 +2,14 @@
   height: 100%;
 }
 
-.sidenav {
+/* .sidenav {
   width: 200px;
-}
+} */
 
 .main-container {
   padding: 16px;
 }
+
 mat-sidenav-container {
   background: #e2e2e2;
 }

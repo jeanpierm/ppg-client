@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component } from '@angular/core';
+import { Observable, map, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
   static readonly PATH = 'admin';
 
-  constructor() {}
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
-  ngOnInit(): void {
-    console.log('');
-  }
+  constructor(private breakpointObserver: BreakpointObserver) {}
 }

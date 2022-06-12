@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ApiResponse } from '../../../core/models/api-response.model';
-import { User } from '../../users/interfaces/user';
-import { Account } from '../../users/interfaces/account.interface';
+import { User } from '../../../admin/users/interfaces/user';
+import { Account } from '../../../admin/users/interfaces/account.interface';
 import { UpdatePasswordRequest } from '../interfaces/update-password-request.interface';
 
 @Injectable({

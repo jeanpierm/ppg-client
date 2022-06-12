@@ -1,1 +1,19 @@
-<p>admin works!</p>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-content>
+    <app-top-nav (sideNavToggled)="drawer.toggle()"></app-top-nav>
+    <main class="main-container">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+</mat-sidenav-container>
