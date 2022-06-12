@@ -1,19 +1,28 @@
 <div class="flex min-h-screen justify-evenly items-center flex-wrap">
   <mat-card class="h-screen w-screen sm:h-auto sm:max-w-lg">
     <form class="py-10 px-5" [formGroup]="loginForm" (ngSubmit)="login()">
-      <mat-card-title class="text-center text-3xl py-6 ppg-primary">Bienvenido</mat-card-title>
+      <mat-card-title class="text-center text-3xl py-6 ppg-primary">
+        Bienvenido
+      </mat-card-title>
 
       <mat-card-content class="flex flex-col">
         <mat-form-field class="w-full" appearance="outline" hideRequiredMarker>
           <mat-label>Correo electrónico</mat-label>
-          <input type="text" matInput formControlName="email" type="email" name="email" />
+          <input
+            type="text"
+            matInput
+            formControlName="email"
+            type="email"
+            name="email"
+          />
           <mat-error *ngIf="email?.hasError('required')">
             <mat-icon>error</mat-icon>
             Por favor, ingrese su <strong>correo electrónico</strong>
           </mat-error>
           <mat-error *ngIf="email?.hasError('email')">
             <mat-icon>error</mat-icon>
-            Parece que el correo electrónico ingresado <strong>no es válido</strong>
+            Parece que el correo electrónico ingresado
+            <strong>no es válido</strong>
           </mat-error>
         </mat-form-field>
 
@@ -37,14 +46,23 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button type="submit" mat-flat-button [disabled]="loading" color="primary" class="w-full">
+        <button
+          type="submit"
+          mat-flat-button
+          [disabled]="loading"
+          color="primary"
+          class="w-full"
+        >
           {{ loading ? 'Accediendo...' : 'Iniciar sesión' }}
         </button>
 
         <div class="text-center mt-6">
           <p>
             ¿No tienes cuenta?
-            <a routerLink="/auth/register" class="hover:underline text-primary focus:text-red-700">
+            <a
+              [routerLink]="registerRoute"
+              class="hover:underline text-primary focus:text-red-700"
+            >
               <strong>REGÍSTRATE AQUÍ</strong>
             </a>
           </p>
@@ -56,10 +74,13 @@
     </mat-card-footer>
   </mat-card>
 
-  <div class="hidden sm:block w-1/2 p-10 animate__animated animate__fadeInRight">
+  <div
+    class="hidden sm:block w-1/2 p-10 animate__animated animate__fadeInRight"
+  >
     <img class="mb-5 w-full" src="../../../../assets/illustrations/ppg.png" />
     <p class="text-center lg:text-left text-lg">
-      ¡Descubre y gestiona los <strong>perfiles profesionales</strong> más solicitados!
+      ¡Descubre y gestiona los <strong>perfiles profesionales</strong> más
+      solicitados!
     </p>
   </div>
 </div>

@@ -1,12 +1,19 @@
 <div class="flex min-h-screen justify-evenly items-center flex-wrap">
   <mat-card class="h-screen w-screen sm:h-auto sm:max-w-lg">
     <form class="py-10 px-5" [formGroup]="registerForm" (ngSubmit)="register()">
-      <mat-card-title class="text-center text-3xl py-6 ppg-primary">Crea tu cuenta</mat-card-title>
+      <mat-card-title class="text-center text-3xl py-6 ppg-primary"
+        >Crea tu cuenta</mat-card-title
+      >
 
       <mat-card-content class="flex flex-col">
         <mat-form-field class="w-full" appearance="outline">
           <mat-label>Nombres</mat-label>
-          <input matInput formControlName="name" name="name" [errorStateMatcher]="matcher" />
+          <input
+            matInput
+            formControlName="name"
+            name="name"
+            [errorStateMatcher]="matcher"
+          />
           <mat-error *ngIf="name?.hasError('required')">
             <mat-icon>error</mat-icon>
             Por favor, ingrese sus <strong>nombres</strong>
@@ -15,7 +22,12 @@
 
         <mat-form-field class="w-full" appearance="outline">
           <mat-label>Apellidos</mat-label>
-          <input matInput formControlName="surname" name="surname" [errorStateMatcher]="matcher" />
+          <input
+            matInput
+            formControlName="surname"
+            name="surname"
+            [errorStateMatcher]="matcher"
+          />
           <mat-error *ngIf="surname?.hasError('required')">
             <mat-icon>error</mat-icon>
             Por favor, ingrese sus <strong>apellidos</strong>
@@ -35,7 +47,9 @@
             <mat-icon>error</mat-icon>
             Por favor, ingrese su <strong>correo electrónico</strong>
           </mat-error>
-          <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">
+          <mat-error
+            *ngIf="email?.hasError('email') && !email?.hasError('required')"
+          >
             <mat-icon>error</mat-icon>
             Por favor, ingrese un correo electrónico <strong>válido</strong>
           </mat-error>
@@ -85,14 +99,23 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button type="submit" mat-flat-button [disabled]="loading" color="primary" class="w-full">
+        <button
+          type="submit"
+          mat-flat-button
+          [disabled]="loading"
+          color="primary"
+          class="w-full"
+        >
           {{ loading ? 'Accediendo...' : 'Registrarme' }}
         </button>
 
         <div class="text-center mt-6">
           <p>
             ¿No tienes cuenta?
-            <a routerLink="/auth/login" class="hover:underline text-primary focus:text-red-700">
+            <a
+              [routerLink]="loginRoute"
+              class="hover:underline text-primary focus:text-red-700"
+            >
               <strong>INICIAR SESIÓN</strong>
             </a>
           </p>

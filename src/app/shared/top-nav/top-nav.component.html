@@ -4,15 +4,17 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <span>Bienvenido {{ name + ' ' + surname | titlecase }} </span>
+    <span class="hidden md:inline"
+      >Bienvenido {{ name + ' ' + surname | titlecase }}
+    </span>
 
     <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
       <ul fxLayout="row" fxLayoutGap="20px">
-        <li>
+        <!-- <li>
           <button mat-icon-button>
             <mat-icon>settings</mat-icon>
           </button>
-        </li>
+        </li> -->
         <li>
           <button mat-icon-button>
             <mat-icon>help_outline</mat-icon>
@@ -23,6 +25,10 @@
             <mat-icon>person_outline</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="goToAccount()">
+              <mat-icon>settings</mat-icon>
+              Cuenta
+            </button>
             <button mat-menu-item (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>
               Cerrar sesión

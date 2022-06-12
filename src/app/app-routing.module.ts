@@ -2,23 +2,32 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './auth/guards/no-auth.guard';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { PpgComponent } from './ppg/ppg.component';
+import { AccountComponent } from './account/account.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
     canActivate: [NoAuthGuard],
   },
   {
-    path: PpgComponent.PATH,
-    loadChildren: () => import('./ppg/ppg.module').then((m) => m.PpgModule),
+    path: AccountComponent.PATH,
+    loadChildren: () =>
+      import('./account/account.module').then((m) => m.AccountModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AdminComponent.PATH,
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminModule),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },
   {
     path: '**',
-    redirectTo: PpgComponent.PATH,
+    redirectTo: AccountComponent.PATH,
   },
 ];
 

@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-ppg',
-  templateUrl: './ppg.component.html',
-  styleUrls: ['./ppg.component.css'],
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
 })
-export class PpgComponent {
+export class AccountComponent {
   static readonly PATH = 'home';
 
   isHandset$: Observable<boolean> = this.breakpointObserver

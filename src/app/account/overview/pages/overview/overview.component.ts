@@ -11,11 +11,11 @@ import { Account } from '../../../users/interfaces/account.interface';
 import { AccountService } from '../../services/account.service';
 
 @Component({
-  selector: 'app-user-config',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.css'],
 })
-export class AccountComponent implements OnInit {
+export class OverviewComponent implements OnInit {
   static readonly PATH = 'cuenta';
 
   public form: FormGroup;

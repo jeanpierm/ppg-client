@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { GenericErrorStateMatcher } from 'src/app/core/utils/error-state-matcher';
 import Swal from 'sweetalert2';
 import { RegisterRequest } from '../../interfaces/auth';
-import { AuthService } from '../../services/auth.service';
 import { validateTwoFormControlsAreEquals } from '../../../core/utils/form.util';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
-import { AccountService } from '../../../ppg/account/services/account.service';
+import { AccountService } from '../../../account/overview/services/account.service';
 import { AlertService } from '../../../core/services/alert.service';
+import { AuthService } from '../../services/auth.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ import { AlertService } from '../../../core/services/alert.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  static readonly PATH = 'register';
+  static readonly PATH = 'registro';
 
   hide: boolean = true;
   loading: boolean = false;
@@ -76,6 +77,10 @@ export class RegisterComponent {
 
   get password2() {
     return this.registerForm.get('password2');
+  }
+
+  get loginRoute() {
+    return `/${LoginComponent.PATH}`;
   }
 
   async register() {

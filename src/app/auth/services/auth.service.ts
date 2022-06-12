@@ -9,15 +9,14 @@ import {
   RefreshResponse,
   RegisterRequest,
   RegisterResponse,
-} from '../interfaces/auth';
-import { LoginComponent } from '../pages/login/login.component';
+} from '../../auth/interfaces/auth';
+import { LoginComponent } from '../../auth/pages/login/login.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   static readonly BASE_URL = 'auth';
-
   private readonly ACCESS_TOKEN_KEY: string = 'accessToken';
   private readonly BEARER: string = 'Bearer';
 
@@ -84,6 +83,6 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
-    this.router.navigateByUrl(`${AuthService.BASE_URL}/${LoginComponent.PATH}`);
+    this.router.navigateByUrl(`${LoginComponent.PATH}`);
   }
 }

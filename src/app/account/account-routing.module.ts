@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/pages/dashboard/dashboard.component';
 import { GenerateComponent } from './professional-profiles/pages/generate/generate.component';
 import { ProfilesComponent } from './professional-profiles/pages/profiles/profiles.component';
-import { AccountComponent } from './account/pages/account/account.component';
-import { PpgComponent } from './ppg.component';
+import { OverviewComponent } from './overview/pages/overview/overview.component';
 import { TechnologiesComponent } from './technologies/pages/technologies/technologies.component';
 import { UsersComponent } from './users/pages/users/users.component';
+import { AccountComponent } from './account.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PpgComponent,
+    component: AccountComponent,
     children: [
       {
         path: DashboardComponent.PATH,
@@ -28,8 +28,8 @@ const routes: Routes = [
         },
       },
       {
-        path: AccountComponent.PATH,
-        component: AccountComponent,
+        path: OverviewComponent.PATH,
+        component: OverviewComponent,
         data: {
           title: 'Configuración de cuenta',
         },

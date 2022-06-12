@@ -7,7 +7,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PpgComponent } from '../../ppg/ppg.component';
+import { AccountComponent } from '../../account/account.component';
 import { AuthService } from '../services/auth.service';
 
 /**
@@ -26,7 +26,7 @@ export class NoAuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
     if (this.authService.accessToken) {
-      this.router.navigateByUrl(`/${PpgComponent.PATH}`);
+      this.router.navigateByUrl(`/${AccountComponent.PATH}`);
       return false;
     }
     return true;

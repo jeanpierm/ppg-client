@@ -6,11 +6,11 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsersService } from '../../ppg/users/services/users.service';
-import { ProfessionalProfilesService } from '../../ppg/professional-profiles/services/professional-profiles.service';
+import { UsersService } from '../../account/users/services/users.service';
+import { ProfessionalProfilesService } from '../../account/professional-profiles/services/professional-profiles.service';
+import { AccountService } from '../../account/overview/services/account.service';
+import { TechnologiesService } from '../../account/technologies/services/technologies.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { AccountService } from '../../ppg/account/services/account.service';
-import { TechnologiesService } from '../../ppg/technologies/services/technologies.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

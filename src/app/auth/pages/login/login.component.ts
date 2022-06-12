@@ -2,11 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { LoginRequest } from '../../interfaces/auth';
-import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
-import { AccountService } from '../../../ppg/account/services/account.service';
+import { AccountService } from '../../../account/overview/services/account.service';
 import { AlertService } from '../../../core/services/alert.service';
+import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
+import { LoginRequest } from '../../interfaces/auth';
+import { AuthService } from '../../services/auth.service';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,10 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  get registerRoute() {
+    return `/${RegisterComponent.PATH}`;
   }
 
   async login() {

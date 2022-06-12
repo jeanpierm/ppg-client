@@ -7,12 +7,11 @@ import { NgChartsModule } from 'ng2-charts';
 import { SharedModule } from '../shared/shared.module';
 import { CardComponent } from './dashboard/components/card/card.component';
 import { ProfileCardComponent } from './professional-profiles/components/profile-card/profile-card.component';
-import { AccountComponent } from './account/pages/account/account.component';
+import { OverviewComponent } from './overview/pages/overview/overview.component';
 import { DashboardComponent } from './dashboard/pages/dashboard/dashboard.component';
 import { GenerateComponent } from './professional-profiles/pages/generate/generate.component';
 import { ProfilesComponent } from './professional-profiles/pages/profiles/profiles.component';
-import { PpgRoutingModule } from './ppg-routing.module';
-import { PpgComponent } from './ppg.component';
+import { PpgRoutingModule } from './account-routing.module';
 import { TechnologiesComponent } from './technologies/pages/technologies/technologies.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MaterialModule } from '../material/material.module';
@@ -20,10 +19,11 @@ import { UserDialogComponent } from './users/components/user-dialog/user-dialog.
 import { UsersComponent } from './users/pages/users/users.component';
 import { TechChipsComponent } from './professional-profiles/components/tech-chip-list/tech-chips.component';
 import { PieChartComponent } from './dashboard/components/charts/pie-chart/pie-chart.component';
+import { AccountComponent } from './account.component';
 
 @NgModule({
   declarations: [
-    PpgComponent,
+    OverviewComponent,
     AccountComponent,
     DashboardComponent,
     GenerateComponent,
@@ -50,4 +50,4 @@ import { PieChartComponent } from './dashboard/components/charts/pie-chart/pie-c
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class PpgModule {}
+export class AccountModule {}

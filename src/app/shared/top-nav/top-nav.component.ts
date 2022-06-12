@@ -6,7 +6,7 @@ import { LocalStorageKeys } from '../../core/enums/local-storage-keys.enum';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
-  styleUrls: ['./top-nav.component.css'],
+  styleUrls: ['./top-nav.component.scss'],
 })
 export class TopNavComponent implements OnInit {
   @Output() sideNavToggled = new EventEmitter<void>();
@@ -29,5 +29,9 @@ export class TopNavComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  goToAccount(): void {
+    alert('hello');
   }
 }
