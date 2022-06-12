@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { RegisterRequest } from '../../interfaces/auth';
 import { validateTwoFormControlsAreEquals } from '../../../core/utils/form.util';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
-import { AccountService } from '../../../account/overview/services/account.service';
+import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../core/services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginComponent } from '../login/login.component';

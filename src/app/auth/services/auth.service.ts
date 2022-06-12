@@ -83,6 +83,6 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
-    this.router.navigateByUrl(`${LoginComponent.PATH}`);
+    this.router.navigateByUrl(`/${LoginComponent.PATH}`);
   }
 }

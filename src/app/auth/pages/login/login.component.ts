@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../account/overview/services/account.service';
+import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../core/services/alert.service';
 import { setAccountDataInLocalStorage } from '../../../core/utils/local-storage.util';
 import { LoginRequest } from '../../interfaces/auth';

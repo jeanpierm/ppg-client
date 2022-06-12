@@ -15,6 +15,10 @@ const routes: Routes = [
         path: RegisterComponent.PATH,
         component: RegisterComponent,
       },
+      {
+        path: '**',
+        redirectTo: LoginComponent.PATH,
+      },
     ],
   },
 ];

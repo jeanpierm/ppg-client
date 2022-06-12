@@ -1,4 +1,4 @@
-import { Account } from '../../admin/users/interfaces/account.interface';
+import { Account } from '../../admin/interfaces/account.interface';
 import { LocalStorageKeys } from '../enums/local-storage-keys.enum';
 
 export function setAccountDataInLocalStorage({
