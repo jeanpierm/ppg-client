@@ -55,7 +55,6 @@ const routes: Routes = [
           title: 'Usuarios',
         },
       },
-      { path: '**', redirectTo: '' },
     ],
   },
 ];

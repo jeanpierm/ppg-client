@@ -8,9 +8,24 @@ import { AdminComponent } from './admin/admin.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: AccountComponent.PATH,
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
     canActivate: [NoAuthGuard],
   },
+  // {
+  //   path: LoginComponent.PATH,
+  //   component: LoginComponent,
+  //   canActivate: [NoAuthGuard],
+  // },
+  // {
+  //   path: RegisterComponent.PATH,
+  //   component: RegisterComponent,
+  //   canActivate: [NoAuthGuard],
+  // },
   {
     path: AccountComponent.PATH,
     loadChildren: () =>

@@ -27,6 +27,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
+    console.log('auth-guard:can-activate');
     return this.authService.validateAnRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
@@ -37,6 +38,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
+    console.log('auth-guard:can-load');
     return this.authService.validateAnRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
