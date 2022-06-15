@@ -6,26 +6,20 @@ import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: AccountComponent.PATH,
+  //   pathMatch: 'full',
+  // },
   {
     path: '',
-    redirectTo: AccountComponent.PATH,
-    pathMatch: 'full',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: '',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
     canActivate: [NoAuthGuard],
   },
-  // {
-  //   path: LoginComponent.PATH,
-  //   component: LoginComponent,
-  //   canActivate: [NoAuthGuard],
-  // },
-  // {
-  //   path: RegisterComponent.PATH,
-  //   component: RegisterComponent,
-  //   canActivate: [NoAuthGuard],
-  // },
   {
     path: AccountComponent.PATH,
     loadChildren: () =>

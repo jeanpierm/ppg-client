@@ -4,6 +4,7 @@ import {
   DEFAULT_ALERT_TITLE,
   DEFAULT_CANCEL_BUTTON_TEXT,
   DEFAULT_CONFIRM_BUTTON_TEXT,
+  DEFAULT_ERROR_TEXT,
   DEFAULT_ERROR_TITLE,
   DEFAULT_SUCCESS_TITLE,
 } from '../constants/alert.constants';
@@ -37,6 +38,10 @@ export class AlertService {
   }
 
   error(title: string = DEFAULT_ERROR_TITLE, text?: string) {
+    if (title === DEFAULT_ERROR_TITLE) {
+      text = DEFAULT_ERROR_TEXT;
+    }
+
     return Swal.fire({
       icon: 'error',
       title,

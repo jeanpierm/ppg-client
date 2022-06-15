@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { LocalStorageKeys } from '../../core/enums/local-storage-keys.enum';
+import { LocalStorageKeys } from '../../../core/enums/local-storage-keys.enum';
 
 @Component({
   selector: 'app-top-nav',

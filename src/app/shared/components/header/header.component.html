@@ -1,0 +1,29 @@
+<header>
+  <mat-toolbar fxLayout="row" color="primary">
+    <a fxFlex [routerLink]="homeRoute"> Generador de Perfiles Profesionales </a>
+    <!-- <span class="flex-auto"></span>
+    <a mat-button [routerLink]="registerRoute">Registrarse</a>
+    <a mat-button [routerLink]="loginRoute">Iniciar sesión</a> -->
+    <a
+      mat-button
+      *ngFor="let item of menuItems"
+      fxHide.xs
+      [routerLink]="item.path"
+    >
+      <mat-icon class="mr">{{ item.icon }}</mat-icon>
+      {{ item.title }}
+    </a>
+    <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #dropMenu="matMenu">
+      <ng-container *ngFor="let item of menuItems">
+        <button mat-menu-item [routerLink]="item.path">
+          <mat-icon class="mr">{{ item.icon }}</mat-icon>
+          {{ item.title }}
+        </button>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-menu>
+  </mat-toolbar>
+</header>

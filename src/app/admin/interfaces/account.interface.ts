@@ -1,9 +1,9 @@
-import { MenuOption } from '../../shared/sidebar/interfaces/menu-option.interface';
+import { MenuItem } from '../../shared/interfaces/menu-item.interface';
 
 export interface Account {
   userId: string;
   name: string;
   surname: string;
   email: string;
-  options: MenuOption[];
+  options: MenuItem[];
 }

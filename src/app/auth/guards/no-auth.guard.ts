@@ -25,7 +25,6 @@ export class NoAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    console.log('no-auth-guard:can-activate');
     if (this.authService.accessToken) {
       this.router.navigateByUrl(`/${AccountComponent.PATH}`);
       return false;
