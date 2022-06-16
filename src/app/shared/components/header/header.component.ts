@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { LoginComponent } from '../../../auth/pages/login/login.component';
 import { RegisterComponent } from '../../../auth/pages/register/register.component';
+import { DiscoverComponent } from '../../../discover/discover.component';
+import { HomeComponent } from '../../../home/home.component';
 import { MenuItem } from '../../interfaces/menu-item.interface';
 
 @Component({
@@ -9,11 +11,16 @@ import { MenuItem } from '../../interfaces/menu-item.interface';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  static readonly PATH = '';
-  menuItems: MenuItem[] = [
+  readonly title: string = 'descubre perfiles profesionales';
+  readonly menuItems: MenuItem[] = [
+    {
+      title: 'Descubrir Perfil Profesional',
+      icon: 'rocket_launch',
+      path: this.discoverRoute,
+    },
     {
       title: 'Registrarme',
-      icon: 'rocket_launch',
+      icon: 'supervisor_account',
       path: this.registerRoute,
     },
     {
@@ -26,7 +33,7 @@ export class HeaderComponent {
   constructor() {}
 
   get homeRoute() {
-    return `/${HeaderComponent.PATH}`;
+    return `/${HomeComponent.PATH}`;
   }
 
   get registerRoute() {
@@ -35,5 +42,9 @@ export class HeaderComponent {
 
   get loginRoute() {
     return `/${LoginComponent.PATH}`;
+  }
+
+  get discoverRoute() {
+    return `/${DiscoverComponent.PATH}`;
   }
 }

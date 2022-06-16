@@ -1,6 +1,8 @@
 <header>
   <mat-toolbar fxLayout="row" color="primary">
-    <a fxFlex [routerLink]="homeRoute"> Generador de Perfiles Profesionales </a>
+    <a fxFlex [routerLink]="homeRoute">
+      {{ title | titlecase }}
+    </a>
     <!-- <span class="flex-auto"></span>
     <a mat-button [routerLink]="registerRoute">Registrarse</a>
     <a mat-button [routerLink]="loginRoute">Iniciar sesión</a> -->

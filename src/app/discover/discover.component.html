@@ -1,0 +1,196 @@
+<app-header></app-header>
+<!-- <ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner> -->
+
+<section class="pt-20">
+  <h1 class="!text-4xl text-center">
+    ¡Descubre el perfil profesional que buscan las empresas!
+  </h1>
+</section>
+
+<section class="py-14">
+  <div class="container mx-auto">
+    <div class="max-w-xl mx-auto">
+      <app-discover-form></app-discover-form>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="pt-14 bg-white">
+  <div class="container mx-auto">
+    <h1 class="">El algoritmo de web scraping detecta:</h1>
+    <div class="my-8 grid gap-4 grid-cols-4">
+      <span>+58 lenguajes de programación</span>
+      <span>+28 marcos de trabajo</span>
+      <span>+39 librerías o paquetes</span>
+      <span>+23 bases de datos</span>
+      <span>+33 herramientas de desarrollo</span>
+      <span>+39 paradigmas de programación</span>
+      <span>Si requiere o no inglés</span>
+    </div>
+  </div>
+</section> -->
+
+<section class="py-14 bg-white">
+  <div class="container mx-auto">
+    <h1 class="">Tus últimos perfiles</h1>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque delectus
+      assumenda mollitia vitae veritatis, laudantium repudiandae, a iste facilis
+      officia hic ipsum, quia alias inventore! Exercitationem numquam itaque
+      aperiam voluptates?
+    </p>
+    <button mat-stroked-button color="accent">Ver más perfiles</button>
+  </div>
+</section>
+
+<div fxLayout="row">
+  <div *ngIf="!!ppGenerated" fxFlex="55" style="margin: 5px">
+    <div>
+      <mat-card-subtitle style="margin: 10px">Resultado</mat-card-subtitle>
+    </div>
+    <mat-card>
+      <mat-card-content>
+        <br />
+
+        <div fxLayout="row">
+          <div mat-subheader>Lenguajes</div>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div fxLayout="row">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              cdkDrag
+              *ngFor="let item of ppGenerated.languages"
+            >
+              {{ item }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div fxLayout="row">
+          <div mat-subheader>Frameworks</div>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div fxLayout="row">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              cdkDrag
+              *ngFor="let item of ppGenerated.frameworks"
+            >
+              {{ item }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div fxLayout="row">
+          <div mat-subheader>Base de datos</div>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div fxLayout="row">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              cdkDrag
+              *ngFor="let item of ppGenerated.databases"
+            >
+              {{ item }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div fxLayout="row">
+          <div mat-subheader>Patterns</div>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div fxLayout="row">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              cdkDrag
+              *ngFor="let item of ppGenerated.patterns"
+            >
+              {{ item }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div fxLayout="row">
+          <div mat-subheader>Herramientas</div>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div fxLayout="row">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              cdkDrag
+              *ngFor="let item of ppGenerated.tools"
+            >
+              {{ item }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div fxLayout="row">
+          <div mat-subheader>Paradigms</div>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div fxLayout="row">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              cdkDrag
+              *ngFor="let item of ppGenerated.paradigms"
+            >
+              {{ item }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div fxLayout="row">
+          <div mat-subheader>
+            Requiere ingles
+            <mat-icon color="primary" *ngIf="ppGenerated.requireEnglish"
+              >check_circle</mat-icon
+            >
+            <mat-icon color="warn" *ngIf="!ppGenerated.requireEnglish"
+              >cancel</mat-icon
+            >
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

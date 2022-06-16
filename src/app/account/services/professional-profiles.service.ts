@@ -36,7 +36,9 @@ export class ProfessionalProfilesService {
   loadProfessionalProfiles(
     getProfessionalProfilesQuery?: GetProfessionalProfilesQuery
   ): void {
-    !this.fetchLoading && (this.fetchLoading = true);
+    if (!this.fetchLoading) {
+      this.fetchLoading = true;
+    }
     this.getProfessionalProfiles(getProfessionalProfilesQuery).subscribe(
       (res) => {
         this.professionalProfiles = res.data;

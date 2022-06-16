@@ -13,7 +13,7 @@
     *ngFor="let item of options"
     mat-list-item
     [routerLinkActive]="'active'"
-    [routerLink]="[item.path]"
+    [routerLink]="item.path"
   >
     <mat-icon class="sidenav-icon" color="primary">{{ item.icon }}</mat-icon>
     {{ item.title | titlecase }}

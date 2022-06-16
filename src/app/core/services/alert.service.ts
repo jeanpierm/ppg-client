@@ -7,7 +7,7 @@ import {
   DEFAULT_ERROR_TEXT,
   DEFAULT_ERROR_TITLE,
   DEFAULT_SUCCESS_TITLE,
-} from '../constants/alert.constants';
+} from '../constants/alert.constant';
 
 export interface AlertOptions {
   title: string;

@@ -1,0 +1,49 @@
+<form [formGroup]="discoverForm" (ngSubmit)="discover()" class="">
+  <mat-card>
+    <mat-card-title>Generador de Perfiles Profesionales</mat-card-title>
+    <mat-card-subtitle>
+      {{ subtitle }}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Título de trabajo</mat-label>
+        <mat-icon color="primary" matSuffix>search</mat-icon>
+        <input
+          matInput
+          formControlName="jobTitle"
+          type="text"
+          name="jobTitle"
+          id="jobTitle"
+          placeholder="Descubrir perfil para..."
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Ubicación</mat-label>
+        <mat-icon color="primary" matSuffix>place</mat-icon>
+        <input
+          matInput
+          formControlName="location"
+          type="text"
+          name="location"
+          id="location"
+          placeholder="Guayaquil"
+        />
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="flex justify-center">
+        <button
+          mat-raised-button
+          [disabled]="loadingGenerate"
+          color="accent"
+          type="submit"
+          (click)="discover()"
+        >
+          DESCUBRIR PERFIL PROFESIONAL
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

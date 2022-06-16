@@ -8,13 +8,7 @@
       <mat-card-content class="flex flex-col">
         <mat-form-field class="w-full" appearance="outline" hideRequiredMarker>
           <mat-label>Correo electrónico</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="email"
-            type="email"
-            name="email"
-          />
+          <input matInput formControlName="email" type="email" name="email" />
           <mat-error *ngIf="email?.hasError('required')">
             <mat-icon>error</mat-icon>
             Por favor, ingrese su <strong>correo electrónico</strong>
