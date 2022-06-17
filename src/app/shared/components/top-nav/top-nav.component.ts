@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/main/auth/services/auth.service';
 import { LocalStorageKeys } from '../../../core/enums/local-storage-keys.enum';
 
 @Component({
@@ -14,7 +14,7 @@ export class TopNavComponent implements OnInit {
   surname!: string;
 
   constructor(
-    private route: Router,
+    private readonly router: Router,
     private readonly authService: AuthService
   ) {}
 

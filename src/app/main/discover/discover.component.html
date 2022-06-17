@@ -1,0 +1,43 @@
+<section class="pt-20">
+  <h1 class="!text-4xl text-center">
+    ¡Descubre el perfil profesional que buscan las empresas!
+  </h1>
+</section>
+
+<section class="py-14">
+  <div class="container mx-auto">
+    <div class="max-w-xl mx-auto">
+      <app-discover-form></app-discover-form>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="pt-14 bg-white">
+  <div class="container mx-auto">
+    <h1 class="">El algoritmo de web scraping detecta:</h1>
+    <div class="my-8 grid gap-4 grid-cols-4">
+      <span>+58 lenguajes de programación</span>
+      <span>+28 marcos de trabajo</span>
+      <span>+39 librerías o paquetes</span>
+      <span>+23 bases de datos</span>
+      <span>+33 herramientas de desarrollo</span>
+      <span>+39 paradigmas de programación</span>
+      <span>Si requiere o no inglés</span>
+    </div>
+  </div>
+</section> -->
+
+<section class="py-14 bg-white" *ngIf="!!authService.accessToken">
+  <div class="container mx-auto">
+    <h1 class="">Tus últimos perfiles</h1>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque delectus
+      assumenda mollitia vitae veritatis, laudantium repudiandae, a iste facilis
+      officia hic ipsum, quia alias inventore! Exercitationem numquam itaque
+      aperiam voluptates?
+    </p>
+    <a mat-stroked-button color="accent" [routerLink]="accountProfilesRoute">
+      Ver todos mis perfiles
+    </a>
+  </div>
+</section>

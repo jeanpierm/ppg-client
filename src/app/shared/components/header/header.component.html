@@ -3,30 +3,50 @@
     <a fxFlex [routerLink]="homeRoute">
       {{ title | titlecase }}
     </a>
-    <!-- <span class="flex-auto"></span>
-    <a mat-button [routerLink]="registerRoute">Registrarse</a>
-    <a mat-button [routerLink]="loginRoute">Iniciar sesión</a> -->
-    <a
-      mat-button
-      *ngFor="let item of menuItems"
-      fxHide.xs
-      [routerLink]="item.path"
-    >
-      <mat-icon class="mr">{{ item.icon }}</mat-icon>
-      {{ item.title }}
-    </a>
 
-    <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
-      <mat-icon>more_vert</mat-icon>
+    <button
+      class="!mr-3"
+      mat-stroked-button
+      fxHide.xs
+      [routerLink]="discoverRoute"
+    >
+      <mat-icon>rocket_launch</mat-icon>
+      DESCUBRIR PERFIL PROFESIONAL
     </button>
-    <mat-menu #dropMenu="matMenu">
-      <ng-container *ngFor="let item of menuItems">
-        <button mat-menu-item [routerLink]="item.path">
-          <mat-icon class="mr">{{ item.icon }}</mat-icon>
-          {{ item.title }}
+
+    <ng-container *ngIf="isAuthenticated; else loginButton">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="editAccountRoute">
+          <mat-icon>settings</mat-icon>
+          Cuenta
         </button>
-        <mat-divider></mat-divider>
-      </ng-container>
-    </mat-menu>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Cerrar sesión
+        </button>
+      </mat-menu>
+    </ng-container>
+
+    <ng-template #loginButton="">
+      <button fxHide.xs mat-flat-button [routerLink]="loginRoute">
+        INICIAR SESIÓN
+      </button>
+      <button fxHide fxShow.xs mat-icon-button [routerLink]="loginRoute">
+        <mat-icon>login</mat-icon>
+      </button>
+    </ng-template>
+
+    <button
+      class="fab"
+      mat-fab
+      color="accent"
+      matTooltip="¡Descubre un perfil profesional ideal!"
+      [routerLink]="discoverRoute"
+    >
+      <mat-icon>rocket_launch</mat-icon>
+    </button>
   </mat-toolbar>
 </header>

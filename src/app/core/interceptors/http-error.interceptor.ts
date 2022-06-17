@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { isAuthRequired } from './auth.interceptor';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService } from '../../main/auth/services/auth.service';
 
 // export function handleError(error: HttpErrorResponse): string {
 //   switch (error.status) {

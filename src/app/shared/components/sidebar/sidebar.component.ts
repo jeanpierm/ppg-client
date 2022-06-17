@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../main/auth/services/auth.service';
 import { LocalStorageKeys } from '../../../core/enums/local-storage-keys.enum';
 import { MenuItem } from '../../interfaces/menu-item.interface';
 

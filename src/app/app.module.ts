@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MaterialModule } from './material/material.module';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     FlexLayoutModule,
     HttpClientModule,
     NgxSpinnerModule,
+    MainModule,
   ],
   bootstrap: [AppComponent],
   providers: [

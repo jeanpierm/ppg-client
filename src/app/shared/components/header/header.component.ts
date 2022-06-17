@@ -1,52 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginComponent } from '../../../auth/pages/login/login.component';
-import { RegisterComponent } from '../../../auth/pages/register/register.component';
-import { AuthService } from '../../../auth/services/auth.service';
-import { DiscoverComponent } from '../../../discover/discover.component';
-import { HomeComponent } from '../../../home/home.component';
-import { MenuItem } from '../../interfaces/menu-item.interface';
+import { Component } from '@angular/core';
+import { AccountComponent } from '../../../main/account/account.component';
+import { EditAccountComponent } from '../../../main/account/pages/edit-account/edit-account.component';
+import { LoginComponent } from '../../../main/auth/pages/login/login.component';
+import { RegisterComponent } from '../../../main/auth/pages/register/register.component';
+import { AuthService } from '../../../main/auth/services/auth.service';
+import { DiscoverComponent } from '../../../main/discover/discover.component';
+import { HomeComponent } from '../../../main/home/home.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   readonly title: string = 'descubre perfiles profesionales';
-  menuItems: MenuItem[] = [];
 
   constructor(public readonly authService: AuthService) {}
 
-  ngOnInit(): void {
-    console.log('hey');
-    if (this.authService.accessToken) {
-      this.menuItems = [
-        {
-          title: 'Descubrir Perfil Profesional',
-          icon: 'rocket_launch',
-          path: this.discoverRoute,
-        },
-      ];
-      return;
-    }
-    this.menuItems = [
-      {
-        title: 'Descubrir Perfil Profesional',
-        icon: 'rocket_launch',
-        path: this.discoverRoute,
-      },
-      {
-        title: 'Registrarme',
-        icon: 'supervisor_account',
-        path: this.registerRoute,
-      },
-      {
-        title: 'Iniciar sesión',
-        icon: 'login',
-        path: this.loginRoute,
-      },
-    ];
+  get isAuthenticated() {
+    return !!this.authService.accessToken;
   }
+
   get homeRoute() {
     return `/${HomeComponent.PATH}`;
   }
@@ -61,5 +35,17 @@ export class HeaderComponent implements OnInit {
 
   get discoverRoute() {
     return `/${DiscoverComponent.PATH}`;
+  }
+
+  get accountRoute() {
+    return `/${AccountComponent.PATH}`;
+  }
+
+  get editAccountRoute() {
+    return `/${AccountComponent.PATH}/${EditAccountComponent.PATH}`;
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

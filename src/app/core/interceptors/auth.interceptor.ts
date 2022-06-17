@@ -7,9 +7,9 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersService } from '../../admin/services/users.service';
-import { ProfessionalProfilesService } from '../../account/services/professional-profiles.service';
-import { AccountService } from '../../account/services/account.service';
-import { AuthService } from '../../auth/services/auth.service';
+import { ProfessionalProfilesService } from '../../main/account/services/professional-profiles.service';
+import { AccountService } from '../../main/account/services/account.service';
+import { AuthService } from '../../main/auth/services/auth.service';
 import { TechnologiesService } from '../../admin/services/technologies.service';
 
 @Injectable()
