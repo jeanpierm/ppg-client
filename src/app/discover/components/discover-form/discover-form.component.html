@@ -1,3 +1,4 @@
+<ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner>
 <form [formGroup]="discoverForm" (ngSubmit)="discover()" class="">
   <mat-card>
     <mat-card-title>Generador de Perfiles Profesionales</mat-card-title>
@@ -30,18 +31,33 @@
           placeholder="Guayaquil"
         />
       </mat-form-field>
+      <mat-checkbox
+        class=""
+        [(ngModel)]="useUserPreferences"
+        [ngModelOptions]="{ standalone: true }"
+        (change)="onChangeUseUserPreferences()"
+        matTooltip="Utiliza el título de trabajo y ciudad configurada en tu cuenta."
+        >Utilizar mis preferencias de usuario</mat-checkbox
+      >
     </mat-card-content>
 
     <mat-card-actions>
       <div class="flex justify-center">
         <button
-          mat-raised-button
+          mat-flat-button
           [disabled]="loadingGenerate"
-          color="accent"
+          color="primary"
           type="submit"
           (click)="discover()"
         >
           DESCUBRIR PERFIL PROFESIONAL
+        </button>
+        <button
+          mat-stroked-button
+          color="accent"
+          matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
+        >
+          ¡VOY A TENER SUERTE!
         </button>
       </div>
     </mat-card-actions>

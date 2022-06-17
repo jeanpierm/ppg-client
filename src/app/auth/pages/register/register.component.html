@@ -96,6 +96,34 @@
             Las contraseñas <strong>no coinciden</strong>
           </mat-error>
         </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Título de trabajo</mat-label>
+          <input
+            matInput
+            formControlName="jobTitle"
+            name="jobTitle"
+            placeholder="Tu título de trabajo preferido"
+          />
+          <mat-error *ngIf="surname?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese su <strong>título de trabajo preferido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Ciudad</mat-label>
+          <input
+            matInput
+            formControlName="location"
+            name="location"
+            placeholder="Tu ciudad"
+          />
+          <mat-error *ngIf="surname?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Por favor, ingrese su <strong>ciudad</strong>
+          </mat-error>
+        </mat-form-field>
       </mat-card-content>
 
       <mat-card-actions>

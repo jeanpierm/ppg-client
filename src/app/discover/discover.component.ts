@@ -1,26 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ProfessionalProfile } from '../account/interfaces/professional-profile.interface';
-import { ProfessionalProfilesService } from '../account/services/professional-profiles.service';
-import { AlertService } from '../core/services/alert.service';
+import { Component } from '@angular/core';
+import { AccountComponent } from '../account/account.component';
+import { ProfilesComponent } from '../account/pages/profiles/profiles.component';
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss'],
 })
-export class DiscoverComponent implements OnInit {
+export class DiscoverComponent {
   static readonly PATH = 'descubrir';
 
-  ppGenerated!: ProfessionalProfile;
-
-  constructor(
-    private readonly ppService: ProfessionalProfilesService,
-    private readonly spinner: NgxSpinnerService,
-    private readonly alertService: AlertService
-  ) {}
-
-  ngOnInit(): void {
-    this.spinner.show();
+  get accountProfilesRoute() {
+    return `/${AccountComponent.PATH}/${ProfilesComponent.PATH}`;
   }
 }

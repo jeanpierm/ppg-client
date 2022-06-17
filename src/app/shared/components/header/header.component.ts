@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../../../auth/pages/login/login.component';
 import { RegisterComponent } from '../../../auth/pages/register/register.component';
+import { AuthService } from '../../../auth/services/auth.service';
 import { DiscoverComponent } from '../../../discover/discover.component';
 import { HomeComponent } from '../../../home/home.component';
 import { MenuItem } from '../../interfaces/menu-item.interface';
@@ -10,28 +11,42 @@ import { MenuItem } from '../../interfaces/menu-item.interface';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   readonly title: string = 'descubre perfiles profesionales';
-  readonly menuItems: MenuItem[] = [
-    {
-      title: 'Descubrir Perfil Profesional',
-      icon: 'rocket_launch',
-      path: this.discoverRoute,
-    },
-    {
-      title: 'Registrarme',
-      icon: 'supervisor_account',
-      path: this.registerRoute,
-    },
-    {
-      title: 'Iniciar sesión',
-      icon: 'login',
-      path: this.loginRoute,
-    },
-  ];
+  menuItems: MenuItem[] = [];
 
-  constructor() {}
+  constructor(public readonly authService: AuthService) {}
 
+  ngOnInit(): void {
+    console.log('hey');
+    if (this.authService.accessToken) {
+      this.menuItems = [
+        {
+          title: 'Descubrir Perfil Profesional',
+          icon: 'rocket_launch',
+          path: this.discoverRoute,
+        },
+      ];
+      return;
+    }
+    this.menuItems = [
+      {
+        title: 'Descubrir Perfil Profesional',
+        icon: 'rocket_launch',
+        path: this.discoverRoute,
+      },
+      {
+        title: 'Registrarme',
+        icon: 'supervisor_account',
+        path: this.registerRoute,
+      },
+      {
+        title: 'Iniciar sesión',
+        icon: 'login',
+        path: this.loginRoute,
+      },
+    ];
+  }
   get homeRoute() {
     return `/${HomeComponent.PATH}`;
   }

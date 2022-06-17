@@ -5,7 +5,7 @@ import { DiscoverRoutingModule } from './discover-routing.module';
 import { DiscoverComponent } from './discover.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DiscoverFormComponent } from './components/discover-form/discover-form.component';
 
@@ -18,6 +18,7 @@ import { DiscoverFormComponent } from './components/discover-form/discover-form.
     MaterialModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
+    FormsModule,
   ],
 })
 export class DiscoverModule {}

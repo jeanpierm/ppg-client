@@ -45,6 +45,8 @@ export class RegisterComponent {
         ],
       ],
       password2: ['', Validators.required],
+      jobTitle: ['', [Validators.required, Validators.required]],
+      location: ['', [Validators.required, Validators.required]],
     },
     {
       validators: [validateTwoFormControlsAreEquals('password', 'password2')],
