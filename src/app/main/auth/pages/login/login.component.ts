@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountComponent } from '../../../account/account.component';
 import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { setAccountDataInLocalStorage } from '../../../../core/utils/local-storage.util';
@@ -59,7 +58,7 @@ export class LoginComponent {
         this.accountService.getAccount().subscribe({
           next: ({ data }) => {
             setAccountDataInLocalStorage(data);
-            this.route.navigateByUrl(`/${AccountComponent.PATH}`).then(() => {
+            this.route.navigateByUrl(`/`).then(() => {
               this.loading = false;
             });
           },

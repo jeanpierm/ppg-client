@@ -1,68 +1,65 @@
 <ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner>
 
-<form [formGroup]="discoverForm" (ngSubmit)="discover()" class="">
-  <mat-card>
-    <mat-card-title>Generador de Perfiles Profesionales</mat-card-title>
-    <mat-card-subtitle>
-      {{ subtitle }}
-    </mat-card-subtitle>
-    <mat-card-content>
-      <mat-form-field class="w-full">
-        <mat-label>Título de trabajo</mat-label>
-        <mat-icon color="primary" matSuffix>search</mat-icon>
-        <input
-          matInput
-          formControlName="jobTitle"
-          type="text"
-          name="jobTitle"
-          id="jobTitle"
-          placeholder="El perfil que te gusta. Ejemplo: Desarrollador Móvil"
-        />
-      </mat-form-field>
+<form [formGroup]="discoverForm" (ngSubmit)="discover()" fxLayout="column">
+  <mat-form-field>
+    <mat-label>Título de trabajo</mat-label>
+    <mat-icon color="primary" matSuffix>search</mat-icon>
+    <input
+      matInput
+      formControlName="jobTitle"
+      type="text"
+      name="jobTitle"
+      id="jobTitle"
+      placeholder="El perfil que te gusta. Ejemplo: Desarrollador Móvil"
+    />
+  </mat-form-field>
 
-      <mat-form-field class="w-full">
-        <mat-label>Ubicación</mat-label>
-        <mat-icon color="primary" matSuffix>place</mat-icon>
-        <input
-          matInput
-          formControlName="location"
-          type="text"
-          name="location"
-          id="location"
-          placeholder="El lugar en que te gustaría trabajar. Ejemplo: Guayaquil, Ecuador."
-        />
-      </mat-form-field>
-      <mat-checkbox
-        class=""
-        formControlName="useUserPreferences"
-        name="useUserPreferences"
-        id="useUserPreferences"
-        (change)="onChangeUseUserPreferences()"
-        matTooltip="Utiliza el título de trabajo y ciudad configurada en tu cuenta."
-        >Utilizar mis preferencias de usuario</mat-checkbox
-      >
-    </mat-card-content>
+  <mat-form-field>
+    <mat-label>Ubicación</mat-label>
+    <mat-icon color="primary" matSuffix>place</mat-icon>
+    <input
+      matInput
+      formControlName="location"
+      type="text"
+      name="location"
+      id="location"
+      placeholder="El lugar en que te gustaría trabajar. Ejemplo: Guayaquil, Ecuador."
+    />
+  </mat-form-field>
 
-    <mat-card-actions>
-      <div class="flex justify-center">
-        <button
-          mat-flat-button
-          [disabled]="loadingGenerate"
-          color="primary"
-          type="submit"
-        >
-          DESCUBRIR PERFIL PROFESIONAL
-        </button>
-        <button
-          mat-stroked-button
-          color="accent"
-          type="button"
-          (click)="discoverRandom()"
-          matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
-        >
-          ¡VOY A TENER SUERTE!
-        </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+  <mat-checkbox
+    formControlName="useUserPreferences"
+    name="useUserPreferences"
+    id="useUserPreferences"
+    (change)="onChangeUseUserPreferences()"
+    matTooltip="Utiliza el título de trabajo y ciudad configurada en tu cuenta."
+  >
+    Utilizar mis preferencias de usuario
+  </mat-checkbox>
+
+  <br />
+
+  <div fxLayout fxLayoutGap="10px" fxLayoutAlign="center">
+    <button
+      mat-flat-button
+      [disabled]="loadingGenerate"
+      color="primary"
+      type="submit"
+    >
+      DESCUBRIR PERFIL PROFESIONAL
+    </button>
+    <button
+      mat-stroked-button
+      color="accent"
+      type="button"
+      (click)="discoverRandom()"
+      matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
+    >
+      ¡VOY A TENER SUERTE!
+    </button>
+  </div>
+
+  <!-- <div class="flex justify-center"> -->
+
+  <!-- </div> -->
 </form>

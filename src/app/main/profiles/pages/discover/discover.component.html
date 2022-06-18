@@ -5,8 +5,29 @@
 </section>
 
 <section class="py-14">
-  <div class="max-w-xl mx-auto">
-    <app-discover-form></app-discover-form>
+  <div
+    fxLayout="row"
+    fxLayoutGap="40px"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+  >
+    <div fxFlex="50" fxLayout="column" fxLayoutAlign="center">
+      <p class="text-center text-lg py-3">
+        A través de web scraping a diversas ofertas de trabajo en tiempo real,
+        te recomendaremos el perfil profesional que mejor se ajuste a tus
+        preferencias y que tenga las tecnologías de desarrollo de software con
+        mayor demanda laboral a día de hoy ({{ todayFormatted }})
+      </p>
+      <app-discover-form></app-discover-form>
+    </div>
+
+    <div fxFlex="50">
+      <img
+        class="rounded"
+        src="https://www.globalhumanaccess.com/wp-content/uploads/2016/01/gharl-software.jpg"
+        alt="development"
+      />
+    </div>
   </div>
 </section>
 
@@ -47,8 +68,9 @@
     </div>
   </ng-template>
 
-  <div class="mt-3">
-    <a mat-stroked-button color="accent" [routerLink]="accountProfilesRoute">
+  <br />
+  <div fxLayoutAlign="center">
+    <a mat-flat-button color="accent" [routerLink]="accountProfilesRoute">
       VER TODOS MIS PERFILES
     </a>
   </div>

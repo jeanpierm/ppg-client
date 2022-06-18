@@ -16,7 +16,8 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class DiscoverComponent implements OnInit {
   static readonly PATH = 'descubrir';
-
+  today: Date = new Date();
+  todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
   lastProfiles: ProfessionalProfile[] = [];
 
   constructor(
