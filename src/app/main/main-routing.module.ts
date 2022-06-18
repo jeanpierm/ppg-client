@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { NoAuthGuard } from './auth/guards/no-auth.guard';
-import { DiscoverComponent } from './discover/discover.component';
 import { MainComponent } from './main.component';
 import { ProfileListComponent } from './profiles/pages/profile-list/profile-list.component';
 
@@ -16,11 +15,6 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./home/home.module').then((m) => m.HomeModule),
-      },
-      {
-        path: DiscoverComponent.PATH,
-        loadChildren: () =>
-          import('./discover/discover.module').then((m) => m.DiscoverModule),
       },
       {
         path: ProfileListComponent.PATH,

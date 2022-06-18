@@ -30,9 +30,9 @@ $ppg-frontend-theme: mat.define-light-theme(
   )
 );
 
-mat-grid-tile {
-  padding: 10px;
-}
+// mat-grid-tile {
+//   padding: 10px;
+// }
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component

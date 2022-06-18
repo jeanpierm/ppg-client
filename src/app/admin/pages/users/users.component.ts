@@ -103,7 +103,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   inactive(userId: string) {
     this.alertService
-      .alert('¿Está seguro de desactivar esta cuenta?')
+      .warning('¿Está seguro de desactivar esta cuenta?')
       .then((result) => {
         if (result) {
           if (result.isConfirmed) {
@@ -122,7 +122,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   active(userId: string) {
     this.alertService
-      .alert('¿Está seguro de activar esta cuenta?')
+      .warning('¿Está seguro de activar esta cuenta?')
       .then((result) => {
         if (result) {
           if (result.isConfirmed) {

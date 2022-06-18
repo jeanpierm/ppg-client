@@ -50,7 +50,7 @@ export class AlertService {
     });
   }
 
-  alert(title: string = DEFAULT_ALERT_TITLE, text?: string) {
+  warning(title: string = DEFAULT_ALERT_TITLE, text?: string) {
     return Swal.fire({
       icon: 'warning',
       title,

@@ -7,6 +7,7 @@ import { MaterialModule } from '../../material/material.module';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '../../shared/shared.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, AuthComponent],
@@ -16,6 +17,7 @@ import { SharedModule } from '../../shared/shared.module';
     AuthRoutingModule,
     ReactiveFormsModule,
     SharedModule,
+    FlexLayoutModule,
   ],
 })
 export class AuthModule {}

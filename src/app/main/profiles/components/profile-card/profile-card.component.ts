@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../core/services/alert.service';
-import { ProfessionalProfile } from '../../interfaces/professional-profile.interface';
-import { ProfessionalProfilesService } from '../../services/professional-profiles.service';
+import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
+import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfileListComponent } from '../../pages/profile-list/profile-list.component';
 
 @Component({
   selector: 'app-profile-card',
@@ -10,21 +11,25 @@ import { ProfessionalProfilesService } from '../../services/professional-profile
   styles: [],
 })
 export class ProfileCardComponent {
-  @Input() professionalProfile!: ProfessionalProfile;
-  @Output() reLoad: EventEmitter<any> = new EventEmitter();
+  @Input() profile!: ProfessionalProfile;
+  @Output() reLoad: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private readonly professionalProfileService: ProfessionalProfilesService,
     private readonly alertService: AlertService
   ) {}
 
-  delete(id: String) {
+  get profileByIdRoute() {
+    return `/${ProfileListComponent.PATH}/${this.profile.ppId}`;
+  }
+
+  remove() {
     this.alertService
       .warning('Esta seguro de eliminar este perfil profesional?')
       .then((result) => {
         if (result.isConfirmed) {
-          this.professionalProfileService.delete(id).subscribe({
-            next: (_) => {
+          this.professionalProfileService.delete(this.profile.ppId).subscribe({
+            next: () => {
               this.alertService.success(
                 'Perfil profesional eliminado exitosamente'
               );

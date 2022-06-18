@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { DiscoverComponent } from '../discover/discover.component';
+import { DiscoverComponent } from '../profiles/pages/discover/discover.component';
+import { ProfileListComponent } from '../profiles/pages/profile-list/profile-list.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,6 @@ export class HomeComponent {
   constructor() {}
 
   get discoverRoute() {
-    return `/${DiscoverComponent.PATH}`;
+    return `/${ProfileListComponent.PATH}/${DiscoverComponent.PATH}`;
   }
 }

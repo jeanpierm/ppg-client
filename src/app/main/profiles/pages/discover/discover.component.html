@@ -1,0 +1,55 @@
+<section class="pt-20">
+  <h1 class="!text-4xl text-center">
+    ¡Descubre el perfil profesional que buscan las empresas!
+  </h1>
+</section>
+
+<section class="py-14">
+  <div class="max-w-xl mx-auto">
+    <app-discover-form></app-discover-form>
+  </div>
+</section>
+
+<!-- <section class="pt-14">
+  <h1 class="">El algoritmo de web scraping detecta:</h1>
+  <div class="my-8 grid gap-4 grid-cols-4">
+    <span>+58 lenguajes de programación</span>
+    <span>+28 marcos de trabajo</span>
+    <span>+39 librerías o paquetes</span>
+    <span>+23 bases de datos</span>
+    <span>+33 herramientas de desarrollo</span>
+    <span>+39 paradigmas de programación</span>
+    <span>Si requiere o no inglés</span>
+  </div>
+</section> -->
+
+<section class="py-14" *ngIf="!!authService.accessToken">
+  <h1>Tus últimos perfiles</h1>
+
+  <mat-spinner
+    class="mx-auto"
+    *ngIf="!lastProfiles.length; else divLastProfiles"
+  ></mat-spinner>
+
+  <ng-template #divLastProfiles>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div
+        fxFlex="30"
+        fxFlex.sm="45"
+        fxFlex.xs="100"
+        *ngFor="let profile of lastProfiles"
+      >
+        <app-profile-card
+          (reLoad)="loadLastProfiles()"
+          [profile]="profile"
+        ></app-profile-card>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="mt-3">
+    <a mat-stroked-button color="accent" [routerLink]="accountProfilesRoute">
+      VER TODOS MIS PERFILES
+    </a>
+  </div>
+</section>

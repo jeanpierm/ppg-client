@@ -9,7 +9,7 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { getRandomFromArray } from '../../../../core/utils/object.util';
 import { Router } from '@angular/router';
-import { ProfileListComponent } from '../../../profiles/pages/profile-list/profile-list.component';
+import { ProfileListComponent } from '../../pages/profile-list/profile-list.component';
 
 @Component({
   selector: 'app-discover-form',

@@ -1,4 +1,5 @@
 <ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner>
+
 <form [formGroup]="discoverForm" (ngSubmit)="discover()" class="">
   <mat-card>
     <mat-card-title>Generador de Perfiles Profesionales</mat-card-title>
@@ -6,7 +7,7 @@
       {{ subtitle }}
     </mat-card-subtitle>
     <mat-card-content>
-      <mat-form-field appearance="fill" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>Título de trabajo</mat-label>
         <mat-icon color="primary" matSuffix>search</mat-icon>
         <input
@@ -19,7 +20,7 @@
         />
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>Ubicación</mat-label>
         <mat-icon color="primary" matSuffix>place</mat-icon>
         <input

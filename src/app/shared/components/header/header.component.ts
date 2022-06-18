@@ -4,8 +4,9 @@ import { EditAccountComponent } from '../../../main/account/pages/edit-account/e
 import { LoginComponent } from '../../../main/auth/pages/login/login.component';
 import { RegisterComponent } from '../../../main/auth/pages/register/register.component';
 import { AuthService } from '../../../main/auth/services/auth.service';
-import { DiscoverComponent } from '../../../main/discover/discover.component';
+import { DiscoverComponent } from '../../../main/profiles/pages/discover/discover.component';
 import { HomeComponent } from '../../../main/home/home.component';
+import { ProfileListComponent } from '../../../main/profiles/pages/profile-list/profile-list.component';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +35,7 @@ export class HeaderComponent {
   }
 
   get discoverRoute() {
-    return `/${DiscoverComponent.PATH}`;
+    return `/${ProfileListComponent.PATH}/${DiscoverComponent.PATH}`;
   }
 
   get accountRoute() {
@@ -43,6 +44,10 @@ export class HeaderComponent {
 
   get editAccountRoute() {
     return `/${AccountComponent.PATH}/${EditAccountComponent.PATH}`;
+  }
+
+  get profilesRoute() {
+    return `/${ProfileListComponent.PATH}`;
   }
 
   logout(): void {

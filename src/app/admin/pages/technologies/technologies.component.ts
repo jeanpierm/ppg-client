@@ -173,7 +173,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
   delete(technologyId: string) {
     this.alertService
-      .alert('Esta seguro de eliminar esta tecnología?')
+      .warning('Esta seguro de eliminar esta tecnología?')
       .then((result) => {
         if (result.isConfirmed) {
           this.technologiesService.deleteTechnology(technologyId).subscribe({

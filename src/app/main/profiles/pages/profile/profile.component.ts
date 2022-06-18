@@ -14,12 +14,12 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly profileService: ProfessionalProfilesService
+    private readonly profilesService: ProfessionalProfilesService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params
-      .pipe(switchMap(({ id }) => this.profileService.getById(id)))
+      .pipe(switchMap(({ id }) => this.profilesService.getById(id)))
       .subscribe(({ data }) => (this.profile = data));
   }
 }
