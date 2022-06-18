@@ -5,7 +5,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { NoAuthGuard } from './auth/guards/no-auth.guard';
 import { DiscoverComponent } from './discover/discover.component';
 import { MainComponent } from './main.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileListComponent } from './profiles/pages/profile-list/profile-list.component';
 
 const routes: Routes = [
   {
@@ -23,9 +23,9 @@ const routes: Routes = [
           import('./discover/discover.module').then((m) => m.DiscoverModule),
       },
       {
-        path: ProfileComponent.PATH,
+        path: ProfileListComponent.PATH,
         loadChildren: () =>
-          import('./profile/profile.module').then((m) => m.ProfileModule),
+          import('./profiles/profiles.module').then((m) => m.ProfilesModule),
       },
       {
         path: '',

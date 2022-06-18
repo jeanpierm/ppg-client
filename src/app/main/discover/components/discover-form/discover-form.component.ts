@@ -6,9 +6,10 @@ import { retry } from 'rxjs';
 import { GeneratePPRequest } from '../../../account/interfaces/generate-pp.interface';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
 import { AlertService } from '../../../../core/services/alert.service';
-import { DiscoverService } from '../../services/discover.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { getRandomFromArray } from '../../../../core/utils/object.util';
+import { Router } from '@angular/router';
+import { ProfileListComponent } from '../../../profiles/pages/profile-list/profile-list.component';
 
 @Component({
   selector: 'app-discover-form',
@@ -53,9 +54,9 @@ export class DiscoverFormComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly ppService: ProfessionalProfilesService,
     private readonly alertService: AlertService,
-    private readonly discoverService: DiscoverService,
     private readonly spinner: NgxSpinnerService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -96,10 +97,14 @@ export class DiscoverFormComponent implements OnInit {
       .subscribe({
         next: ({ data }) => {
           this.loadingGenerate = false;
-          this.discoverService.ppGenerated = data;
-          this.alertService.success(
-            '¡Perfil profesional generado exitosamente!'
-          );
+          this.alertService
+            .success('¡Perfil profesional generado exitosamente!')
+            .then(() => {
+              this.router.navigate([
+                `/${ProfileListComponent.PATH}`,
+                data.ppId,
+              ]);
+            });
         },
         error: (err) => {
           if (err instanceof HttpErrorResponse) {

@@ -14,11 +14,11 @@ import { GetProfessionalProfilesQuery } from '../interfaces/get-professional-pro
 export class ProfessionalProfilesService {
   static readonly BASE_URL = 'professional-profiles';
 
-  readonly QUERY_COUNT_KEY = 'q';
-  readonly INIT_DATE_KEY = 'initDate';
-  readonly END_DATE_KEY = 'endDate';
-  readonly JOB_TITLE_KEY = 'jobTitle';
-  readonly LOCATION_KEY = 'location';
+  private readonly QUERY_COUNT_KEY = 'q';
+  private readonly INIT_DATE_KEY = 'initDate';
+  private readonly END_DATE_KEY = 'endDate';
+  private readonly JOB_TITLE_KEY = 'jobTitle';
+  private readonly LOCATION_KEY = 'location';
 
   professionalProfiles: ProfessionalProfile[] = [];
 
@@ -39,15 +39,13 @@ export class ProfessionalProfilesService {
     if (!this.fetchLoading) {
       this.fetchLoading = true;
     }
-    this.getProfessionalProfiles(getProfessionalProfilesQuery).subscribe(
-      (res) => {
-        this.professionalProfiles = res.data;
-        this.fetchLoading = false;
-      }
-    );
+    this.get(getProfessionalProfilesQuery).subscribe((res) => {
+      this.professionalProfiles = res.data;
+      this.fetchLoading = false;
+    });
   }
 
-  getProfessionalProfiles(
+  get(
     getProfessionalProfilesQuery?: GetProfessionalProfilesQuery
   ): Observable<ApiResponse<ProfessionalProfile[]>> {
     const { initDate, endDate, jobTitle, location } =
@@ -72,8 +70,13 @@ export class ProfessionalProfilesService {
     return this.http.get<ApiResponse<ProfessionalProfile[]>>(url.toString());
   }
 
-  getRadomProfile(): Observable<ApiResponse<ProfessionalProfile>> {
+  getRadom(): Observable<ApiResponse<ProfessionalProfile>> {
     const url = `${environment.api}/${ProfessionalProfilesService.BASE_URL}/random`;
+    return this.http.get<ApiResponse<ProfessionalProfile>>(url);
+  }
+
+  getById(id: string) {
+    const url = `${environment.api}/${ProfessionalProfilesService.BASE_URL}/${id}`;
     return this.http.get<ApiResponse<ProfessionalProfile>>(url);
   }
 

@@ -23,6 +23,10 @@
           <mat-icon>settings</mat-icon>
           Cuenta
         </button>
+        <button mat-menu-item>
+          <mat-icon>interests</mat-icon>
+          Mis Perfiles Profesionales
+        </button>
         <button mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           Cerrar sesión
@@ -30,7 +34,7 @@
       </mat-menu>
     </ng-container>
 
-    <ng-template #loginButton="">
+    <ng-template #loginButton>
       <button fxHide.xs mat-flat-button [routerLink]="loginRoute">
         INICIAR SESIÓN
       </button>

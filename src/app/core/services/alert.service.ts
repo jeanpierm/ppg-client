@@ -29,7 +29,7 @@ export class AlertService {
   }
 
   success(title: string = DEFAULT_SUCCESS_TITLE, text?: string) {
-    Swal.fire({
+    return Swal.fire({
       icon: 'success',
       title,
       text,

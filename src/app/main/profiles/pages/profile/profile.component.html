@@ -1,0 +1,9 @@
+<mat-grid-list cols="1" *ngIf="!profile; else divProfile">
+  <mat-grid-tile>
+    <mat-spinner></mat-spinner>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<ng-template #divProfile>
+  <p>{{ profile | json }}</p>
+</ng-template>
