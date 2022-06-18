@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { Account } from '../../../admin/interfaces/account.interface';
 import { UpdatePasswordRequest } from '../interfaces/update-password-request.interface';
-import { User } from '../../../admin/interfaces/user';
+import { User } from '../../../admin/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',

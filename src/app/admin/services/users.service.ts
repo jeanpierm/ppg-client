@@ -8,7 +8,7 @@ import {
 } from '../../core/models/api-response.model';
 import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
 import { CreateUserRequest } from '../interfaces/create-user-request.interface';
-import { User } from '../interfaces/user';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',

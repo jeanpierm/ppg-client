@@ -3,5 +3,7 @@ export enum LocalStorageKeys {
   Name = 'name',
   Surname = 'surname',
   Email = 'email',
+  Location = 'location',
+  JobTitle = 'jobTitle',
   Options = 'options',
 }

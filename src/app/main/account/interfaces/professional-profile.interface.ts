@@ -1,4 +1,4 @@
-import { User } from '../../../admin/interfaces/user';
+import { User } from '../../../admin/interfaces/user.interface';
 
 export interface ProfessionalProfile {
   ppId: string;

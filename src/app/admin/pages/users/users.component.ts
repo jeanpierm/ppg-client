@@ -12,7 +12,7 @@ import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { AlertService } from '../../../core/services/alert.service';
 import { UserDialogComponent } from '../../components/user-dialog/user-dialog.component';
 import { CreateUserRequest } from '../../interfaces/create-user-request.interface';
-import { User } from '../../interfaces/user';
+import { User } from '../../interfaces/user.interface';
 import { UsersService } from '../../services/users.service';
 
 @Component({

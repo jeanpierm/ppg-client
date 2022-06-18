@@ -14,4 +14,8 @@ export function isEmpty(s: string): boolean {
   return s.trim().length === 0;
 }
 
+export function getRandomFromArray(array: unknown[]): unknown {
+  const randomIndice = Math.floor(Math.random() * array.length);
+  return array[randomIndice];
+}
 // export function titleCase

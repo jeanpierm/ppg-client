@@ -33,8 +33,9 @@
       </mat-form-field>
       <mat-checkbox
         class=""
-        [(ngModel)]="useUserPreferences"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="useUserPreferences"
+        name="useUserPreferences"
+        id="useUserPreferences"
         (change)="onChangeUseUserPreferences()"
         matTooltip="Utiliza el título de trabajo y ciudad configurada en tu cuenta."
         >Utilizar mis preferencias de usuario</mat-checkbox
@@ -48,13 +49,14 @@
           [disabled]="loadingGenerate"
           color="primary"
           type="submit"
-          (click)="discover()"
         >
           DESCUBRIR PERFIL PROFESIONAL
         </button>
         <button
           mat-stroked-button
           color="accent"
+          type="button"
+          (click)="discoverRandom()"
           matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
         >
           ¡VOY A TENER SUERTE!

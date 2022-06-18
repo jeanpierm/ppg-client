@@ -1,17 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { retry } from 'rxjs';
 import { GeneratePPRequest } from '../../../account/interfaces/generate-pp.interface';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { DiscoverService } from '../../services/discover.service';
+import { AuthService } from '../../../auth/services/auth.service';
+import { getRandomFromArray } from '../../../../core/utils/object.util';
 
 @Component({
   selector: 'app-discover-form',
@@ -19,15 +16,25 @@ import { DiscoverService } from '../../services/discover.service';
   styleUrls: ['./discover-form.component.scss'],
 })
 export class DiscoverFormComponent implements OnInit {
+  readonly GYE_LOCATION = 'Guayaquil, Ecuador';
+  readonly PREDEFINED_JOB_TITLES = [
+    'Software Developer',
+    'Backend Developer',
+    'Frontend Developer',
+    'Web Developer',
+    'Movil Developer',
+    'Software Engineer',
+  ];
   tmpJobTitle: string = '';
   tmpLocation: string = '';
   loadingGenerate: boolean = false;
-  useUserPreferences: boolean = false;
   today: Date = new Date();
-  subtitle: string = `A través de web scraping a diversas ofertas de trabajo en tiempo real, te recomendaremos el perfil profesional que mejor se ajuste a tus preferencias y que tenga las tecnologías de desarrollo de software con mayor demanda laboral a día de hoy ${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}.`;
+  todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
+  subtitle: string = `A través de web scraping a diversas ofertas de trabajo en tiempo real, te recomendaremos el perfil profesional que mejor se ajuste a tus preferencias y que tenga las tecnologías de desarrollo de software con mayor demanda laboral a día de hoy (${this.todayFormatted}).`;
   discoverForm: FormGroup = this.fb.group({
-    jobTitle: new FormControl('Node.js Developer', Validators.required),
-    location: ['Quito', [Validators.required]],
+    jobTitle: ['', [Validators.required]],
+    location: ['', [Validators.required]],
+    useUserPreferences: [true],
   });
 
   get jobTitleControl() {
@@ -38,26 +45,50 @@ export class DiscoverFormComponent implements OnInit {
     return this.discoverForm.get('location');
   }
 
+  get useUserPrefControl() {
+    return this.discoverForm.get('useUserPreferences');
+  }
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly ppService: ProfessionalProfilesService,
     private readonly alertService: AlertService,
     private readonly discoverService: DiscoverService,
-    private readonly spinner: NgxSpinnerService
+    private readonly spinner: NgxSpinnerService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.spinner.show();
+    if (!this.authService.authAccount) {
+      this.authService.validateAnRefreshToken().subscribe(() => {
+        this.onChangeUseUserPreferences();
+      });
+    } else {
+      this.onChangeUseUserPreferences();
+    }
   }
 
   discover() {
-    if (this.discoverForm.invalid) {
-      return;
-    }
     const generateRequest: GeneratePPRequest = {
       jobTitle: this.jobTitleControl?.value,
       location: this.locationControl?.value,
     };
+    this.generateProfessionalProfile(generateRequest);
+  }
+
+  discoverRandom() {
+    const generateRequest: GeneratePPRequest = {
+      jobTitle: getRandomFromArray(this.PREDEFINED_JOB_TITLES) as string,
+      location: this.GYE_LOCATION,
+    };
+    this.generateProfessionalProfile(generateRequest);
+  }
+
+  generateProfessionalProfile(generateRequest: GeneratePPRequest) {
+    if (this.discoverForm.invalid) {
+      return;
+    }
     this.loadingGenerate = true;
     this.ppService
       .generate(generateRequest)
@@ -80,9 +111,8 @@ export class DiscoverFormComponent implements OnInit {
   }
 
   onChangeUseUserPreferences() {
-    const jobTitlePref = 'Backend Developer';
-    const locationPref = 'Guayaquil';
-
+    const jobTitlePref = this.authService.authAccount?.jobTitle;
+    const locationPref = this.authService.authAccount?.location;
     if (this.jobTitleControl?.value !== jobTitlePref) {
       this.tmpJobTitle = this.jobTitleControl?.value;
     }
@@ -90,16 +120,16 @@ export class DiscoverFormComponent implements OnInit {
       this.tmpLocation = this.locationControl?.value;
     }
 
-    if (this.useUserPreferences) {
+    if (this.useUserPrefControl?.value) {
       this.jobTitleControl?.disable();
       this.locationControl?.disable();
       this.jobTitleControl?.setValue(jobTitlePref);
       this.locationControl?.setValue(locationPref);
-      return;
+    } else {
+      this.jobTitleControl?.enable();
+      this.locationControl?.enable();
+      this.jobTitleControl?.setValue(this.tmpJobTitle);
+      this.locationControl?.setValue(this.tmpLocation);
     }
-    this.jobTitleControl?.enable();
-    this.locationControl?.enable();
-    this.jobTitleControl?.setValue(this.tmpJobTitle);
-    this.locationControl?.setValue(this.tmpLocation);
   }
 }

@@ -6,9 +6,9 @@ import { AccountComponent } from '../../../account/account.component';
 import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { setAccountDataInLocalStorage } from '../../../../core/utils/local-storage.util';
-import { LoginRequest } from '../../interfaces/auth';
 import { AuthService } from '../../services/auth.service';
 import { RegisterComponent } from '../register/register.component';
+import { LoginRequest } from '../../interfaces/login-request.interface';
 
 @Component({
   selector: 'app-login',

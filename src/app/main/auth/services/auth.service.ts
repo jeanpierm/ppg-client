@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { Account } from '../../../admin/interfaces/account.interface';
+import { LoginRequest } from '../interfaces/login-request.interface';
+import { LoginResponse } from '../interfaces/login-response.interface';
+import { RegisterRequest } from '../interfaces/register-request.interface';
 import {
-  LoginRequest,
-  LoginResponse,
-  RefreshResponse,
-  RegisterRequest,
   RegisterResponse,
-} from '../interfaces/auth';
+  RefreshResponse,
+} from '../interfaces/register-response.interface';
 import { LoginComponent } from '../pages/login/login.component';
 
 @Injectable({
@@ -19,6 +20,15 @@ export class AuthService {
   static readonly BASE_URL = 'auth';
   private readonly ACCESS_TOKEN_KEY: string = 'accessToken';
   private readonly BEARER: string = 'Bearer';
+
+  private _authAccount: Account | null = null;
+
+  get authAccount(): Account | null {
+    if (!this._authAccount) {
+      return null;
+    }
+    return { ...this._authAccount };
+  }
 
   get accessToken() {
     const jwt = localStorage.getItem(this.ACCESS_TOKEN_KEY);
@@ -39,8 +49,9 @@ export class AuthService {
     const url = `${environment.api}/${AuthService.BASE_URL}/login`;
 
     return this.http.post<LoginResponse>(url, data).pipe(
-      tap((res: LoginResponse) => {
-        this.accessToken = res.accessToken;
+      tap(({ accessToken, accountData }: LoginResponse) => {
+        this.accessToken = accessToken;
+        this._authAccount = accountData;
       })
     );
   }
@@ -53,8 +64,9 @@ export class AuthService {
     const url = `${environment.api}/${AuthService.BASE_URL}/register`;
 
     return this.http.post<RegisterResponse>(url, data).pipe(
-      tap((res: RegisterResponse) => {
-        this.accessToken = res.accessToken;
+      tap(({ accessToken, accountData }: RegisterResponse) => {
+        this.accessToken = accessToken;
+        this._authAccount = accountData;
       })
     );
   }
@@ -70,8 +82,9 @@ export class AuthService {
     });
 
     return this.http.post<RefreshResponse>(url, null, { headers }).pipe(
-      map(({ accessToken }) => {
+      map(({ accessToken, accountData }) => {
         this.accessToken = accessToken;
+        this._authAccount = accountData;
         return true;
       }),
       catchError(() => of(false))
@@ -83,6 +96,7 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
+    this._authAccount = null;
     this.router.navigateByUrl(`/${LoginComponent.PATH}`);
     // location.reload();
   }
