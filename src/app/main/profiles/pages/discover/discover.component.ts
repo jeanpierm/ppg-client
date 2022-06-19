@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
-import { AccountComponent } from '../../../account/account.component';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
-import { ProfilesComponent } from '../../../account/pages/profiles/profiles.component';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
 import { LoginComponent } from '../../../auth/pages/login/login.component';
 import { AuthService } from '../../../auth/services/auth.service';
+import { ProfileListComponent } from '../profile-list/profile-list.component';
 
 @Component({
   selector: 'app-discover',
@@ -27,8 +26,8 @@ export class DiscoverComponent implements OnInit {
     private readonly profilesService: ProfessionalProfilesService
   ) {}
 
-  get accountProfilesRoute() {
-    return `/${AccountComponent.PATH}/${ProfilesComponent.PATH}`;
+  get profilesRoute() {
+    return `/${ProfileListComponent.PATH}`;
   }
 
   ngOnInit(): void {

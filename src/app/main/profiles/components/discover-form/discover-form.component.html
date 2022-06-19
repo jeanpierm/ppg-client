@@ -1,6 +1,11 @@
 <ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner>
 
-<form [formGroup]="discoverForm" (ngSubmit)="discover()" fxLayout="column">
+<form
+  [formGroup]="discoverForm"
+  (ngSubmit)="discover()"
+  fxLayout="column"
+  fxLayoutGap="20px"
+>
   <mat-form-field>
     <mat-label>Título de trabajo</mat-label>
     <mat-icon color="primary" matSuffix>search</mat-icon>
@@ -10,8 +15,9 @@
       type="text"
       name="jobTitle"
       id="jobTitle"
-      placeholder="El perfil que te gusta. Ejemplo: Desarrollador Móvil"
+      placeholder="Ejemplo: Desarrollador Móvil"
     />
+    <mat-hint>El perfil de trabajo que más te gusta</mat-hint>
   </mat-form-field>
 
   <mat-form-field>
@@ -23,8 +29,9 @@
       type="text"
       name="location"
       id="location"
-      placeholder="El lugar en que te gustaría trabajar. Ejemplo: Guayaquil, Ecuador."
+      placeholder="Ejemplo: Guayaquil, Ecuador."
     />
+    <mat-hint>El lugar en que te gustaría trabajar</mat-hint>
   </mat-form-field>
 
   <mat-checkbox
@@ -58,8 +65,4 @@
       ¡VOY A TENER SUERTE!
     </button>
   </div>
-
-  <!-- <div class="flex justify-center"> -->
-
-  <!-- </div> -->
 </form>

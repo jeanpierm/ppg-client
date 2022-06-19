@@ -1,4 +1,4 @@
-<section class="pt-20">
+<section class="pt-14">
   <h1 class="!text-4xl text-center">
     ¡Descubre el perfil profesional que buscan las empresas!
   </h1>
@@ -13,10 +13,20 @@
   >
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center">
       <p class="text-center text-lg py-3">
-        A través de web scraping a diversas ofertas de trabajo en tiempo real,
-        te recomendaremos el perfil profesional que mejor se ajuste a tus
-        preferencias y que tenga las tecnologías de desarrollo de software con
-        mayor demanda laboral a día de hoy ({{ todayFormatted }})
+        A través de
+        <span
+          matTooltip="Web scraping es una técnica de recolección y procesamiento de datos de páginas web"
+          >web scraping</span
+        >
+        a diversas ofertas de trabajo en tiempo real, te recomendaremos el
+        <span
+          matTooltip="Llamamos perfil profesional al conjunto de tecnologías que debería manejar el profesional según el título de trabajo"
+          >perfil profesional</span
+        >
+        que mejor se ajuste a tus preferencias y que tenga las tecnologías de
+        desarrollo de software con mayor demanda laboral a día de hoy ({{
+          todayFormatted
+        }})
       </p>
       <app-discover-form></app-discover-form>
     </div>
@@ -24,7 +34,7 @@
     <div fxFlex="50">
       <img
         class="rounded"
-        src="https://www.globalhumanaccess.com/wp-content/uploads/2016/01/gharl-software.jpg"
+        src="https://learn.g2.com/hs-fs/hubfs/software-development.jpg?width=2121&name=software-development.jpg"
         alt="development"
       />
     </div>
@@ -45,7 +55,14 @@
 </section> -->
 
 <section class="py-14" *ngIf="!!authService.accessToken">
-  <h1>Tus últimos perfiles</h1>
+  <div fxLayout="row" fxLayoutGap="20px">
+    <h1>Tus últimos perfiles</h1>
+    <div>
+      <a mat-button color="accent" [routerLink]="profilesRoute">
+        VER TODOS MIS PERFILES
+      </a>
+    </div>
+  </div>
 
   <mat-spinner
     class="mx-auto"
@@ -70,7 +87,7 @@
 
   <br />
   <div fxLayoutAlign="center">
-    <a mat-flat-button color="accent" [routerLink]="accountProfilesRoute">
+    <a mat-flat-button color="accent" [routerLink]="profilesRoute">
       VER TODOS MIS PERFILES
     </a>
   </div>

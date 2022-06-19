@@ -57,7 +57,11 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-button [routerLink]="profileByIdRoute">VER MÁS</button>
-    <button mat-button (click)="remove()" color="warn">ELIMINAR</button>
+    <button mat-button [routerLink]="profileByIdRoute">
+      <mat-icon>search</mat-icon> VER MÁS
+    </button>
+    <button mat-button (click)="remove()" color="warn">
+      <mat-icon>delete</mat-icon> ELIMINAR
+    </button>
   </mat-card-actions>
 </mat-card>

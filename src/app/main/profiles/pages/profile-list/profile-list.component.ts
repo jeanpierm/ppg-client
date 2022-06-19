@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { debounceTime } from 'rxjs';
+import { incrementDate } from '../../../../core/utils/date.util';
+import { GetProfessionalProfilesQuery } from '../../../account/interfaces/get-professional-profiles-query.interface';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
 
@@ -11,10 +15,65 @@ export class ProfileListComponent implements OnInit {
   static readonly PATH = 'perfiles';
 
   profiles: ProfessionalProfile[] = [];
+  profilesForm = this.fb.group({
+    jobTitle: [''],
+    location: [''],
+    initDate: [this.todayMinus30Days],
+    endDate: [this.today],
+  });
+  loadingProfiles: boolean = true;
 
-  constructor(private readonly profilesService: ProfessionalProfilesService) {}
+  get todayMinus30Days(): Date {
+    return new Date(this.today.setDate(this.today.getDate() - 30));
+  }
+
+  get today(): Date {
+    return new Date();
+  }
+
+  get jobTitleControl() {
+    return this.profilesForm.get('jobTitle');
+  }
+
+  get initDateControl() {
+    return this.profilesForm.get('initDate');
+  }
+
+  get endDateControl() {
+    return this.profilesForm.get('endDate');
+  }
+
+  constructor(
+    private readonly profilesService: ProfessionalProfilesService,
+    private readonly fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.profilesService.get().subscribe(({ data }) => (this.profiles = data));
+    this.searchProfiles();
+    this.profilesForm.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(({ jobTitle, location, initDate, endDate }) => {
+        this.searchProfiles({
+          jobTitle,
+          location,
+          initDate: initDate?.toISOString(),
+          endDate: incrementDate(endDate, 1)?.toISOString(),
+        });
+      });
+  }
+
+  searchProfiles(getProfessionalProfilesQuery?: GetProfessionalProfilesQuery) {
+    this.loadingProfiles = true;
+    this.profilesService
+      .get(getProfessionalProfilesQuery)
+      .subscribe(({ data }) => {
+        this.profiles = data;
+        this.loadingProfiles = false;
+      });
+  }
+
+  clearDates() {
+    this.initDateControl?.setValue(null);
+    this.endDateControl?.setValue(null);
   }
 }

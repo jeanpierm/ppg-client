@@ -8,7 +8,7 @@ import { ProfileListComponent } from '../../pages/profile-list/profile-list.comp
 @Component({
   selector: 'app-profile-card',
   templateUrl: './profile-card.component.html',
-  styles: [],
+  styleUrls: ['./profile-card.component.scss'],
 })
 export class ProfileCardComponent {
   @Input() profile!: ProfessionalProfile;
