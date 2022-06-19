@@ -35,6 +35,10 @@ export class ProfileListComponent implements OnInit {
     return this.profilesForm.get('jobTitle');
   }
 
+  get locationControl() {
+    return this.profilesForm.get('location');
+  }
+
   get initDateControl() {
     return this.profilesForm.get('initDate');
   }
