@@ -86,3 +86,21 @@
   background: linear-gradient(-90deg, #00695c, #009688, #4db6ac);
   color: white;
 } */
+
+mat-card {
+  max-width: 480px;
+  margin: auto;
+}
+
+.divider {
+  border-bottom: 1px solid #dadde1;
+  display: flex;
+  align-items: center;
+  margin: 20px 4px;
+  text-align: center;
+}
+
+mat-card-title {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}

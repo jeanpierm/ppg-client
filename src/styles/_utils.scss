@@ -1,0 +1,138 @@
+@import 'variables';
+
+.ppg-primary {
+  color: $primary-color;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.m-4 {
+  margin: 1rem /* 16px */;
+}
+
+.mr-3 {
+  margin-right: 0.75rem /* 12px */;
+}
+
+.mt-3 {
+  margin-top: 0.75rem /* 12px */;
+}
+
+.mt-4 {
+  margin-top: 1rem /* 16px */;
+}
+
+.mt-5 {
+  margin-top: 1.25rem /* 20px */;
+}
+
+.mt-6 {
+  margin-top: 1.5rem /* 20px */;
+}
+
+.mt-7 {
+  margin-top: 1.75rem /* 28px */;
+}
+
+.mb-4 {
+  margin-bottom: 1rem /* 16px */;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem /* 20px */;
+}
+
+.pt-5 {
+  padding-top: 1.25rem /* 20px */;
+}
+
+.pt-14 {
+  padding-top: 3.5rem /* 56px */;
+}
+
+.pb-4 {
+  padding-bottom: 1rem /* 16px */;
+}
+
+.py-3 {
+  padding-top: 0.75rem /* 12px */;
+  padding-bottom: 0.75rem /* 12px */;
+}
+
+.py-14 {
+  padding-top: 3.5rem /* 56px */;
+  padding-bottom: 3.5rem /* 56px */;
+}
+
+text-4xl {
+  font-size: 2.25rem /* 36px */;
+  line-height: 2.5rem /* 40px */;
+}
+
+.container {
+  margin: auto;
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
+  max-width: 1280px;
+}
+
+.rounded {
+  border-radius: 0.25rem /* 4px */;
+}
+
+.text-lg {
+  font-size: 1.125rem /* 18px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.min-w-full {
+  min-width: 100%;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-14 {
+  margin-top: 3.5rem /* 56px */;
+  margin-bottom: 3.5rem /* 56px */;
+}
+
+.m-5 {
+  margin: 1.25rem /* 20px */;
+}
+
+.h-screen-custom {
+  height: calc(100vh - (64px));
+}

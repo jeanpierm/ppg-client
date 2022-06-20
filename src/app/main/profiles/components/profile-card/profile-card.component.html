@@ -12,38 +12,38 @@
     <div fxLayout="column" fxLayoutGap="10px">
       <app-tech-chips
         *ngIf="profile.languages.length"
-        [technology]="profile.languages"
-        identifier="Lenguajes"
+        [technologies]="profile.languages"
+        type="Lenguajes"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.frameworks.length"
-        [technology]="profile.frameworks"
-        identifier="Frameworks"
+        [technologies]="profile.frameworks"
+        type="Frameworks"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.databases.length"
-        [technology]="profile.databases"
-        identifier="Bases de datos"
+        [technologies]="profile.databases"
+        type="Bases de datos"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.tools.length"
-        [technology]="profile.tools"
-        identifier="Herramientas"
+        [technologies]="profile.tools"
+        type="Herramientas"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.paradigms.length"
-        [technology]="profile.paradigms"
-        identifier="Paradigmas"
+        [technologies]="profile.paradigms"
+        type="Paradigmas"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.patterns.length"
-        [technology]="profile.patterns"
-        identifier="Patrones ó estilos"
+        [technologies]="profile.patterns"
+        type="Patrones ó estilos"
       ></app-tech-chips>
     </div>
 

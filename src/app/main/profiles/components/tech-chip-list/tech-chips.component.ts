@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styles: [],
 })
 export class TechChipsComponent {
-  @Input() technology!: string[];
-  @Input() identifier!: string;
+  @Input() technologies!: string[];
+  @Input() type!: string;
 }

@@ -12,7 +12,7 @@ import { LoginRequest } from '../../interfaces/login-request.interface';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   static readonly PATH = 'login';

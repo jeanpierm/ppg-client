@@ -1,5 +1,5 @@
 <section class="pt-14">
-  <h1 class="!text-4xl text-center">
+  <h1 class="text-4xl text-center">
     ¡Descubre el perfil profesional que buscan las empresas!
   </h1>
 </section>
@@ -16,8 +16,9 @@
         A través de
         <span
           matTooltip="Web scraping es una técnica de recolección y procesamiento de datos de páginas web"
-          >web scraping</span
         >
+          web scraping
+        </span>
         a diversas ofertas de trabajo en tiempo real, te recomendaremos el
         <span
           matTooltip="Llamamos perfil profesional al conjunto de tecnologías que debería manejar el profesional según el título de trabajo"
@@ -33,7 +34,7 @@
 
     <div fxFlex="50">
       <img
-        class="rounded"
+        class="rounded w-full"
         src="https://learn.g2.com/hs-fs/hubfs/software-development.jpg?width=2121&name=software-development.jpg"
         alt="development"
       />
@@ -75,6 +76,7 @@
         fxFlex="30"
         fxFlex.sm="45"
         fxFlex.xs="100"
+        class="mb-4"
         *ngFor="let profile of lastProfiles"
       >
         <app-profile-card
@@ -83,12 +85,10 @@
         ></app-profile-card>
       </div>
     </div>
+    <div fxLayoutAlign="center" class="mt-5">
+      <a mat-flat-button color="accent" [routerLink]="profilesRoute">
+        VER TODOS MIS PERFILES
+      </a>
+    </div>
   </ng-template>
-
-  <br />
-  <div fxLayoutAlign="center">
-    <a mat-flat-button color="accent" [routerLink]="profilesRoute">
-      VER TODOS MIS PERFILES
-    </a>
-  </div>
 </section>

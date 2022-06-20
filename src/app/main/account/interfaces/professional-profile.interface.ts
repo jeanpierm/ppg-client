@@ -1,5 +1,3 @@
-import { User } from '../../../admin/interfaces/user.interface';
-
 export interface ProfessionalProfile {
   ppId: string;
   jobTitle: string;
@@ -11,5 +9,11 @@ export interface ProfessionalProfile {
   tools: string[];
   paradigms: string[];
   requireEnglish: boolean;
-  owner: User;
+  createdAt: string;
+}
+
+export interface JobOffer {
+  title: string;
+  company: string;
+  link: string;
 }

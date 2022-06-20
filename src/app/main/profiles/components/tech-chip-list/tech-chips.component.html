@@ -1,8 +1,8 @@
-<div *ngIf="technology.length">
-  <mat-hint>{{ identifier }}</mat-hint>
+<div *ngIf="technologies.length">
+  <mat-hint>{{ type }}</mat-hint>
   <mat-chip-list>
-    <mat-chip *ngFor="let name of technology">
-      {{ name }}
+    <mat-chip *ngFor="let technology of technologies">
+      {{ technology }}
     </mat-chip>
   </mat-chip-list>
 </div>

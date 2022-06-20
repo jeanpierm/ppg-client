@@ -1,15 +1,10 @@
 <header>
-  <mat-toolbar fxLayout="row" color="primary">
+  <mat-toolbar fxLayout="row" color="primary" fxLayoutGap="0.75rem">
     <a fxFlex [routerLink]="homeRoute">
       {{ title | titlecase }}
     </a>
 
-    <button
-      class="!mr-3"
-      mat-stroked-button
-      fxHide.xs
-      [routerLink]="discoverRoute"
-    >
+    <button mat-stroked-button fxHide.xs [routerLink]="discoverRoute">
       <mat-icon>rocket_launch</mat-icon>
       DESCUBRIR PERFIL PROFESIONAL
     </button>
