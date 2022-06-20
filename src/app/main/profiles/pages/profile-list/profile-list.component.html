@@ -14,7 +14,7 @@
     <input
       matInput
       type="text"
-      placeholder="Titulo de trabajo"
+      placeholder=""
       name="jobTitle"
       formControlName="jobTitle"
     />
@@ -35,7 +35,7 @@
     <input
       matInput
       type="text"
-      placeholder="Titulo de trabajo"
+      placeholder=""
       name="location"
       formControlName="location"
     />
@@ -56,10 +56,14 @@
     <mat-date-range-input [rangePicker]="picker">
       <input
         matStartDate
-        placeholder="Fecha inicio"
+        placeholder="d/M/AAAA (Fecha inicio)"
         formControlName="initDate"
       />
-      <input matEndDate placeholder="Fecha fin" formControlName="endDate" />
+      <input
+        matEndDate
+        placeholder="d/M/AAAA (Fecha fin)"
+        formControlName="endDate"
+      />
     </mat-date-range-input>
     <button
       *ngIf="!!initDateControl?.value || !!endDateControl?.value"

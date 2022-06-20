@@ -1,58 +1,56 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      {{ profile.jobTitle | titlecase }}
-    </mat-card-title>
-    <mat-card-subtitle>
-      {{ profile.location | titlecase }}
-    </mat-card-subtitle>
-  </mat-card-header>
+  <mat-card-title>
+    {{ profile.jobTitle | titlecase }}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ profile.location | titlecase }}
+  </mat-card-subtitle>
 
   <mat-card-content>
     <div fxLayout="column" fxLayoutGap="10px">
       <app-tech-chips
         *ngIf="profile.languages.length"
         [technologies]="profile.languages"
-        type="Lenguajes"
+        label="Lenguajes"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.frameworks.length"
         [technologies]="profile.frameworks"
-        type="Frameworks"
+        label="Frameworks"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.databases.length"
         [technologies]="profile.databases"
-        type="Bases de datos"
+        label="Bases de datos"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.tools.length"
         [technologies]="profile.tools"
-        type="Herramientas"
+        label="Herramientas"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.paradigms.length"
         [technologies]="profile.paradigms"
-        type="Paradigmas"
+        label="Paradigmas"
       ></app-tech-chips>
 
       <app-tech-chips
         *ngIf="profile.patterns.length"
         [technologies]="profile.patterns"
-        type="Patrones ó estilos"
+        label="Patrones ó estilos"
       ></app-tech-chips>
-    </div>
 
-    <div fxLayout="row" class="mt-3">
-      <mat-hint class="mr-1">Requiere ingles</mat-hint>
-      <mat-icon color="primary" *ngIf="profile.requireEnglish">
-        check_circle
-      </mat-icon>
-      <mat-icon color="warn" *ngIf="!profile.requireEnglish">cancel</mat-icon>
+      <div fxLayout="row">
+        <mat-hint class="mr-1">Requiere ingles</mat-hint>
+        <mat-icon color="primary" *ngIf="profile.requireEnglish">
+          check_circle
+        </mat-icon>
+        <mat-icon color="warn" *ngIf="!profile.requireEnglish">cancel</mat-icon>
+      </div>
     </div>
   </mat-card-content>
 

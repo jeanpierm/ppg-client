@@ -5,78 +5,114 @@
 </mat-grid-list>
 
 <ng-template #divProfile>
-  <div class="mt-5">
-    <h1>{{ profile.jobTitle | titlecase }}</h1>
+  <div fxLayout="row">
+    <div fxFlex="50">
+      <h1>{{ profile.jobTitle | titlecase }}</h1>
+      <p>Ubicación: {{ profile.location | titlecase }}</p>
+      <p>Descubierto el {{ profile.createdAt | date: 'long' }}</p>
+    </div>
+    <div fxFlex="50" fxLayoutAlign="end center">
+      <button mat-raised-button color="accent">
+        <mat-icon>download</mat-icon>
+        DESCARGAR PDF
+      </button>
+    </div>
   </div>
-  <p>Ubicación: {{ profile.location | titlecase }}</p>
-  <p>Descubrimiento: {{ profile.createdAt | date: 'long' }}</p>
   <mat-divider></mat-divider>
-  <div fxLayout="row" class="mt-3">
+  <div fxLayout="row" class="mt-3" fxLayoutGap="2rem">
     <section fxFlex="50">
-      <h2>Pila de tecnologías del perfil</h2>
+      <h2
+        matTooltip="Aquí se listan las tecnologías más demandadas de acuerdo a
+      las ofertas de trabajo analizadas."
+      >
+        Pila de tecnologías del perfil
+      </h2>
+
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>
+          <p>
+            Recuerda que no es necesario saber todas. El objetivo es que
+            conozcas las tecnologías que se demandan en la industria y así
+            decidir en cuál puedes prepararte ;)
+          </p>
+          <mat-hint>
+            <p>
+              ¡Prueba darle click a las tecnologías para ir a su
+              documentación/plan de aprendizaje!
+            </p>
+          </mat-hint>
+        </div>
+        <!-- <div>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
+            alt=""
+          />
+        </div> -->
+      </div>
+
       <!-- <p>Lenguajes:</p>
-    <ul class="list-disc ml-10">
-      <li *ngFor="let language of profile.languages">{{ language }}</li>
-    </ul>
-    <p>Frameworks:</p>
-    <ul class="list-disc ml-10">
-      <li *ngFor="let framework of profile.frameworks">{{ framework }}</li>
-    </ul> -->
+      <ul class="list-disc ml-10">
+        <li *ngFor="let language of profile.languages">{{ language }}</li>
+      </ul>
+      <p>Frameworks:</p>
+      <ul class="list-disc ml-10">
+        <li *ngFor="let framework of profile.frameworks">{{ framework }}</li>
+      </ul> -->
       <div fxLayout="column" fxLayoutGap="10px">
         <app-tech-chips
           *ngIf="profile.languages.length"
           [technologies]="profile.languages"
-          type="Lenguajes"
+          label="Lenguajes de programación"
         ></app-tech-chips>
 
         <app-tech-chips
           *ngIf="profile.frameworks.length"
           [technologies]="profile.frameworks"
-          type="Frameworks"
+          label="Frameworks"
         ></app-tech-chips>
 
         <app-tech-chips
           *ngIf="profile.databases.length"
           [technologies]="profile.databases"
-          type="Bases de datos"
+          label="Bases de datos"
         ></app-tech-chips>
 
         <app-tech-chips
           *ngIf="profile.tools.length"
           [technologies]="profile.tools"
-          type="Herramientas"
+          label="Herramientas"
         ></app-tech-chips>
 
         <app-tech-chips
           *ngIf="profile.paradigms.length"
           [technologies]="profile.paradigms"
-          type="Paradigmas"
+          label="Paradigmas"
         ></app-tech-chips>
 
         <app-tech-chips
           *ngIf="profile.patterns.length"
           [technologies]="profile.patterns"
-          type="Patrones ó estilos"
+          label="Patrones ó estilos"
         ></app-tech-chips>
-      </div>
 
-      <div fxLayout="row" class="mt-3">
-        <mat-hint class="mr-1">Requiere ingles</mat-hint>
-        <mat-icon color="primary" *ngIf="profile.requireEnglish">
-          check_circle
-        </mat-icon>
-        <mat-icon color="warn" *ngIf="!profile.requireEnglish">cancel</mat-icon>
+        <div fxLayout="row">
+          <mat-hint class="mr-1">Requiere ingles</mat-hint>
+          <mat-icon color="primary" *ngIf="profile.requireEnglish">
+            check_circle
+          </mat-icon>
+          <mat-icon color="warn" *ngIf="!profile.requireEnglish">
+            cancel
+          </mat-icon>
+        </div>
       </div>
     </section>
 
-    <section fxFLex="50">
-      <h2>Ofertas de trabajo analizadas</h2>
-      <ul class="list-disc ml-10">
-        <li *ngFor="let offer of jobOffers">
-          {{ offer.company }} -
-          <a class="hover:underline" [href]="offer.link">{{ offer.title }}</a>
-        </li>
-      </ul>
+    <section fxFlex="50" fxLayout="column" fxLayoutGap="1rem">
+      <h2>Ofertas de trabajo analizadas ({{ 14 }})</h2>
+      <app-job-offer-card
+        *ngFor="let jobOffer of jobOffers"
+        [jobOffer]="jobOffer"
+      ></app-job-offer-card>
     </section>
   </div>
 </ng-template>

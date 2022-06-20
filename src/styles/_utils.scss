@@ -4,6 +4,8 @@
   color: $primary-color;
 }
 
+/* TEXT */
+
 .text-right {
   text-align: right;
 }
@@ -16,8 +18,24 @@
   text-align: center;
 }
 
+.text-lg {
+  font-size: 1.125rem /* 18px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+text-4xl {
+  font-size: 2.25rem /* 36px */;
+  line-height: 2.5rem /* 40px */;
+}
+
+/* MARGIN */
+
 .m-4 {
   margin: 1rem /* 16px */;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
 }
 
 .mr-3 {
@@ -52,6 +70,22 @@
   margin-bottom: 1.25rem /* 20px */;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-14 {
+  margin-top: 3.5rem /* 56px */;
+  margin-bottom: 3.5rem /* 56px */;
+}
+
+.m-5 {
+  margin: 1.25rem /* 20px */;
+}
+
+/* PADDING */
+
 .pt-5 {
   padding-top: 1.25rem /* 20px */;
 }
@@ -74,10 +108,7 @@
   padding-bottom: 3.5rem /* 56px */;
 }
 
-text-4xl {
-  font-size: 2.25rem /* 36px */;
-  line-height: 2.5rem /* 40px */;
-}
+/* LAYOUT */
 
 .container {
   margin: auto;
@@ -88,11 +119,6 @@ text-4xl {
 
 .rounded {
   border-radius: 0.25rem /* 4px */;
-}
-
-.text-lg {
-  font-size: 1.125rem /* 18px */;
-  line-height: 1.75rem /* 28px */;
 }
 
 .w-full {
@@ -117,20 +143,6 @@ text-4xl {
 
 .max-w-full {
   max-width: 100%;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.my-14 {
-  margin-top: 3.5rem /* 56px */;
-  margin-bottom: 3.5rem /* 56px */;
-}
-
-.m-5 {
-  margin: 1.25rem /* 20px */;
 }
 
 .h-screen-custom {

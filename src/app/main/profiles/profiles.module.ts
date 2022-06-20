@@ -13,6 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { TechChipsComponent } from './components/tech-chip-list/tech-chips.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { JobOfferCardComponent } from './components/job-offer-card/job-offer-card.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     DiscoverFormComponent,
     ProfileCardComponent,
     TechChipsComponent,
+    JobOfferCardComponent,
   ],
   imports: [
     CommonModule,

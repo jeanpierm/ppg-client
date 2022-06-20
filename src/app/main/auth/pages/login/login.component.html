@@ -45,20 +45,22 @@
         </mat-card-content>
 
         <mat-card-actions>
+          <!-- <div fxLayoutAlign="center"> -->
           <button
+            class="w-full"
             type="submit"
             mat-flat-button
             [disabled]="loading"
             color="primary"
-            class="w-full"
           >
             {{ loading ? 'ACCEDIENDO...' : 'INICIAR SESIÓN' }}
           </button>
+          <!-- </div> -->
           <div class="divider"></div>
           <div fxLayoutAlign="center" class="mt-4">
             <button
               type="button"
-              mat-flat-button
+              mat-button
               color="accent"
               [routerLink]="registerRoute"
             >

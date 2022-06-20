@@ -11,9 +11,3 @@ export interface ProfessionalProfile {
   requireEnglish: boolean;
   createdAt: string;
 }
-
-export interface JobOffer {
-  title: string;
-  company: string;
-  link: string;
-}

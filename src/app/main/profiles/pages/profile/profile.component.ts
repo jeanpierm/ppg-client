@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import {
-  JobOffer,
-  ProfessionalProfile,
-} from '../../../account/interfaces/professional-profile.interface';
+import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { JobOffer } from '../../interfaces/job-offer.interface';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +12,16 @@ import { ProfessionalProfilesService } from '../../../account/services/professio
 })
 export class ProfileComponent implements OnInit {
   profile!: ProfessionalProfile;
-  jobOffers: JobOffer[] = new Array(15).fill({
-    company: 'Gizlo',
+  jobOffers: JobOffer[] = new Array<JobOffer>(15).fill({
+    company: {
+      name: 'Gizlo',
+      logoUrl:
+        'https://www.gizlocorp.com/web/image/website/1/logo/Gizlo?unique=7d7b840',
+    },
     title: 'Desarrollador Backend',
-    link: 'https://google.com.ec',
+    url: 'https://google.com.ec',
+    isRemote: true,
+    location: 'Guayaquil, Ecuador',
   });
 
   constructor(
