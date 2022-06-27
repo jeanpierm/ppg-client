@@ -67,28 +67,37 @@
 
   <mat-spinner
     class="mx-auto"
-    *ngIf="!lastProfiles.length; else divLastProfiles"
+    *ngIf="loadingLastProfiles; else divLastProfiles"
   ></mat-spinner>
 
   <ng-template #divLastProfiles>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
-      <div
-        fxFlex="30"
-        fxFlex.sm="45"
-        fxFlex.xs="100"
-        class="mb-4"
-        *ngFor="let profile of lastProfiles"
-      >
-        <app-profile-card
-          (reLoad)="loadLastProfiles()"
-          [profile]="profile"
-        ></app-profile-card>
+    <p
+      class="text-center"
+      *ngIf="!lastProfiles.length; else divLastProfilesCards"
+    >
+      Todavía no has generado ningún perfil :(
+    </p>
+
+    <ng-template #divLastProfilesCards>
+      <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
+        <div
+          fxFlex="30"
+          fxFlex.sm="45"
+          fxFlex.xs="100"
+          class="mb-4"
+          *ngFor="let profile of lastProfiles"
+        >
+          <app-profile-card
+            (reLoad)="loadLastProfiles()"
+            [profile]="profile"
+          ></app-profile-card>
+        </div>
       </div>
-    </div>
-    <div fxLayoutAlign="center" class="mt-5">
-      <a mat-flat-button color="accent" [routerLink]="profilesRoute">
-        VER TODOS MIS PERFILES
-      </a>
-    </div>
+      <div fxLayoutAlign="center" class="mt-5">
+        <a mat-flat-button color="accent" [routerLink]="profilesRoute">
+          VER TODOS MIS PERFILES
+        </a>
+      </div>
+    </ng-template>
   </ng-template>
 </section>

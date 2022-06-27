@@ -2,17 +2,17 @@
   <!-- <mat-card-header> -->
   <mat-card-title-group>
     <mat-card-title>
-      {{ jobOffer.title }}
+      {{ job.title }}
     </mat-card-title>
     <mat-card-subtitle>
-      {{ jobOffer.company.name }} - {{ jobOffer.location }}
-      {{ jobOffer.isRemote && '(Remoto)' }}
+      {{ job.company.name }} - {{ job.location }}
+      {{ '(' + job.workplaceType + ')' }}
     </mat-card-subtitle>
-    <img mat-card-md-image class="" [src]="jobOffer.company.logoUrl" />
+    <img mat-card-sm-image class="" [src]="job.company.photoUrl" />
   </mat-card-title-group>
   <!-- </mat-card-header> -->
   <mat-card-actions>
-    <a [href]="jobOffer.url" target="_blank" mat-button color="primary">
+    <a [href]="job.url" target="_blank" mat-button color="primary">
       <mat-icon>open_in_new</mat-icon>
       {{ 'Ir a la oferta' | uppercase }}
     </a>

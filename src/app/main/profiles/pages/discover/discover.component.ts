@@ -18,6 +18,7 @@ export class DiscoverComponent implements OnInit {
   today: Date = new Date();
   todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
   lastProfiles: ProfessionalProfile[] = [];
+  loadingLastProfiles: boolean = true;
 
   constructor(
     public readonly authService: AuthService,
@@ -38,10 +39,14 @@ export class DiscoverComponent implements OnInit {
   }
 
   loadLastProfiles() {
+    this.loadingLastProfiles = true;
     this.profilesService
       .get()
       // TODO: HACER PAGINACIÓN DESDE BACK
-      .subscribe(({ data }) => (this.lastProfiles = data.slice(0, 3)));
+      .subscribe(({ data }) => {
+        this.lastProfiles = data.slice(0, 3);
+        this.loadingLastProfiles = false;
+      });
   }
 
   private validateUserIsAuthenticated() {

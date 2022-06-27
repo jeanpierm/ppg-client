@@ -13,7 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { TechChipsComponent } from './components/tech-chip-list/tech-chips.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { JobOfferCardComponent } from './components/job-offer-card/job-offer-card.component';
+import { JobCardComponent } from './components/job-offer-card/job-card.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { JobOfferCardComponent } from './components/job-offer-card/job-offer-car
     DiscoverFormComponent,
     ProfileCardComponent,
     TechChipsComponent,
-    JobOfferCardComponent,
+    JobCardComponent,
   ],
   imports: [
     CommonModule,

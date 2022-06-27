@@ -1,3 +1,5 @@
+import { Job } from '../../profiles/interfaces/job.interface';
+
 export interface ProfessionalProfile {
   ppId: string;
   jobTitle: string;
@@ -9,5 +11,6 @@ export interface ProfessionalProfile {
   tools: string[];
   paradigms: string[];
   requireEnglish: boolean;
+  jobsAnalyzed: Job[];
   createdAt: string;
 }
