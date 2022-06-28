@@ -11,15 +11,19 @@
       <p>Ubicación: {{ profile.location | titlecase }}</p>
       <p>Descubierto el {{ profile.createdAt | date: 'long' }}</p>
     </div>
-    <div fxFlex="50" fxLayoutAlign="end center">
-      <button mat-raised-button color="accent">
+    <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="16px">
+      <button mat-button color="accent" [routerLink]="profilesRoute">
+        <mat-icon>arrow_back</mat-icon>
+        VOLVER A MIS PERFILES
+      </button>
+      <button mat-raised-button color="primary">
         <mat-icon>download</mat-icon>
         DESCARGAR PDF
       </button>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div fxLayout="row" class="mt-3" fxLayoutGap="2rem">
+  <div fxLayout="column" fxLayout.gt-sm="row" class="mt-3" fxLayoutGap="2rem">
     <section fxFlex="50">
       <h2
         matTooltip="Aquí se listan las tecnologías más demandadas de acuerdo a
@@ -99,12 +103,14 @@
       </mat-card>
     </section>
 
-    <section fxFlex="50" fxLayout="column" fxLayoutGap="1rem">
+    <section fxFlex="50">
       <h2>Ofertas de trabajo analizadas ({{ profile.jobsAnalyzed.length }})</h2>
-      <app-job-card
-        *ngFor="let job of profile.jobsAnalyzed"
-        [job]="job"
-      ></app-job-card>
+      <div fxLayout="column" fxLayoutGap="1rem" class="job-cards-list">
+        <app-job-card
+          *ngFor="let job of profile.jobsAnalyzed"
+          [job]="job"
+        ></app-job-card>
+      </div>
     </section>
   </div>
 </ng-template>

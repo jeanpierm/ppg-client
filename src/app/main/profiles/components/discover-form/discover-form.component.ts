@@ -50,6 +50,16 @@ export class DiscoverFormComponent implements OnInit {
     return this.discoverForm.get('useUserPreferences');
   }
 
+  // TODO: Esto podría ser mejor
+  get isInCooldown(): boolean {
+    if (!this.ppService.lastProfileGeneration) return false;
+    const now = new Date().getTime();
+    return (
+      this.ppService.lastProfileGeneration <
+      new Date(now + this.ppService.GENERATE_COOLDOWN_TIME)
+    );
+  }
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly ppService: ProfessionalProfilesService,

@@ -6,6 +6,10 @@
 
 /* TEXT */
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .text-right {
   text-align: right;
 }
@@ -30,6 +34,14 @@ text-4xl {
 
 /* MARGIN */
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
 .m-4 {
   margin: 1rem /* 16px */;
 }
@@ -40,6 +52,10 @@ text-4xl {
 
 .mr-3 {
   margin-right: 0.75rem /* 12px */;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mt-3 {

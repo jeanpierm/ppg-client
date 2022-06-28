@@ -7,6 +7,8 @@ import { AuthService } from '../../../main/auth/services/auth.service';
 import { DiscoverComponent } from '../../../main/profiles/pages/discover/discover.component';
 import { HomeComponent } from '../../../main/home/home.component';
 import { ProfileListComponent } from '../../../main/profiles/pages/profile-list/profile-list.component';
+import { MenuOption } from '../../interfaces/menu-option.interface';
+import { DashboardComponent } from '../../../main/profiles/pages/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +17,24 @@ import { ProfileListComponent } from '../../../main/profiles/pages/profile-list/
 })
 export class HeaderComponent {
   readonly title: string = 'descubre perfiles profesionales';
+
+  menuOptions: MenuOption[] = [
+    {
+      label: 'Cuenta',
+      icon: 'settings',
+      path: this.editAccountRoute,
+    },
+    {
+      label: 'Mis Perfiles Profesionales',
+      icon: 'group',
+      path: this.profilesRoute,
+    },
+    {
+      label: 'Dashboard',
+      icon: 'dashboard',
+      path: this.dashboardRoute,
+    },
+  ];
 
   constructor(public readonly authService: AuthService) {}
 
@@ -48,6 +68,10 @@ export class HeaderComponent {
 
   get profilesRoute() {
     return `/${ProfileListComponent.PATH}`;
+  }
+
+  get dashboardRoute() {
+    return `/${ProfileListComponent.PATH}/${DashboardComponent.PATH}`;
   }
 
   logout(): void {

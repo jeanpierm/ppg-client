@@ -1,15 +1,35 @@
-.sidenav-container {
+mat-sidenav {
+  width: 300px;
+}
+
+figure {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+img {
   height: 100%;
+  width: auto;
 }
 
-/* .sidenav {
-  width: 200px;
-} */
-
-.main-container {
-  padding: 16px;
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
-mat-sidenav-container {
-  background: #f5f5f5;
+.account-name {
+  margin-top: 0.5rem;
+  font-size: large;
+  font-weight: 500;
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProfilesRoutingModule } from './profiles-routing.module';
@@ -14,6 +14,9 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 import { TechChipsComponent } from './components/tech-chip-list/tech-chips.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { JobCardComponent } from './components/job-offer-card/job-card.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { JobCardComponent } from './components/job-offer-card/job-card.component
     ProfileCardComponent,
     TechChipsComponent,
     JobCardComponent,
+    DashboardComponent,
+    PieChartComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +38,8 @@ import { JobCardComponent } from './components/job-offer-card/job-card.component
     ReactiveFormsModule,
     NgxSpinnerModule,
     FlexLayoutModule,
+    NgChartsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProfilesModule {}

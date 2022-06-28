@@ -16,7 +16,7 @@ import { AccountService } from '../../services/account.service';
   styleUrls: ['./edit-account.component.css'],
 })
 export class EditAccountComponent implements OnInit {
-  static readonly PATH = 'editar';
+  static readonly PATH = 'edit';
 
   form: FormGroup;
   passwords: any;
@@ -39,6 +39,14 @@ export class EditAccountComponent implements OnInit {
     this.hide = true;
     this.hide_new = true;
     this.user = {};
+  }
+
+  get overviewRoute() {
+    return ``;
+  }
+
+  cancel() {
+    location.reload();
   }
 
   ngOnInit(): void {

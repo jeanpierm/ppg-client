@@ -18,16 +18,35 @@
   </mat-sidenav>
 </mat-sidenav-container> -->
 
-<mat-sidenav-container>
-  <mat-sidenav>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, ipsum ipsa!
-    Dolorum esse sunt quis nobis tenetur, maxime ducimus eos adipisci commodi
-    aperiam! Ea nobis, perferendis fuga accusamus qui dicta?
+<mat-sidenav-container class="h-screen-custom">
+  <mat-sidenav mode="side" opened>
+    <div class="avatar-container">
+      <figure>
+        <img
+          src="http://3.bp.blogspot.com/-e91u7FITU_M/TnHh6fj7c2I/AAAAAAAAAYs/UVuHglTCZpI/s1600/arnold%252Bschwarzenegger%252Bpic3.jpeg"
+          alt="profile image"
+        />
+      </figure>
+      <h3 class="account-name">{{ fullName | titlecase }}</h3>
+    </div>
+    <!-- <mat-divider></mat-divider> -->
+    <mat-nav-list>
+      <a
+        *ngFor="let option of menuOptions"
+        mat-list-item
+        [routerLink]="option.path"
+      >
+        <mat-icon class="sidenav-icon" color="primary">
+          {{ option.icon }}
+        </mat-icon>
+        <span class="ml-3">
+          {{ option.label }}
+        </span>
+      </a>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <!-- <div class="content mat-elevation-z8"> -->
     <router-outlet></router-outlet>
-    <!-- </div> -->
   </mat-sidenav-content>
 </mat-sidenav-container>

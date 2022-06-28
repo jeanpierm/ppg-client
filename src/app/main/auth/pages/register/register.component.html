@@ -103,12 +103,12 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Título de trabajo</mat-label>
+            <mat-label>Título de trabajo preferido</mat-label>
             <input
               matInput
               formControlName="jobTitle"
               name="jobTitle"
-              placeholder="Tu título de trabajo preferido"
+              placeholder="Ejemplo: Desarrollador Frontend"
             />
             <mat-error *ngIf="surname?.hasError('required')">
               <mat-icon>error</mat-icon>
@@ -117,12 +117,12 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Ciudad</mat-label>
+            <mat-label>Ubicación</mat-label>
             <input
               matInput
               formControlName="location"
               name="location"
-              placeholder="Tu ciudad"
+              placeholder=""
             />
             <mat-error *ngIf="surname?.hasError('required')">
               <mat-icon>error</mat-icon>

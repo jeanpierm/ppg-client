@@ -14,7 +14,8 @@ import { ProfileListComponent } from '../profile-list/profile-list.component';
   styleUrls: ['./discover.component.scss'],
 })
 export class DiscoverComponent implements OnInit {
-  static readonly PATH = 'descubrir';
+  static readonly PATH = 'discover';
+
   today: Date = new Date();
   todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
   lastProfiles: ProfessionalProfile[] = [];

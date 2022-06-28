@@ -1,10 +1,8 @@
-.example-full-width {
-  width: 40%;
+mat-card {
+  margin: 24px auto;
+  max-width: 660px;
 }
 
-.section {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  height: 60px;
+mat-card-actions {
+  text-align: right;
 }

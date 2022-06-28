@@ -49,20 +49,29 @@
   <div fxLayout fxLayoutGap="10px" fxLayoutAlign="center">
     <button
       mat-flat-button
-      [disabled]="loadingGenerate"
+      [disabled]="loadingGenerate || isInCooldown"
       color="primary"
       type="submit"
     >
-      DESCUBRIR PERFIL PROFESIONAL
+      {{
+        isInCooldown
+          ? 'POR FAVOR, VUELVE A INTENTAR EN UN MINUTO'
+          : 'DESCUBRIR PERFIL PROFESIONAL'
+      }}
     </button>
     <button
       mat-stroked-button
       color="accent"
+      [disabled]="loadingGenerate || isInCooldown"
       type="button"
       (click)="discoverRandom()"
       matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
     >
-      ¡VOY A TENER SUERTE!
+      {{
+        isInCooldown
+          ? 'POR FAVOR, VUELVE A INTENTAR EN UN MINUTO'
+          : '¡VOY A TENER SUERTE!'
+      }}
     </button>
   </div>
 </form>

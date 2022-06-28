@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EditAccountComponent } from './pages/edit-account/edit-account.component';
-import { TechnologiesComponent } from '../../admin/pages/technologies/technologies.component';
-import { UsersComponent } from '../../admin/pages/users/users.component';
 import { AccountComponent } from './account.component';
+import { OverviewComponent } from './pages/overview/overview.component';
+import { PasswordComponent } from './pages/password/password.component';
 
 const routes: Routes = [
   {
@@ -12,32 +11,16 @@ const routes: Routes = [
     component: AccountComponent,
     children: [
       {
-        path: DashboardComponent.PATH,
-        component: DashboardComponent,
-        data: {
-          title: 'Dashboard',
-        },
+        path: OverviewComponent.PATH,
+        component: OverviewComponent,
       },
       {
         path: EditAccountComponent.PATH,
         component: EditAccountComponent,
-        data: {
-          title: 'Configuración de cuenta',
-        },
       },
       {
-        path: TechnologiesComponent.PATH,
-        component: TechnologiesComponent,
-        data: {
-          title: 'Tecnologías',
-        },
-      },
-      {
-        path: UsersComponent.PATH,
-        component: UsersComponent,
-        data: {
-          title: 'Usuarios',
-        },
+        path: PasswordComponent.PATH,
+        component: PasswordComponent,
       },
     ],
   },

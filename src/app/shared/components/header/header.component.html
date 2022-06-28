@@ -14,14 +14,26 @@
         <mat-icon>account_circle</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="editAccountRoute">
+        <button
+          *ngFor="let option of menuOptions"
+          mat-menu-item
+          [routerLink]="option.path"
+        >
+          <mat-icon>{{ option.icon }}</mat-icon>
+          {{ option.label }}
+        </button>
+        <!-- <button mat-menu-item [routerLink]="editAccountRoute">
           <mat-icon>settings</mat-icon>
           Cuenta
         </button>
         <button mat-menu-item [routerLink]="profilesRoute">
-          <mat-icon>interests</mat-icon>
+          <mat-icon>group</mat-icon>
           Mis Perfiles Profesionales
         </button>
+        <button mat-menu-item [routerLink]="profilesRoute">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </button> -->
         <button mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           Cerrar sesión

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProfessionalProfile } from '../interfaces/professional-profile.interface';
 import { ApiResponse } from '../../../core/models/api-response.model';
@@ -20,9 +20,15 @@ export class ProfessionalProfilesService {
   private readonly JOB_TITLE_KEY = 'jobTitle';
   private readonly LOCATION_KEY = 'location';
 
-  professionalProfiles: ProfessionalProfile[] = [];
+  /**
+   * Tiempo de enfriamiento en milisegundos para la generación de perfil. Es necesario para evitar bloqueos de la página web en el proceso de scraping.
+   * 3000 = 3s
+   */
+  readonly GENERATE_COOLDOWN_TIME = 30000;
 
+  professionalProfiles: ProfessionalProfile[] = [];
   fetchLoading: boolean = true;
+  lastProfileGeneration?: Date;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -30,7 +36,9 @@ export class ProfessionalProfilesService {
     data: GeneratePPRequest
   ): Observable<ApiResponse<ProfessionalProfile>> {
     const url = `${environment.api}/${ProfessionalProfilesService.BASE_URL}`;
-    return this.http.post<ApiResponse<ProfessionalProfile>>(url, data);
+    return this.http
+      .post<ApiResponse<ProfessionalProfile>>(url, data)
+      .pipe(tap(() => (this.lastProfileGeneration = new Date())));
   }
 
   loadProfessionalProfiles(

@@ -6,3 +6,8 @@ h1 {
   max-width: 440px;
   margin: auto;
 }
+
+.job-cards-list {
+  max-height: 70vh;
+  overflow-y: scroll;
+}

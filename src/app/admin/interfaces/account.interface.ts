@@ -1,6 +1,6 @@
-import { MenuItem } from '../../shared/interfaces/menu-item.interface';
+import { MenuOption } from '../../shared/interfaces/menu-option.interface';
 import { UserIntf } from './user.interface';
 
 export interface Account extends UserIntf {
-  options: MenuItem[];
+  options: MenuOption[];
 }

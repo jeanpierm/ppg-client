@@ -12,7 +12,7 @@ import { ProfessionalProfilesService } from '../../../account/services/professio
   styleUrls: ['./profile-list.component.scss'],
 })
 export class ProfileListComponent implements OnInit {
-  static readonly PATH = 'perfiles';
+  static readonly PATH = 'profiles';
 
   profiles: ProfessionalProfile[] = [];
   profilesForm = this.fb.group({
