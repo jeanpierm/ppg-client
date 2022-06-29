@@ -1,9 +1,8 @@
-<mat-card>
-  <mat-card-title>Editar cuenta </mat-card-title>
-  <br />
-
-  <mat-card-content>
-    <form [formGroup]="form" fxLayout="column">
+<form [formGroup]="form">
+  <mat-card>
+    <mat-card-title>Editar cuenta </mat-card-title>
+    <br />
+    <mat-card-content fxLayout="column">
       <mat-form-field appearance="outline" fxFlex="100">
         <mat-label>Nombres</mat-label>
         <input
@@ -11,14 +10,14 @@
           class="capitalize"
           placeholder="Ingrese sus nombres"
           name="name"
-          id="name"
           formControlName="name"
           [value]="form.get('name')?.value | titlecase"
         />
+        <mat-error *ngIf="validErrorForm('name')">
+          <mat-icon>error</mat-icon>
+          El nombre es requerido
+        </mat-error>
       </mat-form-field>
-      <div *ngIf="validErrorForm('name')" class="alert-danger">
-        <small>Nombre es requerido</small>
-      </div>
 
       <mat-form-field appearance="outline" fxFlex="100">
         <mat-label>Apellidos</mat-label>
@@ -27,86 +26,42 @@
           matInput
           placeholder="Ingrese sus Apellidos"
           name="surname"
-          id="surname"
           formControlName="surname"
           [value]="form.get('surname')?.value | titlecase"
         />
+        <mat-error *ngIf="validErrorForm('surname')">
+          <mat-icon>error</mat-icon>
+          El apellido es requerido
+        </mat-error>
       </mat-form-field>
-      <div *ngIf="validErrorForm('surname')" class="alert-danger">
-        <small>Apellidos son requerido</small>
-      </div>
+
       <mat-form-field appearance="outline" fxFlex="100">
         <mat-label>Email</mat-label>
         <input
+          type="email"
           matInput
           placeholder="Ingrese su email"
           name="email"
-          id="email"
           formControlName="email"
         />
+        <mat-error *ngIf="validErrorForm('email')">
+          <mat-icon>error</mat-icon>
+          El correo electrónico es requerido
+        </mat-error>
       </mat-form-field>
-      <div *ngIf="validErrorForm('email')" class="alert-danger">
-        <small>Formato incorrecto</small>
-      </div>
-    </form>
+    </mat-card-content>
 
-    <!-- <section class="section">
-      <mat-checkbox
-        class="example-margin"
-        [(ngModel)]="change_password"
-        (change)="onChangeCheckBox()"
-        >Cambiar contraseña</mat-checkbox
+    <mat-card-actions>
+      <button mat-button type="button" (click)="cancel()">Cancelar</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || submitting"
+        type="submit"
+        (click)="updateAccount()"
       >
-    </section>
-
-    <div *ngIf="change_password">
-      <mat-grid-list cols="1" rowHeight="100px">
-        <mat-grid-tile>
-          <mat-form-field appearance="legacy" style="width: 25%">
-            <mat-label>Contraseña actual</mat-label>
-            <input
-              matInput
-              value=""
-              placeholder="Ingrese sus nombres"
-              [type]="hide ? 'password' : 'text'"
-              [(ngModel)]="passwords.currentPassword"
-            />
-            <mat-icon matSuffix (click)="hide = !hide">{{
-              hide ? 'visibility_off' : 'visibility'
-            }}</mat-icon>
-          </mat-form-field>
-        </mat-grid-tile>
-        <br />
-
-        <mat-grid-tile>
-          <mat-form-field appearance="legacy" style="width: 25%">
-            <mat-label>Contraseña nueva</mat-label>
-            <input
-              matInput
-              value=""
-              placeholder="Ingrese sus Apellidos"
-              [type]="hide_new ? 'password' : 'text'"
-              [(ngModel)]="passwords.newPassword"
-            />
-            <mat-icon matSuffix (click)="hide_new = !hide_new">{{
-              hide_new ? 'visibility_off' : 'visibility'
-            }}</mat-icon>
-          </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div> -->
-  </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-button type="button" (click)="cancel()">Cancelar</button>
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="form.invalid || !isValidForm()"
-      type="submit"
-      (click)="onSubmit()"
-    >
-      Guarda cambios
-    </button>
-  </mat-card-actions>
-</mat-card>
+        Guarda cambios
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

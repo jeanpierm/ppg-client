@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { Account } from '../../../admin/interfaces/account.interface';
 import { UpdatePasswordRequest } from '../interfaces/update-password-request.interface';
-import { User } from '../../../admin/interfaces/user.interface';
+import { UpdateAccount } from '../interfaces/update-account.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +23,9 @@ export class AccountService {
     return this.http.get<ApiResponse<Account>>(url);
   }
 
-  updateAccount(user: User) {
+  updateAccount(updateAccount: UpdateAccount) {
     let url = `${environment.api}/${AccountService.BASE_URL}`;
-    return this.http.patch<ApiResponse>(url, user);
+    return this.http.patch<ApiResponse>(url, updateAccount);
   }
 
   updatePassword(updatePasswordRequest: UpdatePasswordRequest) {

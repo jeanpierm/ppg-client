@@ -21,11 +21,11 @@ export class AuthService {
   private readonly ACCESS_TOKEN_KEY: string = 'accessToken';
   private readonly BEARER: string = 'Bearer';
 
-  private _authAccount: Account | null = null;
+  private _authAccount!: Account;
 
-  get authAccount(): Account | null {
+  get authAccount(): Account {
     if (!this._authAccount) {
-      return null;
+      throw Error('Account data is not found');
     }
     return { ...this._authAccount };
   }
@@ -96,7 +96,7 @@ export class AuthService {
    */
   logout(): void {
     localStorage.clear();
-    this._authAccount = null;
+    this._authAccount = undefined!;
     this.router.navigateByUrl(`/${LoginComponent.PATH}`);
     // location.reload();
   }
