@@ -3,7 +3,9 @@
     <mat-card-title>Editar cuenta </mat-card-title>
     <br />
     <mat-card-content fxLayout="column">
+      <mat-card-subtitle>Datos personales</mat-card-subtitle>
       <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>mode_edit</mat-icon>
         <mat-label>Nombres</mat-label>
         <input
           matInput
@@ -13,13 +15,14 @@
           formControlName="name"
           [value]="form.get('name')?.value | titlecase"
         />
-        <mat-error *ngIf="validErrorForm('name')">
+        <mat-error *ngIf="name?.hasError('required')">
           <mat-icon>error</mat-icon>
           El nombre es requerido
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>mode_edit</mat-icon>
         <mat-label>Apellidos</mat-label>
         <input
           class="capitalize"
@@ -29,14 +32,15 @@
           formControlName="surname"
           [value]="form.get('surname')?.value | titlecase"
         />
-        <mat-error *ngIf="validErrorForm('surname')">
+        <mat-error *ngIf="surname?.hasError('required')">
           <mat-icon>error</mat-icon>
           El apellido es requerido
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" fxFlex="100">
-        <mat-label>Email</mat-label>
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-label>Correo electrónico</mat-label>
         <input
           type="email"
           matInput
@@ -44,10 +48,88 @@
           name="email"
           formControlName="email"
         />
-        <mat-error *ngIf="validErrorForm('email')">
+        <mat-error *ngIf="email?.hasError('required')">
           <mat-icon>error</mat-icon>
           El correo electrónico es requerido
         </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-label>Biografía</mat-label>
+        <textarea
+          matInput
+          placeholder="Ingrese en pocas palabras su biografía"
+          name="biography"
+          formControlName="biography"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-card-subtitle>Preferencias</mat-card-subtitle>
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>work</mat-icon>
+        <mat-label>Título de trabajo</mat-label>
+        <input
+          matInput
+          placeholder="Ingrese su título de trabajo preferido"
+          name="jobTitle"
+          formControlName="jobTitle"
+        />
+        <mat-error *ngIf="jobTitle?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          El título de trabajo es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>pin_drop</mat-icon>
+        <mat-label>Ubicación</mat-label>
+        <input
+          matInput
+          placeholder="Ingrese su ubicación"
+          name="location"
+          formControlName="location"
+        />
+        <mat-error *ngIf="location?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          La ubicación es requerida
+        </mat-error>
+      </mat-form-field>
+
+      <mat-card-subtitle>Social</mat-card-subtitle>
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>link</mat-icon>
+        <mat-label>Perfil en LinkedIn</mat-label>
+        <input
+          type="url"
+          matInput
+          placeholder="Ingrese el URL de su perfil en LinkedIn"
+          name="linkedIn"
+          formControlName="linkedIn"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>link</mat-icon>
+        <mat-label>Perfil en GitHub</mat-label>
+        <input
+          type="url"
+          matInput
+          placeholder="Ingrese el URL de su perfil en GitHub"
+          name="github"
+          formControlName="github"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-icon matSuffix>link</mat-icon>
+        <mat-label>Portafolio</mat-label>
+        <input
+          type="url"
+          matInput
+          placeholder="Ingrese el URL de su portafolio"
+          name="portfolio"
+          formControlName="portfolio"
+        />
       </mat-form-field>
     </mat-card-content>
 

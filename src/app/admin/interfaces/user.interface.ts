@@ -7,6 +7,8 @@ export interface UserIntf {
   email: string;
   linkedIn?: string;
   biography?: string;
+  portfolio?: string;
+  github?: string;
   location: string;
   jobTitle: string;
 }
