@@ -9,6 +9,8 @@ import { HomeComponent } from '../../../main/home/home.component';
 import { ProfileListComponent } from '../../../main/profiles/pages/profile-list/profile-list.component';
 import { MenuOption } from '../../interfaces/menu-option.interface';
 import { DashboardComponent } from '../../../main/profiles/pages/dashboard/dashboard.component';
+import { AdminComponent } from '../../../admin/admin.component';
+import { AccountService } from '../../../main/account/services/account.service';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +18,6 @@ import { DashboardComponent } from '../../../main/profiles/pages/dashboard/dashb
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  readonly title: string = 'descubre perfiles profesionales';
-
   menuOptions: MenuOption[] = [
     {
       label: 'Cuenta',
@@ -36,7 +36,10 @@ export class HeaderComponent {
     },
   ];
 
-  constructor(public readonly authService: AuthService) {}
+  constructor(
+    public readonly authService: AuthService,
+    public accountService: AccountService
+  ) {}
 
   get isAuthenticated() {
     return !!this.authService.accessToken;
@@ -72,6 +75,10 @@ export class HeaderComponent {
 
   get dashboardRoute() {
     return `/${ProfileListComponent.PATH}/${DashboardComponent.PATH}`;
+  }
+
+  get adminRoute() {
+    return `/${AdminComponent.PATH}`;
   }
 
   logout(): void {

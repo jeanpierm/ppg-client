@@ -20,9 +20,9 @@
             <mat-icon>account_circle</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="goToAccount()">
-              <mat-icon>settings</mat-icon>
-              Cuenta
+            <button mat-menu-item routerLink="/">
+              <mat-icon>arrow_back</mat-icon>
+              Volver a Inicio
             </button>
             <button mat-menu-item (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>

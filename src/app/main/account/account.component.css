@@ -30,6 +30,7 @@ img {
 
 .account-name {
   margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
   font-size: large;
   font-weight: 500;
 }

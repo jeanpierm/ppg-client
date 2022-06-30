@@ -12,8 +12,13 @@ import { UpdateAccount } from '../interfaces/update-account.interface';
 })
 export class AccountService {
   static readonly BASE_URL = 'account';
+  private _sidenavOpened: boolean = true;
 
   constructor(private http: HttpClient) {}
+
+  get sidenavOpened() {
+    return this._sidenavOpened;
+  }
 
   /**
    * @returns los datos del usuario autenticado.
@@ -31,5 +36,9 @@ export class AccountService {
   updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
     let url = `${environment.api}/${AccountService.BASE_URL}/password`;
     return this.http.patch<ApiResponse>(url, updatePasswordRequest);
+  }
+
+  toggleSidenav() {
+    this._sidenavOpened = !this._sidenavOpened;
   }
 }

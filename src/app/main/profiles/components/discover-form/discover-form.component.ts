@@ -71,13 +71,9 @@ export class DiscoverFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    if (!this.authService.authAccount) {
-      this.authService.validateAnRefreshToken().subscribe(() => {
-        this.onChangeUseUserPreferences();
-      });
-    } else {
+    this.authService.validateAnRefreshToken().subscribe(() => {
       this.onChangeUseUserPreferences();
-    }
+    });
   }
 
   discover() {
@@ -128,6 +124,7 @@ export class DiscoverFormComponent implements OnInit {
   onChangeUseUserPreferences() {
     const jobTitlePref = this.authService.authAccount?.jobTitle;
     const locationPref = this.authService.authAccount?.location;
+    console.log(jobTitlePref);
     if (this.jobTitleControl?.value !== jobTitlePref) {
       this.tmpJobTitle = this.jobTitleControl?.value;
     }

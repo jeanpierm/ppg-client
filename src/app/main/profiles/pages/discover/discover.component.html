@@ -1,103 +1,103 @@
-<section class="pt-14">
-  <h1 class="text-4xl text-center">
+<div class="container">
+  <h1 class="pt-14 text-4xl text-center">
     ¡Descubre el perfil profesional que buscan las empresas!
   </h1>
-</section>
 
-<section class="py-14">
-  <div
-    fxLayout="row"
-    fxLayoutGap="40px"
-    fxLayout.sm="column"
-    fxLayout.xs="column"
-  >
-    <div fxFlex="50" fxLayout="column" fxLayoutAlign="center">
-      <p class="text-center text-lg py-3">
-        A través de
-        <span
-          matTooltip="Web scraping es una técnica de recolección y procesamiento de datos de páginas web"
-        >
-          web scraping
-        </span>
-        a diversas ofertas de trabajo en tiempo real, te recomendaremos el
-        <span
-          matTooltip="Llamamos perfil profesional al conjunto de tecnologías que debería manejar el profesional según el título de trabajo"
-          >perfil profesional</span
-        >
-        que mejor se ajuste a tus preferencias y que tenga las tecnologías de
-        desarrollo de software con mayor demanda laboral a día de hoy ({{
-          todayFormatted
-        }})
-      </p>
-      <app-discover-form></app-discover-form>
-    </div>
-
-    <div fxFlex="50">
-      <img
-        class="rounded w-full"
-        src="https://learn.g2.com/hs-fs/hubfs/software-development.jpg?width=2121&name=software-development.jpg"
-        alt="development"
-      />
-    </div>
-  </div>
-</section>
-
-<!-- <section class="pt-14">
-  <h1 class="">El algoritmo de web scraping detecta:</h1>
-  <div class="my-8 grid gap-4 grid-cols-4">
-    <span>+58 lenguajes de programación</span>
-    <span>+28 marcos de trabajo</span>
-    <span>+39 librerías o paquetes</span>
-    <span>+23 bases de datos</span>
-    <span>+33 herramientas de desarrollo</span>
-    <span>+39 paradigmas de programación</span>
-    <span>Si requiere o no inglés</span>
-  </div>
-</section> -->
-
-<section class="py-14" *ngIf="!!authService.accessToken">
-  <div fxLayout="row" fxLayoutGap="20px">
-    <h1>Tus últimos perfiles</h1>
-    <div>
-      <a mat-button color="accent" [routerLink]="profilesRoute">
-        VER TODOS MIS PERFILES
-      </a>
-    </div>
-  </div>
-
-  <mat-spinner
-    class="mx-auto"
-    *ngIf="loadingLastProfiles; else divLastProfiles"
-  ></mat-spinner>
-
-  <ng-template #divLastProfiles>
-    <p
-      class="text-center"
-      *ngIf="!lastProfiles.length; else divLastProfilesCards"
+  <section class="py-14">
+    <div
+      fxLayout="row"
+      fxLayoutGap="40px"
+      fxLayout.sm="column"
+      fxLayout.xs="column"
     >
-      Todavía no has generado ningún perfil :(
-    </p>
-
-    <ng-template #divLastProfilesCards>
-      <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
-        <div
-          fxFlex="30"
-          fxFlex.sm="45"
-          fxFlex.xs="100"
-          class="mb-4"
-          *ngFor="let profile of lastProfiles"
-        >
-          <app-profile-card
-            (reLoad)="loadLastProfiles()"
-            [profile]="profile"
-          ></app-profile-card>
-        </div>
+      <div fxFlex="50" fxLayout="column" fxLayoutAlign="center">
+        <p class="text-center text-lg py-3">
+          A través de
+          <span
+            matTooltip="Web scraping es una técnica de recolección y procesamiento de datos de páginas web"
+          >
+            web scraping
+          </span>
+          a diversas ofertas de trabajo en tiempo real, te recomendaremos el
+          <span
+            matTooltip="Llamamos perfil profesional al conjunto de tecnologías que debería manejar el profesional según el título de trabajo"
+            >perfil profesional</span
+          >
+          que mejor se ajuste a tus preferencias y que tenga las tecnologías de
+          desarrollo de software con mayor demanda laboral a día de hoy ({{
+            todayFormatted
+          }})
+        </p>
+        <app-discover-form></app-discover-form>
       </div>
-      <div fxLayoutAlign="center" class="mt-5">
-        <a mat-flat-button color="accent" [routerLink]="profilesRoute">
+
+      <div fxFlex="50">
+        <img
+          class="rounded w-full"
+          src="https://learn.g2.com/hs-fs/hubfs/software-development.jpg?width=2121&name=software-development.jpg"
+          alt="development"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="pt-14">
+    <h1 class="">El algoritmo de web scraping detecta:</h1>
+    <div class="my-8 grid gap-4 grid-cols-4">
+      <span>+58 lenguajes de programación</span>
+      <span>+28 marcos de trabajo</span>
+      <span>+39 librerías o paquetes</span>
+      <span>+23 bases de datos</span>
+      <span>+33 herramientas de desarrollo</span>
+      <span>+39 paradigmas de programación</span>
+      <span>Si requiere o no inglés</span>
+    </div>
+  </section> -->
+
+  <section class="py-14" *ngIf="!!authService.accessToken">
+    <div fxLayout="row" fxLayoutGap="20px">
+      <h1>Tus últimos perfiles</h1>
+      <div>
+        <a mat-button color="accent" [routerLink]="profilesRoute">
           VER TODOS MIS PERFILES
         </a>
       </div>
+    </div>
+
+    <mat-spinner
+      class="mx-auto"
+      *ngIf="loadingLastProfiles; else divLastProfiles"
+    ></mat-spinner>
+
+    <ng-template #divLastProfiles>
+      <p
+        class="text-center"
+        *ngIf="!lastProfiles.length; else divLastProfilesCards"
+      >
+        Todavía no has generado ningún perfil :(
+      </p>
+
+      <ng-template #divLastProfilesCards>
+        <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
+          <div
+            fxFlex="30"
+            fxFlex.sm="45"
+            fxFlex.xs="100"
+            class="mb-4"
+            *ngFor="let profile of lastProfiles"
+          >
+            <app-profile-card
+              (reLoad)="loadLastProfiles()"
+              [profile]="profile"
+            ></app-profile-card>
+          </div>
+        </div>
+        <div fxLayoutAlign="center" class="mt-5">
+          <a mat-flat-button color="accent" [routerLink]="profilesRoute">
+            VER TODOS MIS PERFILES
+          </a>
+        </div>
+      </ng-template>
     </ng-template>
-  </ng-template>
-</section>
+  </section>
+</div>

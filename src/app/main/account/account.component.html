@@ -17,9 +17,14 @@
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 </mat-sidenav-container> -->
-
 <mat-sidenav-container class="h-screen-custom">
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav
+    [opened]="sidenavOpened"
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches"
+    fixedTopGap="56"
+    opened
+  >
     <div class="avatar-container">
       <figure>
         <img
@@ -28,8 +33,9 @@
         />
       </figure>
       <h3 class="account-name">{{ fullName | titlecase }}</h3>
+      <mat-card-subtitle>{{ bio }}</mat-card-subtitle>
     </div>
-    <!-- <mat-divider></mat-divider> -->
+
     <mat-nav-list>
       <a
         *ngFor="let option of menuOptions"

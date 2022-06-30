@@ -24,9 +24,6 @@ export class AuthService {
   private _authAccount!: Account;
 
   get authAccount(): Account {
-    if (!this._authAccount) {
-      throw Error('Account data is not found');
-    }
     return { ...this._authAccount };
   }
 
