@@ -4,7 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenericErrorStateMatcher } from 'src/app/core/utils/error-state-matcher';
 import Swal from 'sweetalert2';
-import { validateTwoFormControlsAreEquals } from '../../../../core/utils/form.util';
+import {
+  getPasswordValidationMessage,
+  validateTwoFormControlsAreEquals,
+} from '../../../../core/utils/form.util';
 import { setAccountDataInLocalStorage } from '../../../../core/utils/local-storage.util';
 import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../../core/services/alert.service';
@@ -39,8 +42,9 @@ export class RegisterComponent {
         [
           Validators.required,
           Validators.minLength(8),
+          Validators.maxLength(30),
           Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&.])([A-Za-z\d#@$!%*?&.]|[^ ])/
           ),
         ],
       ],
@@ -124,24 +128,10 @@ export class RegisterComponent {
     return { name, email, surname, password };
   }
 
-  getPasswordValidationMessage(): string | void {
-    const control = this.registerForm.get('password')?.value;
-    if (!control) return;
-    if (
-      control.toString().trim().length < 8 ||
-      control.toString().trim().length > 30
-    ) {
-      return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
-    }
-    if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
-      return 'La contraseña debe contener mayúsculas y minúsculas';
-    }
-    if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
-      return 'La contraseña debe contener al menos un valor numérico';
-    }
-    if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
-      return 'La contraseña debe contener al menos un carácter especial [$@$!%*?&.]';
-    }
+  getPasswordValidationMsg(): string | void {
+    const password = this.registerForm.get('password')?.value;
+    if (!password) return;
+    return getPasswordValidationMessage(password);
   }
 }
 

@@ -20,3 +20,21 @@ export function validateTwoFormControlsAreEquals(
     return null;
   };
 }
+
+export function getPasswordValidationMessage(password: string): string | void {
+  if (
+    password.toString().trim().length < 8 ||
+    password.toString().trim().length > 30
+  ) {
+    return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
+  }
+  if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
+    return 'La contraseña debe contener mayúsculas y minúsculas';
+  }
+  if (!password.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
+    return 'La contraseña debe contener al menos un valor numérico';
+  }
+  if (!password.match(/^(?=.*[#@$!%*?&.])([#@$!%*?&.]|[^ ])/)) {
+    return 'La contraseña debe contener al menos un carácter especial [#@$!%*?&.]';
+  }
+}

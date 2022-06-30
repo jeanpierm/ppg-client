@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-overview',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
 export class OverviewComponent {
   static readonly PATH = 'overview';
 
-  constructor() {}
+  constructor(private readonly authService: AuthService) {}
+
+  get account() {
+    return this.authService.authAccount;
+  }
 }

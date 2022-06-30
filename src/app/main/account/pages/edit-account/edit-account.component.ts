@@ -75,7 +75,7 @@ export class EditAccountComponent implements OnInit {
     this.setAccountDataInForm();
   }
 
-  async setAccountDataInForm() {
+  setAccountDataInForm() {
     const accountData = this.authService.authAccount;
     this.form.setValue({
       name: accountData.name,
@@ -88,10 +88,6 @@ export class EditAccountComponent implements OnInit {
       portfolio: accountData.portfolio || '',
       github: accountData.github || '',
     });
-  }
-
-  validErrorForm(campo: any) {
-    return this.form.get(campo)?.errors && this.form.get(campo)?.dirty;
   }
 
   updateAccount() {
