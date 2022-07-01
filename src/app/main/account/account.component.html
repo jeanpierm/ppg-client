@@ -42,6 +42,7 @@
         *ngFor="let option of menuOptions"
         mat-list-item
         [routerLink]="option.path"
+        (click)="mobileQuery.matches && closeSidenav()"
       >
         <mat-icon class="sidenav-icon" color="primary">
           {{ option.icon }}

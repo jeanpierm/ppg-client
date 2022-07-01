@@ -9,8 +9,9 @@
     <div fxLayout="row">
       <div fxFlex="50">
         <h1>{{ profile.jobTitle | titlecase }}</h1>
+        <p>ID: {{ profile.ppId }}</p>
         <p>Ubicación: {{ profile.location | titlecase }}</p>
-        <p>Descubierto el {{ profile.createdAt | date: 'long' }}</p>
+        <p>Descubierto: {{ profile.createdAt | date: 'long' }}</p>
       </div>
       <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="16px">
         <button mat-button color="accent" [routerLink]="profilesRoute">

@@ -12,6 +12,7 @@ import { MaterialModule } from '../../material/material.module';
 import { AccountComponent } from './account.component';
 import { OverviewComponent } from './pages/overview/overview.component';
 import { PasswordComponent } from './pages/password/password.component';
+import { HeaderComponent } from './components/account-header/account-header.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PasswordComponent } from './pages/password/password.component';
     CardComponent,
     OverviewComponent,
     PasswordComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,87 @@
-<p>{{ account | json }}</p>
+<app-account-header title="Visión general de la cuenta"></app-account-header>
+
+<mat-card>
+  <!-- <mat-card-title></mat-card-title> -->
+  <mat-card-content>
+    <ul>
+      <li fxLayout="row">
+        <p fxFlex="50" class="font-medium">Nombre completo</p>
+        <p fxFlex="50">
+          {{ fullName | titlecase }}
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Correo electrónico</p>
+        <p fxFlex="50">
+          {{ account.email }}
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Biografía</p>
+        <p fxFlex="50">
+          {{ account.biography }}
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Título de trabajo</p>
+        <p fxFlex="50">
+          {{ account.jobTitle }}
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Ubicación</p>
+        <p fxFlex="50">
+          {{ account.location }}
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Perfil LinkedIn</p>
+        <p fxFlex="50">
+          <a *ngIf="account.linkedIn" [href]="account.linkedIn" target="_blank">
+            {{ account.linkedIn || '-' }}
+          </a>
+          <span *ngIf="!account.linkedIn">-</span>
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Perfil GitHub</p>
+        <p fxFlex="50">
+          <a *ngIf="account.github" [href]="account.github" target="_blank">
+            {{ account.github || '-' }}
+          </a>
+          <span *ngIf="!account.github">-</span>
+        </p>
+      </li>
+      <mat-divider></mat-divider>
+      <li>
+        <p fxFlex="50" class="font-medium">Portfolio</p>
+        <p fxFlex="50">
+          <a
+            *ngIf="account.portfolio"
+            [href]="account.portfolio"
+            target="_blank"
+          >
+            {{ account.portfolio || '-' }}
+          </a>
+          <span *ngIf="!account.portfolio">-</span>
+        </p>
+      </li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button color="primary" [routerLink]="editAccountRoute">
+      <mat-icon>face</mat-icon>
+      Ver perfil
+    </a>
+    <a mat-button color="primary" [routerLink]="editAccountRoute">
+      <mat-icon>edit</mat-icon>
+      Editar cuenta
+    </a>
+  </mat-card-actions>
+</mat-card>

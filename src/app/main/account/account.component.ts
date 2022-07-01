@@ -3,7 +3,8 @@ import {
   Breakpoints,
   MediaMatcher,
 } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivationStart, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MenuOption } from '../../shared/interfaces/menu-option.interface';
@@ -18,9 +19,10 @@ import { AccountService } from './services/account.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
 })
-export class AccountComponent implements OnDestroy {
+export class AccountComponent implements OnDestroy, OnInit {
   static readonly PATH = 'account';
 
+  title: string = '';
   menuOptions: MenuOption[] = [
     {
       icon: 'home',
@@ -53,7 +55,8 @@ export class AccountComponent implements OnDestroy {
     private readonly authService: AuthService,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly media: MediaMatcher,
-    private readonly accountService: AccountService
+    private readonly accountService: AccountService,
+    private readonly router: Router
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = (e) => {
@@ -63,6 +66,15 @@ export class AccountComponent implements OnDestroy {
       }
     };
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe((data) => {
+      if (data instanceof ActivationStart) {
+        console.log(data.snapshot.data);
+        this.title = data.snapshot.data['title'];
+      }
+    });
   }
 
   get fullName() {
@@ -84,7 +96,6 @@ export class AccountComponent implements OnDestroy {
   }
 
   closeSidenav() {
-    // si por algún motivo al cerrarse el estado queda como true, se pondrá falso (corrige bugs)
     if (this.accountService.sidenavOpened) this.accountService.toggleSidenav();
   }
 }

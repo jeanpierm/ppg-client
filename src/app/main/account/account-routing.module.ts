@@ -17,6 +17,9 @@ const routes: Routes = [
       {
         path: EditAccountComponent.PATH,
         component: EditAccountComponent,
+        data: {
+          title: 'Editar cuenta',
+        },
       },
       {
         path: PasswordComponent.PATH,
