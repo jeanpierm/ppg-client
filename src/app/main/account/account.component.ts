@@ -82,4 +82,9 @@ export class AccountComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
+
+  closeSidenav() {
+    // si por algún motivo al cerrarse el estado queda como true, se pondrá falso (corrige bugs)
+    if (this.accountService.sidenavOpened) this.accountService.toggleSidenav();
+  }
 }

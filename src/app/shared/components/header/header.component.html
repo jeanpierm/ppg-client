@@ -4,15 +4,16 @@
     color="primary"
     fxLayoutAlign="space-between center"
   >
-    <a fxHide.xs [routerLink]="homeRoute"> Descubre Perfiles Profesionales </a>
-
     <button
       mat-icon-button
       fxHide.gt-xs
+      *ngIf="isAccountRoute"
       (click)="accountService.toggleSidenav()"
     >
       <mat-icon>menu</mat-icon>
     </button>
+
+    <a [routerLink]="homeRoute"> Perfiles Profesionales </a>
 
     <div fxLayoutGap="0.75rem">
       <button

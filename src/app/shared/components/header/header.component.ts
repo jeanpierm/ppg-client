@@ -11,6 +11,7 @@ import { MenuOption } from '../../interfaces/menu-option.interface';
 import { DashboardComponent } from '../../../main/profiles/pages/dashboard/dashboard.component';
 import { AdminComponent } from '../../../admin/admin.component';
 import { AccountService } from '../../../main/account/services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +38,7 @@ export class HeaderComponent {
   ];
 
   constructor(
+    private readonly router: Router,
     public readonly authService: AuthService,
     public accountService: AccountService
   ) {}
@@ -79,6 +81,10 @@ export class HeaderComponent {
 
   get adminRoute() {
     return `/${AdminComponent.PATH}`;
+  }
+
+  get isAccountRoute() {
+    return this.router.url.includes(AccountComponent.PATH);
   }
 
   logout(): void {

@@ -20,6 +20,7 @@
 <mat-sidenav-container class="h-screen-custom">
   <mat-sidenav
     [opened]="sidenavOpened"
+    (closed)="closeSidenav()"
     [mode]="mobileQuery.matches ? 'over' : 'side'"
     [fixedInViewport]="mobileQuery.matches"
     fixedTopGap="56"
