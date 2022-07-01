@@ -1,116 +1,120 @@
-<mat-grid-list cols="1" *ngIf="!profile; else divProfile">
-  <mat-grid-tile>
-    <mat-spinner></mat-spinner>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="container">
+  <mat-grid-list cols="1" *ngIf="!profile; else divProfile">
+    <mat-grid-tile>
+      <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-<ng-template #divProfile>
-  <div fxLayout="row">
-    <div fxFlex="50">
-      <h1>{{ profile.jobTitle | titlecase }}</h1>
-      <p>Ubicación: {{ profile.location | titlecase }}</p>
-      <p>Descubierto el {{ profile.createdAt | date: 'long' }}</p>
-    </div>
-    <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="16px">
-      <button mat-button color="accent" [routerLink]="profilesRoute">
-        <mat-icon>arrow_back</mat-icon>
-        VOLVER A MIS PERFILES
-      </button>
-      <button mat-raised-button color="primary">
-        <mat-icon>download</mat-icon>
-        DESCARGAR PDF
-      </button>
-    </div>
-  </div>
-  <mat-divider></mat-divider>
-  <div fxLayout="column" fxLayout.gt-sm="row" class="mt-3" fxLayoutGap="2rem">
-    <section fxFlex="50">
-      <h2
-        matTooltip="Aquí se listan las tecnologías más demandadas de acuerdo a
-      las ofertas de trabajo analizadas."
-      >
-        Las tecnologías más demandadas para este perfil
-      </h2>
-
-      <div fxLayout="row" fxLayoutAlign="space-between">
-        <mat-hint>
-          <p>
-            ¡Prueba darle click a las tecnologías para ir a su
-            documentación/plan de aprendizaje!
-          </p>
-        </mat-hint>
-
-        <!-- <div>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
-            alt=""
-          />
-        </div> -->
+  <ng-template #divProfile>
+    <div fxLayout="row">
+      <div fxFlex="50">
+        <h1>{{ profile.jobTitle | titlecase }}</h1>
+        <p>Ubicación: {{ profile.location | titlecase }}</p>
+        <p>Descubierto el {{ profile.createdAt | date: 'long' }}</p>
       </div>
+      <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="16px">
+        <button mat-button color="accent" [routerLink]="profilesRoute">
+          <mat-icon>arrow_back</mat-icon>
+          <span fxHide.xs>VOLVER A MIS PERFILES</span>
+        </button>
+        <button mat-raised-button color="primary">
+          <mat-icon>download</mat-icon>
+          <span fxHide.xs>DESCARGAR PDF</span>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="column" fxLayout.gt-sm="row" class="mt-3" fxLayoutGap="2rem">
+      <section fxFlex="50">
+        <h2
+          matTooltip="Aquí se listan las tecnologías más demandadas de acuerdo a
+        las ofertas de trabajo analizadas."
+        >
+          Las tecnologías más demandadas para este perfil
+        </h2>
 
-      <div fxLayout="column" fxLayoutGap="10px">
-        <app-tech-chips
-          *ngIf="profile.languages.length"
-          [technologies]="profile.languages"
-          label="Lenguajes de programación"
-        ></app-tech-chips>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <mat-hint>
+            <p>
+              ¡Prueba darle click a las tecnologías para ir a su
+              documentación/plan de aprendizaje!
+            </p>
+          </mat-hint>
 
-        <app-tech-chips
-          *ngIf="profile.frameworks.length"
-          [technologies]="profile.frameworks"
-          label="Frameworks"
-        ></app-tech-chips>
-
-        <app-tech-chips
-          *ngIf="profile.databases.length"
-          [technologies]="profile.databases"
-          label="Bases de datos"
-        ></app-tech-chips>
-
-        <app-tech-chips
-          *ngIf="profile.tools.length"
-          [technologies]="profile.tools"
-          label="Herramientas"
-        ></app-tech-chips>
-
-        <app-tech-chips
-          *ngIf="profile.paradigms.length"
-          [technologies]="profile.paradigms"
-          label="Paradigmas"
-        ></app-tech-chips>
-
-        <app-tech-chips
-          *ngIf="profile.patterns.length"
-          [technologies]="profile.patterns"
-          label="Patrones ó estilos"
-        ></app-tech-chips>
-
-        <div fxLayout="row">
-          <mat-hint class="mr-1">Requiere ingles</mat-hint>
-          <mat-icon color="primary" *ngIf="profile.requireEnglish">
-            check_circle
-          </mat-icon>
-          <mat-icon color="warn" *ngIf="!profile.requireEnglish">
-            cancel
-          </mat-icon>
+          <!-- <div>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
+              alt=""
+            />
+          </div> -->
         </div>
-      </div>
 
-      <mat-card class="mt-3">
-        Nota: Recuerda que no es necesario saber todas las tecnologías. El
-        objetivo es que conozcas las tecnologías que se demandan en la industria
-        y así decidir en cuál o cuáles prepararte ;)
-      </mat-card>
-    </section>
+        <div fxLayout="column" fxLayoutGap="10px">
+          <app-tech-chips
+            *ngIf="profile.languages.length"
+            [technologies]="profile.languages"
+            label="Lenguajes de programación"
+          ></app-tech-chips>
 
-    <section fxFlex="50">
-      <h2>Ofertas de trabajo analizadas ({{ profile.jobsAnalyzed.length }})</h2>
-      <div fxLayout="column" fxLayoutGap="1rem" class="job-cards-list">
-        <app-job-card
-          *ngFor="let job of profile.jobsAnalyzed"
-          [job]="job"
-        ></app-job-card>
-      </div>
-    </section>
-  </div>
-</ng-template>
+          <app-tech-chips
+            *ngIf="profile.frameworks.length"
+            [technologies]="profile.frameworks"
+            label="Frameworks"
+          ></app-tech-chips>
+
+          <app-tech-chips
+            *ngIf="profile.databases.length"
+            [technologies]="profile.databases"
+            label="Bases de datos"
+          ></app-tech-chips>
+
+          <app-tech-chips
+            *ngIf="profile.tools.length"
+            [technologies]="profile.tools"
+            label="Herramientas"
+          ></app-tech-chips>
+
+          <app-tech-chips
+            *ngIf="profile.paradigms.length"
+            [technologies]="profile.paradigms"
+            label="Paradigmas"
+          ></app-tech-chips>
+
+          <app-tech-chips
+            *ngIf="profile.patterns.length"
+            [technologies]="profile.patterns"
+            label="Patrones ó estilos"
+          ></app-tech-chips>
+
+          <div fxLayout="row">
+            <mat-hint class="mr-1">Requiere ingles</mat-hint>
+            <mat-icon color="primary" *ngIf="profile.requireEnglish">
+              check_circle
+            </mat-icon>
+            <mat-icon color="warn" *ngIf="!profile.requireEnglish">
+              cancel
+            </mat-icon>
+          </div>
+        </div>
+
+        <mat-card class="mt-3">
+          Nota: Recuerda que no es necesario saber todas las tecnologías. El
+          objetivo es que conozcas las tecnologías que se demandan en la
+          industria y así decidir en cuál o cuáles prepararte ;)
+        </mat-card>
+      </section>
+
+      <section fxFlex="50">
+        <h2>
+          Ofertas de trabajo analizadas ({{ profile.jobsAnalyzed.length }})
+        </h2>
+        <div fxLayout="column" fxLayoutGap="1rem" class="job-cards-list">
+          <app-job-card
+            *ngFor="let job of profile.jobsAnalyzed"
+            [job]="job"
+          ></app-job-card>
+        </div>
+      </section>
+    </div>
+  </ng-template>
+</div>

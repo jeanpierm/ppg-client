@@ -1,110 +1,112 @@
-<h1>Consulta tus perfiles profesionales generados</h1>
-<mat-divider></mat-divider>
+<div class="container">
+  <h1>Consulta tus perfiles profesionales generados</h1>
+  <mat-divider></mat-divider>
 
-<br />
+  <br />
 
-<form
-  fxLayout="row"
-  fxLayout.lt-md="column"
-  fxLayoutGap="20px"
-  [formGroup]="profilesForm"
->
-  <mat-form-field fxFlex="100">
-    <mat-label>Título de trabajo</mat-label>
-    <input
-      matInput
-      type="text"
-      placeholder=""
-      name="jobTitle"
-      formControlName="jobTitle"
-    />
-    <button
-      *ngIf="!!jobTitleControl?.value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="jobTitleControl?.setValue('')"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-
-    <mat-hint>Busca por título de trabajo</mat-hint>
-  </mat-form-field>
-
-  <mat-form-field fxFlex="100">
-    <mat-label>Ubicación</mat-label>
-    <input
-      matInput
-      type="text"
-      placeholder=""
-      name="location"
-      formControlName="location"
-    />
-    <button
-      *ngIf="!!locationControl?.value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="locationControl?.setValue('')"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-hint>Busca por ubicación</mat-hint>
-  </mat-form-field>
-
-  <mat-form-field fxFlex="100">
-    <mat-label>Fecha de creación</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
+  <form
+    fxLayout="row"
+    fxLayout.lt-md="column"
+    fxLayoutGap="20px"
+    [formGroup]="profilesForm"
+  >
+    <mat-form-field fxFlex="100">
+      <mat-label>Título de trabajo</mat-label>
       <input
-        matStartDate
-        placeholder="d/M/AAAA (Fecha inicio)"
-        formControlName="initDate"
+        matInput
+        type="text"
+        placeholder=""
+        name="jobTitle"
+        formControlName="jobTitle"
       />
+      <button
+        *ngIf="!!jobTitleControl?.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="jobTitleControl?.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <mat-hint>Busca por título de trabajo</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="100">
+      <mat-label>Ubicación</mat-label>
       <input
-        matEndDate
-        placeholder="d/M/AAAA (Fecha fin)"
-        formControlName="endDate"
+        matInput
+        type="text"
+        placeholder=""
+        name="location"
+        formControlName="location"
       />
-    </mat-date-range-input>
-    <button
-      *ngIf="!!initDateControl?.value || !!endDateControl?.value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="clearDates()"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-hint>Busca por fecha de creación</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
-  </mat-form-field>
-</form>
+      <button
+        *ngIf="!!locationControl?.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="locationControl?.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-hint>Busca por ubicación</mat-hint>
+    </mat-form-field>
 
-<br />
+    <mat-form-field fxFlex="100">
+      <mat-label>Fecha de creación</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="d/M/AAAA (Fecha inicio)"
+          formControlName="initDate"
+        />
+        <input
+          matEndDate
+          placeholder="d/M/AAAA (Fecha fin)"
+          formControlName="endDate"
+        />
+      </mat-date-range-input>
+      <button
+        *ngIf="!!initDateControl?.value || !!endDateControl?.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="clearDates()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-hint>Busca por fecha de creación</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+    </mat-form-field>
+  </form>
 
-<mat-grid-list cols="1" *ngIf="loadingProfiles; else divProfiles">
-  <mat-grid-tile>
-    <mat-spinner></mat-spinner>
-  </mat-grid-tile>
-</mat-grid-list>
+  <br />
 
-<ng-template #divProfiles>
-  <mat-card-subtitle style="margin: 10px">{{
-    'Resultados (' + profiles.length + ')'
-  }}</mat-card-subtitle>
-  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
-    <div
-      fxFlex="30"
-      fxFlex.sm="45"
-      fxFlex.xs="100"
-      class="mb-5"
-      *ngFor="let profile of profiles"
-    >
-      <app-profile-card
-        (reLoad)="searchProfiles()"
-        [profile]="profile"
-      ></app-profile-card>
+  <mat-grid-list cols="1" *ngIf="loadingProfiles; else divProfiles">
+    <mat-grid-tile>
+      <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <ng-template #divProfiles>
+    <mat-card-subtitle style="margin: 10px">{{
+      'Resultados (' + profiles.length + ')'
+    }}</mat-card-subtitle>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div
+        fxFlex="30"
+        fxFlex.sm="45"
+        fxFlex.xs="100"
+        class="mb-5"
+        *ngFor="let profile of profiles"
+      >
+        <app-profile-card
+          (reLoad)="searchProfiles()"
+          [profile]="profile"
+        ></app-profile-card>
+      </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+</div>

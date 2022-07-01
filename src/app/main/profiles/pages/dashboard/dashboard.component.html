@@ -1,26 +1,46 @@
-<h1>Dashboard</h1>
-<p class="mb-5">
-  ❓ Aquí podrás encontrar información referente al número de tecnologías que has encontrado en tus
-  perfiles generados.
-</p>
+<div class="container">
+  <h1>Dashboard</h1>
+  <p class="mb-5">
+    ❓ Aquí podrás encontrar información referente al número de tecnologías que
+    has encontrado en tus perfiles generados.
+  </p>
 
-<div fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
-  <app-card
-    fxFlex="25%"
-    fxFlex.lg="33%"
-    fxFlex.md="50%"
-    fxFlex.lt-md="100%"
-    *ngFor="let chart of charts | keyvalue"
-    title=" {{ chart.value.title }}"
-    [loading]="chart.value.loading"
+  <div
+    fxLayout="row wrap"
+    fxLayoutGap="16px grid"
+    fxLayoutAlign="center center"
   >
-    <div *ngIf="!chart.value.data?.labels?.length && !chart.value.loading; else test">
-      <p>¡Aún no has registrado perfiles con {{ chart.value.title | lowercase }}! 😟</p>
-      <p>Para generar un perfil profesional ideal, por favor, ve a la opción "Generar perfil".</p>
-    </div>
+    <app-card
+      fxFlex="25%"
+      fxFlex.lg="33%"
+      fxFlex.md="50%"
+      fxFlex.lt-md="100%"
+      *ngFor="let chart of charts | keyvalue"
+      title=" {{ chart.value.title }}"
+      [loading]="chart.value.loading"
+    >
+      <div
+        *ngIf="
+          !chart.value.data?.labels?.length && !chart.value.loading;
+          else test
+        "
+      >
+        <p>
+          ¡Aún no has registrado perfiles con
+          {{ chart.value.title | lowercase }}! 😟
+        </p>
+        <p>
+          Para generar un perfil profesional ideal, por favor, ve a la opción
+          "Generar perfil".
+        </p>
+      </div>
 
-    <ng-template #test>
-      <app-pie-chart [loading]="false" [pieChartData]="chart.value.data"></app-pie-chart>
-    </ng-template>
-  </app-card>
+      <ng-template #test>
+        <app-pie-chart
+          [loading]="false"
+          [pieChartData]="chart.value.data"
+        ></app-pie-chart>
+      </ng-template>
+    </app-card>
+  </div>
 </div>
