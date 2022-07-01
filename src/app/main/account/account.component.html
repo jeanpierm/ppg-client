@@ -28,13 +28,10 @@
   >
     <div class="avatar-container">
       <figure>
-        <img
-          src="http://3.bp.blogspot.com/-e91u7FITU_M/TnHh6fj7c2I/AAAAAAAAAYs/UVuHglTCZpI/s1600/arnold%252Bschwarzenegger%252Bpic3.jpeg"
-          alt="profile image"
-        />
+        <img [src]="account.photo" alt="account photo" />
       </figure>
       <h3 class="account-name">{{ fullName | titlecase }}</h3>
-      <mat-card-subtitle>{{ bio }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ account.biography }}</mat-card-subtitle>
     </div>
 
     <mat-nav-list>

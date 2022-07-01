@@ -7,6 +7,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivationStart, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Account } from '../../admin/interfaces/account.interface';
 import { MenuOption } from '../../shared/interfaces/menu-option.interface';
 import { AuthService } from '../auth/services/auth.service';
 import { EditAccountComponent } from './pages/edit-account/edit-account.component';
@@ -23,6 +24,7 @@ export class AccountComponent implements OnDestroy, OnInit {
   static readonly PATH = 'account';
 
   title: string = '';
+  account: Account = this.authService.authAccount;
   menuOptions: MenuOption[] = [
     {
       icon: 'home',
@@ -81,10 +83,6 @@ export class AccountComponent implements OnDestroy, OnInit {
     if (!this.authService.authAccount) return;
     const { name, surname } = this.authService.authAccount;
     return `${name} ${surname}`;
-  }
-
-  get bio() {
-    return this.authService.authAccount.biography;
   }
 
   get sidenavOpened() {

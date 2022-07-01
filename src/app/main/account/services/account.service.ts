@@ -38,6 +38,8 @@ export class AccountService {
     return this.http.patch<ApiResponse>(url, updatePasswordRequest);
   }
 
+  uploadPhoto() {}
+
   toggleSidenav() {
     this._sidenavOpened = !this._sidenavOpened;
   }

@@ -6,6 +6,7 @@ export interface UserIntf {
   surname: string;
   email: string;
   linkedIn?: string;
+  photo?: string;
   biography?: string;
   portfolio?: string;
   github?: string;
