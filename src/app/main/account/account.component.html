@@ -10,14 +10,25 @@
     <div class="avatar-container">
       <div
         #photo
-        [ngStyle]="{ 'background-image': 'url(' + this.account.photo + ')' }"
+        [ngStyle]="photoStyle"
         id="photo"
         alt="account photo"
-        (click)="fileInput.click()"
+        [matMenuTriggerFor]="menu"
       ></div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon>
+          Subir foto
+        </button>
+        <button mat-menu-item (click)="removeAccountPhoto()">
+          <mat-icon>delete</mat-icon>
+          Eliminar foto
+        </button>
+      </mat-menu>
       <h3 class="account-name">{{ fullName | titlecase }}</h3>
       <mat-card-subtitle>{{ account.biography }}</mat-card-subtitle>
     </div>
+
     <input
       #fileInput
       type="file"
@@ -43,6 +54,6 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <router-outlet></router-outlet>
+    <router-outlet (removePhoto)="removeAccountPhoto()"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

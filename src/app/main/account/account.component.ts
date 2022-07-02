@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import Swal from 'sweetalert2';
 import { Account } from '../../admin/interfaces/account.interface';
 import { AlertService } from '../../core/services/alert.service';
 import { CloudinaryService } from '../../core/services/cloudinary.service';
@@ -27,6 +28,8 @@ import { AccountService } from './services/account.service';
 export class AccountComponent implements OnDestroy, AfterViewInit {
   static readonly PATH = 'account';
 
+  defaultPhotoUrl =
+    'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg';
   account: Account = this.authService.authAccount;
   menuOptions: MenuOption[] = [
     {
@@ -46,6 +49,7 @@ export class AccountComponent implements OnDestroy, AfterViewInit {
     },
   ];
   mobileQuery: MediaQueryList;
+
   @ViewChild('photo') photo!: ElementRef<HTMLDivElement>;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -67,9 +71,13 @@ export class AccountComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.photo.nativeElement.addEventListener('mouseenter', () => {
-    //   this.photo.nativeElement.innerText = 'Cambiar photo';
-    // });
+    this.setListenersForHoverPhoto();
+  }
+
+  get photoStyle() {
+    return {
+      'background-image': `url(${this.account.photo || this.defaultPhotoUrl})`,
+    };
   }
 
   get fullName() {
@@ -82,20 +90,47 @@ export class AccountComponent implements OnDestroy, AfterViewInit {
     return this.accountService.sidenavOpened;
   }
 
+  setListenersForHoverPhoto() {
+    this.photo.nativeElement.addEventListener('mouseenter', () => {
+      this.photo.nativeElement.innerText = 'CAMBIAR FOTO';
+    });
+    this.photo.nativeElement.addEventListener('mouseout', () => {
+      this.photo.nativeElement.innerText = '';
+    });
+  }
+
   uploadAccountPhoto() {
     const { files } = this.fileInput.nativeElement;
+    console.log(files);
     if (!files?.length) return;
+    Swal.fire({
+      title: 'Subiendo...',
+      text: 'Por favor, espere...',
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     const file = files[0];
     this.cloudinaryService.uploadFile(file).subscribe((url) => {
-      this.account.photo = url;
       firstValueFrom(this.accountService.updateAccount({ photo: url })).then(
         () => {
-          this.alertService.success(
-            '¡Foto de perfil actualizada exitosamente!'
-          );
+          Swal.close();
+          this.account.photo = url;
+          this.alertService.success('Foto de perfil actualizada con éxito');
         }
       );
     });
+  }
+
+  removeAccountPhoto() {
+    firstValueFrom(this.accountService.updateAccount({ photo: '' })).then(
+      () => {
+        this.account.photo = '';
+        this.alertService.success('Foto de perfil eliminada');
+      }
+    );
   }
 
   ngOnDestroy(): void {
