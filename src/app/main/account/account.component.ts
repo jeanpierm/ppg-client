@@ -1,13 +1,17 @@
+import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
 import {
-  BreakpointObserver,
-  Breakpoints,
-  MediaMatcher,
-} from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivationStart, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { Account } from '../../admin/interfaces/account.interface';
+import { AlertService } from '../../core/services/alert.service';
+import { CloudinaryService } from '../../core/services/cloudinary.service';
 import { MenuOption } from '../../shared/interfaces/menu-option.interface';
 import { AuthService } from '../auth/services/auth.service';
 import { EditAccountComponent } from './pages/edit-account/edit-account.component';
@@ -20,10 +24,9 @@ import { AccountService } from './services/account.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
 })
-export class AccountComponent implements OnDestroy, OnInit {
+export class AccountComponent implements OnDestroy, AfterViewInit {
   static readonly PATH = 'account';
 
-  title: string = '';
   account: Account = this.authService.authAccount;
   menuOptions: MenuOption[] = [
     {
@@ -43,14 +46,10 @@ export class AccountComponent implements OnDestroy, OnInit {
     },
   ];
   mobileQuery: MediaQueryList;
-  private _mobileQueryListener: (e: MediaQueryListEvent) => void;
+  @ViewChild('photo') photo!: ElementRef<HTMLDivElement>;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  private _mobileQueryListener: (e: MediaQueryListEvent) => void;
 
   constructor(
     private readonly breakpointObserver: BreakpointObserver,
@@ -58,25 +57,19 @@ export class AccountComponent implements OnDestroy, OnInit {
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly media: MediaMatcher,
     private readonly accountService: AccountService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly cloudinaryService: CloudinaryService,
+    private readonly alertService: AlertService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = (e) => {
-      changeDetectorRef.detectChanges();
-      if (e.matches === false && this.accountService.sidenavOpened === false) {
-        this.accountService.toggleSidenav();
-      }
-    };
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
-  ngOnInit(): void {
-    this.router.events.subscribe((data) => {
-      if (data instanceof ActivationStart) {
-        console.log(data.snapshot.data);
-        this.title = data.snapshot.data['title'];
-      }
-    });
+  ngAfterViewInit(): void {
+    // this.photo.nativeElement.addEventListener('mouseenter', () => {
+    //   this.photo.nativeElement.innerText = 'Cambiar photo';
+    // });
   }
 
   get fullName() {
@@ -87,6 +80,22 @@ export class AccountComponent implements OnDestroy, OnInit {
 
   get sidenavOpened() {
     return this.accountService.sidenavOpened;
+  }
+
+  uploadAccountPhoto() {
+    const { files } = this.fileInput.nativeElement;
+    if (!files?.length) return;
+    const file = files[0];
+    this.cloudinaryService.uploadFile(file).subscribe((url) => {
+      this.account.photo = url;
+      firstValueFrom(this.accountService.updateAccount({ photo: url })).then(
+        () => {
+          this.alertService.success(
+            '¡Foto de perfil actualizada exitosamente!'
+          );
+        }
+      );
+    });
   }
 
   ngOnDestroy(): void {

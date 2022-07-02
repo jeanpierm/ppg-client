@@ -1,22 +1,3 @@
-<!-- <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav-content>
-    <app-top-nav (sideNavToggled)="drawer.toggle()"></app-top-nav>
-    <main class="main-container">
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
-
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
-    <app-sidebar></app-sidebar>
-  </mat-sidenav>
-</mat-sidenav-container> -->
 <mat-sidenav-container class="h-screen-custom">
   <mat-sidenav
     [opened]="sidenavOpened"
@@ -27,12 +8,22 @@
     opened
   >
     <div class="avatar-container">
-      <figure>
-        <img [src]="account.photo" alt="account photo" />
-      </figure>
+      <div
+        #photo
+        [ngStyle]="{ 'background-image': 'url(' + this.account.photo + ')' }"
+        id="photo"
+        alt="account photo"
+        (click)="fileInput.click()"
+      ></div>
       <h3 class="account-name">{{ fullName | titlecase }}</h3>
       <mat-card-subtitle>{{ account.biography }}</mat-card-subtitle>
     </div>
+    <input
+      #fileInput
+      type="file"
+      style="display: none"
+      (change)="uploadAccountPhoto()"
+    />
 
     <mat-nav-list>
       <a

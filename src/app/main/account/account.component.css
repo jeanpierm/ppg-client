@@ -2,21 +2,21 @@ mat-sidenav {
   width: 300px;
 }
 
-figure {
+#photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
   width: 128px;
   height: 128px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 0;
   overflow: hidden;
   padding: 0;
 }
 
-img {
-  height: 100%;
-  width: auto;
+#photo:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .avatar-container {
