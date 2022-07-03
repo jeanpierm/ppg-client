@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenericErrorStateMatcher } from 'src/app/core/utils/error-state-matcher';
@@ -14,18 +14,21 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginComponent } from '../login/login.component';
 import { RegisterRequest } from '../../interfaces/register-request.interface';
+import { map, Observable, startWith } from 'rxjs';
+import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   static readonly PATH = 'registro';
 
   hide: boolean = true;
   loading: boolean = false;
   matcher = new GenericErrorStateMatcher();
+  filteredOptions!: Observable<string[]>;
   registerForm: FormGroup = this.fb.group(
     {
       name: [
@@ -85,8 +88,31 @@ export class RegisterComponent {
     return this.registerForm.get('password2');
   }
 
+  get jobTitle() {
+    return this.registerForm.get('jobTitle');
+  }
+
+  get location() {
+    return this.registerForm.get('location');
+  }
+
   get loginRoute() {
     return `/${LoginComponent.PATH}`;
+  }
+
+  ngOnInit(): void {
+    this.filteredOptions = this.jobTitle!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || ''))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return predefinedJobTitles.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 
   async register() {

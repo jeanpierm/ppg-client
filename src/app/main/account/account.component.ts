@@ -101,7 +101,6 @@ export class AccountComponent implements OnDestroy, AfterViewInit {
 
   uploadAccountPhoto() {
     const { files } = this.fileInput.nativeElement;
-    console.log(files);
     if (!files?.length) return;
     Swal.fire({
       title: 'Subiendo...',

@@ -5,13 +5,13 @@ export interface UserIntf {
   name: string;
   surname: string;
   email: string;
+  location: string;
+  jobTitle: string;
   linkedIn?: string;
   photo?: string;
   biography?: string;
   portfolio?: string;
   github?: string;
-  location: string;
-  jobTitle: string;
 }
 
 export interface User extends UserIntf {

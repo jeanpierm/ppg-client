@@ -108,9 +108,18 @@
               matInput
               formControlName="jobTitle"
               name="jobTitle"
-              placeholder="Ejemplo: Desarrollador Frontend"
+              [matAutocomplete]="auto"
+              placeholder="Ejemplo: Web Developer"
             />
-            <mat-error *ngIf="surname?.hasError('required')">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="jobTitle?.hasError('required')">
               <mat-icon>error</mat-icon>
               Por favor, ingrese su <strong>título de trabajo preferido</strong>
             </mat-error>
@@ -124,7 +133,7 @@
               name="location"
               placeholder=""
             />
-            <mat-error *ngIf="surname?.hasError('required')">
+            <mat-error *ngIf="location?.hasError('required')">
               <mat-icon>error</mat-icon>
               Por favor, ingrese su <strong>ciudad</strong>
             </mat-error>

@@ -25,7 +25,7 @@ export class ProfileCardComponent {
 
   remove() {
     this.alertService
-      .warning('Esta seguro de eliminar este perfil profesional?')
+      .warning('¿Está seguro de eliminar el perfil profesional?')
       .then((result) => {
         if (result.isConfirmed) {
           this.professionalProfileService.delete(this.profile.ppId).subscribe({

@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { retry } from 'rxjs';
 import { GeneratePPRequest } from '../../../account/interfaces/generate-pp.interface';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
 import { AlertService } from '../../../../core/services/alert.service';
@@ -10,6 +9,9 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { getRandomFromArray } from '../../../../core/utils/object.util';
 import { Router } from '@angular/router';
 import { ProfileListComponent } from '../../pages/profile-list/profile-list.component';
+import { map, Observable, startWith } from 'rxjs';
+import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
+import { gyeLocation } from '../../../../core/constants/location.constant';
 
 @Component({
   selector: 'app-discover-form',
@@ -17,15 +19,7 @@ import { ProfileListComponent } from '../../pages/profile-list/profile-list.comp
   styleUrls: ['./discover-form.component.scss'],
 })
 export class DiscoverFormComponent implements OnInit {
-  readonly GYE_LOCATION = 'Guayaquil, Ecuador';
-  readonly PREDEFINED_JOB_TITLES = [
-    'Software Developer',
-    'Backend Developer',
-    'Frontend Developer',
-    'Web Developer',
-    'Movil Developer',
-    'Software Engineer',
-  ];
+  filteredOptions!: Observable<string[]>;
   tmpJobTitle: string = '';
   tmpLocation: string = '';
   loadingGenerate: boolean = false;
@@ -50,14 +44,13 @@ export class DiscoverFormComponent implements OnInit {
     return this.discoverForm.get('useUserPreferences');
   }
 
-  // TODO: Esto podría ser mejor
   get isInCooldown(): boolean {
     if (!this.ppService.lastProfileGeneration) return false;
-    const now = new Date().getTime();
-    return (
-      this.ppService.lastProfileGeneration <
-      new Date(now + this.ppService.GENERATE_COOLDOWN_TIME)
-    );
+    const nowTime = new Date().getTime();
+    const unlockTime =
+      this.ppService.lastProfileGeneration.getTime() +
+      this.ppService.GENERATE_COOLDOWN_TIME;
+    return nowTime < unlockTime;
   }
 
   constructor(
@@ -74,6 +67,18 @@ export class DiscoverFormComponent implements OnInit {
     this.authService.validateAnRefreshToken().subscribe(() => {
       this.onChangeUseUserPreferences();
     });
+    this.filteredOptions = this.jobTitleControl!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || ''))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return predefinedJobTitles.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 
   discover() {
@@ -86,8 +91,8 @@ export class DiscoverFormComponent implements OnInit {
 
   discoverRandom() {
     const generateRequest: GeneratePPRequest = {
-      jobTitle: getRandomFromArray(this.PREDEFINED_JOB_TITLES) as string,
-      location: this.GYE_LOCATION,
+      jobTitle: getRandomFromArray(predefinedJobTitles) as string,
+      location: gyeLocation,
     };
     this.generateProfessionalProfile(generateRequest);
   }
@@ -97,34 +102,27 @@ export class DiscoverFormComponent implements OnInit {
       return;
     }
     this.loadingGenerate = true;
-    this.ppService
-      .generate(generateRequest)
-      .pipe(retry(3))
-      .subscribe({
-        next: ({ data }) => {
+    this.ppService.generate(generateRequest).subscribe({
+      next: ({ data }) => {
+        this.loadingGenerate = false;
+        this.alertService
+          .success('¡Perfil profesional generado exitosamente!')
+          .then(() => {
+            this.router.navigate([`/${ProfileListComponent.PATH}`, data.ppId]);
+          });
+      },
+      error: (err) => {
+        if (err instanceof HttpErrorResponse) {
           this.loadingGenerate = false;
-          this.alertService
-            .success('¡Perfil profesional generado exitosamente!')
-            .then(() => {
-              this.router.navigate([
-                `/${ProfileListComponent.PATH}`,
-                data.ppId,
-              ]);
-            });
-        },
-        error: (err) => {
-          if (err instanceof HttpErrorResponse) {
-            this.loadingGenerate = false;
-            this.alertService.error();
-          }
-        },
-      });
+          this.alertService.error();
+        }
+      },
+    });
   }
 
   onChangeUseUserPreferences() {
     const jobTitlePref = this.authService.authAccount?.jobTitle;
     const locationPref = this.authService.authAccount?.location;
-    console.log(jobTitlePref);
     if (this.jobTitleControl?.value !== jobTitlePref) {
       this.tmpJobTitle = this.jobTitleControl?.value;
     }

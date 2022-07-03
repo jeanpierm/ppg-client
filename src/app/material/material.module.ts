@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const materialModules = [
   MatButtonModule,
@@ -47,6 +48,7 @@ const materialModules = [
   MatRadioModule,
   MatButtonToggleModule,
   MatGridListModule,
+  MatAutocompleteModule,
 ];
 
 @NgModule({

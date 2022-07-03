@@ -22,7 +22,7 @@ export class ProfessionalProfilesService {
 
   /**
    * Tiempo de enfriamiento en milisegundos para la generación de perfil. Es necesario para evitar bloqueos de la página web en el proceso de scraping.
-   * 3000 = 3s
+   * 30000 = 30s
    */
   readonly GENERATE_COOLDOWN_TIME = 30000;
 

@@ -6,22 +6,33 @@
   </mat-grid-list>
 
   <ng-template #divProfile>
-    <div fxLayout="row">
+    <div fxLayout="row" class="mt-8">
       <div fxFlex="50">
         <h1>{{ profile.jobTitle | titlecase }}</h1>
         <p>ID: {{ profile.ppId }}</p>
         <p>Ubicación: {{ profile.location | titlecase }}</p>
         <p>Descubierto: {{ profile.createdAt | date: 'long' }}</p>
       </div>
-      <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="16px">
-        <button mat-button color="accent" [routerLink]="profilesRoute">
+      <div
+        fxFlex="50"
+        fxLayout="column"
+        fxLayoutAlign="center end"
+        fxLayoutGap="16px"
+      >
+        <button mat-button color="primary" [routerLink]="profilesRoute">
           <mat-icon>arrow_back</mat-icon>
           <span fxHide.xs>VOLVER A MIS PERFILES</span>
         </button>
-        <button mat-raised-button color="primary">
-          <mat-icon>download</mat-icon>
-          <span fxHide.xs>DESCARGAR PDF</span>
-        </button>
+        <div fxLayoutGap="16px">
+          <button mat-button color="warn" (click)="deleteProfile()">
+            <mat-icon>delete</mat-icon>
+            <span fxHide.xs>ELIMINAR PERFIL</span>
+          </button>
+          <button mat-raised-button color="primary" (click)="downloadPDF()">
+            <mat-icon>download</mat-icon>
+            <span fxHide.xs>DESCARGAR PDF</span>
+          </button>
+        </div>
       </div>
     </div>
     <mat-divider></mat-divider>
@@ -41,20 +52,13 @@
               documentación/plan de aprendizaje!
             </p>
           </mat-hint>
-
-          <!-- <div>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
-              alt=""
-            />
-          </div> -->
         </div>
 
         <div fxLayout="column" fxLayoutGap="10px">
           <app-tech-chips
             *ngIf="profile.languages.length"
             [technologies]="profile.languages"
-            label="Lenguajes de programación"
+            label="Lenguajes"
           ></app-tech-chips>
 
           <app-tech-chips

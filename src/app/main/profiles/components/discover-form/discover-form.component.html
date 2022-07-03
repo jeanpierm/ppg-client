@@ -8,15 +8,24 @@
 >
   <mat-form-field>
     <mat-label>Título de trabajo</mat-label>
-    <mat-icon color="primary" matSuffix>search</mat-icon>
+    <mat-icon color="primary" matSuffix>work</mat-icon>
     <input
       matInput
       formControlName="jobTitle"
       type="text"
       name="jobTitle"
       id="jobTitle"
-      placeholder="Ejemplo: Desarrollador Móvil"
+      [matAutocomplete]="auto"
+      placeholder="Ejemplo: Web Developer"
     />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
     <mat-hint>El perfil de trabajo que más te gusta</mat-hint>
   </mat-form-field>
 
@@ -55,7 +64,7 @@
     >
       {{
         isInCooldown
-          ? 'POR FAVOR, VUELVE A INTENTAR EN UN MINUTO'
+          ? 'VUELVA A INTENTAR EN UN MINUTO'
           : 'DESCUBRIR PERFIL PROFESIONAL'
       }}
     </button>
@@ -68,9 +77,7 @@
       matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
     >
       {{
-        isInCooldown
-          ? 'POR FAVOR, VUELVE A INTENTAR EN UN MINUTO'
-          : '¡VOY A TENER SUERTE!'
+        isInCooldown ? 'VUELVA A INTENTAR EN UN MINUTO' : '¡VOY A TENER SUERTE!'
       }}
     </button>
   </div>
