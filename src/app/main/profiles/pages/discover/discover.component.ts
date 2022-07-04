@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
-import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfilesService } from '../../services/profiles.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ProfileListComponent } from '../profile-list/profile-list.component';
 
@@ -22,9 +21,8 @@ export class DiscoverComponent implements OnInit {
 
   constructor(
     public readonly authService: AuthService,
-    private readonly router: Router,
     private readonly alertService: AlertService,
-    private readonly profilesService: ProfessionalProfilesService
+    private readonly profilesService: ProfilesService
   ) {}
 
   get profilesRoute() {
@@ -40,13 +38,10 @@ export class DiscoverComponent implements OnInit {
 
   loadLastProfiles() {
     this.loadingLastProfiles = true;
-    this.profilesService
-      .get()
-      // TODO: HACER PAGINACIÓN DESDE BACK
-      .subscribe(({ data }) => {
-        this.lastProfiles = data.slice(0, 3);
-        this.loadingLastProfiles = false;
-      });
+    this.profilesService.get({ size: 3, page: 1 }).subscribe(({ data }) => {
+      this.lastProfiles = data;
+      this.loadingLastProfiles = false;
+    });
   }
 
   private validateUserIsAuthenticated() {

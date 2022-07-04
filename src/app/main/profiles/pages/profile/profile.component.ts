@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
-import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfilesService } from '../../services/profiles.service';
 import { ProfileListComponent } from '../profile-list/profile-list.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
-    private readonly profilesService: ProfessionalProfilesService,
+    private readonly profilesService: ProfilesService,
     private readonly alertService: AlertService
   ) {}
 

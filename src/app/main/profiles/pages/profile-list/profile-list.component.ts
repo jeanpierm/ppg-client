@@ -4,7 +4,7 @@ import { debounceTime } from 'rxjs';
 import { incrementDate } from '../../../../core/utils/date.util';
 import { GetProfessionalProfilesQuery } from '../../../account/interfaces/get-professional-profiles-query.interface';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
-import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfilesService } from '../../services/profiles.service';
 
 @Component({
   selector: 'app-profile-list',
@@ -48,7 +48,7 @@ export class ProfileListComponent implements OnInit {
   }
 
   constructor(
-    private readonly profilesService: ProfessionalProfilesService,
+    private readonly profilesService: ProfilesService,
     private readonly fb: FormBuilder
   ) {}
 

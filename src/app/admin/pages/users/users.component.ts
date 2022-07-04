@@ -55,7 +55,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.usersService.loadUsers({ sizePerPage: this.sizePerPage });
+    this.usersService.loadUsers({ size: this.sizePerPage });
   }
 
   ngAfterViewInit(): void {
@@ -75,8 +75,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   loadUserPage() {
     this.usersService.loadUsers({
-      sizePerPage: this.sizePerPage,
-      pageIndex: this.paginator.pageIndex,
+      size: this.sizePerPage,
+      page: this.paginator.pageIndex,
       search: this.input.nativeElement.value,
     });
   }
@@ -90,7 +90,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.usersService.fetchLoading = true;
         this.usersService.saveUser(user).subscribe({
           next: (_) => {
-            this.usersService.loadUsers({ sizePerPage: this.sizePerPage });
+            this.usersService.loadUsers({ size: this.sizePerPage });
             this.alertService.success('¡Cuenta creada exitosamente!');
           },
           error: () => {

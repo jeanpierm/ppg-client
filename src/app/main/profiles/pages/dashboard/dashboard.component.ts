@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { deletePropertiesByValue } from '../../../../core/utils/object.util';
-import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfilesService } from '../../services/profiles.service';
 import { CountTechnologyQuery } from '../../../../core/types/count-technology-query.type';
 
 interface TechnologyPieChart {
@@ -53,9 +53,7 @@ export class DashboardComponent implements OnInit {
     },
   };
 
-  constructor(
-    private professionalProfilesService: ProfessionalProfilesService
-  ) {}
+  constructor(private professionalProfilesService: ProfilesService) {}
 
   ngOnInit(): void {
     this.loadCharts();

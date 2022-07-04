@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneratePPRequest } from '../../../account/interfaces/generate-pp.interface';
-import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfilesService } from '../../services/profiles.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { getRandomFromArray } from '../../../../core/utils/object.util';
@@ -49,13 +49,13 @@ export class DiscoverFormComponent implements OnInit {
     const nowTime = new Date().getTime();
     const unlockTime =
       this.ppService.lastProfileGeneration.getTime() +
-      this.ppService.GENERATE_COOLDOWN_TIME;
+      ProfilesService.GENERATE_COOLDOWN_TIME;
     return nowTime < unlockTime;
   }
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly ppService: ProfessionalProfilesService,
+    private readonly ppService: ProfilesService,
     private readonly alertService: AlertService,
     private readonly spinner: NgxSpinnerService,
     private readonly authService: AuthService,

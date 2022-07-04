@@ -35,12 +35,14 @@ export class UsersService {
   }
 
   getUsers({
-    sizePerPage,
-    pageIndex,
+    size: sizePerPage,
+    page: pageIndex,
     search,
   }: PaginatedApiQueryParams): Observable<any> {
     const url = new URL(`${environment.api}/${UsersService.BASE_URL}`);
-    url.searchParams.set('size', sizePerPage.toString());
+    if (sizePerPage) {
+      url.searchParams.set('size', sizePerPage.toString());
+    }
     if (pageIndex) {
       url.searchParams.set('page', pageIndex.toString());
     }

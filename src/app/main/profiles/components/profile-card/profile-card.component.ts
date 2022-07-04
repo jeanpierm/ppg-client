@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
-import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
+import { ProfilesService } from '../../services/profiles.service';
 import { ProfileListComponent } from '../../pages/profile-list/profile-list.component';
 
 @Component({
@@ -15,7 +15,7 @@ export class ProfileCardComponent {
   @Output() reLoad: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
-    private readonly professionalProfileService: ProfessionalProfilesService,
+    private readonly professionalProfileService: ProfilesService,
     private readonly alertService: AlertService
   ) {}
 

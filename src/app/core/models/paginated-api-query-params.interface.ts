@@ -1,5 +1,5 @@
 export interface PaginatedApiQueryParams {
-  sizePerPage: number;
-  pageIndex?: number;
+  size?: number;
+  page?: number;
   search?: string;
 }

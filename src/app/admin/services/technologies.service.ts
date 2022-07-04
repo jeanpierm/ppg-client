@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { PaginatedQueryKeys } from '../../core/enums/paginated-query-params.enum';
 import {
   PaginatedApiResponse,
   ApiResponse,
@@ -32,14 +33,16 @@ export class TechnologiesService {
     });
   }
 
-  getTechnologies({ sizePerPage, pageIndex, search }: PaginatedApiQueryParams) {
+  getTechnologies({ size, page, search }: PaginatedApiQueryParams) {
     const url = new URL(`${environment.api}/${TechnologiesService.BASE_URL}`);
-    url.searchParams.set('size', sizePerPage.toString());
-    if (pageIndex) {
-      url.searchParams.set('page', pageIndex.toString());
+    if (size) {
+      url.searchParams.set(PaginatedQueryKeys.Size, size.toString());
+    }
+    if (page) {
+      url.searchParams.set(PaginatedQueryKeys.Page, page.toString());
     }
     if (search) {
-      url.searchParams.set('search', search);
+      url.searchParams.set(PaginatedQueryKeys.Search, search);
     }
 
     return this.http.get<PaginatedApiResponse<Technology>>(url.toString());

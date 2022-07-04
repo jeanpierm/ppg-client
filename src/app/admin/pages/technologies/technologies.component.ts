@@ -52,7 +52,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.technologiesService.loadTechnology({ sizePerPage: this.sizePerPage });
+    this.technologiesService.loadTechnology({ size: this.sizePerPage });
   }
 
   ngAfterViewInit() {
@@ -72,8 +72,8 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
   loadTechnologyPage() {
     this.technologiesService.loadTechnology({
-      sizePerPage: this.sizePerPage,
-      pageIndex: this.paginator.pageIndex,
+      size: this.sizePerPage,
+      page: this.paginator.pageIndex,
       search: this.input.nativeElement.value,
     });
   }
@@ -132,8 +132,8 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         this.technologiesService.saveTechnology(technology).subscribe({
           next: (_) => {
             this.technologiesService.loadTechnology({
-              sizePerPage: this.sizePerPage,
-              pageIndex: this.paginator.pageIndex,
+              size: this.sizePerPage,
+              page: this.paginator.pageIndex,
             });
             this.alertService.success('¡Tecnología guardada exitosamente!');
           },
@@ -180,7 +180,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
             next: (_) => {
               this.alertService.success('Tecnología eliminada exitosamente');
               this.technologiesService.loadTechnology({
-                sizePerPage: this.sizePerPage,
+                size: this.sizePerPage,
               });
             },
             error: () => this.alertService.error(),
@@ -200,8 +200,8 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         this.technologiesService.updateTechnology(technology).subscribe({
           next: (_) =>
             this.technologiesService.loadTechnology({
-              sizePerPage: this.sizePerPage,
-              pageIndex: this.paginator.pageIndex,
+              size: this.sizePerPage,
+              page: this.paginator.pageIndex,
             }),
           error: () => this.alertService.error(),
         });

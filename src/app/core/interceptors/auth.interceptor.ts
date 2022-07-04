@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersService } from '../../admin/services/users.service';
-import { ProfessionalProfilesService } from '../../main/account/services/professional-profiles.service';
+import { ProfilesService } from '../../main/profiles/services/profiles.service';
 import { AccountService } from '../../main/account/services/account.service';
 import { AuthService } from '../../main/auth/services/auth.service';
 import { TechnologiesService } from '../../admin/services/technologies.service';
@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
 export function isAuthRequired(request: HttpRequest<unknown>): boolean {
   const requireAuthUrls = [
     UsersService.BASE_URL,
-    ProfessionalProfilesService.BASE_URL,
+    ProfilesService.BASE_URL,
     AccountService.BASE_URL,
     TechnologiesService.BASE_URL,
   ];
