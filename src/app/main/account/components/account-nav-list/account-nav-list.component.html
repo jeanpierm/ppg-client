@@ -1,0 +1,15 @@
+<mat-nav-list>
+  <a
+    *ngFor="let option of menuOptions"
+    mat-list-item
+    [routerLink]="option.path"
+    (click)="clickOption.emit(true)"
+  >
+    <mat-icon class="sidenav-icon" color="primary">
+      {{ option.icon }}
+    </mat-icon>
+    <span class="ml-3">
+      {{ option.label }}
+    </span>
+  </a>
+</mat-nav-list>

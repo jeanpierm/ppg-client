@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.authService.validateAnRefreshToken().pipe(
+    return this.authService.validateAndRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
           this.authService.logout();
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    return this.authService.validateAnRefreshToken().pipe(
+    return this.authService.validateAndRefreshToken().pipe(
       tap((valid) => {
         if (!valid) {
           this.authService.logout();

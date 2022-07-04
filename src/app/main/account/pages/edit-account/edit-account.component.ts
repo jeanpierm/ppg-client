@@ -95,7 +95,7 @@ export class EditAccountComponent implements OnInit {
     this.submitting = true;
     this.accountService
       .updateAccount(this.form.value)
-      .pipe(switchMap(() => this.authService.validateAnRefreshToken()))
+      .pipe(switchMap(() => this.authService.validateAndRefreshToken()))
       .subscribe({
         next: () => {
           this.submitting = false;

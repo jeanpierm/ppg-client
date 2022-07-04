@@ -17,4 +17,6 @@ export interface UserIntf {
 export interface User extends UserIntf {
   role: Role;
   status: string;
+  createdAt: string;
+  updatedAt: string;
 }

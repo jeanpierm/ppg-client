@@ -1,0 +1,40 @@
+#photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  padding: 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#photo:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.photo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.account-name {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  font-size: large;
+  font-weight: 500;
+}

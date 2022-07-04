@@ -1,0 +1,28 @@
+<div class="photo-container">
+  <div
+    #photo
+    [ngStyle]="photoStyle"
+    id="photo"
+    alt="account photo"
+    [matMenuTriggerFor]="menu"
+  ></div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="fileInput.click()">
+      <mat-icon>upload</mat-icon>
+      Subir foto
+    </button>
+    <button mat-menu-item (click)="removeAccountPhoto()">
+      <mat-icon>delete</mat-icon>
+      Eliminar foto
+    </button>
+  </mat-menu>
+  <h3 class="account-name">{{ fullName | titlecase }}</h3>
+  <mat-card-subtitle>{{ account.biography }}</mat-card-subtitle>
+</div>
+
+<input
+  #fileInput
+  type="file"
+  style="display: none"
+  (change)="uploadAccountPhoto()"
+/>

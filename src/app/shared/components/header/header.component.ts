@@ -11,6 +11,7 @@ import { MenuOption } from '../../interfaces/menu-option.interface';
 import { DashboardComponent } from '../../../main/profiles/pages/dashboard/dashboard.component';
 import { AdminComponent } from '../../../admin/admin.component';
 import { AccountService } from '../../../main/account/services/account.service';
+import { Role } from '../../../core/enums/role.enum';
 
 @Component({
   selector: 'app-header',
@@ -38,11 +39,15 @@ export class HeaderComponent {
 
   constructor(
     public readonly authService: AuthService,
-    public accountService: AccountService
+    public readonly accountService: AccountService
   ) {}
 
   get isAuthenticated() {
     return !!this.authService.accessToken;
+  }
+
+  get isAdmin() {
+    return this.authService.authAccount.roleName === Role.Admin;
   }
 
   get homeRoute() {

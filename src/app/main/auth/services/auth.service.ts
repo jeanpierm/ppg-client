@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Account } from '../../../admin/interfaces/account.interface';
+import { LocalStorageKeys } from '../../../core/enums/local-storage-keys.enum';
 import { LoginRequest } from '../interfaces/login-request.interface';
 import { LoginResponse } from '../interfaces/login-response.interface';
 import { RegisterRequest } from '../interfaces/register-request.interface';
@@ -18,7 +19,6 @@ import { LoginComponent } from '../pages/login/login.component';
 })
 export class AuthService {
   static readonly BASE_URL = 'auth';
-  private readonly ACCESS_TOKEN_KEY: string = 'accessToken';
   private readonly BEARER: string = 'Bearer';
 
   private _authAccount!: Account;
@@ -28,12 +28,12 @@ export class AuthService {
   }
 
   get accessToken() {
-    const jwt = localStorage.getItem(this.ACCESS_TOKEN_KEY);
+    const jwt = localStorage.getItem(LocalStorageKeys.AccessToken);
     return jwt ? `${this.BEARER} ${jwt}` : '';
   }
 
   set accessToken(tokenValue: string) {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, tokenValue);
+    localStorage.setItem(LocalStorageKeys.AccessToken, tokenValue);
   }
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -68,7 +68,7 @@ export class AuthService {
     );
   }
 
-  validateAnRefreshToken(): Observable<boolean> {
+  validateAndRefreshToken(): Observable<boolean> {
     if (!this.accessToken) {
       return of(false);
     }

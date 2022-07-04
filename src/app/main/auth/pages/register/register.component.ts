@@ -8,14 +8,13 @@ import {
   getPasswordValidationMessage,
   validateTwoFormControlsAreEquals,
 } from '../../../../core/utils/form.util';
-import { setAccountDataInLocalStorage } from '../../../../core/utils/local-storage.util';
-import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginComponent } from '../login/login.component';
 import { RegisterRequest } from '../../interfaces/register-request.interface';
 import { map, Observable, startWith } from 'rxjs';
 import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
+import { HomeComponent } from '../../../home/home.component';
 
 @Component({
   selector: 'app-register',
@@ -61,10 +60,9 @@ export class RegisterComponent implements OnInit {
   );
 
   constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private accountService: AccountService,
-    private router: Router,
+    private readonly authService: AuthService,
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
     private readonly alertService: AlertService
   ) {}
 
@@ -129,14 +127,8 @@ export class RegisterComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-        // this.registerForm.reset();
-        this.accountService.getAccount().subscribe({
-          next: ({ data }) => {
-            setAccountDataInLocalStorage(data);
-            this.router.navigate(['/home']).then(() => {
-              this.loading = false;
-            });
-          },
+        this.router.navigateByUrl(`/${HomeComponent.PATH}`).then(() => {
+          this.loading = false;
         });
       },
       error: (err) => {
@@ -150,8 +142,9 @@ export class RegisterComponent implements OnInit {
   }
 
   getUserFromForm(): RegisterRequest {
-    const { name, email, surname, password } = this.registerForm.value;
-    return { name, email, surname, password };
+    const { name, email, surname, password, jobTitle, location } =
+      this.registerForm.value;
+    return { name, email, surname, password, jobTitle, location };
   }
 
   getPasswordValidationMsg(): string | void {

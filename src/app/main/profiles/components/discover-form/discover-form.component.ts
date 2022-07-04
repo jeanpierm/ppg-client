@@ -64,15 +64,14 @@ export class DiscoverFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.authService.validateAnRefreshToken().subscribe(() => {
-      this.onChangeUseUserPreferences();
+    this.authService.validateAndRefreshToken().subscribe((isAuth) => {
+      if (isAuth) this.onChangeUseUserPreferences();
     });
     this.filteredOptions = this.jobTitleControl!.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
     );
   }
-
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 

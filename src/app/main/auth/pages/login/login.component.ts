@@ -2,12 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../account/services/account.service';
 import { AlertService } from '../../../../core/services/alert.service';
-import { setAccountDataInLocalStorage } from '../../../../core/utils/local-storage.util';
 import { AuthService } from '../../services/auth.service';
 import { RegisterComponent } from '../register/register.component';
 import { LoginRequest } from '../../interfaces/login-request.interface';
+import { HomeComponent } from '../../../home/home.component';
 
 @Component({
   selector: 'app-login',
@@ -25,10 +24,9 @@ export class LoginComponent {
   });
 
   constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private accountService: AccountService,
-    private route: Router,
+    private readonly authService: AuthService,
+    private readonly fb: FormBuilder,
+    private readonly route: Router,
     private readonly alertService: AlertService
   ) {}
 
@@ -55,13 +53,8 @@ export class LoginComponent {
 
     this.authService.login(loginRequest).subscribe({
       next: () => {
-        this.accountService.getAccount().subscribe({
-          next: ({ data }) => {
-            setAccountDataInLocalStorage(data);
-            this.route.navigateByUrl(`/`).then(() => {
-              this.loading = false;
-            });
-          },
+        this.route.navigateByUrl(`/${HomeComponent.PATH}`).then(() => {
+          this.loading = false;
         });
       },
       error: (err) => {

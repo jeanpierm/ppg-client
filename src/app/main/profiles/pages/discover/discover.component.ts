@@ -4,7 +4,6 @@ import { tap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
 import { ProfessionalProfilesService } from '../../../account/services/professional-profiles.service';
-import { LoginComponent } from '../../../auth/pages/login/login.component';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ProfileListComponent } from '../profile-list/profile-list.component';
 
@@ -51,7 +50,7 @@ export class DiscoverComponent implements OnInit {
   }
 
   private validateUserIsAuthenticated() {
-    return this.authService.validateAnRefreshToken().pipe(
+    return this.authService.validateAndRefreshToken().pipe(
       tap((isAuth) => {
         if (isAuth) return;
         this.alertService
@@ -61,7 +60,7 @@ export class DiscoverComponent implements OnInit {
             icon: 'info',
           })
           .then(() => {
-            this.router.navigateByUrl(`/${LoginComponent.PATH}`);
+            this.authService.logout();
           });
       })
     );

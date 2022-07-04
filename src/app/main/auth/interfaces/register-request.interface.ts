@@ -1,6 +1,3 @@
-export interface RegisterRequest {
-  email: string;
-  name: string;
-  surname: string;
-  password: string;
-}
+import { CreateUserRequest } from '../../../admin/interfaces/create-user-request.interface';
+
+export interface RegisterRequest extends CreateUserRequest {}
