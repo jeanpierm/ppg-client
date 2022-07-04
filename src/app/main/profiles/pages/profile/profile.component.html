@@ -19,18 +19,18 @@
         fxLayoutAlign="center end"
         fxLayoutGap="16px"
       >
-        <button mat-button color="primary" [routerLink]="profilesRoute">
+        <button mat-button color="accent" [routerLink]="profilesRoute">
           <mat-icon>arrow_back</mat-icon>
-          <span fxHide.xs>VOLVER A MIS PERFILES</span>
+          <span fxHide.xs> VER TODOS MIS PERFILES</span>
         </button>
         <div fxLayoutGap="16px">
           <button mat-button color="warn" (click)="deleteProfile()">
             <mat-icon>delete</mat-icon>
-            <span fxHide.xs>ELIMINAR PERFIL</span>
+            <span fxHide.xs> ELIMINAR PERFIL</span>
           </button>
           <button mat-raised-button color="primary" (click)="downloadPDF()">
             <mat-icon>download</mat-icon>
-            <span fxHide.xs>DESCARGAR PDF</span>
+            <span fxHide.xs> DESCARGAR PDF</span>
           </button>
         </div>
       </div>

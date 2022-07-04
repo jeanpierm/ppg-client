@@ -13,34 +13,34 @@ import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 /**
- * Guardián para rutas que requieren autenticación.
+ * Guardián para rutas que requieren autenticación y rol "admin".
  *
- * Si el usuario no está autenticado, será re-direccionado al login.
+ * Si el usuario no cumple, se regresa a la página anterior.
  */
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AdminGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.authService.validateToken().pipe(
+    return this.authService.validateTokenIsAdmin().pipe(
       tap((valid) => {
         if (!valid) {
-          this.authService.logout();
+          this.router.navigate(['..']);
         }
       })
     );
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    return this.authService.validateToken().pipe(
+    return this.authService.validateTokenIsAdmin().pipe(
       tap((valid) => {
         if (!valid) {
-          this.authService.logout();
+          this.router.navigate(['..']);
         }
       })
     );

@@ -5,6 +5,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Account } from '../../../admin/interfaces/account.interface';
 import { LocalStorageKeys } from '../../../core/enums/local-storage-keys.enum';
+import { Role } from '../../../core/enums/role.enum';
 import { LoginRequest } from '../interfaces/login-request.interface';
 import { LoginResponse } from '../interfaces/login-response.interface';
 import { RegisterRequest } from '../interfaces/register-request.interface';
@@ -68,7 +69,7 @@ export class AuthService {
     );
   }
 
-  validateAndRefreshToken(): Observable<boolean> {
+  validateToken(): Observable<boolean> {
     if (!this.accessToken) {
       return of(false);
     }
@@ -83,6 +84,26 @@ export class AuthService {
         this.accessToken = accessToken;
         this._authAccount = accountData;
         return true;
+      }),
+      catchError(() => of(false))
+    );
+  }
+
+  validateTokenIsAdmin(): Observable<boolean> {
+    if (!this.accessToken) {
+      return of(false);
+    }
+
+    const url = `${environment.api}/${AuthService.BASE_URL}/refresh`;
+    const headers = new HttpHeaders({
+      Authorization: this.accessToken,
+    });
+
+    return this.http.post<RefreshResponse>(url, null, { headers }).pipe(
+      map(({ accessToken, accountData }) => {
+        this.accessToken = accessToken;
+        this._authAccount = accountData;
+        return accountData.roleName === Role.Admin;
       }),
       catchError(() => of(false))
     );

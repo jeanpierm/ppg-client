@@ -45,7 +45,7 @@ export class DiscoverComponent implements OnInit {
   }
 
   private validateUserIsAuthenticated() {
-    return this.authService.validateAndRefreshToken().pipe(
+    return this.authService.validateToken().pipe(
       tap((isAuth) => {
         if (isAuth) return;
         this.alertService

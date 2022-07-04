@@ -22,7 +22,7 @@
       <div
         *ngIf="
           !chart.value.data?.labels?.length && !chart.value.loading;
-          else test
+          else chartTemplate
         "
       >
         <p>
@@ -35,7 +35,7 @@
         </p>
       </div>
 
-      <ng-template #test>
+      <ng-template #chartTemplate>
         <app-pie-chart
           [loading]="false"
           [pieChartData]="chart.value.data"

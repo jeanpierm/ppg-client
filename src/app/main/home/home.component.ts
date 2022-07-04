@@ -13,7 +13,7 @@ export class HomeComponent {
 
   constructor(private readonly authService: AuthService) {
     if (this.authService.accessToken) {
-      this.authService.validateAndRefreshToken().subscribe((valid) => {
+      this.authService.validateToken().subscribe((valid) => {
         if (!valid) {
           this.authService.logout();
         }

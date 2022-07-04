@@ -17,6 +17,7 @@ import { JobCardComponent } from './components/job-offer-card/job-card.component
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { CardComponent } from '../account/components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NgChartsModule } from 'ng2-charts';
     JobCardComponent,
     DashboardComponent,
     PieChartComponent,
+    CardComponent,
   ],
   imports: [
     CommonModule,

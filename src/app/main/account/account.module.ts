@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { CardComponent } from './components/card/card.component';
 import { EditAccountComponent } from './pages/edit-account/edit-account.component';
 import { PpgRoutingModule } from './account-routing.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -20,7 +19,6 @@ import { PhotoComponent } from './components/photo/photo.component';
   declarations: [
     EditAccountComponent,
     AccountComponent,
-    CardComponent,
     OverviewComponent,
     PasswordComponent,
     HeaderComponent,

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs';
@@ -95,16 +96,22 @@ export class EditAccountComponent implements OnInit {
     this.submitting = true;
     this.accountService
       .updateAccount(this.form.value)
-      .pipe(switchMap(() => this.authService.validateAndRefreshToken()))
+      .pipe(switchMap(() => this.authService.validateToken()))
       .subscribe({
         next: () => {
           this.submitting = false;
           this.alertService.success('¡Cuenta actualizada exitosamente!');
         },
-        error: () => {
+        error: (err) => {
           this.submitting = false;
-          this.alertService.error();
+          if (err instanceof HttpErrorResponse) {
+            this.alertService.error(editErrors[err.status]);
+          }
         },
       });
   }
 }
+
+const editErrors = {
+  409: 'El correo electrónico ingresado ya está registrado',
+};

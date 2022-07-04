@@ -64,7 +64,7 @@ export class DiscoverFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.authService.validateAndRefreshToken().subscribe((isAuth) => {
+    this.authService.validateToken().subscribe((isAuth) => {
       if (isAuth) this.onChangeUseUserPreferences();
     });
     this.filteredOptions = this.jobTitleControl!.valueChanges.pipe(
