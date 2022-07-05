@@ -1,9 +1,9 @@
 <mat-nav-list>
-  <div class="profile-card">
-    <mat-card-subtitle>
+  <div class="profile-card" fxLayout fxLayoutAlign="center center">
+    <button mat-button [routerLink]="routes.homeRoute">
       <mat-icon color="accent">favorite_border</mat-icon>
-      PP GENERATOR
-    </mat-card-subtitle>
+      PERFILES PROFESIONALES
+    </button>
   </div>
 
   <mat-divider></mat-divider>
@@ -16,6 +16,6 @@
     [routerLink]="item.path"
   >
     <mat-icon class="sidenav-icon" color="primary">{{ item.icon }}</mat-icon>
-    {{ item.title | titlecase }}
+    {{ item.label }}
   </a>
 </mat-nav-list>

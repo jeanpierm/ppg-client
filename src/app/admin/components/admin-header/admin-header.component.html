@@ -1,0 +1,32 @@
+<header>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span fxHide.xs>Bienvenido {{ fullName | titlecase }} </span>
+
+      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="0.75rem">
+        <button
+          matTooltip="Ir a Inicio"
+          mat-button
+          [routerLink]="routes.homeRoute"
+        >
+          <mat-icon>home</mat-icon>
+          <span fxHide.xs> Inicio </span>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            Cerrar sesión
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

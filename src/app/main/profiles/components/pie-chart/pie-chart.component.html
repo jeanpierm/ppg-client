@@ -1,15 +1,22 @@
-<!-- <mat-card> -->
-<!-- <mat-card-header> -->
-<!-- <mat-card-title>Hola</mat-card-title> -->
-<!-- </mat-card-header> -->
-<!-- <mat-card-content> -->
-<canvas
-  baseChart
-  [data]="pieChartData"
-  [type]="pieChartType"
-  [options]="pieChartOptions"
-  [plugins]="pieChartPlugins"
->
-</canvas>
-<!-- </mat-card-content> -->
-<!-- </mat-card> -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <canvas
+      baseChart
+      [data]="pieChartData"
+      [type]="pieChartType"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+    >
+    </canvas>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-progress-bar
+      color="accent"
+      mode="indeterminate"
+      *ngIf="loading"
+    ></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

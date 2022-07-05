@@ -9,7 +9,9 @@ import { MaterialModule } from '../material/material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
-import { SharedModule } from '../shared/shared.module';
+import { AdminNavListComponent } from './components/admin-nav-list/admin-nav-list.component';
+import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     UsersComponent,
     TechnologiesComponent,
     UserDialogComponent,
+    AdminNavListComponent,
+    AdminHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +28,7 @@ import { SharedModule } from '../shared/shared.module';
     MaterialModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
-    SharedModule,
+    FlexLayoutModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -1,11 +1,4 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav-content>
-    <app-top-nav (sideNavToggled)="drawer.toggle()"></app-top-nav>
-    <main class="main-container">
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
-
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -14,6 +7,13 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <app-sidebar></app-sidebar>
+    <app-admin-nav-list></app-admin-nav-list>
   </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-admin-header (sideNavToggled)="drawer.toggle()"></app-admin-header>
+    <main class="main-container">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 </mat-sidenav-container>

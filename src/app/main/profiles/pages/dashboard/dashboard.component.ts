@@ -3,6 +3,7 @@ import { ChartData } from 'chart.js';
 import { deletePropertiesByValue } from '../../../../core/utils/object.util';
 import { ProfilesService } from '../../services/profiles.service';
 import { CountTechnologyQuery } from '../../../../core/types/count-technology-query.type';
+import { RoutesService } from '../../../../core/services/routes.service';
 
 interface TechnologyPieChart {
   title?: string;
@@ -53,7 +54,10 @@ export class DashboardComponent implements OnInit {
     },
   };
 
-  constructor(private professionalProfilesService: ProfilesService) {}
+  constructor(
+    private readonly profilesService: ProfilesService,
+    public readonly routes: RoutesService
+  ) {}
 
   ngOnInit(): void {
     this.loadCharts();
@@ -72,7 +76,7 @@ export class DashboardComponent implements OnInit {
 
   private loadChart(query: CountTechnologyQuery) {
     if (!this.charts[query].loading) this.charts[query].loading = true;
-    this.professionalProfilesService.count(query).subscribe({
+    this.profilesService.count(query).subscribe({
       next: (res) => {
         const chartData = mapCountResponseToChartData(res.data);
         this.charts[query].data = chartData;

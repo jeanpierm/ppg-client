@@ -1,46 +1,47 @@
 <div class="container">
   <h1>Dashboard</h1>
-  <p class="mb-5">
+  <mat-divider></mat-divider>
+  <br />
+
+  <p>
     ❓ Aquí podrás encontrar información referente al número de tecnologías que
     has encontrado en tus perfiles generados.
   </p>
 
   <div
     fxLayout="row wrap"
-    fxLayoutGap="16px grid"
+    fxLayoutGap="20px grid"
     fxLayoutAlign="center center"
   >
-    <app-card
-      fxFlex="25%"
-      fxFlex.lg="33%"
-      fxFlex.md="50%"
-      fxFlex.lt-md="100%"
+    <div
       *ngFor="let chart of charts | keyvalue"
-      title=" {{ chart.value.title }}"
-      [loading]="chart.value.loading"
+      fxFlex="50%"
+      fxFlex.lt-md="100%"
     >
-      <div
+      <mat-card
+        class="text-center"
         *ngIf="
           !chart.value.data?.labels?.length && !chart.value.loading;
           else chartTemplate
         "
       >
-        <p>
-          ¡Aún no has registrado perfiles con
-          {{ chart.value.title | lowercase }}! 😟
-        </p>
-        <p>
-          Para generar un perfil profesional ideal, por favor, ve a la opción
-          "Generar perfil".
-        </p>
-      </div>
+        ¡Aún no has descubierto perfiles con
+        {{ chart.value.title | lowercase }}! 😟
+        <br />
+        <mat-card-actions>
+          <button mat-button color="accent" [routerLink]="routes.discoverRoute">
+            DESCUBRIR PERFIL PROFESIONAL
+          </button>
+        </mat-card-actions>
+      </mat-card>
 
       <ng-template #chartTemplate>
         <app-pie-chart
-          [loading]="false"
+          title=" {{ chart.value.title }}"
+          [loading]="chart.value.loading"
           [pieChartData]="chart.value.data"
         ></app-pie-chart>
       </ng-template>
-    </app-card>
+    </div>
   </div>
 </div>

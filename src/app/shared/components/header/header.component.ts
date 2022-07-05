@@ -7,7 +7,7 @@ import { AuthService } from '../../../main/auth/services/auth.service';
 import { DiscoverComponent } from '../../../main/profiles/pages/discover/discover.component';
 import { HomeComponent } from '../../../main/home/home.component';
 import { ProfileListComponent } from '../../../main/profiles/pages/profile-list/profile-list.component';
-import { MenuOption } from '../../interfaces/menu-option.interface';
+import { MenuOption } from '../../../core/interfaces/menu-option.interface';
 import { DashboardComponent } from '../../../main/profiles/pages/dashboard/dashboard.component';
 import { AdminComponent } from '../../../admin/admin.component';
 import { AccountService } from '../../../main/account/services/account.service';

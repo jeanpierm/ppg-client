@@ -4,18 +4,18 @@
     color="primary"
     fxLayoutAlign="space-between center"
   >
-    <a [routerLink]="homeRoute">Perfiles Profesionales</a>
+    <a [routerLink]="homeRoute"> Perfiles Profesionales </a>
 
     <div fxLayoutGap="0.75rem">
       <button
         *ngIf="isAdmin"
         matTooltip="Panel de Administración"
-        mat-stroked-button
+        mat-button
         fxHide.xs
         [routerLink]="adminRoute"
       >
         <mat-icon>admin_panel_settings</mat-icon>
-        ADMIN
+        {{ 'admin' | titlecase }}
       </button>
 
       <button
@@ -28,13 +28,13 @@
       </button>
 
       <button
-        mat-stroked-button
+        mat-button
         fxHide.xs
         [routerLink]="discoverRoute"
         matTooltip="Descubre un nuevo perfil profesional ideal"
       >
         <mat-icon>rocket_launch</mat-icon>
-        DESCUBRIR PERFIL PROFESIONAL
+        {{ 'descubrir perfil profesional' | titlecase }}
       </button>
 
       <ng-container *ngIf="isAuthenticated; else loginButton">

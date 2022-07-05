@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MenuOption } from '../../../../shared/interfaces/menu-option.interface';
+import { MenuOption } from '../../../../core/interfaces/menu-option.interface';
 import { EditAccountComponent } from '../../pages/edit-account/edit-account.component';
 import { OverviewComponent } from '../../pages/overview/overview.component';
 import { PasswordComponent } from '../../pages/password/password.component';

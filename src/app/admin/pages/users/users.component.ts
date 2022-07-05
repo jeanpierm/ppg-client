@@ -21,18 +21,13 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit, AfterViewInit {
+  static readonly PATH = 'users';
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
-  static readonly PATH = 'usuarios';
 
   sizePerPage = 10;
-  public displayedColumns: string[] = [
-    'name',
-    'surname',
-    'email',
-    'roles',
-    'status',
-  ];
+  displayedColumns: string[] = ['name', 'surname', 'email', 'role', 'status'];
 
   constructor(
     private readonly usersService: UsersService,

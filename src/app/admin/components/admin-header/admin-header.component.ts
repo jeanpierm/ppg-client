@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/main/auth/services/auth.service';
+import { RoutesService } from '../../../core/services/routes.service';
 
 @Component({
-  selector: 'app-top-nav',
-  templateUrl: './top-nav.component.html',
-  styleUrls: ['./top-nav.component.scss'],
+  selector: 'app-admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrls: ['./admin-header.component.scss'],
 })
-export class TopNavComponent {
+export class AdminHeaderComponent {
   @Output() sideNavToggled = new EventEmitter<void>();
 
   constructor(
-    private readonly router: Router,
+    public readonly routes: RoutesService,
     private readonly authService: AuthService
   ) {}
 

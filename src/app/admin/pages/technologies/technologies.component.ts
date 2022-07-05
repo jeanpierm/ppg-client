@@ -29,7 +29,7 @@ import { AlertService } from '../../../core/services/alert.service';
   styleUrls: ['./technologies.component.css'],
 })
 export class TechnologiesComponent implements OnInit, AfterViewInit {
-  static readonly PATH = 'tecnologias';
+  static readonly PATH = 'technologies';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;

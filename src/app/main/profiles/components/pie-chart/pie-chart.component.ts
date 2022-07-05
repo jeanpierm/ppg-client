@@ -1,10 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import {
-  ChartConfiguration,
-  ChartData,
-  ChartEvent,
-  ChartType,
-} from 'chart.js';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -16,9 +11,11 @@ import { BaseChartDirective } from 'ng2-charts';
 export class PieChartComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() pieChartData?: ChartData<'pie', number[], string | string[]>;
+  @Input() title!: string;
+  @Input() loading!: boolean;
 
   // Pie
-  public pieChartOptions: ChartConfiguration['options'] = {
+  pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
       legend: {
@@ -34,15 +31,15 @@ export class PieChartComponent {
       },
     },
   };
-  public pieChartType: ChartType = 'pie';
-  public pieChartPlugins = [DatalabelsPlugin];
+  pieChartType: ChartType = 'pie';
+  pieChartPlugins = [DatalabelsPlugin];
 
   // events
-  public chartClicked({ event, active }: { event: ChartEvent; active: {}[] }): void {
+  chartClicked({ event, active }: { event: ChartEvent; active: {}[] }): void {
     console.log(event, active);
   }
 
-  public chartHovered({ event, active }: { event: ChartEvent; active: {}[] }): void {
+  chartHovered({ event, active }: { event: ChartEvent; active: {}[] }): void {
     console.log(event, active);
   }
 }

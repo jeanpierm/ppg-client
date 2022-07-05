@@ -1,14 +1,18 @@
-<h1 mat-dialog-title>Nuevo usuario</h1>
-<mat-dialog-content>
-  <form action="" class="py-5 px-2" [formGroup]="user_form">
-    <div class="flex flex-col">
-      <section class="py-2">
-        <label for="">Rol: </label>
+<div>
+  <h1 mat-dialog-title>Nuevo Usuario</h1>
+  <mat-dialog-content>
+    <form [formGroup]="user_form">
+      <div class="py-2">
+        <label style="margin-right: 8px">Rol: </label>
         <mat-radio-group name="role" id="role" formControlName="role">
-          <mat-radio-button class="px-2" value="user">Usuario</mat-radio-button>
-          <mat-radio-button class="px-2" value="admin">Administrador</mat-radio-button>
+          <mat-radio-button class="px-2" value="user">
+            Usuario
+          </mat-radio-button>
+          <mat-radio-button class="px-2" value="admin">
+            Administrador
+          </mat-radio-button>
         </mat-radio-group>
-      </section>
+      </div>
 
       <mat-form-field class="w-full" appearance="fill">
         <mat-label>Nombres</mat-label>
@@ -43,9 +47,17 @@
 
       <mat-form-field class="w-full" appearance="fill">
         <mat-label>Contraseña</mat-label>
-        <input matInput name="password" id="password" formControlName="password" />
+        <input
+          matInput
+          name="password"
+          id="password"
+          formControlName="password"
+        />
 
-        <mat-icon matSuffix [matTooltip]="passwordMsg" matTooltipClass="line-broken-tooltip"
+        <mat-icon
+          matSuffix
+          [matTooltip]="passwordMsg"
+          matTooltipClass="line-broken-tooltip"
           >error</mat-icon
         >
 
@@ -58,19 +70,19 @@
           {{ getPasswordValidationMessage() }}
         </mat-error>
       </mat-form-field>
-    </div>
-  </form>
-</mat-dialog-content>
+    </form>
+  </mat-dialog-content>
 
-<mat-dialog-actions class="flex justify-end">
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button
-    type="button"
-    mat-raised-button
-    color="primary"
-    [disabled]="user_form.invalid"
-    [mat-dialog-close]="user_form.value"
-  >
-    Guardar
-  </button>
-</mat-dialog-actions>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      [disabled]="user_form.invalid"
+      [mat-dialog-close]="user_form.value"
+    >
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</div>
