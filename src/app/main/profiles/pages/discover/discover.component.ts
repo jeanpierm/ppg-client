@@ -5,6 +5,7 @@ import { ProfessionalProfile } from '../../../account/interfaces/professional-pr
 import { ProfilesService } from '../../services/profiles.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ProfileListComponent } from '../profile-list/profile-list.component';
+import { getRandomFromArray } from '../../../../core/utils/object.util';
 
 @Component({
   selector: 'app-discover',
@@ -14,10 +15,17 @@ import { ProfileListComponent } from '../profile-list/profile-list.component';
 export class DiscoverComponent implements OnInit {
   static readonly PATH = 'discover';
 
+  readonly imgSources: string[] = [
+    './assets/illustrations/web_development.svg',
+    './assets/illustrations/code_review.svg',
+    './assets/illustrations/programmer.svg',
+    './assets/illustrations/web_developer.svg',
+  ];
   today: Date = new Date();
   todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
   lastProfiles: ProfessionalProfile[] = [];
   loadingLastProfiles: boolean = true;
+  discoverImgSrc = getRandomFromArray(this.imgSources);
 
   constructor(
     public readonly authService: AuthService,

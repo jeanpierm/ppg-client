@@ -11,29 +11,16 @@
     >
       <div fxFlex="50" fxLayout="column" fxLayoutAlign="center">
         <p class="text-center text-lg py-3">
-          A través de
-          <span
-            matTooltip="Web scraping es una técnica de recolección y procesamiento de datos de páginas web"
-          >
-            web scraping
-          </span>
-          a diversas ofertas de trabajo en tiempo real, te recomendaremos el
-          <span
-            matTooltip="Llamamos perfil profesional al conjunto de tecnologías que debería manejar el profesional según el título de trabajo"
-            >perfil profesional</span
-          >
-          que mejor se ajuste a tus preferencias y que tenga las tecnologías de
-          desarrollo de software con mayor demanda laboral a día de hoy ({{
-            todayFormatted
-          }})
+          ¡Indícanos tus preferencias para recomendarte el perfil profesional
+          más demandado hoy!
         </p>
         <app-discover-form></app-discover-form>
       </div>
 
       <div fxFlex="50">
         <img
-          class="rounded w-full"
-          src="https://learn.g2.com/hs-fs/hubfs/software-development.jpg?width=2121&name=software-development.jpg"
+          class="rounded w-full animate__animated animate__fadeInRight"
+          [src]="discoverImgSrc"
           alt="development"
         />
       </div>

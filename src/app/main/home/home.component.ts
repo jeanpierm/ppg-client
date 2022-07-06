@@ -11,6 +11,9 @@ import { ProfileListComponent } from '../profiles/pages/profile-list/profile-lis
 export class HomeComponent {
   static readonly PATH = '';
 
+  today: Date = new Date();
+  todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
+
   constructor(private readonly authService: AuthService) {
     if (this.authService.accessToken) {
       this.authService.validateToken().subscribe((valid) => {

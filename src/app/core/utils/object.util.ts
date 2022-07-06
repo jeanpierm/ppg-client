@@ -18,4 +18,3 @@ export function getRandomFromArray(array: unknown[]): unknown {
   const randomIndice = Math.floor(Math.random() * array.length);
   return array[randomIndice];
 }
-// export function titleCase

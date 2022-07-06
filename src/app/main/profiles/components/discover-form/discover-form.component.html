@@ -64,7 +64,12 @@
 
   <br />
 
-  <div fxLayout fxLayoutGap="10px" fxLayoutAlign="center">
+  <div
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutGap="10px"
+    fxLayoutAlign="center"
+  >
     <button
       mat-flat-button
       [disabled]="loadingGenerate || isInCooldown"

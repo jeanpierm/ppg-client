@@ -1,17 +1,52 @@
 <!-- <app-header></app-header> -->
 
 <div class="container">
-  <h1 class="!text-4xl text-center">
-    ¡Descubre el perfil profesional que buscan las empresas!
-  </h1>
+  <div
+    class="p-5"
+    fxLayout="row"
+    fxLayoutGap="1.75rem"
+    fxLayoutAlign="start center"
+  >
+    <div fxFlex="50">
+      <h1>¡Descubre el perfil profesional que buscan las empresas!</h1>
+      <p id="discover-subtitle">
+        A través de
+        <span
+          matTooltip="Web scraping es una técnica de recolección y procesamiento de datos de páginas web"
+        >
+          web scraping
+        </span>
+        a diversas ofertas de trabajo en tiempo real, te recomendaremos el
+        <span
+          matTooltip="Llamamos perfil profesional al conjunto de tecnologías que debería manejar el profesional según el título de trabajo"
+          >perfil profesional</span
+        >
+        que mejor se ajuste a tus preferencias y que tenga las tecnologías de
+        desarrollo de software con mayor demanda laboral a día de hoy ({{
+          todayFormatted
+        }}).
+      </p>
+      <button
+        id="discover-button"
+        mat-flat-button
+        color="accent"
+        [routerLink]="discoverRoute"
+      >
+        DESCUBRIR
+      </button>
+    </div>
+    <div fxFlex="50">
+      <img
+        id="discover-img"
+        class="w-full rounded animate__animated animate__bounceIn"
+        src="./assets/illustrations/laravel_and_vue.svg"
+      />
+    </div>
+  </div>
   <div class="text-center">
     <p>
       Aquí iría una especie de landing page con un tutorial con imágenes de cómo
       utilizar la app
     </p>
-
-    <a mat-raised-button color="accent" [routerLink]="discoverRoute">
-      DESCUBRIR PERFIL PROFESIONAL
-    </a>
   </div>
 </div>
