@@ -8,7 +8,7 @@ import { RoutesService } from '../../../core/services/routes.service';
   styleUrls: ['./admin-header.component.scss'],
 })
 export class AdminHeaderComponent {
-  @Output() sideNavToggled = new EventEmitter<void>();
+  @Output() sidenavToggle = new EventEmitter<void>();
 
   constructor(
     public readonly routes: RoutesService,
@@ -24,8 +24,8 @@ export class AdminHeaderComponent {
     return `${name} ${surname}`;
   }
 
-  toggleSidebar() {
-    this.sideNavToggled.emit();
+  toggleSidenav() {
+    this.sidenavToggle.emit();
   }
 
   logout(): void {

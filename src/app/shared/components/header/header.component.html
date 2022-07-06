@@ -1,84 +1,92 @@
 <header>
-  <mat-toolbar
-    fxLayout="row"
-    color="primary"
-    fxLayoutAlign="space-between center"
-  >
-    <a [routerLink]="homeRoute"> Perfiles Profesionales </a>
-
-    <div fxLayoutGap="0.75rem">
-      <button
-        *ngIf="isAdmin"
-        matTooltip="Panel de Administración"
-        mat-button
-        fxHide.xs
-        [routerLink]="adminRoute"
-      >
-        <mat-icon>admin_panel_settings</mat-icon>
-        {{ 'admin' | titlecase }}
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button *ngIf="isAuth" mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
       </button>
+      <a [routerLink]="routes.homeRoute"> Perfiles Profesionales </a>
 
-      <button
-        matTooltip="Panel de Administración"
-        mat-icon-button
-        fxHide.gt-xs
-        [routerLink]="adminRoute"
-      >
-        <mat-icon>admin_panel_settings</mat-icon>
-      </button>
-
-      <button
-        mat-button
-        fxHide.xs
-        [routerLink]="discoverRoute"
-        matTooltip="Descubre un nuevo perfil profesional ideal"
-      >
-        <mat-icon>rocket_launch</mat-icon>
-        {{ 'descubrir perfil profesional' | titlecase }}
-      </button>
-
-      <ng-container *ngIf="isAuthenticated; else loginButton">
+      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="0.5rem">
         <button
-          matTooltip="Opciones de Cuenta"
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
+          *ngIf="isAdmin"
+          matTooltip="Panel de Administración"
+          mat-button
+          fxHide.xs
+          [routerLink]="routes.adminRoute"
         >
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon>admin_panel_settings</mat-icon>
+          {{ 'admin' | titlecase }}
         </button>
-        <mat-menu #menu="matMenu">
+
+        <button
+          *ngIf="isAdmin"
+          matTooltip="Panel de Administración"
+          mat-icon-button
+          fxHide.gt-xs
+          [routerLink]="routes.adminRoute"
+        >
+          <mat-icon>admin_panel_settings</mat-icon>
+        </button>
+
+        <button
+          mat-button
+          fxHide.xs
+          [routerLink]="routes.discoverRoute"
+          matTooltip="Descubre un nuevo perfil profesional ideal"
+        >
+          <mat-icon>rocket_launch</mat-icon>
+          {{ 'descubrir perfil profesional' | titlecase }}
+        </button>
+
+        <ng-container *ngIf="isAuthenticated; else loginButton">
           <button
-            *ngFor="let option of menuOptions"
-            mat-menu-item
-            [routerLink]="option.path"
+            matTooltip="Opciones de Cuenta"
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
           >
-            <mat-icon>{{ option.icon }}</mat-icon>
-            {{ option.label }}
+            <mat-icon>account_circle</mat-icon>
           </button>
-          <button mat-menu-item (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon>
-            Cerrar sesión
+          <mat-menu #menu="matMenu">
+            <button
+              *ngFor="let option of menuOptions"
+              mat-menu-item
+              [routerLink]="option.path"
+            >
+              <mat-icon>{{ option.icon }}</mat-icon>
+              {{ option.label }}
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              Cerrar sesión
+            </button>
+          </mat-menu>
+        </ng-container>
+
+        <ng-template #loginButton>
+          <button fxHide.xs mat-flat-button [routerLink]="routes.loginRoute">
+            <mat-icon>account_circle</mat-icon>
+            INICIAR SESIÓN
           </button>
-        </mat-menu>
-      </ng-container>
+          <button
+            fxHide
+            fxShow.xs
+            mat-icon-button
+            [routerLink]="routes.loginRoute"
+          >
+            <mat-icon>account_circle</mat-icon>
+          </button>
+        </ng-template>
 
-      <ng-template #loginButton>
-        <button fxHide.xs mat-flat-button [routerLink]="loginRoute">
-          INICIAR SESIÓN
+        <button
+          class="fab"
+          mat-fab
+          color="accent"
+          matTooltip="¡Descubre un perfil profesional ideal!"
+          [routerLink]="routes.discoverRoute"
+        >
+          <mat-icon>rocket_launch</mat-icon>
         </button>
-        <button fxHide fxShow.xs mat-icon-button [routerLink]="loginRoute">
-          <mat-icon>login</mat-icon>
-        </button>
-      </ng-template>
-
-      <button
-        class="fab"
-        mat-fab
-        color="accent"
-        matTooltip="¡Descubre un perfil profesional ideal!"
-        [routerLink]="discoverRoute"
-      >
-        <mat-icon>rocket_launch</mat-icon>
-      </button>
-    </div>
+      </div>
+    </mat-toolbar-row>
   </mat-toolbar>
 </header>

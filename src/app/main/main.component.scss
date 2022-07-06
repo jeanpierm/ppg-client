@@ -1,0 +1,22 @@
+mat-sidenav {
+  width: 240px;
+}
+
+#sidenav-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+#sidenav-header-title {
+  font-size: large;
+  font-weight: 700;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+#option-icon {
+  margin-left: 8px;
+  margin-right: 8px;
+}

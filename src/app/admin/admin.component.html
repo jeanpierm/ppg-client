@@ -1,7 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
-    class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -11,7 +10,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-admin-header (sideNavToggled)="drawer.toggle()"></app-admin-header>
+    <app-admin-header (sidenavToggle)="drawer.toggle()"></app-admin-header>
     <main class="main-container">
       <router-outlet></router-outlet>
     </main>

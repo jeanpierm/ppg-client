@@ -5,3 +5,9 @@ mat-dialog-actions {
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
+
+@media only screen and (min-width: 600px) {
+  .content {
+    width: 500px;
+  }
+}

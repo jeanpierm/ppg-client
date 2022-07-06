@@ -1,2 +1,34 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="h-screen">
+  <mat-sidenav #sidenav mode="over">
+    <div id="sidenav-header">
+      <button mat-icon-button (click)="sidenav.toggle()" color="primary">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span
+        id="sidenav-header-title"
+        class="color-primary"
+        [routerLink]="routes.homeRoute"
+        >PPG</span
+      >
+    </div>
+
+    <mat-nav-list>
+      <a
+        *ngFor="let option of menuOptions"
+        mat-list-item
+        [routerLink]="option.path"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon id="option-icon" color="primary">{{ option.icon }}</mat-icon>
+        <span class="ml-3">
+          {{ option.label }}
+        </span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -7,6 +7,10 @@
 }
 
 a {
- text-decoration: none;
- color: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+
+mat-toolbar-row > button {
+  margin-right: 0.875rem;
 }
