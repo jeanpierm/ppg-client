@@ -1,8 +1,14 @@
-<div
-  fxLayout="row wrap"
-  fxLayoutAlign="space-evenly center"
-  class="h-screen-custom"
->
+<div fxLayout="row" fxLayoutAlign="space-evenly center" class="h-screen-custom">
+  <div fxHide.xs fxFlex="50" class="animate__animated animate__fadeInDown m-5">
+    <img
+      class="w-full"
+      src="./assets/illustrations/javascript_frameworks.svg"
+    />
+    <p class="text-lg">
+      ¡Conoce las tecnologías <strong>más demandadas</strong> por las empresas!
+    </p>
+  </div>
+
   <div fxFlex="100" fxFlex.gt-xs="50">
     <mat-card>
       <form [formGroup]="registerForm" (ngSubmit)="register()">
@@ -186,15 +192,5 @@
         ></mat-progress-bar>
       </mat-card-footer>
     </mat-card>
-  </div>
-
-  <div fxFlex="50" fxHide.xs class="animate__animated animate__fadeInDown">
-    <img
-      class="m-5 w-full"
-      src="./assets/illustrations/javascript_frameworks.svg"
-    />
-    <p class="text-center text-lg">
-      ¡Conoce las tecnologías <strong>más demandadas</strong> por las empresas!
-    </p>
   </div>
 </div>
