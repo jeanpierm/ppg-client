@@ -12,6 +12,7 @@ import { ProfileListComponent } from '../../pages/profile-list/profile-list.comp
 import { map, Observable, startWith } from 'rxjs';
 import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
 import { gyeLocation } from '../../../../core/constants/location.constant';
+import { predefinedLocations } from '../../../../core/constants/locations.constant';
 
 @Component({
   selector: 'app-discover-form',
@@ -19,7 +20,8 @@ import { gyeLocation } from '../../../../core/constants/location.constant';
   styleUrls: ['./discover-form.component.scss'],
 })
 export class DiscoverFormComponent implements OnInit {
-  filteredOptions!: Observable<string[]>;
+  filteredJobTitles!: Observable<string[]>;
+  filteredLocations!: Observable<string[]>;
   tmpJobTitle: string = '';
   tmpLocation: string = '';
   loadingGenerate: boolean = false;
@@ -67,15 +69,20 @@ export class DiscoverFormComponent implements OnInit {
     this.authService.validateToken().subscribe((isAuth) => {
       if (isAuth) this.onChangeUseUserPreferences();
     });
-    this.filteredOptions = this.jobTitleControl!.valueChanges.pipe(
+    this.filteredJobTitles = this.jobTitleControl!.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value || ''))
+      map((value) => this._filter(value || '', predefinedJobTitles))
+    );
+    this.filteredLocations = this.locationControl!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '', predefinedLocations))
     );
   }
-  private _filter(value: string): string[] {
+
+  private _filter(value: string, values: string[]): string[] {
     const filterValue = value.toLowerCase();
 
-    return predefinedJobTitles.filter((option) =>
+    return values.filter((option) =>
       option.toLowerCase().includes(filterValue)
     );
   }

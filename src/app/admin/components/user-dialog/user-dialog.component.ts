@@ -8,10 +8,13 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./user-dialog.component.scss'],
 })
 export class UserDialogComponent implements OnInit {
-  public user_form: FormGroup;
+  public userForm: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<UserDialogComponent>, private fb: FormBuilder) {
-    this.user_form = new FormGroup({});
+  constructor(
+    public dialogRef: MatDialogRef<UserDialogComponent>,
+    private fb: FormBuilder
+  ) {
+    this.userForm = new FormGroup({});
   }
 
   ngOnInit(): void {
@@ -23,23 +26,23 @@ export class UserDialogComponent implements OnInit {
   }
 
   get name() {
-    return this.user_form.get('name');
+    return this.userForm.get('name');
   }
 
   get surname() {
-    return this.user_form.get('surname');
+    return this.userForm.get('surname');
   }
 
   get email() {
-    return this.user_form.get('email');
+    return this.userForm.get('email');
   }
 
   get password() {
-    return this.user_form.get('password');
+    return this.userForm.get('password');
   }
 
   onForm() {
-    this.user_form = this.fb.group({
+    this.userForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -65,9 +68,12 @@ export class UserDialogComponent implements OnInit {
   }
 
   getPasswordValidationMessage(): string | void {
-    const control = this.user_form.get('password')?.value;
+    const control = this.userForm.get('password')?.value;
     if (!control) return;
-    if (control.toString().trim().length < 8 || control.toString().trim().length > 30) {
+    if (
+      control.toString().trim().length < 8 ||
+      control.toString().trim().length > 30
+    ) {
       return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
     }
     if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {

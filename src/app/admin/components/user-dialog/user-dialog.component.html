@@ -1,7 +1,7 @@
 <div class="content">
   <h2 mat-dialog-title>Nuevo Usuario</h2>
   <mat-dialog-content>
-    <form [formGroup]="user_form" fxLayout="column" fxLayoutGap="10px">
+    <form [formGroup]="userForm" fxLayout="column" fxLayoutGap="10px">
       <div>
         <label style="margin-right: 8px">Rol: </label>
         <mat-radio-group name="role" id="role" formControlName="role">
@@ -79,8 +79,8 @@
       type="button"
       mat-raised-button
       color="primary"
-      [disabled]="user_form.invalid"
-      [mat-dialog-close]="user_form.value"
+      [disabled]="userForm.invalid"
+      [mat-dialog-close]="userForm.value"
     >
       Guardar
     </button>

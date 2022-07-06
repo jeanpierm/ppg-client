@@ -1,9 +1,8 @@
 <div class="container">
-  <h1 class="pt-14 text-4xl text-center">
-    ¡Descubre el perfil profesional que buscan las empresas!
-  </h1>
-
-  <section class="py-14">
+  <section class="pb-14">
+    <h1 class="text-center">
+      ¡Descubre el perfil profesional que buscan las empresas!
+    </h1>
     <div
       fxLayout="row"
       fxLayoutGap="40px"
@@ -56,7 +55,7 @@
 
   <section class="py-14" *ngIf="!!authService.accessToken">
     <div fxLayout="row" fxLayoutGap="20px">
-      <h1>Tus últimos perfiles</h1>
+      <h2>Tus últimos perfiles</h2>
       <div>
         <a mat-button color="accent" [routerLink]="profilesRoute">
           VER TODOS MIS PERFILES

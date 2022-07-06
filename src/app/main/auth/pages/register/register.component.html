@@ -108,12 +108,15 @@
               matInput
               formControlName="jobTitle"
               name="jobTitle"
-              [matAutocomplete]="auto"
+              [matAutocomplete]="autoJobTitles"
               placeholder="Ejemplo: Web Developer"
             />
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoJobTitles="matAutocomplete"
+            >
               <mat-option
-                *ngFor="let option of filteredOptions | async"
+                *ngFor="let option of filteredJobTitles | async"
                 [value]="option"
               >
                 {{ option }}
@@ -126,13 +129,25 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Ubicación</mat-label>
+            <mat-label>Ubicación preferida</mat-label>
             <input
               matInput
               formControlName="location"
               name="location"
               placeholder=""
+              [matAutocomplete]="autoLocations"
             />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoLocations="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let option of filteredLocations | async"
+                [value]="option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="location?.hasError('required')">
               <mat-icon>error</mat-icon>
               Por favor, ingrese su <strong>ciudad</strong>

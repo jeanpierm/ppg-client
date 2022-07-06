@@ -40,6 +40,16 @@
   line-height: 2.5rem /* 40px */;
 }
 
+.text-5xl {
+  font-size: 2.5rem /* 36px */;
+  line-height: 2.75rem /* 40px */;
+}
+
+.text-6xl {
+  font-size: 2.75rem /* 36px */;
+  line-height: 3rem /* 40px */;
+}
+
 /* MARGIN */
 
 .ml-2 {
@@ -146,6 +156,10 @@
 
 .py-14 {
   padding-top: 3.5rem /* 56px */;
+  padding-bottom: 3.5rem /* 56px */;
+}
+
+.pb-14 {
   padding-bottom: 3.5rem /* 56px */;
 }
 

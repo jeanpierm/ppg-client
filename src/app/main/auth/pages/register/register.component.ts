@@ -15,6 +15,7 @@ import { RegisterRequest } from '../../interfaces/register-request.interface';
 import { map, Observable, startWith } from 'rxjs';
 import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
 import { HomeComponent } from '../../../home/home.component';
+import { predefinedLocations } from '../../../../core/constants/locations.constant';
 
 @Component({
   selector: 'app-register',
@@ -24,10 +25,11 @@ import { HomeComponent } from '../../../home/home.component';
 export class RegisterComponent implements OnInit {
   static readonly PATH = 'registro';
 
+  filteredJobTitles!: Observable<string[]>;
+  filteredLocations!: Observable<string[]>;
   hide: boolean = true;
   loading: boolean = false;
   matcher = new GenericErrorStateMatcher();
-  filteredOptions!: Observable<string[]>;
   registerForm: FormGroup = this.fb.group(
     {
       name: [
@@ -99,16 +101,20 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredOptions = this.jobTitle!.valueChanges.pipe(
+    this.filteredJobTitles = this.jobTitle!.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value || ''))
+      map((value) => this._filter(value || '', predefinedJobTitles))
+    );
+    this.filteredLocations = this.location!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '', predefinedLocations))
     );
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string, values: string[]): string[] {
     const filterValue = value.toLowerCase();
 
-    return predefinedJobTitles.filter((option) =>
+    return values.filter((option) =>
       option.toLowerCase().includes(filterValue)
     );
   }

@@ -15,12 +15,12 @@
       type="text"
       name="jobTitle"
       id="jobTitle"
-      [matAutocomplete]="auto"
+      [matAutocomplete]="autoJobTitles"
       placeholder="Ejemplo: Web Developer"
     />
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-autocomplete autoActiveFirstOption #autoJobTitles="matAutocomplete">
       <mat-option
-        *ngFor="let option of filteredOptions | async"
+        *ngFor="let option of filteredJobTitles | async"
         [value]="option"
       >
         {{ option }}
@@ -38,8 +38,17 @@
       type="text"
       name="location"
       id="location"
+      [matAutocomplete]="autoLocations"
       placeholder="Ejemplo: Guayaquil, Ecuador."
     />
+    <mat-autocomplete autoActiveFirstOption #autoLocations="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredLocations | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
     <mat-hint>El lugar en que te gustaría trabajar</mat-hint>
   </mat-form-field>
 

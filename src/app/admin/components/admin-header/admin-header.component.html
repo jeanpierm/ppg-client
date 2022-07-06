@@ -4,10 +4,15 @@
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
       </button>
+      <span fxHide.xs>Panel de Administración</span>
 
-      <span fxHide.xs>Bienvenido {{ fullName | titlecase }} </span>
-
-      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="0.5rem">
+      <div
+        fxFlex
+        fxLayout="row"
+        fxLayoutAlign="flex-end center"
+        fxLayoutGap="0.5rem"
+      >
+        <span fxHide.xs>{{ fullName | titlecase }}</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>account_circle</mat-icon>
         </button>
