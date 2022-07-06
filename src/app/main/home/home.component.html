@@ -1,13 +1,13 @@
 <!-- <app-header></app-header> -->
 
 <div class="container">
-  <div
+  <section
     class="p-5"
     fxLayout="row"
-    fxLayoutGap="1.75rem"
+    fxLayout.xs="column"
     fxLayoutAlign="start center"
   >
-    <div fxFlex="50">
+    <div fxFlex="50" style="margin: 3rem">
       <h1>¡Descubre el perfil profesional que buscan las empresas!</h1>
       <p id="discover-subtitle">
         A través de
@@ -42,11 +42,56 @@
         src="./assets/illustrations/laravel_and_vue.svg"
       />
     </div>
-  </div>
-  <div class="text-center">
-    <p>
-      Aquí iría una especie de landing page con un tutorial con imágenes de cómo
-      utilizar la app
-    </p>
-  </div>
+  </section>
+  <mat-divider></mat-divider>
+  <section
+    class="p-5 mt-5"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutGap="1.75rem"
+    fxLayoutAlign="start center"
+  >
+    <div fxFlex="50">
+      <mat-card>
+        <mat-card-title>
+          <h2>¿Cómo funciona?</h2>
+        </mat-card-title>
+        <img
+          mat-card-image
+          src="./assets/illustrations/linkedin_statistics.png"
+          alt="LinkedIn statistics"
+        />
+        <mat-card-content>
+          <p>
+            A través de tu ubicación y título de trabajos preferidos, un
+            algoritmo con web scraping extraerá datos de diferentes ofertas de
+            trabajo encontradas en LinkedIn y generará un perfil profesional con
+            las tecnologías más demandadas de ahora.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex="50">
+      <mat-card>
+        <mat-card-title>
+          <h2>¿Cómo me ayuda?</h2>
+        </mat-card-title>
+        <img
+          mat-card-image
+          style="max-height: 281px"
+          src="./assets/illustrations/laravel_and_vue.svg"
+          alt="Laravel and vue web frameworks"
+        />
+        <mat-card-content>
+          <p>
+            Las tecnologías para el desarrollo de software van evolucionando y
+            cambiando constantemente con el paso del tiempo, además, existe un
+            gran número y diversidad. En este sentido, esta herramienta te
+            permitirá conocer qué tecnologías demandan las empresas en tiempo
+            real, y así, decidir en cuál o cuáles prepararte.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
 </div>
