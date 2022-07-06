@@ -18,7 +18,6 @@ export class DiscoverComponent implements OnInit {
   readonly imgSources: string[] = [
     './assets/illustrations/web_development.svg',
     './assets/illustrations/code_review.svg',
-    './assets/illustrations/programmer.svg',
     './assets/illustrations/web_developer.svg',
   ];
   today: Date = new Date();
