@@ -1,0 +1,48 @@
+<app-account-header title="Editar descarga de perfil"></app-account-header>
+
+<form [formGroup]="form" (ngSubmit)="updateDownloadProfile()">
+  <mat-card>
+    <mat-spinner *ngIf="loadingData; else formContent"></mat-spinner>
+
+    <ng-template #formContent>
+      <mat-card-content>
+        <p>
+          Edita cuales datos de tu cuenta deseas que aparezcan en la descarga de
+          un perfil profesional:
+        </p>
+        <mat-slide-toggle formControlName="photo" name="photo">
+          Foto
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="email" name="email">
+          Correo electrónico
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="biography" name="biography">
+          Biografía
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="linkedIn" name="linkedIn">
+          Enlace de LinkedIn
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="github" name="github">
+          Enlace de GitHub
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="portfolio" name="portfolio">
+          Enlace de portafolio
+        </mat-slide-toggle>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="" type="button" (click)="cancel()">
+          Cancelar
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="submitting"
+        >
+          Editar descarga de perfil
+        </button>
+      </mat-card-actions>
+    </ng-template>
+  </mat-card>
+</form>

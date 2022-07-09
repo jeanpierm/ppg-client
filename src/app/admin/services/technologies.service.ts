@@ -23,7 +23,7 @@ export class TechnologiesService {
     this.technologies = [];
   }
 
-  loadTechnology(params: PaginatedApiQueryParams): void {
+  loadTechnologies(params: PaginatedApiQueryParams): void {
     if (!this.fetchLoading) this.fetchLoading = true;
 
     this.getTechnologies(params).subscribe((res) => {

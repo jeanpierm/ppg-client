@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { EditAccountComponent } from './pages/edit-account/edit-account.component';
 import { AccountComponent } from './account.component';
 import { OverviewComponent } from './pages/overview/overview.component';
-import { PasswordComponent } from './pages/password/password.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { EditDownloadComponent } from './pages/edit-download/edit-download.component';
 
 const routes: Routes = [
   {
@@ -17,13 +18,18 @@ const routes: Routes = [
       {
         path: EditAccountComponent.PATH,
         component: EditAccountComponent,
-        data: {
-          title: 'Editar cuenta',
-        },
       },
       {
-        path: PasswordComponent.PATH,
-        component: PasswordComponent,
+        path: ChangePasswordComponent.PATH,
+        component: ChangePasswordComponent,
+      },
+      {
+        path: EditDownloadComponent.PATH,
+        component: EditDownloadComponent,
+      },
+      {
+        path: '**',
+        redirectTo: OverviewComponent.PATH,
       },
     ],
   },

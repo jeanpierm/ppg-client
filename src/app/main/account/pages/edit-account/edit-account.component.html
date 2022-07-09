@@ -1,6 +1,6 @@
 <app-account-header title="Editar cuenta"></app-account-header>
 
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="updateAccount()">
   <mat-card>
     <mat-card-content fxLayout="column">
       <section fxLayout="column">
@@ -148,7 +148,6 @@
         color="primary"
         [disabled]="submitting"
         type="submit"
-        (click)="updateAccount()"
       >
         Editar cuenta
       </button>

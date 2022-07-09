@@ -2,7 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MenuOption } from '../../../../core/interfaces/menu-option.interface';
 import { EditAccountComponent } from '../../pages/edit-account/edit-account.component';
 import { OverviewComponent } from '../../pages/overview/overview.component';
-import { PasswordComponent } from '../../pages/password/password.component';
+import { ChangePasswordComponent } from '../../pages/change-password/change-password.component';
+import { EditDownloadComponent } from '../../pages/edit-download/edit-download.component';
 
 @Component({
   selector: 'app-account-nav-list',
@@ -24,7 +25,12 @@ export class AccountNavListComponent {
     {
       icon: 'lock',
       label: 'Cambiar contraseña',
-      path: PasswordComponent.PATH,
+      path: ChangePasswordComponent.PATH,
+    },
+    {
+      icon: 'app_registration',
+      label: 'Editar descarga de perfil',
+      path: EditDownloadComponent.PATH,
     },
   ];
   @Output() clickOption: EventEmitter<boolean> = new EventEmitter();

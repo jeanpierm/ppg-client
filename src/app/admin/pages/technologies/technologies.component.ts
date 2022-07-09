@@ -33,12 +33,14 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
+
+  private matDialogRef: any;
+
   types = techTypeOptions;
   myForm: FormGroup;
   update = false;
   sizePerPage = 10;
   displayedColumns: string[] = ['Tipo', 'Nombre', 'Identificadores', 'options'];
-  private matDialogRef: any;
 
   constructor(
     private readonly technologiesService: TechnologiesService,
@@ -52,7 +54,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.technologiesService.loadTechnology({ size: this.sizePerPage });
+    this.technologiesService.loadTechnologies({ size: this.sizePerPage });
   }
 
   ngAfterViewInit() {
@@ -71,7 +73,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   }
 
   loadTechnologyPage() {
-    this.technologiesService.loadTechnology({
+    this.technologiesService.loadTechnologies({
       size: this.sizePerPage,
       page: this.paginator.pageIndex,
       search: this.input.nativeElement.value,
@@ -131,7 +133,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         const technology: Technology = result;
         this.technologiesService.saveTechnology(technology).subscribe({
           next: (_) => {
-            this.technologiesService.loadTechnology({
+            this.technologiesService.loadTechnologies({
               size: this.sizePerPage,
               page: this.paginator.pageIndex,
             });
@@ -179,7 +181,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
           this.technologiesService.deleteTechnology(technologyId).subscribe({
             next: (_) => {
               this.alertService.success('Tecnología eliminada exitosamente');
-              this.technologiesService.loadTechnology({
+              this.technologiesService.loadTechnologies({
                 size: this.sizePerPage,
               });
             },
@@ -199,7 +201,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         const technology: Technology = result;
         this.technologiesService.updateTechnology(technology).subscribe({
           next: (_) =>
-            this.technologiesService.loadTechnology({
+            this.technologiesService.loadTechnologies({
               size: this.sizePerPage,
               page: this.paginator.pageIndex,
             }),

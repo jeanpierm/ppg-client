@@ -100,7 +100,7 @@ export class EditAccountComponent implements OnInit {
       .subscribe({
         next: () => {
           this.submitting = false;
-          this.alertService.success('¡Cuenta actualizada exitosamente!');
+          this.alertService.success('Cuenta actualiza con éxito');
         },
         error: (err) => {
           this.submitting = false;

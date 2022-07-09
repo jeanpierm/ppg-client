@@ -11,6 +11,7 @@ import { ProfilesService } from '../../main/profiles/services/profiles.service';
 import { AccountService } from '../../main/account/services/account.service';
 import { AuthService } from '../../main/auth/services/auth.service';
 import { TechnologiesService } from '../../admin/services/technologies.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -44,6 +45,7 @@ export function isAuthRequired(request: HttpRequest<unknown>): boolean {
     ProfilesService.BASE_URL,
     AccountService.BASE_URL,
     TechnologiesService.BASE_URL,
+    environment.meDownloadPreferencesPath,
   ];
 
   return requireAuthUrls.some((url) => request.url.includes(url));

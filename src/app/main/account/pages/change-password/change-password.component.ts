@@ -9,12 +9,12 @@ import {
 import { AccountService } from '../../services/account.service';
 
 @Component({
-  selector: 'app-password',
-  templateUrl: './password.component.html',
-  styleUrls: ['./password.component.scss'],
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss'],
 })
-export class PasswordComponent {
-  static readonly PATH = 'password';
+export class ChangePasswordComponent {
+  static readonly PATH = 'change-password';
 
   hideCurrent: boolean = true;
   hideNew: boolean = true;

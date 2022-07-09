@@ -23,6 +23,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const materialModules = [
   MatButtonModule,
@@ -49,6 +50,7 @@ const materialModules = [
   MatButtonToggleModule,
   MatGridListModule,
   MatAutocompleteModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({

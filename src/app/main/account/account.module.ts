@@ -10,20 +10,22 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MaterialModule } from '../../material/material.module';
 import { AccountComponent } from './account.component';
 import { OverviewComponent } from './pages/overview/overview.component';
-import { PasswordComponent } from './pages/password/password.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { HeaderComponent } from './components/account-header/account-header.component';
 import { AccountNavListComponent } from './components/account-nav-list/account-nav-list.component';
 import { PhotoComponent } from './components/photo/photo.component';
+import { EditDownloadComponent } from './pages/edit-download/edit-download.component';
 
 @NgModule({
   declarations: [
     EditAccountComponent,
     AccountComponent,
     OverviewComponent,
-    PasswordComponent,
+    ChangePasswordComponent,
     HeaderComponent,
     AccountNavListComponent,
     PhotoComponent,
+    EditDownloadComponent,
   ],
   imports: [
     CommonModule,
