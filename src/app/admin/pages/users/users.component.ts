@@ -8,7 +8,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { AlertService } from '../../../core/services/alert.service';
 import { UserDialogComponent } from '../../components/user-dialog/user-dialog.component';
 import { CreateUserRequest } from '../../interfaces/create-user-request.interface';
@@ -22,11 +22,11 @@ import { UsersService } from '../../services/users.service';
 })
 export class UsersComponent implements OnInit, AfterViewInit {
   static readonly PATH = 'users';
+  readonly defaultPageSize = 10;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
 
-  sizePerPage = 10;
   displayedColumns: string[] = ['name', 'surname', 'email', 'role', 'status'];
 
   constructor(
@@ -36,42 +36,41 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private readonly alertService: AlertService
   ) {}
 
-  public get loading(): boolean {
+  get loading(): boolean {
     return this.usersService.fetchLoading;
   }
 
-  public get users(): User[] {
+  get users(): User[] {
     return this.usersService.users;
   }
 
-  public get resultsLength(): number {
+  get resultsLength(): number {
     return this.usersService.resultsLength;
   }
 
   ngOnInit(): void {
     this.spinner.show();
-    this.usersService.loadUsers({ size: this.sizePerPage });
+    this.usersService.loadUsers({
+      size: this.defaultPageSize,
+      page: 1,
+    });
   }
 
   ngAfterViewInit(): void {
     fromEvent(this.input.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(100),
-        distinctUntilChanged(),
-        tap(() => {
-          this.paginator.pageIndex = 0;
-          this.loadUserPage();
-        })
-      )
-      .subscribe();
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(() => {
+        this.loadUsersPage();
+        this.paginator.firstPage();
+      });
 
-    this.paginator.page.pipe(tap(() => this.loadUserPage())).subscribe();
+    this.paginator.page.subscribe(() => this.loadUsersPage());
   }
 
-  loadUserPage() {
+  loadUsersPage() {
     this.usersService.loadUsers({
-      size: this.sizePerPage,
-      page: this.paginator.pageIndex,
+      size: this.paginator.pageSize,
+      page: this.paginator.pageIndex + 1, // add +1 because paginator is zero-based, and the API isn't
       search: this.input.nativeElement.value,
     });
   }
@@ -84,8 +83,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
         const user: CreateUserRequest = result;
         this.usersService.fetchLoading = true;
         this.usersService.saveUser(user).subscribe({
-          next: (_) => {
-            this.usersService.loadUsers({ size: this.sizePerPage });
+          next: () => {
+            this.loadUsersPage();
             this.alertService.success('¡Cuenta creada exitosamente!');
           },
           error: () => {
@@ -106,7 +105,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.usersService.inactive(userId).subscribe({
               next: () => {
                 this.alertService.success('Usuario inactivado exitosamente');
-                this.loadUserPage();
+                this.loadUsersPage();
               },
               error: () => this.alertService.error(),
             });
@@ -125,7 +124,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.usersService.active(userId).subscribe({
               next: (_) => {
                 this.alertService.success('Usuario activado exitosamente');
-                this.loadUserPage();
+                this.loadUsersPage();
               },
               error: () => {
                 this.usersService.fetchLoading = false;

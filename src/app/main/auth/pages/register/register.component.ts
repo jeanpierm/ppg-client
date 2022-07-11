@@ -53,8 +53,8 @@ export class RegisterComponent implements OnInit {
         ],
       ],
       password2: ['', Validators.required],
-      jobTitle: ['', [Validators.required, Validators.required]],
-      location: ['', [Validators.required, Validators.required]],
+      jobTitle: ['', [Validators.required]],
+      location: ['', [Validators.required]],
     },
     {
       validators: [validateTwoFormControlsAreEquals('password', 'password2')],
@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return values.filter((option) =>
-      option.toLowerCase().includes(filterValue)
+      option.toLowerCase().includes(filterValue.toLowerCase())
     );
   }
 

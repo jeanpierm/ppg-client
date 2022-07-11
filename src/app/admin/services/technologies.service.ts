@@ -16,12 +16,10 @@ export class TechnologiesService {
   static readonly BASE_URL = 'technologies';
 
   fetchLoading: boolean = true;
-  technologies: Array<Technology>;
+  technologies: Array<Technology> = [];
   resultsLength = 0;
 
-  constructor(private http: HttpClient) {
-    this.technologies = [];
-  }
+  constructor(private http: HttpClient) {}
 
   loadTechnologies(params: PaginatedApiQueryParams): void {
     if (!this.fetchLoading) this.fetchLoading = true;

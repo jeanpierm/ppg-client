@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { map, Observable, startWith } from 'rxjs';
+import { predefinedJobTitles } from '../../../core/constants/job-titles.constant';
+import { predefinedLocations } from '../../../core/constants/locations.constant';
+import { Role } from '../../../core/enums/role.enum';
+import { getPasswordValidationMessage } from '../../../core/utils/form.util';
 
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
   styleUrls: ['./user-dialog.component.scss'],
 })
-export class UserDialogComponent {
+export class UserDialogComponent implements OnInit {
+  filteredJobTitles!: Observable<string[]>;
+  filteredLocations!: Observable<string[]>;
+  hidePassword: boolean = true;
   userForm: FormGroup = this.fb.group({
+    role: [Role.User, Validators.required],
     name: ['', Validators.required],
     surname: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -22,7 +31,8 @@ export class UserDialogComponent {
         ),
       ],
     ],
-    role: ['user', Validators.required],
+    jobTitle: ['', [Validators.required]],
+    location: ['', [Validators.required]],
   });
 
   constructor(
@@ -50,6 +60,14 @@ export class UserDialogComponent {
     return this.userForm.get('password');
   }
 
+  get jobTitle() {
+    return this.userForm.get('jobTitle');
+  }
+
+  get location() {
+    return this.userForm.get('location');
+  }
+
   get passwordMsg() {
     return `• La contraseña debe contener mínimo 8 y máximo 30 caracteres. \n
     • La contraseña debe contener mayúsculas y minúsculas \n
@@ -57,23 +75,28 @@ export class UserDialogComponent {
     • La contraseña debe contener al menos un carácter especial [$@$!%*?&.]`;
   }
 
-  getPasswordValidationMessage(): string | void {
-    const control = this.userForm.get('password')?.value;
-    if (!control) return;
-    if (
-      control.toString().trim().length < 8 ||
-      control.toString().trim().length > 30
-    ) {
-      return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
-    }
-    if (!control.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
-      return 'La contraseña debe contener mayúsculas y minúsculas';
-    }
-    if (!control.match(/^(?=.*\d)([\d]|[^ ])*$/)) {
-      return 'La contraseña debe contener al menos un valor numérico';
-    }
-    if (!control.match(/^(?=.*[$@$!%*?&.])([$@$!%*?&.]|[^ ])*$/)) {
-      return 'La contraseña debe contener al menos un carácter especial [$@$!%*?&.]';
-    }
+  ngOnInit(): void {
+    this.filteredJobTitles = this.jobTitle!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '', predefinedJobTitles))
+    );
+    this.filteredLocations = this.location!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '', predefinedLocations))
+    );
+  }
+
+  private _filter(value: string, values: string[]): string[] {
+    const filterValue = value.toLowerCase();
+
+    return values.filter((option) =>
+      option.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  }
+
+  getPasswordValidationMsg(): string | void {
+    const password = this.userForm.get('password')?.value;
+    if (!password) return;
+    return getPasswordValidationMessage(password);
   }
 }
