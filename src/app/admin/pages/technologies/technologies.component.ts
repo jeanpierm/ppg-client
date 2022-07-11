@@ -59,28 +59,24 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.technologiesService.loadTechnologies({
-      size: this.paginator.pageSize,
-    });
-
     fromEvent(this.input.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(100),
-        distinctUntilChanged(),
-        tap(() => {
-          this.loadTechnologyPage();
-          this.paginator.pageIndex = 0;
-        })
-      )
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(() => {
+        this.loadTechnologiesPage();
+        this.paginator.pageIndex = 0;
+      });
+
+    this.paginator.page
+      .pipe(tap(() => this.loadTechnologiesPage()))
       .subscribe();
 
-    this.paginator.page.pipe(tap(() => this.loadTechnologyPage())).subscribe();
+    this.loadTechnologiesPage();
   }
 
-  loadTechnologyPage() {
+  loadTechnologiesPage() {
     this.technologiesService.loadTechnologies({
       size: this.paginator.pageSize,
-      page: this.paginator.pageIndex,
+      page: this.paginator.pageIndex + 1,
       search: this.input.nativeElement.value,
     });
   }
@@ -93,7 +89,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
           this.technologiesService.deleteTechnology(technologyId).subscribe({
             next: (_) => {
               this.alertService.success('Tecnología eliminada exitosamente');
-              this.loadTechnologyPage();
+              this.loadTechnologiesPage();
             },
             error: () => this.alertService.error(),
           });
@@ -114,7 +110,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
           : this.technologiesService.saveTechnology(technology);
         action.subscribe({
           next: (_) => {
-            this.loadTechnologyPage();
+            this.loadTechnologiesPage();
             this.alertService.success('¡Tecnología guardada exitosamente!');
           },
           error: () => {
