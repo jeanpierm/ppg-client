@@ -1,8 +1,4 @@
-<div
-  fxLayout="row wrap"
-  fxLayoutAlign="space-evenly center"
-  class="h-screen-custom"
->
+<div fxLayout="row" fxLayoutAlign="space-evenly center" class="h-screen-custom">
   <div fxFlex="100" fxFlex.gt-xs="50">
     <mat-card>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -77,7 +73,7 @@
     </mat-card>
   </div>
 
-  <div fxFlex="50" fxHide.xs class="animate__animated animate__fadeInRight m-5">
+  <div fxHide.xs fxFlex="50" class="animate__animated animate__fadeInRight m-5">
     <img class="w-full" src="./assets/illustrations/ppg.png" />
     <p class="text-center text-lg">
       ¡Descubre y gestiona los <strong>perfiles profesionales</strong> más
