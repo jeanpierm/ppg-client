@@ -6,6 +6,10 @@ mat-dialog-actions {
   margin-left: 16px;
 }
 
+.content {
+  width: 100%;
+}
+
 @media only screen and (min-width: 600px) {
   .content {
     width: 500px;

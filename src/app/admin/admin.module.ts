@@ -12,6 +12,7 @@ import { UserDialogComponent } from './components/user-dialog/user-dialog.compon
 import { AdminNavListComponent } from './components/admin-nav-list/admin-nav-list.component';
 import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     UserDialogComponent,
     AdminNavListComponent,
     AdminHeaderComponent,
+    TechnologyDialogComponent,
   ],
   imports: [
     CommonModule,

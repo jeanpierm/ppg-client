@@ -1,12 +1,14 @@
 <ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner>
+
 <mat-card>
-  <div fxLayout="row" fxLayoutAlign="space-between" style="padding: 1rem">
-    <mat-card-title>Tecnologías </mat-card-title>
-    <button mat-flat-button color="primary" (click)="save(dialogTechnology)">
+  <div fxLayout="row" fxLayoutAlign="space-between" class="pb-4">
+    <mat-card-title>Tecnologías</mat-card-title>
+    <button mat-flat-button color="primary" (click)="openDialog()">
       <mat-icon>add</mat-icon>
       Nueva Tecnología
     </button>
   </div>
+
   <mat-card-content>
     <mat-form-field appearance="fill" class="w-full">
       <mat-label>Buscar...</mat-label>
@@ -16,31 +18,31 @@
     <table mat-table [dataSource]="technologies" class="w-full">
       <ng-container matColumnDef="Tipo">
         <th mat-header-cell *matHeaderCellDef>Tipo</th>
-        <td mat-cell *matCellDef="let tecnology">{{ tecnology.type }}</td>
+        <td mat-cell *matCellDef="let technology">{{ technology.type }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Nombre">
         <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let tecnology">{{ tecnology.name }}</td>
+        <td mat-cell *matCellDef="let technology">{{ technology.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Identificadores">
         <th mat-header-cell *matHeaderCellDef>Identificadores</th>
-        <td mat-cell *matCellDef="let tecnology">
-          <ul *ngFor="let item of tecnology.identifiers">
+        <td mat-cell *matCellDef="let technology">
+          <ul *ngFor="let item of technology.identifiers">
             <li>{{ item }}</li>
           </ul>
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="options" stickyEnd>
+      <ng-container matColumnDef="Acciones" stickyEnd>
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let tecnology">
+        <td mat-cell *matCellDef="let technology">
           <button
             mat-button
             color="primary"
             type="button"
-            (click)="edit(tecnology, dialogTechnology)"
+            (click)="openDialog(technology)"
           >
             <mat-icon>edit</mat-icon>
           </button>
@@ -48,7 +50,7 @@
             mat-button
             color="warn"
             type="button"
-            (click)="delete(tecnology.technologyId)"
+            (click)="delete(technology.technologyId)"
           >
             <mat-icon>delete</mat-icon>
           </button>
@@ -57,85 +59,20 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
     </table>
+
     <mat-paginator
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
       [length]="resultsLength"
-      [pageSize]="sizePerPage"
       showFirstLastButtons
-      aria-label="Select page of GitHub search results"
     ></mat-paginator>
   </mat-card-content>
 </mat-card>
-
-<ng-template #dialogTechnology>
-  <div class="content">
-    <h2 mat-dialog-title>
-      {{ update ? 'Editar Tecnología' : 'Nueva Tecnología' }}
-    </h2>
-    <mat-dialog-content>
-      <form [formGroup]="myForm" fxLayout="column" fxLayoutGap="10px">
-        <mat-form-field appearance="fill">
-          <mat-label>Tipo</mat-label>
-          <mat-select name="type" id="type" formControlName="type">
-            <mat-option value="">Seleccione</mat-option>
-            <mat-option *ngFor="let type of types" [value]="type.value">
-              {{ type.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput name="name" id="name" formControlName="name" />
-        </mat-form-field>
-        <div fxLayout="column" formArrayName="identifiers">
-          <div fxLayout="row" class="mb-2">
-            <h3 style="margin-bottom: 0; margin-right: 10px">
-              Identificadores
-              <!-- <mat-icon
-                class="mt-1"
-                matSuffix
-                matTooltip="🔎Añade palabras clave que puedan identificar la tecnologia o herramienta de desarrollo de software"
-                matTooltipClass="line-broken-tooltip"
-                >
-                info
-              </mat-icon> -->
-            </h3>
-            <button mat-button color="primary" (click)="addIdentifier()">
-              <mat-icon>add</mat-icon>
-              Añadir
-            </button>
-          </div>
-          <mat-hint id="identifiers-hint" class="mb-3">
-            🔎 Añade palabras clave que puedan identificar la tecnologia o
-            herramienta de desarrollo de software
-          </mat-hint>
-          <div
-            *ngFor="let item of identifiers.controls; let i = index"
-            fxLayout="column"
-            fxLayoutGap="20px"
-          >
-            <mat-form-field appearance="fill">
-              <mat-label for="item-{{ i }}">Identificador</mat-label>
-              <input matInput id="item-{{ i }}" [formControlName]="i" />
-              <button mat-icon-button matSuffix (click)="deleteIdentifier(i)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
-        </div>
-      </form>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Cancelar</button>
-      <button
-        type="button"
-        mat-raised-button
-        color="primary"
-        [disabled]="myForm.invalid"
-        [mat-dialog-close]="myForm.value"
-      >
-        {{ update ? 'Guardar cambios' : 'Guardar' }}
-      </button>
-    </mat-dialog-actions>
-  </div>
-</ng-template>

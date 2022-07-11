@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -7,19 +7,28 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './user-dialog.component.html',
   styleUrls: ['./user-dialog.component.scss'],
 })
-export class UserDialogComponent implements OnInit {
-  public userForm: FormGroup;
+export class UserDialogComponent {
+  userForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
+        ),
+      ],
+    ],
+    role: ['user', Validators.required],
+  });
 
   constructor(
     public dialogRef: MatDialogRef<UserDialogComponent>,
     private fb: FormBuilder
-  ) {
-    this.userForm = new FormGroup({});
-  }
-
-  ngOnInit(): void {
-    this.onForm();
-  }
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -39,25 +48,6 @@ export class UserDialogComponent implements OnInit {
 
   get password() {
     return this.userForm.get('password');
-  }
-
-  onForm() {
-    this.userForm = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
-          ),
-        ],
-      ],
-      role: ['user', Validators.required],
-    });
   }
 
   get passwordMsg() {

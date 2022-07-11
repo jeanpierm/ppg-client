@@ -1,0 +1,61 @@
+<div class="content">
+  <h2 mat-dialog-title>
+    {{ data.technology ? 'Editar Tecnología' : 'Nueva Tecnología' }}
+  </h2>
+  <mat-dialog-content>
+    <form [formGroup]="myForm" fxLayout="column" fxLayoutGap="10px">
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo</mat-label>
+        <mat-select name="type" id="type" formControlName="type">
+          <mat-option value="">Seleccione</mat-option>
+          <mat-option *ngFor="let type of types" [value]="type.value">
+            {{ type.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput name="name" id="name" formControlName="name" />
+      </mat-form-field>
+      <div fxLayout="column" formArrayName="identifiers">
+        <div fxLayout="row" class="mb-2">
+          <h3 style="margin-bottom: 0; margin-right: 10px">Identificadores</h3>
+          <button mat-button color="primary" (click)="addIdentifier()">
+            <mat-icon>add</mat-icon>
+            Añadir
+          </button>
+        </div>
+        <mat-hint id="identifiers-hint" class="mb-3">
+          🔎 Añade palabras clave que puedan identificar la tecnologia o
+          herramienta de desarrollo de software
+        </mat-hint>
+        <div
+          *ngFor="let item of identifiers.controls; let i = index"
+          fxLayout="column"
+          fxLayoutGap="20px"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label for="item-{{ i }}">Identificador</mat-label>
+            <input matInput id="item-{{ i }}" [formControlName]="i" />
+            <button mat-icon-button matSuffix (click)="deleteIdentifier(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      [disabled]="myForm.invalid"
+      [mat-dialog-close]="myForm.value"
+    >
+      {{ data.technology ? 'Guardar cambios' : 'Guardar' }}
+    </button>
+  </mat-dialog-actions>
+</div>
