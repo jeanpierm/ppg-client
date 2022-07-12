@@ -77,7 +77,7 @@ export class ProfilesService {
   }
 
   download(id: string) {
-    const url = `${environment.api}/download/${id}`;
+    const url = `${environment.api}/${ProfilesService.BASE_URL}/download/${id}`;
     const headers = new HttpHeaders().set('Accept', 'application/pdf');
 
     return this.http.get(url, { headers, responseType: 'blob' });

@@ -13,6 +13,7 @@ import { ProfileListComponent } from '../profile-list/profile-list.component';
 })
 export class ProfileComponent implements OnInit {
   profile!: ProfessionalProfile;
+  generatingPDF: boolean = false;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -31,18 +32,20 @@ export class ProfileComponent implements OnInit {
       .subscribe(({ data }) => (this.profile = data));
   }
 
-  downloadPDF() {
+  downloadResume() {
+    this.generatingPDF = true;
     this.profilesService.download(this.profile.ppId).subscribe({
       next: (blob) => {
+        this.generatingPDF = false;
         const file = new Blob([blob], { type: 'application/pdf' });
         const fileUrl = URL.createObjectURL(file);
         window.open(fileUrl, '_blank', 'width=1000, height=800');
       },
       error: (err) => {
+        this.generatingPDF = false;
         console.error(err);
       },
     });
-    window.alert('Muy pronto!!');
   }
 
   deleteProfile() {

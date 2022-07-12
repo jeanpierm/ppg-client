@@ -28,9 +28,18 @@
             <mat-icon>delete</mat-icon>
             <span fxHide.xs> ELIMINAR PERFIL</span>
           </button>
-          <button mat-raised-button color="primary" (click)="downloadPDF()">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="downloadResume()"
+            [disabled]="generatingPDF"
+          >
             <mat-icon>download</mat-icon>
-            <span fxHide.xs> DESCARGAR PDF</span>
+            <span fxHide.xs>
+              {{
+                generatingPDF ? 'POR FAVOR, ESPERE...' : 'DESCARGAR PDF'
+              }}</span
+            >
           </button>
         </div>
       </div>
