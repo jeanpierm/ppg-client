@@ -89,7 +89,7 @@
 
 mat-card {
   max-width: 440px;
-  margin: auto;
+  margin: 3rem auto 3rem auto;
 }
 
 .divider {
