@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -74,6 +74,13 @@ export class ProfilesService {
   getRadom(): Observable<ApiResponse<ProfessionalProfile>> {
     const url = `${environment.api}/${ProfilesService.BASE_URL}/random`;
     return this.http.get<ApiResponse<ProfessionalProfile>>(url);
+  }
+
+  download(id: string) {
+    const url = `${environment.api}/download/${id}`;
+    const headers = new HttpHeaders().set('Accept', 'application/pdf');
+
+    return this.http.get(url, { headers, responseType: 'blob' });
   }
 
   getById(id: string) {

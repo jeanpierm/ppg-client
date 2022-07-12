@@ -32,6 +32,16 @@ export class ProfileComponent implements OnInit {
   }
 
   downloadPDF() {
+    this.profilesService.download(this.profile.ppId).subscribe({
+      next: (blob) => {
+        const file = new Blob([blob], { type: 'application/pdf' });
+        const fileUrl = URL.createObjectURL(file);
+        window.open(fileUrl, '_blank', 'width=1000, height=800');
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
     window.alert('Muy pronto!!');
   }
 
