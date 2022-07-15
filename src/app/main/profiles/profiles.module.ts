@@ -17,6 +17,9 @@ import { JobCardComponent } from './components/job-offer-card/job-card.component
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { CoursesDialogComponent } from './components/courses-dialog/courses-dialog.component';
+import { CourseCardComponent } from './components/course-card/course-card.component';
+import { SkelentonLoaderComponent } from './components/skelenton-loader/skelenton-loader.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { NgChartsModule } from 'ng2-charts';
     JobCardComponent,
     DashboardComponent,
     PieChartComponent,
+    CoursesDialogComponent,
+    CourseCardComponent,
+    SkelentonLoaderComponent,
   ],
   imports: [
     CommonModule,

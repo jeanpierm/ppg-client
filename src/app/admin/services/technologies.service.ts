@@ -7,6 +7,7 @@ import {
   ApiResponse,
 } from '../../core/models/api-response.model';
 import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
+import { CourseInterface } from '../interfaces/course.interface';
 import { Technology } from '../interfaces/technology.interface';
 
 @Injectable({
@@ -44,6 +45,11 @@ export class TechnologiesService {
     }
 
     return this.http.get<PaginatedApiResponse<Technology>>(url.toString());
+  }
+
+  getCourses(coursename: string) {
+    const url = `${environment.api}/${TechnologiesService.BASE_URL}/search?course=${coursename}`;
+    return this.http.get<ApiResponse<CourseInterface[]>>(url);
   }
 
   saveTechnology(technology: Technology) {

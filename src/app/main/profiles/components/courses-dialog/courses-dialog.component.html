@@ -1,0 +1,54 @@
+<div class="content">
+  <div fxLayout="row" fxLayoutAlign="space-between" class="pb-4">
+    <h2 mat-dialog-title>Cursos recomendados para "{{ data.coursename }}"</h2>
+    <button mat-button (click)="onNoClick()">
+      <mat-icon color="warn">cancel</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <br />
+  <mat-dialog-content>
+    <div fxLayout="row"></div>
+    <div
+      fxLayout="row wrap"
+      fxLayoutGap="10px grid"
+      fxLayoutAlign="center center"
+      *ngIf="loading"
+    >
+      <app-skelenton-loader
+        [height]="250"
+        fxFlex="33%"
+        fxFlex.lt-md="100%"
+      ></app-skelenton-loader>
+      <app-skelenton-loader
+        [height]="250"
+        fxFlex="33%"
+        fxFlex.lt-md="100%"
+      ></app-skelenton-loader>
+      <app-skelenton-loader
+        [height]="250"
+        fxFlex="33%"
+        fxFlex.lt-md="100%"
+      ></app-skelenton-loader>
+    </div>
+
+    <div
+      fxLayout="row wrap"
+      fxLayoutGap="10px grid"
+      fxLayoutAlign="center center"
+      *ngIf="!loading"
+    >
+      <div *ngFor="let course of courses" fxFlex="33%" fxFlex.lt-md="100%">
+        <app-course-card [course]="course"></app-course-card>
+      </div>
+    </div>
+
+    <div
+      *ngIf="!loading && courses.length === 0"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <h1 fxFlex="102px">No se encontraron cursos 😐</h1>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,10 +1,11 @@
 <div *ngIf="technologies.length">
   <mat-hint>{{ label }}</mat-hint>
   <mat-chip-list>
-    <a href="https://dev.java/learn/" target="_blank">
-      <mat-chip *ngFor="let technology of technologies">
-        {{ technology }}
-      </mat-chip>
-    </a>
+    <mat-chip
+      *ngFor="let technology of technologies"
+      (click)="openDialog(technology)"
+    >
+      {{ technology }}
+    </mat-chip>
   </mat-chip-list>
 </div>
