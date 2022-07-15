@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
+import { RoutesService } from '../../../../core/services/routes.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
 import { ProfilesService } from '../../services/profiles.service';
-import { ProfileListComponent } from '../profile-list/profile-list.component';
+import { getTechnologyNames } from '../../utils/get-technology-names.util';
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +20,36 @@ export class ProfileComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly profilesService: ProfilesService,
-    private readonly alertService: AlertService
+    private readonly alertService: AlertService,
+    public readonly routesService: RoutesService
   ) {}
 
-  get profilesRoute() {
-    return `/${ProfileListComponent.PATH}`;
+  get languages() {
+    return getTechnologyNames(this.profile, 'language');
+  }
+
+  get databases() {
+    return getTechnologyNames(this.profile, 'database');
+  }
+
+  get frameworks() {
+    return getTechnologyNames(this.profile, 'framework');
+  }
+
+  get libraries() {
+    return getTechnologyNames(this.profile, 'library');
+  }
+
+  get tools() {
+    return getTechnologyNames(this.profile, 'tool');
+  }
+
+  get patterns() {
+    return getTechnologyNames(this.profile, 'pattern');
+  }
+
+  get paradigms() {
+    return getTechnologyNames(this.profile, 'paradigm');
   }
 
   ngOnInit(): void {
@@ -58,7 +84,7 @@ export class ProfileComponent implements OnInit {
               this.alertService
                 .success('Perfil profesional eliminado con éxito')
                 .then(() => {
-                  this.router.navigateByUrl(this.profilesRoute);
+                  this.router.navigateByUrl(this.routesService.profilesRoute);
                 });
             },
             error: () => {
