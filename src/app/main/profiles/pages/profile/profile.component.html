@@ -11,7 +11,7 @@
         <h1>{{ profile.jobTitle | titlecase }}</h1>
         <p>ID: {{ profile.ppId }}</p>
         <p>Ubicación: {{ profile.location | titlecase }}</p>
-        <p>Descubierto: {{ profile.createdAt | date: 'long' }}</p>
+        <p>Descubierto: {{ profile.createdAt | date: "long" }}</p>
       </div>
       <div
         fxFlex="50"
@@ -19,7 +19,11 @@
         fxLayoutAlign="center end"
         fxLayoutGap="16px"
       >
-        <button mat-button color="accent" [routerLink]="profilesRoute">
+        <button
+          mat-button
+          color="accent"
+          [routerLink]="routesService.profilesRoute"
+        >
           <mat-icon>arrow_back</mat-icon>
           <span fxHide.xs> VER TODOS MIS PERFILES</span>
         </button>
@@ -37,7 +41,7 @@
             <mat-icon>download</mat-icon>
             <span fxHide.xs>
               {{
-                generatingPDF ? 'POR FAVOR, ESPERE...' : 'DESCARGAR PDF'
+                generatingPDF ? "POR FAVOR, ESPERE..." : "DESCARGAR PDF"
               }}</span
             >
           </button>
@@ -65,38 +69,38 @@
 
         <div fxLayout="column" fxLayoutGap="10px">
           <app-tech-chips
-            *ngIf="profile.languages.length"
-            [technologies]="profile.languages"
+            *ngIf="languages.length"
+            [technologies]="languages"
             label="Lenguajes"
           ></app-tech-chips>
 
           <app-tech-chips
-            *ngIf="profile.frameworks.length"
-            [technologies]="profile.frameworks"
+            *ngIf="frameworks.length"
+            [technologies]="frameworks"
             label="Frameworks"
           ></app-tech-chips>
 
           <app-tech-chips
-            *ngIf="profile.databases.length"
-            [technologies]="profile.databases"
+            *ngIf="databases.length"
+            [technologies]="databases"
             label="Bases de datos"
           ></app-tech-chips>
 
           <app-tech-chips
-            *ngIf="profile.tools.length"
-            [technologies]="profile.tools"
+            *ngIf="tools.length"
+            [technologies]="tools"
             label="Herramientas"
           ></app-tech-chips>
 
           <app-tech-chips
-            *ngIf="profile.paradigms.length"
-            [technologies]="profile.paradigms"
+            *ngIf="paradigms.length"
+            [technologies]="paradigms"
             label="Paradigmas"
           ></app-tech-chips>
 
           <app-tech-chips
-            *ngIf="profile.patterns.length"
-            [technologies]="profile.patterns"
+            *ngIf="patterns.length"
+            [technologies]="patterns"
             label="Patrones ó estilos"
           ></app-tech-chips>
 
