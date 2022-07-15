@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TechType } from '../../../../admin/interfaces/tech-type.interface';
 import { Technology } from '../../../../admin/interfaces/technology.interface';
-import { TechTypesService } from '../../../../admin/services/tech-types.service';
 import { removeDuplicateObjects } from '../../../../core/utils/object.util';
 import { TechChipItem } from '../../interfaces/tech-chip-item.interface';
 import { CoursesDialogComponent } from '../courses-dialog/courses-dialog.component';
@@ -17,10 +16,7 @@ export class TechChipsComponent implements OnInit {
 
   techChipItems: TechChipItem[] = [];
 
-  constructor(
-    public dialog: MatDialog,
-    private techTypesService: TechTypesService
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadTechChipItems();
