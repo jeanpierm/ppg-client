@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <div *ngFor="let item of techChipItems">
+    <div *ngIf="item.technologyNames.length">
+      <mat-hint>{{ item.label }}</mat-hint>
+      <mat-chip-list>
+        <mat-chip
+          *ngFor="let technologyName of item.technologyNames"
+          (click)="openDialog(technologyName)"
+        >
+          {{ technologyName }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>

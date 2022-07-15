@@ -4,7 +4,6 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
 import { ProfileListComponent } from '../../pages/profile-list/profile-list.component';
 import { ProfilesService } from '../../services/profiles.service';
-import { getTechnologyNames } from '../../utils/get-technology-names.util';
 
 @Component({
   selector: 'app-profile-card',
@@ -22,34 +21,6 @@ export class ProfileCardComponent {
 
   get profileByIdRoute() {
     return `/${ProfileListComponent.PATH}/${this.profile.ppId}`;
-  }
-
-  get languages() {
-    return getTechnologyNames(this.profile, 'language');
-  }
-
-  get databases() {
-    return getTechnologyNames(this.profile, 'database');
-  }
-
-  get frameworks() {
-    return getTechnologyNames(this.profile, 'framework');
-  }
-
-  get libraries() {
-    return getTechnologyNames(this.profile, 'library');
-  }
-
-  get tools() {
-    return getTechnologyNames(this.profile, 'tool');
-  }
-
-  get patterns() {
-    return getTechnologyNames(this.profile, 'pattern');
-  }
-
-  get paradigms() {
-    return getTechnologyNames(this.profile, 'paradigm');
   }
 
   remove() {

@@ -11,7 +11,7 @@ import { DiscoverComponent } from './pages/discover/discover.component';
 import { DiscoverFormComponent } from './components/discover-form/discover-form.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
-import { TechChipsComponent } from './components/tech-chip-list/tech-chips.component';
+import { TechChipsComponent } from './components/tech-chips/tech-chips.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { JobCardComponent } from './components/job-offer-card/job-card.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';

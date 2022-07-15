@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   api: 'http://127.0.0.1:3000/ppg-api/v1',
   meDownloadPreferencesPath: '/me/download-preferences',
+  techTypesPath: '/tech-types',
   cloudinaryApi: 'https://api.cloudinary.com/v1_1',
 };
 

@@ -9,17 +9,19 @@ import { UpdateDownloadPreferences } from '../interfaces/update-download-prefere
   providedIn: 'root',
 })
 export class DownloadPreferencesService {
-  readonly meUrl = `${environment.api}${environment.meDownloadPreferencesPath}`;
+  static readonly baseMeUrl = `${environment.api}${environment.meDownloadPreferencesPath}`;
 
   constructor(private readonly http: HttpClient) {}
 
   get() {
-    return this.http.get<ApiResponse<DownloadPreferences>>(this.meUrl);
+    return this.http.get<ApiResponse<DownloadPreferences>>(
+      DownloadPreferencesService.baseMeUrl
+    );
   }
 
   patch(updateDownloadPreferences: UpdateDownloadPreferences) {
     return this.http.patch<ApiResponse<UpdateDownloadPreferences>>(
-      this.meUrl,
+      DownloadPreferencesService.baseMeUrl,
       updateDownloadPreferences
     );
   }

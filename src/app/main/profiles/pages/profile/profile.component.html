@@ -69,39 +69,7 @@
 
         <div fxLayout="column" fxLayoutGap="10px">
           <app-tech-chips
-            *ngIf="languages.length"
-            [technologies]="languages"
-            label="Lenguajes"
-          ></app-tech-chips>
-
-          <app-tech-chips
-            *ngIf="frameworks.length"
-            [technologies]="frameworks"
-            label="Frameworks"
-          ></app-tech-chips>
-
-          <app-tech-chips
-            *ngIf="databases.length"
-            [technologies]="databases"
-            label="Bases de datos"
-          ></app-tech-chips>
-
-          <app-tech-chips
-            *ngIf="tools.length"
-            [technologies]="tools"
-            label="Herramientas"
-          ></app-tech-chips>
-
-          <app-tech-chips
-            *ngIf="paradigms.length"
-            [technologies]="paradigms"
-            label="Paradigmas"
-          ></app-tech-chips>
-
-          <app-tech-chips
-            *ngIf="patterns.length"
-            [technologies]="patterns"
-            label="Patrones ó estilos"
+            [technologies]="profile.technologies"
           ></app-tech-chips>
 
           <div fxLayout="row">

@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
+  HttpRequest,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UsersService } from '../../admin/services/users.service';
-import { ProfilesService } from '../../main/profiles/services/profiles.service';
-import { AccountService } from '../../main/account/services/account.service';
-import { AuthService } from '../../main/auth/services/auth.service';
+import { TechTypesService } from '../../admin/services/tech-types.service';
 import { TechnologiesService } from '../../admin/services/technologies.service';
-import { environment } from '../../../environments/environment';
+import { UsersService } from '../../admin/services/users.service';
+import { AccountService } from '../../main/account/services/account.service';
+import { DownloadPreferencesService } from '../../main/account/services/download-preferences.service';
+import { AuthService } from '../../main/auth/services/auth.service';
+import { ProfilesService } from '../../main/profiles/services/profiles.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -45,7 +46,8 @@ export function isAuthRequired(request: HttpRequest<unknown>): boolean {
     ProfilesService.BASE_URL,
     AccountService.BASE_URL,
     TechnologiesService.BASE_URL,
-    environment.meDownloadPreferencesPath,
+    TechTypesService.baseUrl,
+    DownloadPreferencesService.baseMeUrl,
   ];
 
   return requireAuthUrls.some((url) => request.url.includes(url));
