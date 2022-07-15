@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { TechType } from '../../../../admin/interfaces/tech-type.interface';
 import { Technology } from '../../../../admin/interfaces/technology.interface';
 import { TechTypesService } from '../../../../admin/services/tech-types.service';
+import { removeDuplicateObjects } from '../../../../core/utils/object.util';
 import { TechChipItem } from '../../interfaces/tech-chip-item.interface';
 import { CoursesDialogComponent } from '../courses-dialog/courses-dialog.component';
 
@@ -10,7 +12,7 @@ import { CoursesDialogComponent } from '../courses-dialog/courses-dialog.compone
   templateUrl: './tech-chips.component.html',
   styleUrls: ['./tech-chips.component.scss'],
 })
-export class TechChipsComponent {
+export class TechChipsComponent implements OnInit {
   @Input() technologies!: Technology[];
 
   techChipItems: TechChipItem[] = [];
@@ -18,21 +20,23 @@ export class TechChipsComponent {
   constructor(
     public dialog: MatDialog,
     private techTypesService: TechTypesService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.loadTechChipItems();
   }
 
   loadTechChipItems() {
-    this.techTypesService.getTechTypes({}).subscribe(({ data: types }) => {
-      types.forEach((type) => {
-        const technologyNames = this.getTechnologyNamesByType(
-          this.technologies,
-          type.name
-        );
-        if (technologyNames.length) {
-          this.techChipItems.push({ label: type.label, technologyNames });
-        }
-      });
+    const rawTechTypes = this.technologies.map((technology) => technology.type);
+    const techTypes = removeDuplicateObjects(rawTechTypes) as TechType[];
+    techTypes.forEach((type) => {
+      const technologyNames = this.getTechnologyNamesByType(
+        this.technologies,
+        type.name
+      );
+      if (technologyNames.length) {
+        this.techChipItems.push({ label: type.label, technologyNames });
+      }
     });
   }
 

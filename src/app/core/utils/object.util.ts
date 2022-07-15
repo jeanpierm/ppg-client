@@ -18,3 +18,15 @@ export function getRandomFromArray(array: unknown[]): unknown {
   const randomIndice = Math.floor(Math.random() * array.length);
   return array[randomIndice];
 }
+
+export function removeDuplicateObjects(arr: object[]) {
+  return arr.filter((value, index) => {
+    const _value = JSON.stringify(value);
+    return (
+      index ===
+      arr.findIndex((obj) => {
+        return JSON.stringify(obj) === _value;
+      })
+    );
+  });
+}
