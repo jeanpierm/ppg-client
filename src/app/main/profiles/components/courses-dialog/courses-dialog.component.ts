@@ -44,8 +44,7 @@ export class CoursesDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = false;
-    /* this.loadCourses(this.data.coursename); */
+    this.loadCourses(this.data.coursename);
   }
 
   loadCourses(coursename: string) {

@@ -1,13 +1,24 @@
 <div class="content">
-  <div fxLayout="row" fxLayoutAlign="space-between" class="pb-4">
+  <div fxLayout="row" fxLayoutAlign="space-between">
     <h2 mat-dialog-title>Cursos recomendados para "{{ data.coursename }}"</h2>
-    <button mat-button (click)="onNoClick()">
-      <mat-icon color="warn">cancel</mat-icon>
+
+    <button mat-icon-button color="warn" (click)="onNoClick()">
+      <mat-icon>cancel</mat-icon>
     </button>
   </div>
   <mat-divider></mat-divider>
   <br />
   <mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <h1 class="no-found" *ngIf="!loading && courses.length === 0">
+        No se encontraron cursos 😐
+      </h1>
+      <h2 *ngIf="!loading && courses.length > 0">
+        Cursos encontrados ( {{ courses.length }} )
+      </h2>
+      <h2 *ngIf="loading">Este proceso puede tardar unos minutos 😁</h2>
+    </div>
+
     <div fxLayout="row"></div>
     <div
       fxLayout="row wrap"
@@ -41,14 +52,6 @@
       <div *ngFor="let course of courses" fxFlex="33%" fxFlex.lt-md="100%">
         <app-course-card [course]="course"></app-course-card>
       </div>
-    </div>
-
-    <div
-      *ngIf="!loading && courses.length === 0"
-      fxLayout="column"
-      fxLayoutAlign="center center"
-    >
-      <h1 fxFlex="102px">No se encontraron cursos 😐</h1>
     </div>
   </mat-dialog-content>
 </div>
