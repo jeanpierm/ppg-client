@@ -103,10 +103,13 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const technology: Technology = result;
+        const technology = result;
         const action = technology?.technologyId
-          ? this.technologiesService.updateTechnology(technology)
-          : this.technologiesService.saveTechnology(technology);
+          ? this.technologiesService.updateTechnology(
+              technology.technologyId,
+              technology
+            )
+          : this.technologiesService.createTechnology(technology);
         action.subscribe({
           next: () => {
             this.loadTechnologiesPage();

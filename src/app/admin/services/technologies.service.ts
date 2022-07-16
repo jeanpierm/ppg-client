@@ -8,7 +8,9 @@ import {
 } from '../../core/models/api-response.model';
 import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
 import { CourseInterface } from '../interfaces/course.interface';
+import { CreateTechnology } from '../interfaces/create-technology.interface';
 import { Technology } from '../interfaces/technology.interface';
+import { UpdateTechnology } from '../interfaces/update-technology.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -52,13 +54,13 @@ export class TechnologiesService {
     return this.http.get<ApiResponse<CourseInterface[]>>(url);
   }
 
-  saveTechnology(technology: Technology) {
+  createTechnology(technology: CreateTechnology) {
     const url = `${environment.api}/${TechnologiesService.BASE_URL}`;
     return this.http.post<ApiResponse>(url, technology);
   }
 
-  updateTechnology(technology: Technology) {
-    const url = `${environment.api}/${TechnologiesService.BASE_URL}/${technology.technologyId}`;
+  updateTechnology(technologyId: string, technology: UpdateTechnology) {
+    const url = `${environment.api}/${TechnologiesService.BASE_URL}/${technologyId}`;
     return this.http.patch<ApiResponse>(url, technology);
   }
 

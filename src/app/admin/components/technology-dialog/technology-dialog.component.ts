@@ -24,7 +24,7 @@ export class TechnologyDialogComponent implements OnInit {
       '',
       [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
     ],
-    type: [
+    typeId: [
       '',
       [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
     ],
@@ -51,6 +51,7 @@ export class TechnologyDialogComponent implements OnInit {
       .getTechTypes({})
       .subscribe(({ data }) => (this.types = data));
   }
+
   get identifiers() {
     return this.myForm.get('identifiers') as FormArray;
   }
@@ -59,7 +60,7 @@ export class TechnologyDialogComponent implements OnInit {
     this.myForm.patchValue({
       technologyId: technology.technologyId,
       name: technology.name,
-      type: technology.type,
+      typeId: technology.type.techTypeId,
     });
     this.myForm.setControl(
       'identifiers',
