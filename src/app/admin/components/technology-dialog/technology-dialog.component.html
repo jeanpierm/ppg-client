@@ -1,6 +1,6 @@
 <div class="content">
   <h2 mat-dialog-title>
-    {{ data.technology ? 'Editar Tecnología' : 'Nueva Tecnología' }}
+    {{ data.technology ? "Editar Tecnología" : "Nueva Tecnología" }}
   </h2>
   <mat-dialog-content>
     <form [formGroup]="myForm" fxLayout="column" fxLayoutGap="10px">
@@ -8,11 +8,12 @@
         <mat-label>Tipo</mat-label>
         <mat-select name="type" id="type" formControlName="type">
           <mat-option value="">Seleccione</mat-option>
-          <mat-option *ngFor="let type of types" [value]="type.value">
-            {{ type.name }}
+          <mat-option *ngFor="let type of types" [value]="type.techTypeId">
+            {{ type.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Nombre</mat-label>
         <input matInput name="name" id="name" formControlName="name" />

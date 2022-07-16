@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -8,15 +8,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { techTypeOptions } from '../../../core/constants/technology-type-options.constant';
+import { TechType } from '../../interfaces/tech-type.interface';
 import { Technology } from '../../interfaces/technology.interface';
+import { TechTypesService } from '../../services/tech-types.service';
 
 @Component({
   selector: 'app-technology-dialog',
   templateUrl: './technology-dialog.component.html',
   styleUrls: ['./technology-dialog.component.scss'],
 })
-export class TechnologyDialogComponent {
+export class TechnologyDialogComponent implements OnInit {
   myForm: FormGroup = this.fb.group({
     technologyId: '',
     name: [
@@ -32,18 +33,24 @@ export class TechnologyDialogComponent {
       [this.minLength(1)]
     ),
   });
-  types = techTypeOptions;
+  types: TechType[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { technology?: Technology },
     public dialogRef: MatDialogRef<TechnologyDialogComponent>,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private techTypesService: TechTypesService
   ) {
     if (data.technology) {
       this.setFormValue(data.technology);
     }
   }
 
+  ngOnInit(): void {
+    this.techTypesService
+      .getTechTypes({})
+      .subscribe(({ data }) => (this.types = data));
+  }
   get identifiers() {
     return this.myForm.get('identifiers') as FormArray;
   }
