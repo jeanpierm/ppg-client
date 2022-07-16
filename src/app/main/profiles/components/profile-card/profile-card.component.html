@@ -7,7 +7,7 @@
   </mat-card-subtitle>
 
   <mat-card-content>
-    <div>
+    <div fxLayout="column" fxLayoutGap="10px">
       <app-tech-chips [technologies]="profile.technologies"></app-tech-chips>
 
       <div fxLayout="row">
@@ -15,7 +15,9 @@
         <mat-icon color="primary" *ngIf="profile.requireEnglish">
           check_circle
         </mat-icon>
-        <mat-icon color="warn" *ngIf="!profile.requireEnglish">cancel</mat-icon>
+        <mat-icon color="warn" *ngIf="!profile.requireEnglish">
+          cancel
+        </mat-icon>
       </div>
     </div>
   </mat-card-content>

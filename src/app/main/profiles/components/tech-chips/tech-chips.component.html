@@ -5,6 +5,8 @@
       <mat-chip-list>
         <mat-chip
           *ngFor="let technologyName of item.technologyNames"
+          [matTooltip]="'¡Descubrir cursos de ' + technologyName + '!'"
+          matTooltipClass="text-md"
           (click)="openDialog(technologyName)"
         >
           {{ technologyName }}
