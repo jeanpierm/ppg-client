@@ -67,7 +67,6 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
   }
 
   loadTechTypePages() {
-    console.log(this.status);
     this.techTypesService.loadTechTypes({
       size: this.paginator.pageSize,
       page: this.paginator.pageIndex + 1,
@@ -79,6 +78,7 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
   openDialog(type?: TechType) {
     const matDialog = this.dialog.open(TechTypeDialogComponent, {
       data: { type },
+      panelClass: 'dialog-responsive',
     });
 
     matDialog.afterClosed().subscribe((result) => {
@@ -101,10 +101,9 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
   }
 
   delete(type: TechType) {
-    console.log(type);
     this.alertService
       .warning(
-        'Esta seguro de eliminar este tipo de tecnología?',
+        '¿Está seguro de eliminar este tipo de tecnología?',
         'Todas las tecnologías de este tipo se eliminarán'
       )
       .then((resp) => {

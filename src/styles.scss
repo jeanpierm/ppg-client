@@ -1,5 +1,5 @@
-@import './styles/utils';
-@import './styles/variables';
+@import "./styles/utils";
+@import "./styles/variables";
 
 /* You can add global styles to this file, and also import other style files */
 html,
@@ -10,8 +10,8 @@ body {
 body {
   background: $main-background-color;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu,
-    Oxygen, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu,
+    Oxygen, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
 }
 
 .color-primary {
@@ -24,4 +24,19 @@ body {
 
 .line-broken-tooltip {
   white-space: pre-line;
+}
+
+// dialogs
+.dialog-responsive {
+  width: 40%;
+}
+
+@media only screen and (max-width: 760px) {
+  .dialog-responsive {
+    width: 100%;
+  }
+}
+
+mat-dialog-actions {
+  justify-content: end;
 }

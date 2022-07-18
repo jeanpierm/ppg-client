@@ -17,7 +17,7 @@ export class AdminNavListComponent {
       path: this.routes.technologiesRoute,
     },
     {
-      label: 'Mantenimiento de tipo de tecnologías',
+      label: 'Mantenimiento de Tipos de Tecnologías',
       icon: 'featured_play_list',
       path: this.routes.techTypesRoute,
     },

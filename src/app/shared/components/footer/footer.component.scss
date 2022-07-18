@@ -1,8 +1,18 @@
-@import '../../../../styles/variables';
+@import "../../../../styles/variables";
 
 footer {
   padding: 2.4rem;
   background-color: $primary-color;
   color: white;
   border-top: solid 1px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.ecuador {
+  display: inline-block;
+  background-image: url(/assets/ecuador.png);
+  background-size: 20px;
+  background-position: right;
+  background-repeat: no-repeat;
+  padding-right: 26px;
 }

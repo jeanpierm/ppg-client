@@ -76,7 +76,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(UserDialogComponent);
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      panelClass: 'dialog-responsive',
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

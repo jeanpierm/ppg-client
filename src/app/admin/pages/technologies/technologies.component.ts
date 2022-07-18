@@ -82,7 +82,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
 
   delete(technologyId: string) {
     this.alertService
-      .warning('Esta seguro de eliminar esta tecnología?')
+      .warning('¿Está seguro de eliminar esta tecnología?')
       .then((result) => {
         if (result.isConfirmed) {
           this.technologiesService.deleteTechnology(technologyId).subscribe({
@@ -99,6 +99,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   openDialog(technology?: Technology): void {
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
       data: { technology },
+      panelClass: 'dialog-responsive',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
