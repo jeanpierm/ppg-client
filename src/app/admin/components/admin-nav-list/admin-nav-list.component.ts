@@ -17,14 +17,14 @@ export class AdminNavListComponent {
       path: this.routes.technologiesRoute,
     },
     {
+      label: 'Mantenimiento de tipo de tecnologías',
+      icon: 'featured_play_list',
+      path: this.routes.techTypesRoute,
+    },
+    {
       label: 'Mantenimiento de Usuarios',
       icon: 'group',
       path: this.routes.usersRoute,
-    },
-    {
-      label: 'Mantenimiento de categorias',
-      icon: 'group',
-      path: this.routes.techTypesRoute,
     },
   ];
 
