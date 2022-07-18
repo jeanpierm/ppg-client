@@ -1,0 +1,29 @@
+<div class="content">
+  <h2 mat-dialog-title>
+    {{ data.type ? "Editar tipo de tecnología" : "Nuevo tipo de tecnología" }}
+  </h2>
+  <mat-dialog-content>
+    <form [formGroup]="tForm" fxLayout="column" fxLayoutGap="10px">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput name="name" id="name" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Label</mat-label>
+        <input matInput name="label" id="label" formControlName="label" />
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      [disabled]="tForm.invalid"
+      [mat-dialog-close]="tForm.value"
+    >
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</div>

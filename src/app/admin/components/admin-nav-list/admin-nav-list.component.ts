@@ -21,6 +21,11 @@ export class AdminNavListComponent {
       icon: 'group',
       path: this.routes.usersRoute,
     },
+    {
+      label: 'Mantenimiento de categorias',
+      icon: 'group',
+      path: this.routes.techTypesRoute,
+    },
   ];
 
   constructor(

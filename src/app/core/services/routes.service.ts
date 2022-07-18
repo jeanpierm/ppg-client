@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TechTypesComponent } from 'src/app/admin/pages/tech-types/tech-types.component';
 import { AdminComponent } from '../../admin/admin.component';
 import { TechnologiesComponent } from '../../admin/pages/technologies/technologies.component';
 import { UsersComponent } from '../../admin/pages/users/users.component';
@@ -23,6 +24,10 @@ export class RoutesService {
 
   get technologiesRoute() {
     return `/${AdminComponent.PATH}/${TechnologiesComponent.PATH}`;
+  }
+
+  get techTypesRoute() {
+    return `/${AdminComponent.PATH}/${TechTypesComponent.PATH}`;
   }
 
   get usersRoute() {

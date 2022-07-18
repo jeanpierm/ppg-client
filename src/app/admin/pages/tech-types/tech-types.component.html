@@ -1,0 +1,86 @@
+<ngx-spinner type="ball-8bits" *ngIf="loading"></ngx-spinner>
+
+<mat-card>
+  <div fxLayout="row" fxLayoutAlign="space-between" class="pb-4">
+    <mat-card-title>Tipos de tecnología</mat-card-title>
+    <button mat-flat-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Nuevo tipo
+    </button>
+  </div>
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Buscar...</mat-label>
+        <input matInput #input />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <mat-select
+          [(ngModel)]="status"
+          name="status"
+          (ngModelChange)="loadTechTypePages()"
+        >
+          <mat-option value="A">Activos</mat-option>
+          <mat-option value="I">Eliminados</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <table mat-table [dataSource]="techTypes" class="w-full">
+      <ng-container matColumnDef="Label">
+        <th mat-header-cell *matHeaderCellDef>Label</th>
+        <td mat-cell *matCellDef="let type">
+          {{ type.label }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let type">
+          {{ type.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Acciones" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let type">
+          <button
+            mat-button
+            color="primary"
+            type="button"
+            (click)="openDialog(type)"
+            *ngIf="type.status === 'A'"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-button
+            color="warn"
+            type="button"
+            (click)="delete(type)"
+            *ngIf="type.status === 'A'"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="2">No data matching the filter</td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSize]="defaultPageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [length]="resultsLength"
+      showFirstLastButtons
+    ></mat-paginator>
+  </mat-card-content>
+</mat-card>

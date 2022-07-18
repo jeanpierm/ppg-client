@@ -13,6 +13,9 @@ import { AdminNavListComponent } from './components/admin-nav-list/admin-nav-lis
 import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
+import { TechTypesComponent } from './pages/tech-types/tech-types.component';
+import { TechTypeDialogComponent } from './components/tech-type-dialog/tech-type-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { TechnologyDialogComponent } from './components/technology-dialog/techno
     AdminNavListComponent,
     AdminHeaderComponent,
     TechnologyDialogComponent,
+    TechTypesComponent,
+    TechTypeDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +36,7 @@ import { TechnologyDialogComponent } from './components/technology-dialog/techno
     NgxSpinnerModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    FormsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
