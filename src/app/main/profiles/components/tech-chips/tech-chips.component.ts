@@ -39,9 +39,11 @@ export class TechChipsComponent implements OnInit {
   openDialog(technology: string) {
     const dialogRef = this.dialog.open(CoursesDialogComponent, {
       data: { coursename: technology },
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       console.log('The dialog was closed');
     });
   }
