@@ -23,8 +23,11 @@
           name="status"
           (ngModelChange)="loadTechTypePages()"
         >
-          <mat-option value="A">Activos</mat-option>
-          <mat-option value="I">Eliminados</mat-option>
+          <mat-option
+            *ngFor="let option of statusOptions"
+            [value]="option.value"
+            >{{ option.label }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
