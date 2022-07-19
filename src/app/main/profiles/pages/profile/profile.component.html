@@ -1,4 +1,4 @@
-<div class="container" style="margin-bottom: 10rem">
+<div class="container h-screen-custom">
   <mat-grid-list cols="1" *ngIf="!profile; else divProfile">
     <mat-grid-tile>
       <mat-spinner></mat-spinner>
@@ -6,7 +6,7 @@
   </mat-grid-list>
 
   <ng-template #divProfile>
-    <div fxLayout="row" class="mt-8">
+    <div fxLayout="row">
       <div fxFlex="50">
         <h1>{{ profile.jobTitle | titlecase }}</h1>
         <p>ID: {{ profile.ppId }}</p>

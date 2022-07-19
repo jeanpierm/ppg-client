@@ -1,4 +1,4 @@
-<mat-sidenav-container class="h-screen-custom">
+<mat-sidenav-container>
   <mat-sidenav
     [opened]="sidenavOpened"
     (closed)="closeSidenav()"
@@ -12,7 +12,7 @@
       (clickOption)="mobileQuery.matches && closeSidenav()"
     ></app-account-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="h-screen-custom">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
