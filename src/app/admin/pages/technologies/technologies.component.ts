@@ -87,7 +87,9 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         if (result.isConfirmed) {
           this.technologiesService.deleteTechnology(technologyId).subscribe({
             next: (_) => {
-              this.alertService.success('Tecnología eliminada exitosamente');
+              this.alertService.success({
+                title: 'Tecnología eliminada exitosamente',
+              });
               this.loadTechnologiesPage();
             },
             error: () => this.alertService.error(),
@@ -114,7 +116,9 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         action.subscribe({
           next: () => {
             this.loadTechnologiesPage();
-            this.alertService.success('¡Tecnología guardada exitosamente!');
+            this.alertService.success({
+              title: '¡Tecnología guardada exitosamente!',
+            });
           },
           error: () => {
             this.alertService.error();

@@ -6,6 +6,9 @@ import { ApiResponse } from '../../../core/models/api-response.model';
 import { Account } from '../../../admin/interfaces/account.interface';
 import { UpdatePasswordRequest } from '../interfaces/update-password-request.interface';
 import { UpdateAccount } from '../interfaces/update-account.interface';
+import { RecoverPasswordRequest } from '../interfaces/recover-password-request.interface';
+import { ResetPasswordRequest } from '../interfaces/reset-password-request.interface';
+import { ValidateResetPasswordToken } from '../interfaces/validate-reset-pass-token.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +16,11 @@ import { UpdateAccount } from '../interfaces/update-account.interface';
 export class AccountService {
   static readonly BASE_URL = 'account';
   private _sidenavOpened: boolean = true;
+  private readonly accountUrl = `${environment.api}${environment.accountPath}`;
+  private readonly updatePasswordUrl = `${environment.api}${environment.updatePasswordPath}`;
+  private readonly recoverPasswordUrl = `${environment.api}${environment.recoverPasswordPath}`;
+  private readonly resetPasswordUrl = `${environment.api}${environment.resetPasswordPath}`;
+  private readonly validateResetPassTokenUrl = `${environment.api}${environment.validateResetPasswordTokenPath}`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,18 +32,33 @@ export class AccountService {
    * @returns los datos del usuario autenticado.
    */
   getAccount(): Observable<ApiResponse<Account>> {
-    let url = `${environment.api}/${AccountService.BASE_URL}`;
+    const url = this.accountUrl;
     return this.http.get<ApiResponse<Account>>(url);
   }
 
-  updateAccount(updateAccount: UpdateAccount) {
-    let url = `${environment.api}/${AccountService.BASE_URL}`;
-    return this.http.patch<ApiResponse>(url, updateAccount);
+  updateAccount(body: UpdateAccount) {
+    const url = this.accountUrl;
+    return this.http.patch<ApiResponse>(url, body);
   }
 
-  updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
-    let url = `${environment.api}/${AccountService.BASE_URL}/password`;
-    return this.http.patch<ApiResponse>(url, updatePasswordRequest);
+  updatePassword(body: UpdatePasswordRequest) {
+    const url = this.updatePasswordUrl;
+    return this.http.patch<ApiResponse>(url, body);
+  }
+
+  recoverPassword(body: RecoverPasswordRequest) {
+    const url = this.recoverPasswordUrl;
+    return this.http.post<ApiResponse>(url, body);
+  }
+
+  resetPassword(body: ResetPasswordRequest) {
+    const url = this.resetPasswordUrl;
+    return this.http.post<ApiResponse>(url, body);
+  }
+
+  validateResetPasswordToken(body: ValidateResetPasswordToken) {
+    const url = this.validateResetPassTokenUrl;
+    return this.http.post<ApiResponse>(url, body);
   }
 
   toggleSidenav() {

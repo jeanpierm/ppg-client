@@ -53,13 +53,13 @@ export class ProfileComponent implements OnInit {
           this.profilesService.delete(this.profile.ppId).subscribe({
             next: () => {
               this.alertService
-                .success('Perfil profesional eliminado con éxito')
+                .success({ title: 'Perfil profesional eliminado con éxito' })
                 .then(() => {
                   this.router.navigateByUrl(this.routesService.profilesRoute);
                 });
             },
             error: () => {
-              this.alertService.error();
+              this.alertService.error({});
             },
           });
         }

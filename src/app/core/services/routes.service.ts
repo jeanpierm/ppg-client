@@ -8,6 +8,7 @@ import { EditAccountComponent } from '../../main/account/pages/edit-account/edit
 import { LoginComponent } from '../../main/auth/pages/login/login.component';
 import { RegisterComponent } from '../../main/auth/pages/register/register.component';
 import { HomeComponent } from '../../main/home/home.component';
+import { PasswordResetComponent } from '../../main/password-reset/password-reset.component';
 import { DashboardComponent } from '../../main/profiles/pages/dashboard/dashboard.component';
 import { DiscoverComponent } from '../../main/profiles/pages/discover/discover.component';
 import { ProfileListComponent } from '../../main/profiles/pages/profile-list/profile-list.component';
@@ -60,6 +61,10 @@ export class RoutesService {
 
   get dashboardRoute() {
     return `/${ProfileListComponent.PATH}/${DashboardComponent.PATH}`;
+  }
+
+  get passwordResetRoute() {
+    return `/${PasswordResetComponent.PATH}`;
   }
 
   get adminRoute() {

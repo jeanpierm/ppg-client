@@ -78,7 +78,9 @@ export class ChangePasswordComponent {
       .updatePassword({ currentPassword, newPassword })
       .subscribe({
         next: () => {
-          this.alertService.success('Contraseña actualizada con éxito');
+          this.alertService.success({
+            title: 'Contraseña actualizada con éxito',
+          });
           this.form.reset();
         },
         error: (err) => {
@@ -91,5 +93,5 @@ export class ChangePasswordComponent {
 }
 
 const passwordErrors = {
-  400: 'La contraseña actual no es correcta',
+  400: { title: 'La contraseña actual no es correcta' },
 };

@@ -15,7 +15,7 @@
           [routerLink]="routes.adminRoute"
         >
           <mat-icon>admin_panel_settings</mat-icon>
-          {{ 'admin' | titlecase }}
+          {{ "admin" | titlecase }}
         </button>
 
         <button
@@ -35,7 +35,7 @@
           matTooltip="Descubre un nuevo perfil profesional ideal"
         >
           <mat-icon>rocket_launch</mat-icon>
-          {{ 'descubrir perfil profesional' | titlecase }}
+          {{ "descubrir perfil profesional" | titlecase }}
         </button>
 
         <ng-container *ngIf="isAuthenticated; else loginButton">

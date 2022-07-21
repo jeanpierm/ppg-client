@@ -70,7 +70,9 @@ export class PhotoComponent implements AfterViewInit {
         () => {
           Swal.close();
           this.account.photo = url;
-          this.alertService.success('Foto de perfil actualizada con éxito');
+          this.alertService.success({
+            title: 'Foto de perfil actualizada con éxito',
+          });
         }
       );
     });
@@ -80,7 +82,7 @@ export class PhotoComponent implements AfterViewInit {
     firstValueFrom(this.accountService.updateAccount({ photo: '' })).then(
       () => {
         this.account.photo = '';
-        this.alertService.success('Foto de perfil eliminada');
+        this.alertService.success({ title: 'Foto de perfil eliminada' });
       }
     );
   }

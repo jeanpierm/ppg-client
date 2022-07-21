@@ -4,6 +4,7 @@ import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { NoAuthGuard } from './auth/guards/no-auth.guard';
 import { MainComponent } from './main.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ProfileListComponent } from './profiles/pages/profile-list/profile-list.component';
 
 const routes: Routes = [
@@ -25,6 +26,16 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./auth/auth.module').then((m) => m.AuthModule),
+        canLoad: [NoAuthGuard],
+        canActivate: [NoAuthGuard],
+      },
+      {
+        path: PasswordResetComponent.PATH,
+        loadChildren: () =>
+          import('./password-reset/password-reset.module').then(
+            (m) => m.PasswordResetModule
+          ),
+        canLoad: [NoAuthGuard],
         canActivate: [NoAuthGuard],
       },
       {

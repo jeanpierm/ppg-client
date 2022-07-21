@@ -3,8 +3,11 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  CanLoad,
+  Route,
   Router,
   RouterStateSnapshot,
+  UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HomeComponent } from '../../home/home.component';
@@ -18,13 +21,21 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class NoAuthGuard implements CanActivate {
+export class NoAuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
+    if (this.authService.accessToken) {
+      this.router.navigateByUrl(`/${HomeComponent.PATH}`);
+      return false;
+    }
+    return true;
+  }
+
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | boolean {
     if (this.authService.accessToken) {
       this.router.navigateByUrl(`/${HomeComponent.PATH}`);
       return false;

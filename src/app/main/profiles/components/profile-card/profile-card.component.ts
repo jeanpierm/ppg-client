@@ -30,14 +30,14 @@ export class ProfileCardComponent {
         if (result.isConfirmed) {
           this.professionalProfileService.delete(this.profile.ppId).subscribe({
             next: () => {
-              this.alertService.success(
-                'Perfil profesional eliminado exitosamente'
-              );
+              this.alertService.success({
+                title: 'Perfil profesional eliminado exitosamente',
+              });
               this.reLoad.emit(true);
             },
             error: (err) => {
               if (err instanceof HttpErrorResponse) {
-                this.alertService.error();
+                this.alertService.error({});
               }
             },
           });

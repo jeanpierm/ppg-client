@@ -16,6 +16,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
 import { HomeComponent } from '../../../home/home.component';
 import { predefinedLocations } from '../../../../core/constants/locations.constant';
+import { PasswordConfig } from '../../../../core/config/password.config';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit {
 
   filteredJobTitles!: Observable<string[]>;
   filteredLocations!: Observable<string[]>;
-  hide: boolean = true;
+  hidePass: boolean = true;
+  hidePass2: boolean = true;
   loading: boolean = false;
   matcher = new GenericErrorStateMatcher();
   registerForm: FormGroup = this.fb.group(
@@ -45,11 +47,9 @@ export class RegisterComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(30),
-          Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&.])([A-Za-z\d#@$!%*?&.]|[^ ])/
-          ),
+          Validators.minLength(PasswordConfig.minLength),
+          Validators.maxLength(PasswordConfig.maxLength),
+          Validators.pattern(PasswordConfig.regex),
         ],
       ],
       password2: ['', Validators.required],
@@ -153,13 +153,11 @@ export class RegisterComponent implements OnInit {
     return { name, email, surname, password, jobTitle, location };
   }
 
-  getPasswordValidationMsg(): string | void {
-    const password = this.registerForm.get('password')?.value;
-    if (!password) return;
+  getPasswordValidationMsg(password: string): string | void {
     return getPasswordValidationMessage(password);
   }
 }
 
 const registerErrors = {
-  409: 'El correo electrónico ya está registrado.',
+  409: { title: 'El correo electrónico ya está registrado.' },
 };

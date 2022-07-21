@@ -7,6 +7,11 @@ export const environment = {
   api: 'http://127.0.0.1:3000/ppg-api/v1',
   meDownloadPreferencesPath: '/me/download-preferences',
   techTypesPath: '/tech-types',
+  accountPath: '/account',
+  updatePasswordPath: '/account/password',
+  recoverPasswordPath: '/account/recover-password',
+  resetPasswordPath: '/account/reset-password',
+  validateResetPasswordTokenPath: '/account/reset-password/validate',
   cloudinaryApi: 'https://api.cloudinary.com/v1_1',
 };
 

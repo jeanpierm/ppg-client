@@ -112,7 +112,7 @@ export class DiscoverFormComponent implements OnInit {
       next: ({ data }) => {
         this.loadingGenerate = false;
         this.alertService
-          .success('¡Perfil profesional generado exitosamente!')
+          .success({ title: '¡Perfil profesional generado exitosamente!' })
           .then(() => {
             this.router.navigate([`/${ProfileListComponent.PATH}`, data.ppId]);
           });
@@ -120,7 +120,7 @@ export class DiscoverFormComponent implements OnInit {
       error: (err) => {
         if (err instanceof HttpErrorResponse) {
           this.loadingGenerate = false;
-          this.alertService.error();
+          this.alertService.error({});
         }
       },
     });

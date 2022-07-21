@@ -95,11 +95,11 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
         action.subscribe({
           next: () => {
             this.loadTechTypePages();
-            this.alertService.success(
-              'Tipo de tecnología guardado exitosamente!'
-            );
+            this.alertService.success({
+              title: 'Tipo de tecnología guardado exitosamente!',
+            });
           },
-          error: (err) => this.alertService.error(err),
+          error: () => this.alertService.error(),
         });
       }
     });
@@ -116,11 +116,11 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
           this.techTypesService.deleteTechType(type.techTypeId).subscribe({
             next: () => {
               this.loadTechTypePages();
-              this.alertService.success(
-                'Tipo de tecnología eliminado exitosamente!'
-              );
+              this.alertService.success({
+                title: 'Tipo de tecnología eliminado exitosamente!',
+              });
             },
-            error: (err) => this.alertService.error(err),
+            error: () => this.alertService.error(),
           });
         }
       });

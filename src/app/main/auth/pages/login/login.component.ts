@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../../core/services/alert.service';
-import { AuthService } from '../../services/auth.service';
-import { RegisterComponent } from '../register/register.component';
-import { LoginRequest } from '../../interfaces/login-request.interface';
+import { RoutesService } from '../../../../core/services/routes.service';
 import { HomeComponent } from '../../../home/home.component';
+import { LoginRequest } from '../../interfaces/login-request.interface';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,8 @@ export class LoginComponent {
     private readonly authService: AuthService,
     private readonly fb: FormBuilder,
     private readonly route: Router,
-    private readonly alertService: AlertService
+    private readonly alertService: AlertService,
+    public readonly routes: RoutesService
   ) {}
 
   get email() {
@@ -36,10 +37,6 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
-  }
-
-  get registerRoute() {
-    return `/${RegisterComponent.PATH}`;
   }
 
   async login() {
@@ -69,7 +66,16 @@ export class LoginComponent {
 }
 
 const loginErrors = {
-  400: 'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.',
-  401: 'La contraseña o correo no son correctos. Por favor, verifique sus credenciales.',
-  404: 'No se encontró su cuenta. Por favor, regístrese.',
+  400: {
+    title: 'La contraseña o correo no son correctos.',
+    text: 'Por favor, verifique sus credenciales.',
+  },
+  401: {
+    title: 'La contraseña o correo no son correctos',
+    text: 'Por favor, verifique sus credenciales.',
+  },
+  404: {
+    title: 'No se encontró su cuenta.',
+    text: 'Puede registrarse dando click en "Crear cuenta".',
+  },
 };

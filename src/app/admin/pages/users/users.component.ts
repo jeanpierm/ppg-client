@@ -87,7 +87,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.usersService.saveUser(user).subscribe({
           next: () => {
             this.loadUsersPage();
-            this.alertService.success('¡Cuenta creada exitosamente!');
+            this.alertService.success({
+              title: '¡Cuenta creada exitosamente!',
+            });
           },
           error: () => {
             this.alertService.error();
@@ -106,7 +108,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.usersService.fetchLoading = true;
             this.usersService.inactive(userId).subscribe({
               next: () => {
-                this.alertService.success('Usuario inactivado exitosamente');
+                this.alertService.success({
+                  title: 'Usuario inactivado exitosamente',
+                });
                 this.loadUsersPage();
               },
               error: () => this.alertService.error(),
@@ -125,7 +129,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.usersService.fetchLoading = true;
             this.usersService.active(userId).subscribe({
               next: (_) => {
-                this.alertService.success('Usuario activado exitosamente');
+                this.alertService.success({
+                  title: 'Usuario activado exitosamente',
+                });
                 this.loadUsersPage();
               },
               error: () => {

@@ -31,7 +31,7 @@
               name="password"
             />
             <mat-icon matSuffix (click)="hide = !hide">{{
-              hide ? 'visibility_off' : 'visibility'
+              hide ? "visibility_off" : "visibility"
             }}</mat-icon>
             <mat-error *ngIf="password?.hasError('required')">
               <mat-icon>error</mat-icon>
@@ -41,24 +41,38 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <button
-            class="w-full"
-            type="submit"
-            mat-flat-button
-            [disabled]="loading"
-            color="primary"
+          <div
+            fxLayout.lt-md="column"
+            fxLayoutAlign="space-between"
+            fxLayoutGap="1rem"
           >
-            {{ loading ? 'ACCEDIENDO...' : 'INICIAR SESIÓN' }}
-          </button>
+            <button
+              type="button"
+              mat-button
+              [routerLink]="routes.passwordResetRoute"
+              color="primary"
+            >
+              ¿Olvidaste tu contraseña?
+            </button>
+            <button
+              type="submit"
+              mat-flat-button
+              [disabled]="loading"
+              color="primary"
+            >
+              {{ loading ? "Accediendo..." : "Iniciar sesión" }}
+            </button>
+          </div>
           <div class="divider"></div>
-          <div fxLayoutAlign="center" class="mt-4">
+          <div fxLayout="column" fxLayoutAlign="center" class="mt-4">
+            <p class="text-center font-medium">¿No tienes una cuenta?</p>
             <button
               type="button"
               mat-button
               color="accent"
-              [routerLink]="registerRoute"
+              [routerLink]="routes.registerRoute"
             >
-              {{ 'Crear nueva cuenta' | uppercase }}
+              {{ "Crear cuenta" }}
             </button>
           </div>
         </mat-card-actions>

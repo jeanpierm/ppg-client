@@ -62,7 +62,9 @@ export class EditDownloadComponent implements OnInit {
     this.dpService.patch(requestBody).subscribe({
       next: () => {
         this.submitting = false;
-        this.alertService.success('Preferencias actualizadas con éxito');
+        this.alertService.success({
+          title: 'Preferencias actualizadas con éxito',
+        });
       },
       error: (err) => {
         this.submitting = false;

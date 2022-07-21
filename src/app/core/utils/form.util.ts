@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { PasswordConfig } from '../config/password.config';
 
 export function validateTwoFormControlsAreEquals(
   controlName1: string,
@@ -23,10 +24,10 @@ export function validateTwoFormControlsAreEquals(
 
 export function getPasswordValidationMessage(password: string): string | void {
   if (
-    password.toString().trim().length < 8 ||
-    password.toString().trim().length > 30
+    password.toString().trim().length < PasswordConfig.minLength ||
+    password.toString().trim().length > PasswordConfig.maxLength
   ) {
-    return 'La contraseña debe contener mínimo 8 y máximo 30 caracteres';
+    return `La contraseña debe contener mínimo ${PasswordConfig.minLength} y máximo ${PasswordConfig.maxLength} caracteres`;
   }
   if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])([A-Za-z]|[^ ])*$/)) {
     return 'La contraseña debe contener mayúsculas y minúsculas';

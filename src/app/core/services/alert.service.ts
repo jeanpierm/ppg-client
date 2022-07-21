@@ -10,8 +10,9 @@ import {
 } from '../constants/alert.constant';
 
 export interface AlertOptions {
-  title: string;
+  title?: string;
   text?: string;
+  html?: string;
   icon?: SweetAlertIcon;
 }
 
@@ -28,16 +29,19 @@ export class AlertService {
     });
   }
 
-  success(title: string = DEFAULT_SUCCESS_TITLE, text?: string) {
+  success({ title, text, html }: AlertOptions = {}) {
+    title ??= DEFAULT_SUCCESS_TITLE;
     return Swal.fire({
       icon: 'success',
       title,
       text,
+      html,
       confirmButtonText: DEFAULT_CONFIRM_BUTTON_TEXT,
     });
   }
 
-  error(title: string = DEFAULT_ERROR_TITLE, text?: string) {
+  error({ title, text, html }: AlertOptions = {}) {
+    title ??= DEFAULT_ERROR_TITLE;
     if (title === DEFAULT_ERROR_TITLE) {
       text = DEFAULT_ERROR_TEXT;
     }
@@ -46,6 +50,7 @@ export class AlertService {
       icon: 'error',
       title,
       text,
+      html,
       confirmButtonText: DEFAULT_CONFIRM_BUTTON_TEXT,
     });
   }
