@@ -7,16 +7,16 @@ import Swal from 'sweetalert2';
 import {
   getPasswordValidationMessage,
   validateTwoFormControlsAreEquals,
-} from '../../../../core/utils/form.util';
-import { AlertService } from '../../../../core/services/alert.service';
-import { AuthService } from '../../services/auth.service';
+} from '../../core/utils/form.util';
+import { AlertService } from '../../core/services/alert.service';
+import { AuthService } from '../../core/services/auth.service';
 import { LoginComponent } from '../login/login.component';
-import { RegisterRequest } from '../../interfaces/register-request.interface';
+import { RegisterRequest } from './interfaces/register-request.interface';
 import { map, Observable, startWith } from 'rxjs';
-import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
-import { HomeComponent } from '../../../home/home.component';
-import { predefinedLocations } from '../../../../core/constants/locations.constant';
-import { PasswordConfig } from '../../../../core/config/password.config';
+import { predefinedJobTitles } from '../../core/constants/job-titles.constant';
+import { HomeComponent } from '../home/home.component';
+import { predefinedLocations } from '../../core/constants/locations.constant';
+import { PasswordConfig } from '../../core/config/password.config';
 
 @Component({
   selector: 'app-register',

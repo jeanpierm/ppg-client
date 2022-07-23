@@ -1,25 +1,27 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { Account } from '../../../admin/interfaces/account.interface';
-import { LocalStorageKeys } from '../../../core/enums/local-storage-keys.enum';
-import { Role } from '../../../core/enums/role.enum';
-import { LoginRequest } from '../interfaces/login-request.interface';
-import { LoginResponse } from '../interfaces/login-response.interface';
-import { RegisterRequest } from '../interfaces/register-request.interface';
+import { environment } from '../../../environments/environment';
+import { Account } from '../../admin/interfaces/account.interface';
+import { LocalStorageKeys } from '../enums/local-storage-keys.enum';
+import { Role } from '../enums/role.enum';
+import { RoutesService } from './routes.service';
+import { LoginRequest } from '../../main/login/interfaces/login-request.interface';
+import { LoginResponse } from '../../main/login/interfaces/login-response.interface';
+import { RegisterRequest } from '../../main/register/interfaces/register-request.interface';
 import {
-  RegisterResponse,
   RefreshResponse,
-} from '../interfaces/register-response.interface';
-import { LoginComponent } from '../pages/login/login.component';
+  RegisterResponse,
+} from '../../main/register/interfaces/register-response.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  static readonly BASE_URL = 'auth';
+  static readonly LOGIN_URL = environment.ppgApi.login;
+  static readonly REGISTER_URL = environment.ppgApi.register;
+  static readonly REFRESH_JWT_URL = environment.ppgApi.refreshJwt;
   private readonly BEARER: string = 'Bearer';
 
   private _authAccount!: Account;
@@ -37,14 +39,18 @@ export class AuthService {
     localStorage.setItem(LocalStorageKeys.AccessToken, tokenValue);
   }
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private routes: RoutesService
+  ) {}
 
   /**
    * Inicia sesión. El token es guardado en localStorage como efecto secundario.
    * @param data
    */
   login(data: LoginRequest): Observable<LoginResponse> {
-    const url = `${environment.api}/${AuthService.BASE_URL}/login`;
+    const url = `${AuthService.LOGIN_URL}`;
 
     return this.http.post<LoginResponse>(url, data).pipe(
       tap(({ accessToken, accountData }: LoginResponse) => {
@@ -59,7 +65,7 @@ export class AuthService {
    * @param data
    */
   register(data: RegisterRequest): Observable<RegisterResponse> {
-    const url = `${environment.api}/${AuthService.BASE_URL}/register`;
+    const url = `${AuthService.REGISTER_URL}`;
 
     return this.http.post<RegisterResponse>(url, data).pipe(
       tap(({ accessToken, accountData }: RegisterResponse) => {
@@ -73,13 +79,8 @@ export class AuthService {
     if (!this.accessToken) {
       return of(false);
     }
-
-    const url = `${environment.api}/${AuthService.BASE_URL}/refresh`;
-    const headers = new HttpHeaders({
-      Authorization: this.accessToken,
-    });
-
-    return this.http.post<RefreshResponse>(url, null, { headers }).pipe(
+    const url = `${AuthService.REFRESH_JWT_URL}`;
+    return this.http.post<RefreshResponse>(url, null).pipe(
       map(({ accessToken, accountData }) => {
         this.accessToken = accessToken;
         this._authAccount = accountData;
@@ -93,13 +94,8 @@ export class AuthService {
     if (!this.accessToken) {
       return of(false);
     }
-
-    const url = `${environment.api}/${AuthService.BASE_URL}/refresh`;
-    const headers = new HttpHeaders({
-      Authorization: this.accessToken,
-    });
-
-    return this.http.post<RefreshResponse>(url, null, { headers }).pipe(
+    const url = `${AuthService.REFRESH_JWT_URL}`;
+    return this.http.post<RefreshResponse>(url, null).pipe(
       map(({ accessToken, accountData }) => {
         this.accessToken = accessToken;
         this._authAccount = accountData;
@@ -115,7 +111,6 @@ export class AuthService {
   logout(): void {
     localStorage.clear();
     this._authAccount = undefined!;
-    this.router.navigateByUrl(`/${LoginComponent.PATH}`);
-    // location.reload();
+    this.router.navigateByUrl(this.routes.loginRoute);
   }
 }

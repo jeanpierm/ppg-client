@@ -14,13 +14,13 @@ import { ValidateResetPasswordToken } from '../interfaces/validate-reset-pass-to
   providedIn: 'root',
 })
 export class AccountService {
-  static readonly BASE_URL = 'account';
+  static readonly ACCOUNT_URL = `${environment.ppgApi.account}`;
+  static readonly UPDATE_PASSWORD_URL = `${environment.ppgApi.updatePassword}`;
+  static readonly RECOVER_PASSWORD_URL = `${environment.ppgApi.recoverPassword}`;
+  static readonly RESET_PASSWORD_URL = `${environment.ppgApi.resetPassword}`;
+  static readonly VALIDATE_RESET_PASSWORD_URL = `${environment.ppgApi.validateResetPassword}`;
+
   private _sidenavOpened: boolean = true;
-  private readonly accountUrl = `${environment.api}${environment.accountPath}`;
-  private readonly updatePasswordUrl = `${environment.api}${environment.updatePasswordPath}`;
-  private readonly recoverPasswordUrl = `${environment.api}${environment.recoverPasswordPath}`;
-  private readonly resetPasswordUrl = `${environment.api}${environment.resetPasswordPath}`;
-  private readonly validateResetPassTokenUrl = `${environment.api}${environment.validateResetPasswordTokenPath}`;
 
   constructor(private http: HttpClient) {}
 
@@ -32,32 +32,32 @@ export class AccountService {
    * @returns los datos del usuario autenticado.
    */
   getAccount(): Observable<ApiResponse<Account>> {
-    const url = this.accountUrl;
+    const url = AccountService.ACCOUNT_URL;
     return this.http.get<ApiResponse<Account>>(url);
   }
 
   updateAccount(body: UpdateAccount) {
-    const url = this.accountUrl;
+    const url = AccountService.ACCOUNT_URL;
     return this.http.patch<ApiResponse>(url, body);
   }
 
   updatePassword(body: UpdatePasswordRequest) {
-    const url = this.updatePasswordUrl;
+    const url = AccountService.UPDATE_PASSWORD_URL;
     return this.http.patch<ApiResponse>(url, body);
   }
 
   recoverPassword(body: RecoverPasswordRequest) {
-    const url = this.recoverPasswordUrl;
+    const url = AccountService.RECOVER_PASSWORD_URL;
     return this.http.post<ApiResponse>(url, body);
   }
 
   resetPassword(body: ResetPasswordRequest) {
-    const url = this.resetPasswordUrl;
+    const url = AccountService.RESET_PASSWORD_URL;
     return this.http.post<ApiResponse>(url, body);
   }
 
   validateResetPasswordToken(body: ValidateResetPasswordToken) {
-    const url = this.validateResetPassTokenUrl;
+    const url = AccountService.VALIDATE_RESET_PASSWORD_URL;
     return this.http.post<ApiResponse>(url, body);
   }
 

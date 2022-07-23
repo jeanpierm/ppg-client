@@ -15,12 +15,12 @@ import { ProfilesQueryKeys } from '../enums/profiles-query-keys.enum';
   providedIn: 'root',
 })
 export class ProfilesService {
-  static readonly BASE_URL = 'professional-profiles';
+  static readonly PROFILES_URL = environment.ppgApi.professionalProfiles;
   /**
    * Tiempo de enfriamiento en milisegundos para la generación de perfil. Es necesario para evitar que la página a la que se le hace el web scraping nos bloquee, debido al gran número de peticiones que se hace en poco tiempo.
-   * 30000 = 30s
+   * Ejemplo: 30000 = 30s
    */
-  static readonly GENERATE_COOLDOWN_TIME = 30000;
+  static readonly GENERATE_COOLDOWN_TIME = 60000;
 
   lastProfileGeneration?: Date;
 
@@ -29,7 +29,7 @@ export class ProfilesService {
   generate(
     data: GeneratePPRequest
   ): Observable<ApiResponse<ProfessionalProfile>> {
-    const url = `${environment.api}/${ProfilesService.BASE_URL}`;
+    const url = `${ProfilesService.PROFILES_URL}`;
     return this.http
       .post<ApiResponse<ProfessionalProfile>>(url, data)
       .pipe(tap(() => (this.lastProfileGeneration = new Date())));
@@ -47,7 +47,7 @@ export class ProfilesService {
       page: pageIndex,
       size: sizePerPage,
     } = getProfessionalProfilesQuery || {};
-    const url = new URL(`${environment.api}/${ProfilesService.BASE_URL}`);
+    const url = new URL(`${ProfilesService.PROFILES_URL}`);
 
     if (initDate) {
       url.searchParams.set(ProfilesQueryKeys.InitDate, initDate);
@@ -72,30 +72,30 @@ export class ProfilesService {
   }
 
   getRadom(): Observable<ApiResponse<ProfessionalProfile>> {
-    const url = `${environment.api}/${ProfilesService.BASE_URL}/random`;
+    const url = `${ProfilesService.PROFILES_URL}/random`;
     return this.http.get<ApiResponse<ProfessionalProfile>>(url);
   }
 
   download(id: string) {
-    const url = `${environment.api}/${ProfilesService.BASE_URL}/download/${id}`;
+    const url = `${ProfilesService.PROFILES_URL}/download/${id}`;
     const headers = new HttpHeaders().set('Accept', 'application/pdf');
 
     return this.http.get(url, { headers, responseType: 'blob' });
   }
 
   getById(id: string) {
-    const url = `${environment.api}/${ProfilesService.BASE_URL}/${id}`;
+    const url = `${ProfilesService.PROFILES_URL}/${id}`;
     return this.http.get<ApiResponse<ProfessionalProfile>>(url);
   }
 
   count(query: CountTechnologyQuery) {
-    const url = new URL(`${environment.api}/${ProfilesService.BASE_URL}/count`);
+    const url = new URL(`${ProfilesService.PROFILES_URL}/count`);
     url.searchParams.set(ProfilesQueryKeys.Query, query);
     return this.http.get<ApiResponse<Record<string, number>>>(url.toString());
   }
 
   delete(ppId: String) {
-    const url = `${environment.api}/${ProfilesService.BASE_URL}/${ppId}`;
+    const url = `${ProfilesService.PROFILES_URL}/${ppId}`;
     return this.http.delete<ApiResponse>(url);
   }
 }

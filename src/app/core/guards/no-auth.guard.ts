@@ -10,7 +10,7 @@ import {
   UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HomeComponent } from '../../home/home.component';
+import { HomeComponent } from '../../main/home/home.component';
 import { AuthService } from '../services/auth.service';
 
 /**

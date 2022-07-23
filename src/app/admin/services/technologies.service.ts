@@ -16,7 +16,7 @@ import { UpdateTechnology } from '../interfaces/update-technology.interface';
   providedIn: 'root',
 })
 export class TechnologiesService {
-  static readonly BASE_URL = 'technologies';
+  static readonly TECHNOLOGIES_URL = environment.ppgApi.technologies;
 
   fetchLoading: boolean = true;
   technologies: Array<Technology> = [];
@@ -35,7 +35,7 @@ export class TechnologiesService {
   }
 
   getTechnologies({ size, page, search }: PaginatedApiQueryParams) {
-    const url = new URL(`${environment.api}/${TechnologiesService.BASE_URL}`);
+    const url = new URL(TechnologiesService.TECHNOLOGIES_URL);
     if (size) {
       url.searchParams.set(PaginatedQueryKeys.Size, size.toString());
     }
@@ -49,23 +49,23 @@ export class TechnologiesService {
     return this.http.get<PaginatedApiResponse<Technology>>(url.toString());
   }
 
-  getCourses(coursename: string) {
-    const url = `${environment.api}/${TechnologiesService.BASE_URL}/search?course=${coursename}`;
+  getCourses(courseName: string) {
+    const url = `${TechnologiesService.TECHNOLOGIES_URL}/search?course=${courseName}`;
     return this.http.get<ApiResponse<CourseInterface[]>>(url);
   }
 
   createTechnology(technology: CreateTechnology) {
-    const url = `${environment.api}/${TechnologiesService.BASE_URL}`;
+    const url = `${TechnologiesService.TECHNOLOGIES_URL}`;
     return this.http.post<ApiResponse>(url, technology);
   }
 
   updateTechnology(technologyId: string, technology: UpdateTechnology) {
-    const url = `${environment.api}/${TechnologiesService.BASE_URL}/${technologyId}`;
+    const url = `${TechnologiesService.TECHNOLOGIES_URL}/${technologyId}`;
     return this.http.patch<ApiResponse>(url, technology);
   }
 
   deleteTechnology(technologyId: string) {
-    const url = `${environment.api}/${TechnologiesService.BASE_URL}/${technologyId}`;
+    const url = `${TechnologiesService.TECHNOLOGIES_URL}/${technologyId}`;
     return this.http.delete(url);
   }
 }

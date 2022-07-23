@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditAccountComponent } from './pages/edit-account/edit-account.component';
 import { AccountComponent } from './account.component';
-import { OverviewComponent } from './pages/overview/overview.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { EditAccountComponent } from './pages/edit-account/edit-account.component';
 import { EditDownloadComponent } from './pages/edit-download/edit-download.component';
+import { OverviewComponent } from './pages/overview/overview.component';
 
 const routes: Routes = [
   {

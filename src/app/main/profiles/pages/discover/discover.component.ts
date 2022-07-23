@@ -3,7 +3,7 @@ import { tap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ProfessionalProfile } from '../../../account/interfaces/professional-profile.interface';
 import { ProfilesService } from '../../services/profiles.service';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { ProfileListComponent } from '../profile-list/profile-list.component';
 import { getRandomFromArray } from '../../../../core/utils/object.util';
 

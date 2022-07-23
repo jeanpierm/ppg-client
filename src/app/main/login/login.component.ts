@@ -2,11 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertService } from '../../../../core/services/alert.service';
-import { RoutesService } from '../../../../core/services/routes.service';
-import { HomeComponent } from '../../../home/home.component';
-import { LoginRequest } from '../../interfaces/login-request.interface';
-import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../core/services/alert.service';
+import { AuthService } from '../../core/services/auth.service';
+import { RoutesService } from '../../core/services/routes.service';
+import { HomeComponent } from '../home/home.component';
+import { LoginRequest } from './interfaces/login-request.interface';
 
 @Component({
   selector: 'app-login',

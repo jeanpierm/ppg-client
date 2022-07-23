@@ -49,6 +49,7 @@ export class PasswordResetComponent {
   hidePass: boolean = true;
   hidePass2: boolean = true;
   isResetTokenValid: boolean = false;
+  submittingReset: boolean = false;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -135,6 +136,7 @@ export class PasswordResetComponent {
 
   resetPassword() {
     if (this.resetForm.invalid) return;
+    this.submittingReset = true;
     const request: ResetPasswordRequest = {
       token: this.token,
       userId: this.userId,
@@ -142,11 +144,13 @@ export class PasswordResetComponent {
     };
     this.accountService.resetPassword(request).subscribe({
       next: () => {
+        this.submittingReset = false;
         this.alertService
           .success({ title: '¡Nueva contraseña establecida con éxito!' })
           .then(() => this.router.navigateByUrl(this.routes.loginRoute));
       },
       error: (err) => {
+        this.submittingReset = false;
         console.error(err);
         if (err instanceof HttpErrorResponse) {
           this.alertService.error(resetErrors[err.status]);

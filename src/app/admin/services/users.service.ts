@@ -14,7 +14,7 @@ import { User } from '../interfaces/user.interface';
   providedIn: 'root',
 })
 export class UsersService {
-  static readonly BASE_URL: string = 'users';
+  static readonly USERS_URL: string = environment.ppgApi.users;
 
   users: User[] = [];
   fetchLoading: boolean = true;
@@ -39,7 +39,7 @@ export class UsersService {
     page: pageIndex,
     search,
   }: PaginatedApiQueryParams): Observable<any> {
-    const url = new URL(`${environment.api}/${UsersService.BASE_URL}`);
+    const url = new URL(`${UsersService.USERS_URL}`);
     if (sizePerPage) {
       url.searchParams.set('size', sizePerPage.toString());
     }
@@ -53,18 +53,18 @@ export class UsersService {
   }
 
   saveUser(user: CreateUserRequest) {
-    const url = `${environment.api}/${UsersService.BASE_URL}`;
+    const url = `${UsersService.USERS_URL}`;
     const body = user;
     return this.http.post<ApiResponse>(url, body);
   }
 
   inactive(userId: string) {
-    const url = `${environment.api}/${UsersService.BASE_URL}/${userId}`;
+    const url = `${UsersService.USERS_URL}/${userId}`;
     return this.http.delete<ApiResponse>(url);
   }
 
   active(userId: string) {
-    const url = `${environment.api}/${UsersService.BASE_URL}/${userId}`;
+    const url = `${UsersService.USERS_URL}/${userId}`;
     return this.http.post<ApiResponse>(url, null);
   }
 }

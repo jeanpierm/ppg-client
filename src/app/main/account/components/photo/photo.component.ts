@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { Account } from '../../../../admin/interfaces/account.interface';
 import { AlertService } from '../../../../core/services/alert.service';
 import { CloudinaryService } from '../../../../core/services/cloudinary.service';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { AccountService } from '../../services/account.service';
 
 @Component({

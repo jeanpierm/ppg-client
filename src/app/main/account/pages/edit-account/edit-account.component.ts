@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs';
 import { AlertService } from '../../../../core/services/alert.service';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { AccountService } from '../../services/account.service';
 
 @Component({

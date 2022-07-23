@@ -1,4 +1,8 @@
-<div fxLayout="row" fxLayoutAlign="space-evenly center" class="h-screen-custom">
+<main
+  class="container h-screen-custom"
+  fxLayout="row"
+  fxLayoutAlign="space-evenly center"
+>
   <div fxFlex="100" fxFlex.gt-xs="50">
     <mat-card>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -94,4 +98,4 @@
       solicitados!
     </p>
   </div>
-</div>
+</main>

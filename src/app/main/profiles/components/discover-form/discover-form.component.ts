@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneratePPRequest } from '../../../account/interfaces/generate-pp.interface';
 import { ProfilesService } from '../../services/profiles.service';
 import { AlertService } from '../../../../core/services/alert.service';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { getRandomFromArray } from '../../../../core/utils/object.util';
 import { Router } from '@angular/router';
 import { ProfileListComponent } from '../../pages/profile-list/profile-list.component';

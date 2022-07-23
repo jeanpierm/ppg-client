@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './main/account/account.component';
 import { AdminComponent } from './admin/admin.component';
-import { AdminGuard } from './main/auth/guards/admin.guard';
+import { AccountComponent } from './main/account/account.component';
+import { AdminGuard } from './core/guards/admin.guard';
+// import { HomeComponent } from './main/home/home.component';
 
 const routes: Routes = [
   {

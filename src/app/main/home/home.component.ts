@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth/services/auth.service';
-import { DiscoverComponent } from '../profiles/pages/discover/discover.component';
-import { ProfileListComponent } from '../profiles/pages/profile-list/profile-list.component';
+import { RoutesService } from '../../core/services/routes.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +13,10 @@ export class HomeComponent {
   today: Date = new Date();
   todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
 
-  constructor(private readonly authService: AuthService) {
+  constructor(
+    private readonly authService: AuthService,
+    public readonly routes: RoutesService
+  ) {
     if (this.authService.accessToken) {
       this.authService.validateToken().subscribe((valid) => {
         if (!valid) {
@@ -22,9 +24,5 @@ export class HomeComponent {
         }
       });
     }
-  }
-
-  get discoverRoute() {
-    return `/${ProfileListComponent.PATH}/${DiscoverComponent.PATH}`;
   }
 }

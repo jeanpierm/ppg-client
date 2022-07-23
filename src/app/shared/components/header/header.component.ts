@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AuthService } from '../../../main/auth/services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { MenuOption } from '../../../core/interfaces/menu-option.interface';
 import { AccountService } from '../../../main/account/services/account.service';
 import { Role } from '../../../core/enums/role.enum';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AuthService } from 'src/app/main/auth/services/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { RoutesService } from '../../../core/services/routes.service';
 
 @Component({

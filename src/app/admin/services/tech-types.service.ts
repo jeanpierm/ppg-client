@@ -15,7 +15,8 @@ import { TechType } from '../interfaces/tech-type.interface';
   providedIn: 'root',
 })
 export class TechTypesService {
-  static readonly baseUrl = `${environment.api}${environment.techTypesPath}`;
+  static readonly TECH_TYPES_URL: string = environment.ppgApi.techTypes;
+
   techTypes: TechType[] = [];
   fetchLoading: boolean = true;
   resultsLength = 0;
@@ -39,7 +40,7 @@ export class TechTypesService {
     search,
     status,
   }: PaginatedApiQueryParams & GetTechTypeQuery) {
-    const url = new URL(TechTypesService.baseUrl);
+    const url = new URL(TechTypesService.TECH_TYPES_URL);
     if (size) url.searchParams.set(PaginatedQueryKeys.Size, size.toString());
     if (page) url.searchParams.set(PaginatedQueryKeys.Page, page.toString());
     if (search) url.searchParams.set(PaginatedQueryKeys.Search, search);
@@ -54,17 +55,17 @@ export class TechTypesService {
   }
 
   saveTechType(techType: TechType) {
-    const url = new URL(TechTypesService.baseUrl);
+    const url = new URL(TechTypesService.TECH_TYPES_URL);
     return this.http.post<ApiResponse>(url.toString(), techType);
   }
 
   updateTechType(techTypeId: string, techType: TechType) {
-    const url = new URL(`${TechTypesService.baseUrl}/${techTypeId}`);
+    const url = new URL(`${TechTypesService.TECH_TYPES_URL}/${techTypeId}`);
     return this.http.patch<ApiResponse>(url.toString(), techType);
   }
 
   deleteTechType(techTypeId: string) {
-    const url = new URL(`${TechTypesService.baseUrl}/${techTypeId}`);
+    const url = new URL(`${TechTypesService.TECH_TYPES_URL}/${techTypeId}`);
     return this.http.delete<ApiResponse>(url.toString());
   }
 }

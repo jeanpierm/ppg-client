@@ -94,12 +94,11 @@
     <mat-card-subtitle style="margin: 10px">{{
       "Resultados (" + profiles.length + ")"
     }}</mat-card-subtitle>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px">
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="2rem grid">
       <div
         fxFlex="30"
         fxFlex.sm="45"
         fxFlex.xs="100"
-        class="mb-5"
         *ngFor="let profile of profiles"
       >
         <app-profile-card

@@ -5,13 +5,13 @@ import { TechnologiesComponent } from '../../admin/pages/technologies/technologi
 import { UsersComponent } from '../../admin/pages/users/users.component';
 import { AccountComponent } from '../../main/account/account.component';
 import { EditAccountComponent } from '../../main/account/pages/edit-account/edit-account.component';
-import { LoginComponent } from '../../main/auth/pages/login/login.component';
-import { RegisterComponent } from '../../main/auth/pages/register/register.component';
+import { RegisterComponent } from '../../main/register/register.component';
 import { HomeComponent } from '../../main/home/home.component';
 import { PasswordResetComponent } from '../../main/password-reset/password-reset.component';
 import { DashboardComponent } from '../../main/profiles/pages/dashboard/dashboard.component';
 import { DiscoverComponent } from '../../main/profiles/pages/discover/discover.component';
 import { ProfileListComponent } from '../../main/profiles/pages/profile-list/profile-list.component';
+import { LoginComponent } from '../../main/login/login.component';
 
 @Injectable({
   providedIn: 'root',

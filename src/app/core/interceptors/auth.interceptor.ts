@@ -11,7 +11,7 @@ import { TechnologiesService } from '../../admin/services/technologies.service';
 import { UsersService } from '../../admin/services/users.service';
 import { AccountService } from '../../main/account/services/account.service';
 import { DownloadPreferencesService } from '../../main/account/services/download-preferences.service';
-import { AuthService } from '../../main/auth/services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { ProfilesService } from '../../main/profiles/services/profiles.service';
 
 @Injectable()
@@ -42,12 +42,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
 export function isAuthRequired(request: HttpRequest<unknown>): boolean {
   const requireAuthUrls = [
-    UsersService.BASE_URL,
-    ProfilesService.BASE_URL,
-    AccountService.BASE_URL,
-    TechnologiesService.BASE_URL,
-    TechTypesService.baseUrl,
-    DownloadPreferencesService.baseMeUrl,
+    UsersService.USERS_URL,
+    AuthService.REFRESH_JWT_URL,
+    ProfilesService.PROFILES_URL,
+    AccountService.ACCOUNT_URL,
+    AccountService.UPDATE_PASSWORD_URL,
+    TechnologiesService.TECHNOLOGIES_URL,
+    TechTypesService.TECH_TYPES_URL,
+    DownloadPreferencesService.ME_PREFERENCES_URL,
   ];
 
   return requireAuthUrls.some((url) => request.url.includes(url));
