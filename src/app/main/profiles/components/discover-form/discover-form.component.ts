@@ -118,9 +118,9 @@ export class DiscoverFormComponent implements OnInit {
           });
       },
       error: (err) => {
+        this.loadingGenerate = false;
         if (err instanceof HttpErrorResponse) {
-          this.loadingGenerate = false;
-          this.alertService.error({});
+          this.alertService.error(discoverErrors[err.status]);
         }
       },
     });
@@ -149,3 +149,10 @@ export class DiscoverFormComponent implements OnInit {
     }
   }
 }
+
+const discoverErrors = {
+  404: {
+    title: 'No se pudieron obtener ofertas de trabajo para analizar',
+    text: 'Por favor, vuelve a intentarlo más tarde o prueba otro título de trabajo.',
+  },
+};

@@ -4,5 +4,9 @@ export const predefinedJobTitles: string[] = [
   'Frontend Developer',
   'Web Developer',
   'Movil Developer',
+  'Android Developer',
+  'iOS Developer',
   'Software Engineer',
+  'Software Architect',
+  'DevOps Engineer',
 ];
