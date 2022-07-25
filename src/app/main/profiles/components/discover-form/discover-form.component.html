@@ -1,4 +1,16 @@
-<ngx-spinner type="ball-8bits" *ngIf="loadingGenerate"></ngx-spinner>
+<ngx-spinner
+  size="large"
+  type="ball-atom"
+  class="text-center"
+  *ngIf="loadingGenerate"
+>
+  <p class="loading-text">
+    Analizando ofertas de trabajo para {{ jobTitleControl?.value }}
+    <br />
+    <br />
+    Este proceso puede tardar unos segundos...
+  </p>
+</ngx-spinner>
 
 <form
   [formGroup]="discoverForm"
@@ -78,8 +90,8 @@
     >
       {{
         isInCooldown
-          ? 'VUELVA A INTENTAR EN UN MINUTO'
-          : 'DESCUBRIR PERFIL PROFESIONAL'
+          ? "VUELVA A INTENTAR EN UN MINUTO"
+          : "DESCUBRIR PERFIL PROFESIONAL"
       }}
     </button>
     <button
@@ -91,7 +103,7 @@
       matTooltip="Descubre un perfil de desarrollador aleatorio para Guayaquil, Ecuador."
     >
       {{
-        isInCooldown ? 'VUELVA A INTENTAR EN UN MINUTO' : '¡VOY A TENER SUERTE!'
+        isInCooldown ? "VUELVA A INTENTAR EN UN MINUTO" : "¡VOY A TENER SUERTE!"
       }}
     </button>
   </div>

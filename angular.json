@@ -53,7 +53,8 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.scss",
-              "node_modules/ngx-spinner/animations/ball-8bits.css"
+              "node_modules/ngx-spinner/animations/ball-8bits.css",
+              "node_modules/ngx-spinner/animations/ball-atom.css"
             ],
             "tsConfig": "tsconfig.app.json"
           }
