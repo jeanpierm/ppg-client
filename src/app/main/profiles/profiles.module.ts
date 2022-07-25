@@ -19,7 +19,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { CoursesDialogComponent } from './components/courses-dialog/courses-dialog.component';
 import { CourseCardComponent } from './components/course-card/course-card.component';
-import { SkelentonLoaderComponent } from './components/skelenton-loader/skelenton-loader.component';
+import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { SkelentonLoaderComponent } from './components/skelenton-loader/skelento
     PieChartComponent,
     CoursesDialogComponent,
     CourseCardComponent,
-    SkelentonLoaderComponent,
+    SkeletonLoaderComponent,
   ],
   imports: [
     CommonModule,
