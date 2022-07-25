@@ -33,10 +33,10 @@ export class ProfileComponent implements OnInit {
     this.generatingPDF = true;
     this.profilesService.download(this.profile.ppId).subscribe({
       next: (blob) => {
-        this.generatingPDF = false;
         const file = new Blob([blob], { type: 'application/pdf' });
         const fileUrl = URL.createObjectURL(file);
-        window.open(fileUrl, '_blank', 'width=1000, height=800');
+        window.open(fileUrl, '_blank');
+        this.generatingPDF = false;
       },
       error: (err) => {
         this.generatingPDF = false;

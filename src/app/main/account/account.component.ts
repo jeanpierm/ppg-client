@@ -10,9 +10,9 @@ import { AccountService } from './services/account.service';
 export class AccountComponent implements OnDestroy {
   static readonly PATH = 'account';
 
-  mobileQuery: MediaQueryList;
-
   private _mobileQueryListener: (e: MediaQueryListEvent) => void;
+
+  mobileQuery: MediaQueryList;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,

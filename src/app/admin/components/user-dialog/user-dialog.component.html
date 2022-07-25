@@ -67,7 +67,7 @@
           matSuffix
           (click)="hidePassword = !hidePassword"
         >
-          {{ hidePassword ? 'visibility_off' : 'visibility' }}
+          {{ hidePassword ? "visibility_off" : "visibility" }}
         </mat-icon>
 
         <mat-error *ngIf="password?.hasError('required')">
@@ -106,7 +106,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Ubicación preferida</mat-label>
+        <mat-label>Ubicación</mat-label>
         <input
           matInput
           formControlName="location"

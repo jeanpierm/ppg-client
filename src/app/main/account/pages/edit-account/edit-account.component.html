@@ -71,16 +71,28 @@
         <div fxLayout="row" fxLayoutGap="10px">
           <mat-form-field appearance="outline" fxFlex="49">
             <mat-icon matSuffix>work</mat-icon>
-            <mat-label>Título de trabajo</mat-label>
+            <mat-label>Título de trabajo preferido</mat-label>
             <input
               matInput
-              placeholder="Ingrese su título de trabajo preferido"
-              name="jobTitle"
               formControlName="jobTitle"
+              name="jobTitle"
+              [matAutocomplete]="autoJobTitles"
+              placeholder="¿Qué trabajo de TI te gusta?"
             />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoJobTitles="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let option of filteredJobTitles | async"
+                [value]="option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="jobTitle?.hasError('required')">
               <mat-icon>error</mat-icon>
-              El título de trabajo es requerido
+              El título de trabajo preferido es requerido
             </mat-error>
           </mat-form-field>
 
@@ -89,10 +101,22 @@
             <mat-label>Ubicación</mat-label>
             <input
               matInput
-              placeholder="Ingrese su ubicación"
-              name="location"
               formControlName="location"
+              name="location"
+              placeholder="¿Dónde te gustaría trabajar?"
+              [matAutocomplete]="autoLocations"
             />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoLocations="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let option of filteredLocations | async"
+                [value]="option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="location?.hasError('required')">
               <mat-icon>error</mat-icon>
               La ubicación es requerida

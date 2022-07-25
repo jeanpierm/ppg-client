@@ -1,10 +1,39 @@
 <header>
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button *ngIf="isAuth" mat-icon-button (click)="toggleSidenav()">
+      <button
+        *ngIf="isAuth && (isHandset$ | async)"
+        mat-icon-button
+        (click)="toggleSidenav()"
+      >
         <mat-icon>menu</mat-icon>
       </button>
+
       <a [routerLink]="routes.homeRoute"> Perfiles Profesionales </a>
+
+      <ng-container *ngIf="isAuth && (isHandset$ | async) === false">
+        <button
+          mat-button
+          [routerLink]="routes.discoverRoute"
+          matTooltip="¡Descubre un nuevo perfil profesional ideal!"
+        >
+          Descubrir Perfil Profesional
+        </button>
+        <button
+          mat-button
+          [routerLink]="routes.profilesRoute"
+          matTooltip="Mira los perfiles profesionales que has descubierto"
+        >
+          Mis Perfiles
+        </button>
+        <button
+          mat-button
+          [routerLink]="routes.dashboardRoute"
+          matTooltip="Mira las estadísticas de tus perfiles profesionales"
+        >
+          Dashboard
+        </button>
+      </ng-container>
 
       <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="0.5rem">
         <button
@@ -28,17 +57,7 @@
           <mat-icon>admin_panel_settings</mat-icon>
         </button>
 
-        <button
-          mat-button
-          fxHide.xs
-          [routerLink]="routes.discoverRoute"
-          matTooltip="Descubre un nuevo perfil profesional ideal"
-        >
-          <mat-icon>rocket_launch</mat-icon>
-          {{ "descubrir perfil profesional" | titlecase }}
-        </button>
-
-        <ng-container *ngIf="isAuthenticated; else loginButton">
+        <ng-container *ngIf="isAuth; else loginButton">
           <button
             matTooltip="Opciones de Cuenta"
             mat-icon-button

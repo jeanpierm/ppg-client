@@ -1,9 +1,11 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { MenuOption } from '../../../core/interfaces/menu-option.interface';
-import { AccountService } from '../../../main/account/services/account.service';
+import { map, Observable, shareReplay } from 'rxjs';
 import { Role } from '../../../core/enums/role.enum';
+import { MenuOption } from '../../../core/interfaces/menu-option.interface';
+import { AuthService } from '../../../core/services/auth.service';
 import { RoutesService } from '../../../core/services/routes.service';
+import { AccountService } from '../../../main/account/services/account.service';
 
 @Component({
   selector: 'app-header',
@@ -20,20 +22,24 @@ export class HeaderComponent {
       path: this.routes.editAccountRoute,
     },
   ];
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe([Breakpoints.Handset, Breakpoints.Tablet])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
   constructor(
     public readonly routes: RoutesService,
     public readonly authService: AuthService,
-    public readonly accountService: AccountService
+    public readonly accountService: AccountService,
+    private readonly breakpointObserver: BreakpointObserver
   ) {}
-
-  get isAuthenticated() {
-    return !!this.authService.accessToken;
-  }
 
   get isAuth() {
     return !!this.authService.authAccount.userId;
   }
+
   get isAdmin() {
     return this.authService.authAccount.roleName === Role.Admin;
   }

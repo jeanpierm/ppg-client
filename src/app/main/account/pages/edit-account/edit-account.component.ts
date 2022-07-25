@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { switchMap } from 'rxjs';
+import { map, Observable, startWith, switchMap } from 'rxjs';
+import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
+import { predefinedLocations } from '../../../../core/constants/locations.constant';
 import { AlertService } from '../../../../core/services/alert.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AccountService } from '../../services/account.service';
@@ -14,6 +16,8 @@ import { AccountService } from '../../services/account.service';
 export class EditAccountComponent implements OnInit {
   static readonly PATH = 'edit';
 
+  filteredJobTitles!: Observable<string[]>;
+  filteredLocations!: Observable<string[]>;
   submitting: boolean = false;
   form: FormGroup = this.fb.group({
     name: [
@@ -43,27 +47,35 @@ export class EditAccountComponent implements OnInit {
   get name() {
     return this.form.get('name');
   }
+
   get surname() {
     return this.form.get('surname');
   }
+
   get email() {
     return this.form.get('email');
   }
+
   get jobTitle() {
     return this.form.get('jobTitle');
   }
+
   get location() {
     return this.form.get('location');
   }
+
   get biography() {
     return this.form.get('biography');
   }
+
   get linkedIn() {
     return this.form.get('linkedIn');
   }
+
   get github() {
     return this.form.get('github');
   }
+
   get portfolio() {
     return this.form.get('portfolio');
   }
@@ -74,6 +86,22 @@ export class EditAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.setAccountDataInForm();
+    this.filteredJobTitles = this.jobTitle!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '', predefinedJobTitles))
+    );
+    this.filteredLocations = this.location!.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '', predefinedLocations))
+    );
+  }
+
+  private _filter(value: string, values: string[]): string[] {
+    const filterValue = value.toLowerCase();
+
+    return values.filter((option) =>
+      option.toLowerCase().includes(filterValue.toLowerCase())
+    );
   }
 
   setAccountDataInForm() {
