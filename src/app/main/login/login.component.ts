@@ -19,8 +19,8 @@ export class LoginComponent {
   hide: boolean = true;
   loading: boolean = false;
   loginForm: FormGroup = this.fb.group({
-    email: ['jeanpi3rm@gmail.com', [Validators.required, Validators.email]],
-    password: ['#Password1', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   constructor(
