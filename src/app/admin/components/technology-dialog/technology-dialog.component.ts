@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormGroup,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
@@ -18,7 +18,7 @@ import { TechTypesService } from '../../services/tech-types.service';
   styleUrls: ['./technology-dialog.component.scss'],
 })
 export class TechnologyDialogComponent implements OnInit {
-  myForm: FormGroup = this.fb.group({
+  myForm: UntypedFormGroup = this.fb.group({
     technologyId: '',
     name: [
       '',
@@ -38,7 +38,7 @@ export class TechnologyDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { technology?: Technology },
     public dialogRef: MatDialogRef<TechnologyDialogComponent>,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private techTypesService: TechTypesService
   ) {
     if (data.technology) {
@@ -53,7 +53,7 @@ export class TechnologyDialogComponent implements OnInit {
   }
 
   get identifiers() {
-    return this.myForm.get('identifiers') as FormArray;
+    return this.myForm.get('identifiers') as UntypedFormArray;
   }
 
   setFormValue(technology: Technology) {
@@ -85,7 +85,7 @@ export class TechnologyDialogComponent implements OnInit {
 
   minLength(min: number): ValidatorFn | any {
     return (control: AbstractControl[]) => {
-      if (!(control instanceof FormArray)) return;
+      if (!(control instanceof UntypedFormArray)) return;
       return control.length < min ? { minLength: true } : null;
     };
   }

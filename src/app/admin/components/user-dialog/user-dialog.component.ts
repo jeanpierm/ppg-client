@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { predefinedJobTitles } from '../../../core/constants/job-titles.constant';
@@ -16,7 +16,7 @@ export class UserDialogComponent implements OnInit {
   filteredJobTitles!: Observable<string[]>;
   filteredLocations!: Observable<string[]>;
   hidePassword: boolean = true;
-  userForm: FormGroup = this.fb.group({
+  userForm: UntypedFormGroup = this.fb.group({
     role: [Role.User, Validators.required],
     name: ['', Validators.required],
     surname: ['', Validators.required],
@@ -37,7 +37,7 @@ export class UserDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<UserDialogComponent>,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   onNoClick(): void {

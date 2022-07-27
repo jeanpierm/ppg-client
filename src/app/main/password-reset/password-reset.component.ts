@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordConfig } from '../../core/config/password.config';
 import { AlertService } from '../../core/services/alert.service';
@@ -22,10 +22,10 @@ import { AccountService } from '../account/services/account.service';
 export class PasswordResetComponent {
   static readonly PATH = 'password-reset';
 
-  recoverForm: FormGroup = this.fb.group({
+  recoverForm: UntypedFormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
   });
-  resetForm: FormGroup = this.fb.group(
+  resetForm: UntypedFormGroup = this.fb.group(
     {
       password: [
         '',
@@ -52,7 +52,7 @@ export class PasswordResetComponent {
   submittingReset: boolean = false;
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly accountService: AccountService,
     private readonly alertService: AlertService,
     private readonly route: ActivatedRoute,
