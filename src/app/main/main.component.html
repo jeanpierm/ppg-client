@@ -4,12 +4,9 @@
       <button mat-icon-button (click)="sidenav.toggle()" color="primary">
         <mat-icon>menu</mat-icon>
       </button>
-      <span
-        id="sidenav-header-title"
-        class="color-primary"
-        [routerLink]="routes.homeRoute"
-        >PPG</span
-      >
+      <a [routerLink]="routes.homeRoute" class="logo">
+        <app-logo color="primary"></app-logo>
+      </a>
     </div>
 
     <mat-nav-list>

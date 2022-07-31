@@ -9,7 +9,9 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <a [routerLink]="routes.homeRoute"> Perfiles Profesionales </a>
+      <a [routerLink]="routes.homeRoute" class="logo">
+        <app-logo color="white"></app-logo>
+      </a>
 
       <ng-container *ngIf="isAuth && (isHandset$ | async) === false">
         <button

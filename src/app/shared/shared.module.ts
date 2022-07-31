@@ -6,9 +6,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, LogoComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -17,6 +18,6 @@ import { FooterComponent } from './components/footer/footer.component';
     FlexLayoutModule,
   ],
 
-  exports: [HeaderComponent, FooterComponent],
+  exports: [HeaderComponent, FooterComponent, LogoComponent],
 })
 export class SharedModule {}
