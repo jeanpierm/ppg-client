@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: UsersComponent.PATH, component: UsersComponent },
       { path: TechnologiesComponent.PATH, component: TechnologiesComponent },
       { path: TechTypesComponent.PATH, component: TechTypesComponent },
+      { path: '**', redirectTo: TechnologiesComponent.PATH },
     ],
   },
 ];

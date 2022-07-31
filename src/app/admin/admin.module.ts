@@ -16,6 +16,7 @@ import { TechnologyDialogComponent } from './components/technology-dialog/techno
 import { TechTypesComponent } from './pages/tech-types/tech-types.component';
 import { TechTypeDialogComponent } from './components/tech-type-dialog/tech-type-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FlexLayoutModule,
     FormsModule,
+    SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

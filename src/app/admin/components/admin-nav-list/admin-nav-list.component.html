@@ -1,9 +1,12 @@
 <mat-nav-list>
-  <div class="profile-card" fxLayout fxLayoutAlign="center center">
-    <button mat-button [routerLink]="routes.homeRoute">
+  <div fxLayout fxLayoutAlign="center center">
+    <div class="logo" [routerLink]="routes.adminRoute">
+      <app-logo color="primary"></app-logo>
+    </div>
+    <!-- <button mat-button [routerLink]="routes.homeRoute">
       <mat-icon color="accent">favorite_border</mat-icon>
       PERFILES PROFESIONALES
-    </button>
+    </button> -->
   </div>
 
   <h2 matSubheader>Opciones</h2>
