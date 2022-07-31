@@ -14,7 +14,7 @@ export class AccountNavListComponent {
   readonly menuOptions: MenuOption[] = [
     {
       icon: 'home',
-      label: 'Vista general de mi cuenta',
+      label: 'Visión general de mi cuenta',
       path: OverviewComponent.PATH,
     },
     {
