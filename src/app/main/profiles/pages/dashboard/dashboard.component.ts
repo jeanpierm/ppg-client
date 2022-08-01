@@ -57,8 +57,8 @@ export class DashboardComponent implements OnInit {
   private loadChart(query: string) {
     if (!this.charts[query].loading) this.charts[query].loading = true;
     this.profilesService.count(query).subscribe({
-      next: (res) => {
-        const chartData = mapCountResponseToChartData(res.data);
+      next: ({ data }) => {
+        const chartData = mapCountResponseToChartData(data);
         this.charts[query].data = chartData;
         this.charts[query].loading = false;
       },
