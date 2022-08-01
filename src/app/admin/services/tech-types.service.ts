@@ -39,7 +39,7 @@ export class TechTypesService {
     page,
     search,
     status,
-  }: PaginatedApiQueryParams & GetTechTypeQuery) {
+  }: PaginatedApiQueryParams & GetTechTypeQuery = {}) {
     const url = new URL(TechTypesService.TECH_TYPES_URL);
     if (size) url.searchParams.set(PaginatedQueryKeys.Size, size.toString());
     if (page) url.searchParams.set(PaginatedQueryKeys.Page, page.toString());
@@ -48,9 +48,9 @@ export class TechTypesService {
     return this.http.get<PaginatedApiResponse<TechType>>(url.toString());
   }
 
-  getTechTypeNames() {
-    return this.getTechTypes({}).pipe(
-      map((res) => res.data.map((type) => type.name))
+  getTechTypeNames(params?: PaginatedApiQueryParams & GetTechTypeQuery) {
+    return this.getTechTypes(params).pipe(
+      map(({ data }) => data.map(({ name }) => name))
     );
   }
 

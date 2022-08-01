@@ -19,7 +19,7 @@ export class HeaderComponent {
     {
       label: 'Cuenta',
       icon: 'settings',
-      path: this.routes.editAccountRoute,
+      path: this.routes.overviewAccountRoute,
     },
   ];
   isHandset$: Observable<boolean> = this.breakpointObserver

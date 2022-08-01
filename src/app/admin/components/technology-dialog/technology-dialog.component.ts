@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EntityStatus } from '../../../core/enums/entity-status.enum';
 import { TechType } from '../../interfaces/tech-type.interface';
 import { Technology } from '../../interfaces/technology.interface';
 import { TechTypesService } from '../../services/tech-types.service';
@@ -48,7 +49,7 @@ export class TechnologyDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.techTypesService
-      .getTechTypes({})
+      .getTechTypes({ status: EntityStatus.Active })
       .subscribe(({ data }) => (this.types = data));
   }
 

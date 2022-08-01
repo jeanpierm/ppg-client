@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../../core/services/auth.service';
-import { AccountComponent } from '../../account.component';
-import { EditAccountComponent } from '../edit-account/edit-account.component';
+import { RoutesService } from '../../../../core/services/routes.service';
 
 @Component({
   selector: 'app-overview',
@@ -11,17 +10,13 @@ import { EditAccountComponent } from '../edit-account/edit-account.component';
 export class OverviewComponent {
   static readonly PATH = 'overview';
   account = this.authService.authAccount;
-  constructor(private readonly authService: AuthService) {}
 
-  // get account() {
-  //   return this.authService.authAccount;
-  // }
+  constructor(
+    private readonly authService: AuthService,
+    public routes: RoutesService
+  ) {}
 
   get fullName() {
     return `${this.account.name} ${this.account.surname}`;
-  }
-
-  get editAccountRoute() {
-    return `/${AccountComponent.PATH}/${EditAccountComponent.PATH}`;
   }
 }
