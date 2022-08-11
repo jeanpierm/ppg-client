@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
+import { PasswordConfig } from '../../../core/config/password.config';
 import { predefinedJobTitles } from '../../../core/constants/job-titles.constant';
 import { predefinedLocations } from '../../../core/constants/locations.constant';
 import { Role } from '../../../core/enums/role.enum';
@@ -25,10 +30,9 @@ export class UserDialogComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])([A-Za-z\d$@$!%*?&.]|[^ ]){8,15}$/
-        ),
+        Validators.minLength(PasswordConfig.minLength),
+        Validators.maxLength(PasswordConfig.maxLength),
+        Validators.pattern(PasswordConfig.regex),
       ],
     ],
     jobTitle: ['', [Validators.required]],
