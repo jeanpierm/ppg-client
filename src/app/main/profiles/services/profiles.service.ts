@@ -4,7 +4,6 @@ import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProfessionalProfile } from '../../account/interfaces/professional-profile.interface';
 import { ApiResponse } from '../../../core/models/api-response.model';
-import { CountTechnologyQuery } from '../../../core/types/count-technology-query.type';
 import { GeneratePPRequest } from '../../account/interfaces/generate-pp.interface';
 import { GetProfessionalProfilesQuery } from '../../account/interfaces/get-professional-profiles-query.interface';
 import { PaginatedApiQueryParams } from '../../../core/models/paginated-api-query-params.interface';
@@ -88,7 +87,7 @@ export class ProfilesService {
     return this.http.get<ApiResponse<ProfessionalProfile>>(url);
   }
 
-  count(query: CountTechnologyQuery) {
+  count(query: string) {
     const url = new URL(`${ProfilesService.PROFILES_URL}/count`);
     url.searchParams.set(ProfilesQueryKeys.Query, query);
     return this.http.get<ApiResponse<Record<string, number>>>(url.toString());

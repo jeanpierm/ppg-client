@@ -6,6 +6,7 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { CloudinaryService } from '../../../../core/services/cloudinary.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AccountService } from '../../services/account.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-photo',
@@ -65,16 +66,23 @@ export class PhotoComponent implements AfterViewInit {
       },
     });
     const file = files[0];
-    this.cloudinaryService.uploadFile(file).subscribe((url) => {
-      firstValueFrom(this.accountService.updateAccount({ photo: url })).then(
-        () => {
-          Swal.close();
-          this.account.photo = url;
-          this.alertService.success({
-            title: 'Foto de perfil actualizada con éxito',
-          });
+    this.cloudinaryService.uploadFile(file).subscribe({
+      next: (url) => {
+        firstValueFrom(this.accountService.updateAccount({ photo: url })).then(
+          () => {
+            Swal.close();
+            this.account.photo = url;
+            this.alertService.success({
+              title: 'Foto de perfil actualizada con éxito',
+            });
+          }
+        );
+      },
+      error: (err) => {
+        if (err instanceof HttpErrorResponse) {
+          this.alertService.error(uploadPhotoErrors[err.status]);
         }
-      );
+      },
     });
   }
 
@@ -87,3 +95,10 @@ export class PhotoComponent implements AfterViewInit {
     );
   }
 }
+
+const uploadPhotoErrors = {
+  400: {
+    title: 'Error al subir foto',
+    text: 'No se pudo subir la foto seleccionada, asegúrate que sea de formato JPG o PNG',
+  },
+};

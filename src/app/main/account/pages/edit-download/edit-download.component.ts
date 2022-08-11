@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { AlertService } from '../../../../core/services/alert.service';
 import { UpdateDownloadPreferences } from '../../interfaces/update-download-preferences.interface';
 import { DownloadPreferencesService } from '../../services/download-preferences.service';
@@ -15,7 +15,7 @@ export class EditDownloadComponent implements OnInit {
 
   submitting: boolean = false;
   loadingData: boolean = true;
-  form: FormGroup = this.fb.group({
+  form: UntypedFormGroup = this.fb.group({
     photo: [false],
     email: [false],
     biography: [false],
@@ -25,7 +25,7 @@ export class EditDownloadComponent implements OnInit {
   });
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly dpService: DownloadPreferencesService,
     private readonly alertService: AlertService
   ) {}

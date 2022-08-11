@@ -1,4 +1,4 @@
-<app-account-header title="Visión general de la cuenta"></app-account-header>
+<app-account-header title="Visión general de mi cuenta"></app-account-header>
 
 <mat-card>
   <mat-card-content>
@@ -20,7 +20,7 @@
       <li>
         <p fxFlex="50" class="font-medium">Biografía</p>
         <p fxFlex="50">
-          {{ account.biography || '-' }}
+          {{ account.biography || "-" }}
         </p>
       </li>
       <mat-divider></mat-divider>
@@ -42,7 +42,7 @@
         <p fxFlex="50" class="font-medium">Perfil LinkedIn</p>
         <p fxFlex="50">
           <a *ngIf="account.linkedIn" [href]="account.linkedIn" target="_blank">
-            {{ account.linkedIn || '-' }}
+            {{ account.linkedIn || "-" }}
           </a>
           <span *ngIf="!account.linkedIn">-</span>
         </p>
@@ -52,7 +52,7 @@
         <p fxFlex="50" class="font-medium">Perfil GitHub</p>
         <p fxFlex="50">
           <a *ngIf="account.github" [href]="account.github" target="_blank">
-            {{ account.github || '-' }}
+            {{ account.github || "-" }}
           </a>
           <span *ngIf="!account.github">-</span>
         </p>
@@ -66,7 +66,7 @@
             [href]="account.portfolio"
             target="_blank"
           >
-            {{ account.portfolio || '-' }}
+            {{ account.portfolio || "-" }}
           </a>
           <span *ngIf="!account.portfolio">-</span>
         </p>
@@ -74,7 +74,7 @@
     </ul>
   </mat-card-content>
   <mat-card-actions>
-    <a mat-button color="primary" [routerLink]="editAccountRoute">
+    <a mat-button color="primary" [routerLink]="routes.editAccountRoute">
       <mat-icon>edit</mat-icon>
       Editar cuenta
     </a>

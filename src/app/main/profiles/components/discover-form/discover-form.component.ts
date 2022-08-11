@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GeneratePPRequest } from '../../../account/interfaces/generate-pp.interface';
 import { ProfilesService } from '../../services/profiles.service';
@@ -28,7 +28,7 @@ export class DiscoverFormComponent implements OnInit {
   today: Date = new Date();
   todayFormatted: string = `${this.today.getDate()}/${this.today.getMonth()}/${this.today.getFullYear()}`;
   subtitle: string = `A través de web scraping a diversas ofertas de trabajo en tiempo real, te recomendaremos el perfil profesional que mejor se ajuste a tus preferencias y que tenga las tecnologías de desarrollo de software con mayor demanda laboral a día de hoy (${this.todayFormatted}).`;
-  discoverForm: FormGroup = this.fb.group({
+  discoverForm: UntypedFormGroup = this.fb.group({
     jobTitle: ['', [Validators.required]],
     location: ['', [Validators.required]],
     useUserPreferences: [true],
@@ -56,7 +56,7 @@ export class DiscoverFormComponent implements OnInit {
   }
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly ppService: ProfilesService,
     private readonly alertService: AlertService,
     private readonly spinner: NgxSpinnerService,

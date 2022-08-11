@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { incrementDate } from '../../../../core/utils/date.util';
 import { GetProfessionalProfilesQuery } from '../../../account/interfaces/get-professional-profiles-query.interface';
@@ -49,7 +49,7 @@ export class ProfileListComponent implements OnInit {
 
   constructor(
     private readonly profilesService: ProfilesService,
-    private readonly fb: FormBuilder
+    private readonly fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

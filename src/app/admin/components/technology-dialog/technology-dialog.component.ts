@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormGroup,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EntityStatus } from '../../../core/enums/entity-status.enum';
 import { TechType } from '../../interfaces/tech-type.interface';
 import { Technology } from '../../interfaces/technology.interface';
 import { TechTypesService } from '../../services/tech-types.service';
@@ -18,7 +19,7 @@ import { TechTypesService } from '../../services/tech-types.service';
   styleUrls: ['./technology-dialog.component.scss'],
 })
 export class TechnologyDialogComponent implements OnInit {
-  myForm: FormGroup = this.fb.group({
+  myForm: UntypedFormGroup = this.fb.group({
     technologyId: '',
     name: [
       '',
@@ -38,7 +39,7 @@ export class TechnologyDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { technology?: Technology },
     public dialogRef: MatDialogRef<TechnologyDialogComponent>,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private techTypesService: TechTypesService
   ) {
     if (data.technology) {
@@ -48,12 +49,12 @@ export class TechnologyDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.techTypesService
-      .getTechTypes({})
+      .getTechTypes({ status: EntityStatus.Active })
       .subscribe(({ data }) => (this.types = data));
   }
 
   get identifiers() {
-    return this.myForm.get('identifiers') as FormArray;
+    return this.myForm.get('identifiers') as UntypedFormArray;
   }
 
   setFormValue(technology: Technology) {
@@ -85,7 +86,7 @@ export class TechnologyDialogComponent implements OnInit {
 
   minLength(min: number): ValidatorFn | any {
     return (control: AbstractControl[]) => {
-      if (!(control instanceof FormArray)) return;
+      if (!(control instanceof UntypedFormArray)) return;
       return control.length < min ? { minLength: true } : null;
     };
   }

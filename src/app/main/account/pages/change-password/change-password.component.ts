@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../core/services/alert.service';
 import {
   getPasswordValidationMessage,
@@ -20,7 +20,7 @@ export class ChangePasswordComponent {
   hideNew: boolean = true;
   hideNew2: boolean = true;
   submitting: boolean = false;
-  form: FormGroup = this.fb.group(
+  form: UntypedFormGroup = this.fb.group(
     {
       currentPassword: ['', [Validators.required]],
       newPassword: [
@@ -44,7 +44,7 @@ export class ChangePasswordComponent {
   );
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly accountService: AccountService,
     private readonly alertService: AlertService
   ) {}

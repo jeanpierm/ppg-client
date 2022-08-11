@@ -3,17 +3,6 @@
   margin-right: 20px;
 }
 
-.profile-card {
-  height: 55px;
-}
-
-img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
 .mat-nav-list {
   width: 100%;
 }
@@ -28,4 +17,11 @@ a {
 
 mat-nav-list {
   min-width: 240px;
+}
+
+.logo {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  height: 64px;
+  cursor: pointer;
 }

@@ -2,9 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": "150baf94-f074-444c-bca5-8245d47c39ff",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
-  "defaultProject": "ppg-frontend",
   "newProjectRoot": "projects",
   "projects": {
     "ppg-frontend": {
@@ -40,6 +39,9 @@
                 }
               ],
               "outputHashing": "all"
+            },
+            "options": {
+              "allowedCommonJsDependencies": ["sweetalert2"]
             }
           },
           "defaultConfiguration": "production",

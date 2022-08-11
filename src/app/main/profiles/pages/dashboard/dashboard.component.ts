@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { deletePropertiesByValue } from '../../../../core/utils/object.util';
 import { ProfilesService } from '../../services/profiles.service';
-import { CountTechnologyQuery } from '../../../../core/types/count-technology-query.type';
 import { RoutesService } from '../../../../core/services/routes.service';
+import { TechTypesService } from '../../../../admin/services/tech-types.service';
+import { EntityStatus } from '../../../../core/enums/entity-status.enum';
 
 interface TechnologyPieChart {
   title?: string;
@@ -19,43 +20,16 @@ interface TechnologyPieChart {
 export class DashboardComponent implements OnInit {
   static readonly PATH = 'dashboard';
 
-  charts: Record<CountTechnologyQuery, TechnologyPieChart> = {
-    language: {
-      title: 'Lenguajes de programación',
-      loading: true,
-    },
-    database: {
-      title: 'Bases de datos',
-      loading: true,
-    },
-    framework: {
-      title: 'Frameworks',
-      loading: true,
-    },
-    library: {
-      title: 'Librerías',
-      loading: true,
-    },
-    paradigm: {
-      title: 'Paradigmas',
-      loading: true,
-    },
-    pattern: {
-      title: 'Patrones de diseño',
-      loading: true,
-    },
-    tool: {
-      title: 'Herramientas de desarrollo',
-      loading: true,
-    },
+  charts: Record<string, TechnologyPieChart> = {
     english: {
-      title: 'Inglés',
+      title: 'Requiere inglés',
       loading: true,
     },
   };
 
   constructor(
     private readonly profilesService: ProfilesService,
+    private readonly techTypesService: TechTypesService,
     public readonly routes: RoutesService
   ) {}
 
@@ -64,21 +38,27 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadCharts(): void {
-    this.loadChart('language');
-    this.loadChart('database');
+    this.techTypesService
+      .getTechTypeNames({ status: EntityStatus.Active })
+      .subscribe((techTypes) => {
+        techTypes.forEach((type) => {
+          // init charts object
+          this.charts[type] = {
+            title: getChartTitle(type),
+            loading: true,
+          };
+          // update chart object
+          this.loadChart(type);
+        });
+      });
     this.loadChart('english');
-    this.loadChart('framework');
-    this.loadChart('library');
-    this.loadChart('paradigm');
-    this.loadChart('pattern');
-    this.loadChart('tool');
   }
 
-  private loadChart(query: CountTechnologyQuery) {
+  private loadChart(query: string) {
     if (!this.charts[query].loading) this.charts[query].loading = true;
     this.profilesService.count(query).subscribe({
-      next: (res) => {
-        const chartData = mapCountResponseToChartData(res.data);
+      next: ({ data }) => {
+        const chartData = mapCountResponseToChartData(data);
         this.charts[query].data = chartData;
         this.charts[query].loading = false;
       },
@@ -99,4 +79,15 @@ function mapCountResponseToChartData(data: Record<string, number>) {
     labels: keys,
     datasets: [{ data: values }],
   };
+}
+
+function getChartTitle(type: string) {
+  if (type === 'language') return 'Lenguajes';
+  if (type === 'database') return 'Bases de datos';
+  if (type === 'framework') return 'Frameworks';
+  if (type === 'library') return 'Bibliotecas';
+  if (type === 'paradigm') return 'Paradigmas';
+  if (type === 'pattern') return 'Patrones y arquitecturas';
+  if (type === 'tool') return 'Herramientas';
+  return type;
 }

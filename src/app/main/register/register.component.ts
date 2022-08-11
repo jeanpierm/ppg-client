@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenericErrorStateMatcher } from 'src/app/core/utils/error-state-matcher';
 import Swal from 'sweetalert2';
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   hidePass2: boolean = true;
   loading: boolean = false;
   matcher = new GenericErrorStateMatcher();
-  registerForm: FormGroup = this.fb.group(
+  registerForm: UntypedFormGroup = this.fb.group(
     {
       name: [
         '',
@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly router: Router,
     private readonly alertService: AlertService
   ) {}

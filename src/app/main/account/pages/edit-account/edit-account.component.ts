@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { map, Observable, startWith, switchMap } from 'rxjs';
 import { predefinedJobTitles } from '../../../../core/constants/job-titles.constant';
 import { predefinedLocations } from '../../../../core/constants/locations.constant';
@@ -19,7 +19,7 @@ export class EditAccountComponent implements OnInit {
   filteredJobTitles!: Observable<string[]>;
   filteredLocations!: Observable<string[]>;
   submitting: boolean = false;
-  form: FormGroup = this.fb.group({
+  form: UntypedFormGroup = this.fb.group({
     name: [
       '',
       [Validators.required, Validators.pattern(/[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ\s]*/)],
@@ -38,7 +38,7 @@ export class EditAccountComponent implements OnInit {
   });
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly accountService: AccountService,
     private readonly alertService: AlertService,
     private readonly authService: AuthService

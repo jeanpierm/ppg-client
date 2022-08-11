@@ -12,6 +12,7 @@ import { DashboardComponent } from '../../main/profiles/pages/dashboard/dashboar
 import { DiscoverComponent } from '../../main/profiles/pages/discover/discover.component';
 import { ProfileListComponent } from '../../main/profiles/pages/profile-list/profile-list.component';
 import { LoginComponent } from '../../main/login/login.component';
+import { OverviewComponent } from '../../main/account/pages/overview/overview.component';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,10 @@ export class RoutesService {
 
   get accountRoute() {
     return `/${AccountComponent.PATH}`;
+  }
+
+  get overviewAccountRoute() {
+    return `/${AccountComponent.PATH}/${OverviewComponent.PATH}`;
   }
 
   get editAccountRoute() {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TechType } from '../../interfaces/tech-type.interface';
 
@@ -9,7 +9,7 @@ import { TechType } from '../../interfaces/tech-type.interface';
   styleUrls: ['./tech-type-dialog.component.scss'],
 })
 export class TechTypeDialogComponent implements OnInit {
-  tForm: FormGroup = this.fb.group({
+  tForm: UntypedFormGroup = this.fb.group({
     techTypeId: '',
     name: [
       '',
@@ -24,7 +24,7 @@ export class TechTypeDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { type?: TechType },
     public dialogRef: MatDialogRef<TechTypeDialogComponent>,
-    public fb: FormBuilder
+    public fb: UntypedFormBuilder
   ) {
     if (data.type) {
       this.setFormValues(data.type);
