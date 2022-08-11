@@ -9,6 +9,7 @@
     fxLayout.lt-md="column"
     fxLayoutGap="20px"
     [formGroup]="profilesForm"
+    (ngSubmit)="(onSubmit)"
   >
     <mat-form-field fxFlex="100">
       <mat-label>Título de trabajo</mat-label>
@@ -19,16 +20,6 @@
         name="jobTitle"
         formControlName="jobTitle"
       />
-      <button
-        *ngIf="!!jobTitleControl?.value"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="jobTitleControl?.setValue('')"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-
       <mat-hint>Busca por título de trabajo</mat-hint>
     </mat-form-field>
 
@@ -41,15 +32,6 @@
         name="location"
         formControlName="location"
       />
-      <button
-        *ngIf="!!locationControl?.value"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="locationControl?.setValue('')"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
       <mat-hint>Busca por ubicación</mat-hint>
     </mat-form-field>
 
@@ -67,15 +49,6 @@
           formControlName="endDate"
         />
       </mat-date-range-input>
-      <button
-        *ngIf="!!initDateControl?.value || !!endDateControl?.value"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="clearDates()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
       <mat-hint>Busca por fecha de creación</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>

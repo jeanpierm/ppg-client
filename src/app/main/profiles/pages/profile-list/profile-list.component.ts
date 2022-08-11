@@ -55,7 +55,7 @@ export class ProfileListComponent implements OnInit {
   ngOnInit(): void {
     this.searchProfiles();
     this.profilesForm.valueChanges
-      .pipe(debounceTime(500))
+      .pipe(debounceTime(325))
       .subscribe(({ jobTitle, location, initDate, endDate }) => {
         this.searchProfiles({
           jobTitle,
@@ -79,5 +79,9 @@ export class ProfileListComponent implements OnInit {
   clearDates() {
     this.initDateControl?.setValue(null);
     this.endDateControl?.setValue(null);
+  }
+
+  onSubmit() {
+    return;
   }
 }
