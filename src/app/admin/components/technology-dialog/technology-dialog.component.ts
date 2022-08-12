@@ -19,7 +19,7 @@ import { TechTypesService } from '../../services/tech-types.service';
   styleUrls: ['./technology-dialog.component.scss'],
 })
 export class TechnologyDialogComponent implements OnInit {
-  myForm: UntypedFormGroup = this.fb.group({
+  form: UntypedFormGroup = this.fb.group({
     technologyId: '',
     name: [
       '',
@@ -54,16 +54,16 @@ export class TechnologyDialogComponent implements OnInit {
   }
 
   get identifiers() {
-    return this.myForm.get('identifiers') as UntypedFormArray;
+    return this.form.get('identifiers') as UntypedFormArray;
   }
 
   setFormValue(technology: Technology) {
-    this.myForm.patchValue({
+    this.form.patchValue({
       technologyId: technology.technologyId,
       name: technology.name,
       typeId: technology.type.techTypeId,
     });
-    this.myForm.setControl(
+    this.form.setControl(
       'identifiers',
       this.fb.array(technology.identifiers || [])
     );

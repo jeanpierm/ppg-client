@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { PasswordConfig } from '../../../core/config/password.config';
 import { predefinedJobTitles } from '../../../core/constants/job-titles.constant';
 import { predefinedLocations } from '../../../core/constants/locations.constant';
 import { Role } from '../../../core/enums/role.enum';
 import { getPasswordValidationMessage } from '../../../core/utils/form.util';
+import { User } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-user-dialog',
@@ -21,55 +18,60 @@ export class UserDialogComponent implements OnInit {
   filteredJobTitles!: Observable<string[]>;
   filteredLocations!: Observable<string[]>;
   hidePassword: boolean = true;
-  userForm: UntypedFormGroup = this.fb.group({
+  form: FormGroup = this.fb.group({
     role: [Role.User, Validators.required],
     name: ['', Validators.required],
     surname: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: [
       '',
-      [
-        Validators.required,
-        Validators.minLength(PasswordConfig.minLength),
-        Validators.maxLength(PasswordConfig.maxLength),
-        Validators.pattern(PasswordConfig.regex),
-      ],
+      this.isEditing
+        ? []
+        : [
+            Validators.required,
+            Validators.minLength(PasswordConfig.minLength),
+            Validators.maxLength(PasswordConfig.maxLength),
+            Validators.pattern(PasswordConfig.regex),
+          ],
     ],
     jobTitle: ['', [Validators.required]],
     location: ['', [Validators.required]],
   });
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { user?: User },
     public dialogRef: MatDialogRef<UserDialogComponent>,
-    private fb: UntypedFormBuilder
-  ) {}
+    private fb: FormBuilder
+  ) {
+    if (data.user) this.setFormValue(data.user);
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   get name() {
-    return this.userForm.get('name');
+    return this.form.get('name');
   }
 
   get surname() {
-    return this.userForm.get('surname');
+    return this.form.get('surname');
   }
 
   get email() {
-    return this.userForm.get('email');
+    return this.form.get('email');
   }
 
   get password() {
-    return this.userForm.get('password');
+    return this.form.get('password');
   }
 
   get jobTitle() {
-    return this.userForm.get('jobTitle');
+    return this.form.get('jobTitle');
   }
 
   get location() {
-    return this.userForm.get('location');
+    return this.form.get('location');
   }
 
   get passwordMsg() {
@@ -77,6 +79,22 @@ export class UserDialogComponent implements OnInit {
     • La contraseña debe contener mayúsculas y minúsculas \n
     • La contraseña debe contener al menos un valor numérico \n
     • La contraseña debe contener al menos un carácter especial [$@$!%*?&.]`;
+  }
+
+  get isEditing() {
+    return !!this.data.user;
+  }
+
+  setFormValue(user: User) {
+    this.form.patchValue({
+      userId: user.userId,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      jobTitle: user.jobTitle,
+      location: user.location,
+      role: user.role.name,
+    });
   }
 
   ngOnInit(): void {
@@ -99,7 +117,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   getPasswordValidationMsg(): string | void {
-    const password = this.userForm.get('password')?.value;
+    const password = this.form.get('password')?.value;
     if (!password) return;
     return getPasswordValidationMessage(password);
   }

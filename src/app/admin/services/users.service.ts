@@ -8,6 +8,8 @@ import {
 } from '../../core/models/api-response.model';
 import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
 import { CreateUserRequest } from '../interfaces/create-user-request.interface';
+import { GetUsersParams } from '../interfaces/get-users-params.interface';
+import { UpdateUserRequest } from '../interfaces/update-user-request.interface';
 import { User } from '../interfaces/user.interface';
 
 @Injectable({
@@ -22,7 +24,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  loadUsers(params: PaginatedApiQueryParams): void {
+  loadUsers(params: PaginatedApiQueryParams & GetUsersParams): void {
     if (!this.fetchLoading) {
       this.fetchLoading = true;
     }
@@ -35,27 +37,28 @@ export class UsersService {
   }
 
   getUsers({
-    size: sizePerPage,
-    page: pageIndex,
+    size,
+    page,
     search,
-  }: PaginatedApiQueryParams): Observable<any> {
+    status,
+  }: PaginatedApiQueryParams & GetUsersParams): Observable<any> {
     const url = new URL(`${UsersService.USERS_URL}`);
-    if (sizePerPage) {
-      url.searchParams.set('size', sizePerPage.toString());
-    }
-    if (pageIndex) {
-      url.searchParams.set('page', pageIndex.toString());
-    }
-    if (search) {
-      url.searchParams.set('search', search);
-    }
+    if (size) url.searchParams.set('size', size.toString());
+    if (page) url.searchParams.set('page', page.toString());
+    if (search) url.searchParams.set('search', search);
+    if (status) url.searchParams.set('status', status);
+
     return this.http.get<PaginatedApiResponse<User>>(url.toString());
   }
 
   saveUser(user: CreateUserRequest) {
     const url = `${UsersService.USERS_URL}`;
-    const body = user;
-    return this.http.post<ApiResponse>(url, body);
+    return this.http.post<ApiResponse>(url, user);
+  }
+
+  updateUser(id: string, user: UpdateUserRequest) {
+    const url = `${UsersService.USERS_URL}/${id}`;
+    return this.http.patch<ApiResponse>(url, user);
   }
 
   inactive(userId: string) {

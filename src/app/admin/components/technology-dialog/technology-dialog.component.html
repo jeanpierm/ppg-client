@@ -3,7 +3,7 @@
     {{ data.technology ? "Editar Tecnología" : "Nueva Tecnología" }}
   </h2>
   <mat-dialog-content>
-    <form [formGroup]="myForm" fxLayout="column" fxLayoutGap="10px">
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
       <mat-form-field appearance="fill">
         <mat-label>Tipo</mat-label>
         <mat-select name="typeId" id="typeId" formControlName="typeId">
@@ -53,8 +53,8 @@
       type="button"
       mat-raised-button
       color="primary"
-      [disabled]="myForm.invalid"
-      [mat-dialog-close]="myForm.value"
+      [disabled]="form.invalid"
+      [mat-dialog-close]="form.value"
     >
       Guardar
     </button>

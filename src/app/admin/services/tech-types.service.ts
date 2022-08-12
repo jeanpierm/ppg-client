@@ -8,7 +8,7 @@ import {
   PaginatedApiResponse,
 } from '../../core/models/api-response.model';
 import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
-import { GetTechTypeQuery } from '../interfaces/get-tech-type-query.interface';
+import { GetTechTypeParams } from '../interfaces/get-tech-type-params.interface';
 import { TechType } from '../interfaces/tech-type.interface';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class TechTypesService {
 
   constructor(private http: HttpClient) {}
 
-  loadTechTypes(params: PaginatedApiQueryParams & GetTechTypeQuery) {
+  loadTechTypes(params: PaginatedApiQueryParams & GetTechTypeParams) {
     if (!this.fetchLoading) this.fetchLoading = true;
     this.getTechTypes(params).subscribe({
       next: (res) => {
@@ -39,7 +39,7 @@ export class TechTypesService {
     page,
     search,
     status,
-  }: PaginatedApiQueryParams & GetTechTypeQuery = {}) {
+  }: PaginatedApiQueryParams & GetTechTypeParams = {}) {
     const url = new URL(TechTypesService.TECH_TYPES_URL);
     if (size) url.searchParams.set(PaginatedQueryKeys.Size, size.toString());
     if (page) url.searchParams.set(PaginatedQueryKeys.Page, page.toString());
@@ -48,7 +48,7 @@ export class TechTypesService {
     return this.http.get<PaginatedApiResponse<TechType>>(url.toString());
   }
 
-  getTechTypeNames(params?: PaginatedApiQueryParams & GetTechTypeQuery) {
+  getTechTypeNames(params?: PaginatedApiQueryParams & GetTechTypeParams) {
     return this.getTechTypes(params).pipe(
       map(({ data }) => data.map(({ name }) => name))
     );
@@ -59,7 +59,7 @@ export class TechTypesService {
     return this.http.post<ApiResponse>(url.toString(), techType);
   }
 
-  updateTechType(techTypeId: string, techType: TechType) {
+  updateTechType(techTypeId: string, techType: Partial<TechType>) {
     const url = new URL(`${TechTypesService.TECH_TYPES_URL}/${techTypeId}`);
     return this.http.patch<ApiResponse>(url.toString(), techType);
   }

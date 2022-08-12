@@ -6,15 +6,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TechnologiesService } from '../../services/technologies.service';
-
 import { MatPaginator } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Technology } from '../../interfaces/technology.interface';
+import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { AlertService } from '../../../core/services/alert.service';
+import { ReportsService } from '../../../core/services/reports.service';
 import { TechnologyDialogComponent } from '../../components/technology-dialog/technology-dialog.component';
-
+import { Technology } from '../../interfaces/technology.interface';
+import { TechnologiesService } from '../../services/technologies.service';
 @Component({
   selector: 'app-technologies',
   templateUrl: './technologies.component.html',
@@ -23,22 +22,18 @@ import { TechnologyDialogComponent } from '../../components/technology-dialog/te
 export class TechnologiesComponent implements OnInit, AfterViewInit {
   static readonly PATH = 'technologies';
   readonly defaultPageSize = 10;
+  readonly exportColumns = ['TIPO', 'NOMBRE', 'IDENTIFICADORES'];
+  readonly displayedColumns = ['Tipo', 'Nombre', 'Identificadores', 'Acciones'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
 
-  displayedColumns: string[] = [
-    'Tipo',
-    'Nombre',
-    'Identificadores',
-    'Acciones',
-  ];
-
   constructor(
     public dialog: MatDialog,
     private readonly technologiesService: TechnologiesService,
-    private spinner: NgxSpinnerService,
-    private readonly alertService: AlertService
+    private readonly spinner: NgxSpinnerService,
+    private readonly alertService: AlertService,
+    private readonly reportsService: ReportsService
   ) {}
 
   get loading(): boolean {
@@ -126,5 +121,26 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  exportXlsx() {
+    const data = this.technologies.map((technology) => ({
+      TIPO: technology.type.label,
+      NOMBRE: technology.name,
+      IDENTIFICADORES: technology.identifiers.join(', '),
+    }));
+    const filename = `technologies_report_${new Date().getTime()}`;
+    this.reportsService.exportXlsx(data, filename);
+  }
+
+  exportPdf() {
+    const head = [this.exportColumns];
+    const body = this.technologies.map(({ type, name, identifiers }) => [
+      type.label,
+      name,
+      identifiers.join(', '),
+    ]);
+    const filename = `technologies_report_${new Date().getTime()}`;
+    this.reportsService.exportPdf(head, body, filename);
   }
 }

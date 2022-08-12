@@ -1,7 +1,7 @@
 <div class="content">
-  <h2 mat-dialog-title>Nuevo Usuario</h2>
+  <h2 mat-dialog-title>{{ isEditing ? "Editar Usuario" : "Nuevo Usuario" }}</h2>
   <mat-dialog-content>
-    <form [formGroup]="userForm" fxLayout="column" fxLayoutGap="10px">
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
       <div class="mt-3">
         <label style="margin-right: 8px">Rol: </label>
         <mat-radio-group name="role" id="role" formControlName="role">
@@ -45,7 +45,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="!isEditing">
         <mat-label>Contraseña</mat-label>
         <input
           matInput
@@ -53,7 +53,6 @@
           formControlName="password"
           name="password"
         />
-
         <mat-icon
           style="display: inline-block"
           matSuffix
@@ -61,7 +60,6 @@
           matTooltipClass="line-broken-tooltip"
           >error</mat-icon
         >
-        <!-- <mat-hint>{{ passwordMsg }}</mat-hint> -->
         <mat-icon
           style="display: inline-block"
           matSuffix
@@ -135,11 +133,11 @@
   <mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancelar</button>
     <button
-      type="button"
+      type="submit"
       mat-raised-button
       color="primary"
-      [disabled]="userForm.invalid"
-      [mat-dialog-close]="userForm.value"
+      [disabled]="form.invalid"
+      [mat-dialog-close]="form.value"
     >
       Guardar
     </button>

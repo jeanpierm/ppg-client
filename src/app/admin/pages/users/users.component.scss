@@ -1,4 +1,18 @@
-mat-card {
+.table-container {
   max-width: 1200px;
   margin: auto;
+  background-color: white;
+}
+
+.table-header {
+  padding: 1rem;
+}
+
+.table-title {
+  padding: 0;
+  margin: 0;
+}
+
+mat-chip {
+  cursor: pointer;
 }

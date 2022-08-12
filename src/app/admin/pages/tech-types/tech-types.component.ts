@@ -11,6 +11,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { EntityStatus } from '../../../core/enums/entity-status.enum';
+import { HelperService } from '../../../core/services/helper.service';
+import { ReportsService } from '../../../core/services/reports.service';
 import { TechTypeDialogComponent } from '../../components/tech-type-dialog/tech-type-dialog.component';
 import { TechType } from '../../interfaces/tech-type.interface';
 import { TechTypesService } from '../../services/tech-types.service';
@@ -23,21 +25,25 @@ import { TechTypesService } from '../../services/tech-types.service';
 export class TechTypesComponent implements OnInit, AfterViewInit {
   static readonly PATH = 'tech-types';
   readonly defaultPageSize = 10;
-  displayedColumns: string[] = ['Label', 'Nombre', 'Acciones'];
-  status = EntityStatus.Active;
-  statusOptions = [
-    { label: 'Activos', value: EntityStatus.Active },
-    { label: 'Eliminados', value: EntityStatus.Inactive },
-  ];
+  readonly exportColumns = ['LABEL', 'NOMBRE', 'ESTADO'];
+  readonly displayedColumns = ['Label', 'Nombre', 'Estado', 'Acciones'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') input!: ElementRef;
+  statusInputValue = EntityStatus.Active;
+  statusOptions = [
+    { label: 'Activos', value: EntityStatus.Active },
+    { label: 'Eliminados', value: EntityStatus.Inactive },
+    { label: 'Todos', value: '' },
+  ];
 
   constructor(
-    private readonly techTypesService: TechTypesService,
-    private spinner: NgxSpinnerService,
     public dialog: MatDialog,
-    private readonly alertService: AlertService
+    public readonly helper: HelperService,
+    private readonly techTypesService: TechTypesService,
+    private readonly spinner: NgxSpinnerService,
+    private readonly alertService: AlertService,
+    private readonly reportsService: ReportsService
   ) {}
 
   get techTypes(): Array<TechType> {
@@ -56,7 +62,7 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
     this.techTypesService.loadTechTypes({
       size: this.defaultPageSize,
       page: 1,
-      status: this.status,
+      status: this.statusInputValue,
     });
   }
 
@@ -76,7 +82,7 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
       size: this.paginator.pageSize,
       page: this.paginator.pageIndex + 1,
       search: this.input.nativeElement.value,
-      status: this.status,
+      status: this.statusInputValue,
     });
   }
 
@@ -88,15 +94,16 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
 
     matDialog.afterClosed().subscribe((result) => {
       if (result) {
-        const type: TechType = result;
-        const action = type.techTypeId
-          ? this.techTypesService.updateTechType(type.techTypeId, type)
-          : this.techTypesService.saveTechType(type);
+        const resultType: TechType = result;
+        const wasEdit = !!type;
+        const action = wasEdit
+          ? this.techTypesService.updateTechType(type.techTypeId, resultType)
+          : this.techTypesService.saveTechType(resultType);
         action.subscribe({
           next: () => {
             this.loadTechTypePages();
             this.alertService.success({
-              title: 'Tipo de tecnología guardado exitosamente!',
+              title: 'Tipo de tecnología guardado exitosamente',
             });
           },
           error: () => this.alertService.error(),
@@ -117,12 +124,54 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
             next: () => {
               this.loadTechTypePages();
               this.alertService.success({
-                title: 'Tipo de tecnología eliminado exitosamente!',
+                title: 'Tipo de tecnología eliminado exitosamente',
               });
             },
             error: () => this.alertService.error(),
           });
         }
       });
+  }
+
+  activate(id: string) {
+    this.alertService
+      .warning('¿Está seguro de restaurar este tipo de tecnología?')
+      .then((res) => {
+        if (res.isDenied || res.isDismissed) return;
+        this.techTypesService
+          .updateTechType(id, {
+            status: EntityStatus.Active,
+          })
+          .subscribe({
+            next: () => {
+              this.loadTechTypePages();
+              this.alertService.success({
+                title: 'Tipo de tecnología restaurado exitosamente',
+              });
+            },
+            error: () => this.alertService.error(),
+          });
+      });
+  }
+
+  exportXlsx() {
+    const data = this.techTypes.map(({ label, name, status }) => ({
+      LABEL: label,
+      NOMBRE: name,
+      ESTADO: this.helper.statusResolver(status),
+    }));
+    const filename = `technology_types_report_${new Date().getTime()}`;
+    this.reportsService.exportXlsx(data, filename);
+  }
+
+  exportPdf() {
+    const head = [this.exportColumns];
+    const body = this.techTypes.map(({ label, name, status }) => [
+      label,
+      name,
+      this.helper.statusResolver(status),
+    ]);
+    const filename = `technology_types_report_${new Date().getTime()}`;
+    this.reportsService.exportPdf(head, body, filename);
   }
 }

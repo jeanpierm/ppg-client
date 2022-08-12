@@ -39,13 +39,11 @@
                 }
               ],
               "outputHashing": "all"
-            },
-            "options": {
-              "allowedCommonJsDependencies": ["sweetalert2"]
             }
           },
           "defaultConfiguration": "production",
           "options": {
+            "allowedCommonJsDependencies": ["sweetalert2"],
             "assets": ["src/favicon.ico", "src/assets"],
             "index": "src/index.html",
             "main": "src/main.ts",
