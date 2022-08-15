@@ -17,7 +17,7 @@ export class ReportsService {
   exportPdf(head: RowInput[], body: RowInput[], filename: string) {
     import('jspdf').then((jsPDF) => {
       import('jspdf-autotable').then((autoTable) => {
-        const doc = new jsPDF.default();
+        const doc = new jsPDF.default('landscape');
         autoTable.default(doc, {
           head,
           body,

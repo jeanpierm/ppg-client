@@ -13,6 +13,7 @@ import { AccountService } from '../../main/account/services/account.service';
 import { DownloadPreferencesService } from '../../main/account/services/download-preferences.service';
 import { AuthService } from '../services/auth.service';
 import { ProfilesService } from '../../main/profiles/services/profiles.service';
+import { LogsService } from '../../admin/services/logs.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -50,6 +51,7 @@ export function isAuthRequired(request: HttpRequest<unknown>): boolean {
     TechnologiesService.TECHNOLOGIES_URL,
     TechTypesService.TECH_TYPES_URL,
     DownloadPreferencesService.ME_PREFERENCES_URL,
+    LogsService.LOGS_URL,
   ];
 
   return requireAuthUrls.some((url) => request.url.includes(url));

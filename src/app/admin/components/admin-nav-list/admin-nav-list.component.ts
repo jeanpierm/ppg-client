@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
 import { MenuOption } from '../../../core/interfaces/menu-option.interface';
 import { RoutesService } from '../../../core/services/routes.service';
 
@@ -10,7 +9,7 @@ import { RoutesService } from '../../../core/services/routes.service';
 })
 export class AdminNavListComponent {
   showMenu = false;
-  options: MenuOption[] = [
+  maintenanceOptions: MenuOption[] = [
     {
       label: 'Mantenimiento de Tecnologías',
       icon: 'code',
@@ -28,8 +27,13 @@ export class AdminNavListComponent {
     },
   ];
 
-  constructor(
-    private authService: AuthService,
-    public readonly routes: RoutesService
-  ) {}
+  auditOptions: MenuOption[] = [
+    {
+      label: 'Auditoría de Logs',
+      icon: 'group',
+      path: this.routes.logsRoute,
+    },
+  ];
+
+  constructor(public readonly routes: RoutesService) {}
 }

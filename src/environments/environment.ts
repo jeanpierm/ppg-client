@@ -29,6 +29,7 @@ const ppgApiConfig = {
         },
       },
     },
+    logs: '/logs',
   },
 };
 
@@ -55,6 +56,7 @@ export const environment = {
     recoverPassword: `${passwordApi}${passwordPaths.recover}`,
     resetPassword: `${passwordApi}${passwordPaths.reset.base}`,
     validateResetPassword: `${passwordApi}${passwordPaths.reset.base}${passwordPaths.reset.validate}`,
+    logs: `${ppgApiConfig.base}${ppgApiConfig.paths.logs}`,
   },
   cloudinaryApi: 'https://api.cloudinary.com/v1_1',
 };

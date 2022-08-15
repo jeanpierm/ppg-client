@@ -6,7 +6,7 @@ import {
   PaginatedApiResponse,
   ApiResponse,
 } from '../../core/models/api-response.model';
-import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
+import { PaginatedApiQuery } from '../../core/models/paginated-api-query.interface';
 import { CourseInterface } from '../interfaces/course.interface';
 import { CreateTechnology } from '../interfaces/create-technology.interface';
 import { Technology } from '../interfaces/technology.interface';
@@ -24,7 +24,7 @@ export class TechnologiesService {
 
   constructor(private http: HttpClient) {}
 
-  loadTechnologies(params: PaginatedApiQueryParams): void {
+  loadTechnologies(params: PaginatedApiQuery): void {
     if (!this.fetchLoading) this.fetchLoading = true;
 
     this.getTechnologies(params).subscribe((res) => {
@@ -34,7 +34,7 @@ export class TechnologiesService {
     });
   }
 
-  getTechnologies({ size, page, search }: PaginatedApiQueryParams) {
+  getTechnologies({ size, page, search }: PaginatedApiQuery) {
     const url = new URL(TechnologiesService.TECHNOLOGIES_URL);
     if (size) {
       url.searchParams.set(PaginatedQueryKeys.Size, size.toString());

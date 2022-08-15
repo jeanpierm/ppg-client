@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { EntityStatus } from '../../../core/enums/entity-status.enum';
 import { AlertService } from '../../../core/services/alert.service';
@@ -50,7 +49,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     public readonly helper: HelperService,
     private readonly usersService: UsersService,
-    private readonly spinner: NgxSpinnerService,
     private readonly alertService: AlertService,
     private readonly reportsService: ReportsService
   ) {}
@@ -68,7 +66,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
     this.usersService.loadUsers({
       size: this.defaultPageSize,
       page: 1,

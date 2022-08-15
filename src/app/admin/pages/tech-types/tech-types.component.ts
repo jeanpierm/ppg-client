@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { EntityStatus } from '../../../core/enums/entity-status.enum';
@@ -24,6 +23,7 @@ import { TechTypesService } from '../../services/tech-types.service';
 })
 export class TechTypesComponent implements OnInit, AfterViewInit {
   static readonly PATH = 'tech-types';
+
   readonly defaultPageSize = 10;
   readonly exportColumns = ['LABEL', 'NOMBRE', 'ESTADO'];
   readonly displayedColumns = ['Label', 'Nombre', 'Estado', 'Acciones'];
@@ -41,7 +41,6 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     public readonly helper: HelperService,
     private readonly techTypesService: TechTypesService,
-    private readonly spinner: NgxSpinnerService,
     private readonly alertService: AlertService,
     private readonly reportsService: ReportsService
   ) {}

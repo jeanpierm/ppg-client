@@ -6,7 +6,7 @@ import { ProfessionalProfile } from '../../account/interfaces/professional-profi
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { GeneratePPRequest } from '../../account/interfaces/generate-pp.interface';
 import { GetProfessionalProfilesQuery } from '../../account/interfaces/get-professional-profiles-query.interface';
-import { PaginatedApiQueryParams } from '../../../core/models/paginated-api-query-params.interface';
+import { PaginatedApiQuery } from '../../../core/models/paginated-api-query.interface';
 import { PaginatedQueryKeys } from '../../../core/enums/paginated-query-params.enum';
 import { ProfilesQueryKeys } from '../enums/profiles-query-keys.enum';
 
@@ -35,8 +35,7 @@ export class ProfilesService {
   }
 
   get(
-    getProfessionalProfilesQuery?: GetProfessionalProfilesQuery &
-      PaginatedApiQueryParams
+    query?: GetProfessionalProfilesQuery & PaginatedApiQuery
   ): Observable<ApiResponse<ProfessionalProfile[]>> {
     const {
       initDate,
@@ -45,7 +44,7 @@ export class ProfilesService {
       location,
       page: pageIndex,
       size: sizePerPage,
-    } = getProfessionalProfilesQuery || {};
+    } = query || {};
     const url = new URL(`${ProfilesService.PROFILES_URL}`);
 
     if (initDate) {

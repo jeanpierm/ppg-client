@@ -5,9 +5,20 @@
     </div>
   </div>
 
-  <h2 matSubheader>Opciones</h2>
+  <h3 matSubheader>Mantenimiento</h3>
   <a
-    *ngFor="let item of options"
+    *ngFor="let item of maintenanceOptions"
+    mat-list-item
+    [routerLinkActive]="'active'"
+    [routerLink]="item.path"
+  >
+    <mat-icon class="sidenav-icon" color="primary">{{ item.icon }}</mat-icon>
+    {{ item.label }}
+  </a>
+
+  <h3 matSubheader>Auditoría</h3>
+  <a
+    *ngFor="let item of auditOptions"
     mat-list-item
     [routerLinkActive]="'active'"
     [routerLink]="item.path"

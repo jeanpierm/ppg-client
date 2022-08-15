@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { TechTypesComponent } from 'src/app/admin/pages/tech-types/tech-types.component';
 import { AdminComponent } from '../../admin/admin.component';
+import { LogsComponent } from '../../admin/pages/logs/logs.component';
 import { TechnologiesComponent } from '../../admin/pages/technologies/technologies.component';
 import { UsersComponent } from '../../admin/pages/users/users.component';
 import { AccountComponent } from '../../main/account/account.component';
 import { EditAccountComponent } from '../../main/account/pages/edit-account/edit-account.component';
-import { RegisterComponent } from '../../main/register/register.component';
+import { OverviewComponent } from '../../main/account/pages/overview/overview.component';
 import { HomeComponent } from '../../main/home/home.component';
+import { LoginComponent } from '../../main/login/login.component';
 import { PasswordResetComponent } from '../../main/password-reset/password-reset.component';
 import { DashboardComponent } from '../../main/profiles/pages/dashboard/dashboard.component';
 import { DiscoverComponent } from '../../main/profiles/pages/discover/discover.component';
 import { ProfileListComponent } from '../../main/profiles/pages/profile-list/profile-list.component';
-import { LoginComponent } from '../../main/login/login.component';
-import { OverviewComponent } from '../../main/account/pages/overview/overview.component';
+import { RegisterComponent } from '../../main/register/register.component';
 
 @Injectable({
   providedIn: 'root',
@@ -74,5 +75,9 @@ export class RoutesService {
 
   get adminRoute() {
     return `/${AdminComponent.PATH}`;
+  }
+
+  get logsRoute() {
+    return `/${this.adminRoute}/${LogsComponent.PATH}`;
   }
 }

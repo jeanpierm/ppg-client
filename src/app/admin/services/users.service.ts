@@ -6,7 +6,7 @@ import {
   ApiResponse,
   PaginatedApiResponse,
 } from '../../core/models/api-response.model';
-import { PaginatedApiQueryParams } from '../../core/models/paginated-api-query-params.interface';
+import { PaginatedApiQuery } from '../../core/models/paginated-api-query.interface';
 import { CreateUserRequest } from '../interfaces/create-user-request.interface';
 import { GetUsersParams } from '../interfaces/get-users-params.interface';
 import { UpdateUserRequest } from '../interfaces/update-user-request.interface';
@@ -24,7 +24,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  loadUsers(params: PaginatedApiQueryParams & GetUsersParams): void {
+  loadUsers(params: PaginatedApiQuery & GetUsersParams): void {
     if (!this.fetchLoading) {
       this.fetchLoading = true;
     }
@@ -41,7 +41,7 @@ export class UsersService {
     page,
     search,
     status,
-  }: PaginatedApiQueryParams & GetUsersParams): Observable<any> {
+  }: PaginatedApiQuery & GetUsersParams): Observable<any> {
     const url = new URL(`${UsersService.USERS_URL}`);
     if (size) url.searchParams.set('size', size.toString());
     if (page) url.searchParams.set('page', page.toString());

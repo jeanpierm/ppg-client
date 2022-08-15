@@ -1,5 +1,5 @@
 .table-container {
-  max-width: 1200px;
+  width: 100%;
   margin: auto;
   background-color: white;
   overflow: auto;
@@ -15,10 +15,6 @@
   margin: 0;
 }
 
-mat-chip {
-  cursor: pointer;
-}
-
 .loading-shade {
   position: absolute;
   top: 0;
@@ -26,8 +22,14 @@ mat-chip {
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 14px;
 }

@@ -17,6 +17,7 @@ import { TechTypesComponent } from './pages/tech-types/tech-types.component';
 import { TechTypeDialogComponent } from './components/tech-type-dialog/tech-type-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { LogsComponent } from './pages/logs/logs.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SharedModule } from '../shared/shared.module';
     TechnologyDialogComponent,
     TechTypesComponent,
     TechTypeDialogComponent,
+    LogsComponent,
   ],
   imports: [
     CommonModule,

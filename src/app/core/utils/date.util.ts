@@ -6,7 +6,6 @@ export function incrementDate(
   increment: number
 ): Date | undefined {
   if (!date) return;
-  console.log(date);
   const incrementedDate = new Date(date);
   incrementedDate.setDate(incrementedDate.getDate() + increment);
 

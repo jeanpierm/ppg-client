@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { AlertService } from '../../../core/services/alert.service';
 import { ReportsService } from '../../../core/services/reports.service';
@@ -21,6 +20,7 @@ import { TechnologiesService } from '../../services/technologies.service';
 })
 export class TechnologiesComponent implements OnInit, AfterViewInit {
   static readonly PATH = 'technologies';
+
   readonly defaultPageSize = 10;
   readonly exportColumns = ['TIPO', 'NOMBRE', 'IDENTIFICADORES'];
   readonly displayedColumns = ['Tipo', 'Nombre', 'Identificadores', 'Acciones'];
@@ -31,7 +31,6 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   constructor(
     public dialog: MatDialog,
     private readonly technologiesService: TechnologiesService,
-    private readonly spinner: NgxSpinnerService,
     private readonly alertService: AlertService,
     private readonly reportsService: ReportsService
   ) {}
@@ -49,7 +48,6 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
     this.technologiesService.loadTechnologies({
       size: this.defaultPageSize,
       page: 1,
