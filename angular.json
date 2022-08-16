@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ppg-frontend": {
+    "ppg-client": {
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -47,7 +47,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "index": "src/index.html",
             "main": "src/main.ts",
-            "outputPath": "dist/ppg-frontend",
+            "outputPath": "dist/ppg-client",
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "styles": [
@@ -62,7 +62,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ppg-frontend:build"
+            "browserTarget": "ppg-client:build"
           }
         },
         "lint": {
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "ppg-frontend:build:development"
+              "browserTarget": "ppg-client:build:development"
             },
             "production": {
-              "browserTarget": "ppg-frontend:build:production"
+              "browserTarget": "ppg-client:build:production"
             }
           },
           "defaultConfiguration": "development"
