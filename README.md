@@ -7,7 +7,7 @@
 
 ## Description
 
-A web platform that allows you to discover the most demanded technologies in your city in real time using web scraping. Developed in team with @EmilyLino.
+A web platform that allows you to discover the most demanded technologies in your city in real time using web scraping. Developed in team with [@EmilyLino](https://github.com/EmilyLino).
 
 ## Technologies
 
