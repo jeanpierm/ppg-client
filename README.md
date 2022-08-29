@@ -1,27 +1,107 @@
-# PpgFrontend
+# Professional Profile Generator (PPG) Web Platform
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.0.
+<p align="center">
+ <img src="https://docs.nestjs.com/assets/logo-small.svg" height="100" alt="Nest Logo" />
+ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/2048px-Angular_full_color_logo.svg.png" height="110" alt="Angular Logo" />
+</p>
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A web platform that allows you to discover the most demanded technologies in your city in real time using web scraping. Developed in team with @EmilyLino.
 
-## Code scaffolding
+## Technologies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Server:
 
-## Build
+- NestJS v9
+- TypeScript + ESLint
+- Puppeteer v15
+- JWT
+- ESLint
+- Mongoose/MongoDB
+- Swagger
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Client:
 
-## Running unit tests
+- Angular v14
+- TypeScript + ESLint
+- Angular Material
+- Reactive forms, HttpClient, RxJS, ng2-charts, and others technologies of the Angular ecosystem
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Server repository
 
-## Running end-to-end tests
+<https://github.com/jeanpierm/ppg-server>
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Architecture
 
-## Further help
+![general](screenshots/architecture.png)
+![api components](screenshots/api-component-diagram.svg)
+![spa components](screenshots/spa-component-diagram.svg)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Screenshots
+
+### Home
+
+![home](screenshots/ppg-1.png)
+
+### Discover professional profile
+
+It allows discovering the professional profile with the most demanded technologies according to the location and preferred job title in real time.
+
+![home](screenshots/ppg-2.png)
+
+### View professional profile
+
+![home](screenshots/ppg-3.png)
+
+### Dashboard of the technologies found
+
+![home](screenshots/ppg-4.png)
+
+### Discover technology courses
+
+![home](screenshots/ppg-5.png)
+
+### Edit account
+
+![home](screenshots/ppg-7.png)
+
+### Platform maintenance (admin panel)
+
+![home](screenshots/ppg-8.png)
+
+### Logs (admin panel)
+
+![home](screenshots/ppg-9.png)
