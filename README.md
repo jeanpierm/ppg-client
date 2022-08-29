@@ -34,8 +34,16 @@ Client:
 
 ## Architecture
 
+### General
+
 ![general](screenshots/architecture.png)
+
+### API (Server) Components Diagram [C4 Model - Level 3]
+
 ![api components](screenshots/api-component-diagram.svg)
+
+### SPA (Client) Components Diagram [C4 Model - Level 3]
+
 ![spa components](screenshots/spa-component-diagram.svg)
 
 ## Installation
