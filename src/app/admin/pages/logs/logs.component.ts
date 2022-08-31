@@ -182,8 +182,7 @@ export class LogsComponent implements OnInit, AfterViewInit {
         'USER ID': userId,
       })
     );
-    const filename = `logs_report_${new Date().getTime()}`;
-    this.reportsService.exportXlsx(data, filename);
+    this.reportsService.exportXlsx(data, 'log');
   }
 
   exportPdf() {
@@ -211,7 +210,14 @@ export class LogsComponent implements OnInit, AfterViewInit {
         userId,
       ]
     );
-    const filename = `logs_report_${new Date().getTime()}`;
-    this.reportsService.exportPdf(head, body, filename);
+
+    this.reportsService.exportPdf({
+      head,
+      body,
+      type: 'log',
+      options: {
+        orientation: 'landscape',
+      },
+    });
   }
 }

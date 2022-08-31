@@ -127,8 +127,7 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
       NOMBRE: technology.name,
       IDENTIFICADORES: technology.identifiers.join(', '),
     }));
-    const filename = `technologies_report_${new Date().getTime()}`;
-    this.reportsService.exportXlsx(data, filename);
+    this.reportsService.exportXlsx(data, 'technology');
   }
 
   exportPdf() {
@@ -138,7 +137,6 @@ export class TechnologiesComponent implements OnInit, AfterViewInit {
       name,
       identifiers.join(', '),
     ]);
-    const filename = `technologies_report_${new Date().getTime()}`;
-    this.reportsService.exportPdf(head, body, filename);
+    this.reportsService.exportPdf({ head, body, type: 'technology' });
   }
 }

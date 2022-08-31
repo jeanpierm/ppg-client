@@ -159,8 +159,7 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
       NOMBRE: name,
       ESTADO: this.helper.statusResolver(status),
     }));
-    const filename = `technology_types_report_${new Date().getTime()}`;
-    this.reportsService.exportXlsx(data, filename);
+    this.reportsService.exportXlsx(data, 'technology_type');
   }
 
   exportPdf() {
@@ -170,7 +169,6 @@ export class TechTypesComponent implements OnInit, AfterViewInit {
       name,
       this.helper.statusResolver(status),
     ]);
-    const filename = `technology_types_report_${new Date().getTime()}`;
-    this.reportsService.exportPdf(head, body, filename);
+    this.reportsService.exportPdf({ head, body, type: 'technology_type' });
   }
 }

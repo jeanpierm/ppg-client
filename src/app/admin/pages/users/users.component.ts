@@ -174,8 +174,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       ROL: role.name,
       ESTADO: this.helper.statusResolver(status),
     }));
-    const filename = `users_report_${new Date().getTime()}`;
-    this.reportsService.exportXlsx(data, filename);
+    this.reportsService.exportXlsx(data, 'user');
   }
 
   exportPdf() {
@@ -187,7 +186,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
       role.name,
       this.helper.statusResolver(status),
     ]);
-    const filename = `users_report_${new Date().getTime()}`;
-    this.reportsService.exportPdf(head, body, filename);
+    this.reportsService.exportPdf({ head, body, type: 'user' });
   }
 }
