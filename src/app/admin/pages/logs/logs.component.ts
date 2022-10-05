@@ -217,6 +217,7 @@ export class LogsComponent implements OnInit, AfterViewInit {
       type: 'log',
       options: {
         orientation: 'landscape',
+        format: [297, 480],
       },
     });
   }
